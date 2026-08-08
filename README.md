@@ -1,15 +1,15 @@
 # PANSOFIE
 
-PANSOFIE is a React/Vite frontend recovered from the Base44 prototype and completed with a minimal production-ready scaffold.
-
 > Poznej sebe. Tvoř s druhými. Zlepšuj svět.
+
+PANSOFIE is an independent React/Vite application for lifelong development through real-world missions, projects, reflection, portfolio evidence and meaningful collaboration.
 
 ## Stack
 
 - React + React Router
 - Vite
 - Tailwind CSS
-- Base44 JavaScript SDK
+- Supabase Auth + PostgreSQL/RLS
 - TanStack Query
 - Recharts
 - Lucide React
@@ -22,22 +22,53 @@ npm install
 npm run dev
 ```
 
+Set these public browser variables in `.env.local`:
+
+```bash
+VITE_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+VITE_SUPABASE_ANON_KEY=YOUR_PUBLIC_ANON_KEY
+```
+
+Never commit the Supabase service-role key or other server secrets.
+
+## Authentication
+
+Member login:
+
+```text
+/login
+```
+
+Admin login:
+
+```text
+/admin/login
+```
+
+Member routes are protected by an authenticated Supabase session. Admin routes additionally require `user_roles.role = 'admin'`.
+
+Apply the SQL migration in `supabase/migrations/20260808130500_auth_profiles_roles.sql` before using authentication.
+
+To promote a trusted account to administrator, use a trusted SQL/admin environment after that user has registered:
+
+```sql
+insert into public.user_roles (user_id, role)
+values ('USER_UUID', 'admin')
+on conflict (user_id) do update set role = excluded.role;
+```
+
+Do not expose an admin-role write operation to normal browser clients.
+
 ## Build
 
 ```bash
 npm run build
 ```
 
-## Base44 backend
-
-The frontend is configured for Base44 app ID `6a76ebff883bcb27f8ca8927` through `VITE_BASE44_APP_ID`.
-
-Do not commit access tokens or private user data. `VITE_*` variables are public browser configuration, not secrets.
-
 ## Deployment
 
-`render.yaml` contains a Render Static Site configuration with SPA rewrite to `index.html`.
+`render.yaml` defines the static frontend deployment and expects `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to be configured in the hosting environment.
 
-## Recovery status
+## Product-data status
 
-Most page/data source files were recovered directly from the Base44 code view. Missing framework glue and reusable UI components were reconstructed conservatively so the repository can compile and run independently. See `RECOVERY_LOG.md` for provenance notes.
+The current mission, project, event and network catalog in `src/lib/pansofieData.js` is prototype/sample content. Authenticated identity is no longer taken from the sample user: dashboard, development view and profile use the real signed-in account.
