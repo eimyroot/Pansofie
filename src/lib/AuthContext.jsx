@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
 
     setUser(authUser);
 
-    const [{ data: profileRow }, { data: roleRow }] = await Promise.all([
+    const [profileResult, roleResult] = await Promise.all([
       supabase
         .from("profiles")
         .select("id, full_name, location, bio")
@@ -36,10 +36,20 @@ export function AuthProvider({ children }) {
         .maybeSingle(),
     ]);
 
+    if (profileResult.error) console.error("PANSOFIE profile load failed:", profileResult.error.message);
+    if (roleResult.error) console.error("PANSOFIE role load failed:", roleResult.error.message);
+
+    const profileRow = profileResult.data;
+    const roleRow = roleResult.data;
+
     setProfile({
       id: authUser.id,
       email: authUser.email,
-      name: profileRow?.full_name || authUser.user_metadata?.full_name || authUser.email?.split("@")[0] || "Člen Pansofie",
+      name:
+        profileRow?.full_name ||
+        authUser.user_metadata?.full_name ||
+        authUser.email?.split("@")[0] ||
+        "Člen Pansofie",
       location: profileRow?.location || "",
       intro: profileRow?.bio || "",
       role: roleRow?.role === "admin" ? "Administrátor" : "Člen Pansofie",
@@ -61,8 +71,10 @@ export function AuthProvider({ children }) {
     let active = true;
 
     const bootstrap = async () => {
-      const { data } = await supabase.auth.getSession();
+      const { data, error } = await supabase.auth.getSession();
       if (!active) return;
+
+      if (error) console.error("PANSOFIE session bootstrap failed:", error.message);
       setSession(data.session || null);
       await loadUserData(data.session?.user || null);
       if (active) setIsLoadingAuth(false);
@@ -70,16 +82,24 @@ export function AuthProvider({ children }) {
 
     bootstrap();
 
-    const { data: subscription } = supabase.auth.onAuthStateChange(async (_event, nextSession) => {
+    const { data } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       if (!active) return;
+
       setSession(nextSession || null);
-      await loadUserData(nextSession?.user || null);
-      if (active) setIsLoadingAuth(false);
+      setIsLoadingAuth(true);
+
+      // Run database reads after the auth callback returns; this avoids nesting
+      // additional Supabase calls inside the auth-state lock.
+      setTimeout(async () => {
+        if (!active) return;
+        await loadUserData(nextSession?.user || null);
+        if (active) setIsLoadingAuth(false);
+      }, 0);
     });
 
     return () => {
       active = false;
-      subscription.subscription.unsubscribe();
+      data.subscription.unsubscribe();
     };
   }, []);
 
