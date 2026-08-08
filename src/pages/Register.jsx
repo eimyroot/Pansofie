@@ -1,13 +1,120 @@
-import React,{useState} from "react";
-import { Link } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "@/api/supabaseClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { UserPlus,Mail,Lock,Loader2 } from "lucide-react";
-import { InputOTP,InputOTPGroup,InputOTPSlot } from "@/components/ui/input-otp";
+import { UserPlus, Mail, Lock, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
-import { toast } from "@/components/ui/use-toast";
 import { safeReturnTo } from "@/lib/authReturnTo";
-export default function Register(){const[email,setEmail]=useState("");const[password,setPassword]=useState("");const[confirmPassword,setConfirmPassword]=useState("");const[error,setError]=useState("");const[loading,setLoading]=useState(false);const[showOtp,setShowOtp]=useState(false);const[otpCode,setOtpCode]=useState("");const handleSubmit=async(e)=>{e.preventDefault();setError("");if(password!==confirmPassword){setError("Passwords do not match");return}setLoading(true);try{await base44.auth.register({email,password});setShowOtp(true)}catch(err){setError(err.message||"Registration failed")}finally{setLoading(false)}};const handleVerify=async()=>{setError("");setLoading(true);try{const result=await base44.auth.verifyOtp({email,otpCode});if(result?.access_token)base44.auth.setToken(result.access_token);window.location.href=safeReturnTo()}catch(err){setError(err.message||"Invalid verification code")}finally{setLoading(false)}};const handleResend=async()=>{setError("");try{await base44.auth.resendOtp(email);toast({title:"Code sent",description:"Check your email for the new code."})}catch(err){setError(err.message||"Failed to resend code")}};const handleGoogle=()=>base44.auth.loginWithProvider("google",safeReturnTo());if(showOtp)return <AuthLayout icon={Mail} title="Verify your email" subtitle={`We sent a code to ${email}`}>{error&&<div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}<div className="flex justify-center mb-6"><InputOTP maxLength={6} value={otpCode} onChange={setOtpCode}><InputOTPGroup>{Array.from({length:6}).map((_,i)=><InputOTPSlot key={i} index={i}/>)}</InputOTPGroup></InputOTP></div><Button className="w-full h-12 font-medium" onClick={handleVerify} disabled={loading||otpCode.length<6}>{loading?<><Loader2 className="w-4 h-4 mr-2 animate-spin"/>Verifying...</>:"Verify"}</Button><p className="mt-4 text-center text-sm text-muted-foreground">Didn't receive the code?{" "}<button type="button" onClick={handleResend} className="text-primary font-medium hover:underline">Resend</button></p></AuthLayout>;const returnTo=safeReturnTo();return <AuthLayout icon={UserPlus} title="Create your account" subtitle="Sign up to get started" footer={<>Already have an account?{" "}<Link to={"/login"+(returnTo!=="/"?"?returnTo="+encodeURIComponent(returnTo):"")} className="text-primary font-medium hover:underline">Log in</Link></>}><Button type="button" variant="outline" className="w-full h-12 font-medium mb-6" onClick={handleGoogle}><GoogleIcon/>Continue with Google</Button><div className="relative mb-6"><div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border"/></div><div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-3 text-muted-foreground">or</span></div></div>{error&&<div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}<form onSubmit={handleSubmit} className="space-y-4"><div className="space-y-2"><Label htmlFor="email">Email</Label><div className="relative"><Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"/><Input id="email" type="email" autoComplete="email" autoFocus placeholder="you@example.com" value={email} onChange={(e)=>setEmail(e.target.value)} className="pl-10 h-12" required/></div></div><div className="space-y-2"><Label htmlFor="password">Password</Label><div className="relative"><Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"/><Input id="password" type="password" autoComplete="new-password" placeholder="••••••••" value={password} onChange={(e)=>setPassword(e.target.value)} className="pl-10 h-12" required/></div></div><div className="space-y-2"><Label htmlFor="confirm">Confirm Password</Label><div className="relative"><Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"/><Input id="confirm" type="password" autoComplete="new-password" placeholder="••••••••" value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)} className="pl-10 h-12" required/></div></div><Button type="submit" className="w-full h-12 font-medium" disabled={loading}>{loading?<><Loader2 className="w-4 h-4 mr-2 animate-spin"/>Creating account...</>:"Create account"}</Button></form></AuthLayout>}
+
+export default function Register() {
+  const navigate = useNavigate();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [checkEmail, setCheckEmail] = useState(false);
+  const returnTo = safeReturnTo();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+
+    if (password !== confirmPassword) {
+      setError("Hesla se neshodují.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: fullName.trim() },
+          emailRedirectTo: `${window.location.origin}${returnTo === "/" ? "/dashboard" : returnTo}`,
+        },
+      });
+      if (signUpError) throw signUpError;
+
+      if (data.session) {
+        navigate(returnTo === "/" ? "/dashboard" : returnTo, { replace: true });
+      } else {
+        setCheckEmail(true);
+      }
+    } catch (err) {
+      setError(err.message || "Registrace se nezdařila.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogle = async () => {
+    const destination = returnTo === "/" ? "/dashboard" : returnTo;
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}${destination}` },
+    });
+    if (oauthError) setError(oauthError.message);
+  };
+
+  if (checkEmail) {
+    return (
+      <AuthLayout icon={Mail} title="Potvrď svůj e-mail" subtitle={`Poslali jsme potvrzovací odkaz na ${email}`}>
+        <p className="text-sm text-muted-foreground leading-relaxed text-center">
+          Otevři e-mail od Pansofie a potvrď registraci. Potom se můžeš přihlásit.
+        </p>
+        <Link to="/login" className="mt-6 h-12 rounded-xl bg-primary text-primary-foreground font-semibold flex items-center justify-center">
+          Přejít na přihlášení
+        </Link>
+      </AuthLayout>
+    );
+  }
+
+  return (
+    <AuthLayout
+      icon={UserPlus}
+      title="Vytvořit účet"
+      subtitle="Začni svou cestu v Pansofii"
+      footer={<><span>Už účet máš? </span><Link to="/login" className="text-primary font-medium hover:underline">Přihlásit se</Link></>}
+    >
+      <Button type="button" variant="outline" className="w-full h-12 font-medium mb-6" onClick={handleGoogle}>
+        <GoogleIcon /> Pokračovat přes Google
+      </Button>
+
+      <div className="relative mb-6">
+        <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border" /></div>
+        <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-3 text-muted-foreground">nebo</span></div>
+      </div>
+
+      {error && <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="full-name">Jméno</Label>
+          <Input id="full-name" type="text" autoComplete="name" value={fullName} onChange={(event) => setFullName(event.target.value)} className="h-12" required />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email">E-mail</Label>
+          <Input id="email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} className="h-12" required />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="password">Heslo</Label>
+          <div className="relative"><Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" /><Input id="password" type="password" autoComplete="new-password" value={password} onChange={(event) => setPassword(event.target.value)} className="pl-10 h-12" minLength={8} required /></div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="confirm">Potvrdit heslo</Label>
+          <div className="relative"><Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" /><Input id="confirm" type="password" autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} className="pl-10 h-12" minLength={8} required /></div>
+        </div>
+        <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
+          {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Vytvářím účet…</> : "Vytvořit účet"}
+        </Button>
+      </form>
+    </AuthLayout>
+  );
+}
