@@ -5,10 +5,10 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     envVars:
-      - key: VITE_BASE44_APP_ID
-        value: 6a76ebff883bcb27f8ca8927
-      - key: VITE_BASE44_APP_BASE_URL
-        value: https://pansofie-growth-path.base44.app
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
     routes:
       - type: rewrite
         source: /*
