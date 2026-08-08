@@ -1,6 +1,103 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { MapPin,Mail,CheckCircle2,FolderOpen,Target,Briefcase,Sparkles,Search,HandHeart } from "lucide-react";
-import { CURRENT_USER,getPath,MISSIONS,PROJECTS } from "@/lib/pansofieData";
-import PathBadge from "@/components/pansofie/PathBadge";
-export default function Profile(){const u=CURRENT_USER;const initials=u.name.split(" ").slice(0,2).map((n)=>n[0]).join("");const completedMissions=MISSIONS.slice(0,4);const myProjects=PROJECTS.slice(0,2);return <div className="px-5 sm:px-8 lg:px-12 py-8 max-w-5xl mx-auto"><div className="card-soft p-6 sm:p-8"><div className="flex flex-col sm:flex-row gap-5 sm:items-start"><div className="h-20 w-20 rounded-3xl bg-primary text-primary-foreground flex items-center justify-center text-2xl font-semibold shrink-0">{initials}</div><div className="flex-1"><h1 className="text-3xl font-semibold font-heading">{u.name}</h1><p className="text-sm text-muted-foreground mt-1">{u.role}</p><p className="text-sm text-muted-foreground mt-2 inline-flex items-center gap-1.5"><MapPin size={14}/>{u.location}</p><p className="mt-4 leading-relaxed max-w-2xl">{u.intro}</p><div className="mt-4 flex flex-wrap items-center gap-3"><span className="inline-flex items-center gap-2 text-xs text-muted-foreground"><span className={`h-2 w-2 rounded-full ${u.contactable?"bg-emerald-500":"bg-muted-foreground"}`}/>{u.availability}</span>{u.contactable&&<button className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-semibold inline-flex items-center gap-2"><Mail size={15}/>Kontaktovat</button>}</div></div></div></div><div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">{[{icon:Target,label:"Dokončené mise",value:u.completedMissions},{icon:CheckCircle2,label:"Zkušenosti",value:u.paths.reduce((s,p)=>s+p.experiences,0)},{icon:FolderOpen,label:"Portfolio",value:u.portfolioItems},{icon:Briefcase,label:"Projekty",value:u.projects}].map((s)=>{const Icon=s.icon;return <div key={s.label} className="card-soft p-5"><Icon size={18} className="text-primary mb-2"/><p className="text-2xl font-semibold font-heading">{s.value}</p><p className="text-xs text-muted-foreground">{s.label}</p></div>})}</div><section className="mt-10"><h2 className="text-lg font-semibold font-heading mb-4">7 cest — doložený rozvoj</h2><div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{u.paths.map((up)=>{const path=getPath(up.id);const Icon=path.icon;return <div key={up.id} className="card-soft p-5 flex items-center gap-4"><div className="h-11 w-11 rounded-2xl flex items-center justify-center shrink-0" style={{backgroundColor:`${path.color}18`,color:path.color}}><Icon size={22}/></div><div><p className="font-semibold font-heading">{path.name}</p><p className="text-xs text-muted-foreground">{up.experiences} zkušeností · {up.missions} dokončených misí</p></div></div>})}</div></section><div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10"><div className="card-soft p-6"><div className="flex items-center gap-2 mb-3"><Search size={18} className="text-primary"/><h3 className="font-semibold font-heading">Hledám</h3></div><ul>{u.seeks.map((s,i)=><li key={i} className="text-sm text-muted-foreground flex items-start gap-2 mb-2"><span className="h-1.5 w-1.5 rounded-full bg-primary mt-1.5 shrink-0"/>{s}</li>)}</ul></div><div className="card-soft p-6"><div className="flex items-center gap-2 mb-3"><HandHeart size={18} className="text-primary"/><h3 className="font-semibold font-heading">Nabízím</h3></div><ul>{u.offers.map((s,i)=><li key={i} className="text-sm text-muted-foreground flex items-start gap-2 mb-2"><span className="h-1.5 w-1.5 rounded-full bg-primary mt-1.5 shrink-0"/>{s}</li>)}</ul></div></div><div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6"><div className="card-soft p-6"><h3 className="font-semibold font-heading mb-3">Ověřené schopnosti</h3><div className="flex flex-wrap gap-2">{u.skills.map((s)=><span key={s} className="chip bg-primary/10 text-primary">{s}</span>)}</div></div><div className="card-soft p-6"><div className="flex items-center gap-2 mb-3"><Sparkles size={18} className="text-primary"/><h3 className="font-semibold font-heading">Zájmy</h3></div><div className="flex flex-wrap gap-2">{u.interests.map((s)=><span key={s} className="chip bg-muted text-muted-foreground">{s}</span>)}</div></div></div><section className="mt-10"><h2 className="text-lg font-semibold font-heading mb-4">Dokončené mise</h2><div className="flex flex-col gap-2">{completedMissions.map((m)=><Link key={m.id} to={`/mise/${m.id}`} className="card-soft p-4 flex items-center gap-4"><CheckCircle2 size={18} className="text-emerald-500 shrink-0"/><span className="font-medium text-sm flex-1">{m.name}</span><div className="flex gap-1.5">{m.paths.map((p)=><PathBadge key={p} pathId={p} size="xs" showName={false}/>)}</div></Link>)}</div></section><section className="mt-10"><div className="flex items-center justify-between mb-4"><h2 className="text-lg font-semibold font-heading">Portfolio</h2><Link to="/portfolio" className="text-sm text-primary font-medium">Vše</Link></div><div className="grid grid-cols-2 sm:grid-cols-3 gap-3">{[1,2,3,4,5,6].map((i)=><div key={i} className="aspect-square card-soft bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center"><FolderOpen size={28} className="text-primary/40"/></div>)}</div></section><section className="mt-10"><div className="flex items-center justify-between mb-4"><h2 className="text-lg font-semibold font-heading">Moje projekty</h2><Link to="/projekty" className="text-sm text-primary font-medium">Vše</Link></div><div className="flex flex-col gap-2">{myProjects.map((p)=><Link key={p.id} to={`/projekt/${p.id}`} className="card-soft p-4 flex items-center justify-between"><span className="font-medium text-sm">{p.name}</span><span className="chip bg-primary/10 text-primary">{p.status}</span></Link>)}</div></section></div>}
+import { MapPin, Mail, CheckCircle2, FolderOpen, Target, Briefcase, Sparkles, Search, HandHeart } from "lucide-react";
+import { getPath } from "@/lib/pansofieData";
+import { useAuth } from "@/lib/AuthContext";
+
+export default function Profile() {
+  const { profile } = useAuth();
+  const u = profile;
+  const initials = (u?.name || "Pansofie")
+    .split(" ")
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+
+  const totalExperiences = u?.paths?.reduce((sum, path) => sum + path.experiences, 0) || 0;
+
+  return (
+    <div className="px-5 sm:px-8 lg:px-12 py-8 max-w-5xl mx-auto">
+      <div className="card-soft p-6 sm:p-8">
+        <div className="flex flex-col sm:flex-row gap-5 sm:items-start">
+          <div className="h-20 w-20 rounded-3xl bg-primary text-primary-foreground flex items-center justify-center text-2xl font-semibold shrink-0">
+            {initials}
+          </div>
+          <div className="flex-1">
+            <h1 className="text-3xl font-semibold font-heading">{u?.name || "Člen Pansofie"}</h1>
+            <p className="text-sm text-muted-foreground mt-1">{u?.role || "Člen Pansofie"}</p>
+            {u?.location && <p className="text-sm text-muted-foreground mt-2 inline-flex items-center gap-1.5"><MapPin size={14} /> {u.location}</p>}
+            {u?.intro ? (
+              <p className="mt-4 leading-relaxed max-w-2xl">{u.intro}</p>
+            ) : (
+              <p className="mt-4 leading-relaxed max-w-2xl text-muted-foreground">Profil je zatím prázdný. Postupně se bude plnit skutečnými misemi, zkušenostmi a projekty.</p>
+            )}
+            <p className="mt-4 text-xs text-muted-foreground inline-flex items-center gap-2"><Mail size={14} /> {u?.email}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+        {[
+          { icon: Target, label: "Dokončené mise", value: u?.completedMissions || 0 },
+          { icon: CheckCircle2, label: "Zkušenosti", value: totalExperiences },
+          { icon: FolderOpen, label: "Portfolio", value: u?.portfolioItems || 0 },
+          { icon: Briefcase, label: "Projekty", value: u?.projects || 0 },
+        ].map((stat) => {
+          const Icon = stat.icon;
+          return <div key={stat.label} className="card-soft p-5"><Icon size={18} className="text-primary mb-2" /><p className="text-2xl font-semibold font-heading">{stat.value}</p><p className="text-xs text-muted-foreground">{stat.label}</p></div>;
+        })}
+      </div>
+
+      <section className="mt-10">
+        <h2 className="text-lg font-semibold font-heading mb-4">7 cest — doložený rozvoj</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {(u?.paths || []).map((userPath) => {
+            const path = getPath(userPath.id);
+            if (!path) return null;
+            const Icon = path.icon;
+            return <div key={userPath.id} className="card-soft p-5 flex items-center gap-4"><div className="h-11 w-11 rounded-2xl flex items-center justify-center shrink-0" style={{ backgroundColor: `${path.color}18`, color: path.color }}><Icon size={22} /></div><div><p className="font-semibold font-heading">{path.name}</p><p className="text-xs text-muted-foreground">{userPath.experiences} zkušeností · {userPath.missions} dokončených misí</p></div></div>;
+          })}
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+        <EmptyListCard icon={Search} title="Hledám" items={u?.seeks || []} />
+        <EmptyListCard icon={HandHeart} title="Nabízím" items={u?.offers || []} />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        <TagCard title="Ověřené schopnosti" items={u?.skills || []} />
+        <TagCard title="Zájmy" items={u?.interests || []} icon={Sparkles} muted />
+      </div>
+
+      <section className="mt-10 card-soft p-6">
+        <h2 className="text-lg font-semibold font-heading">Portfolio a historie</h2>
+        <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+          Zatím tu nejsou žádná demo data. Obsah se zobrazí až ze skutečně dokončených misí a projektů tohoto účtu.
+        </p>
+      </section>
+    </div>
+  );
+}
+
+function EmptyListCard({ icon: Icon, title, items }) {
+  return (
+    <div className="card-soft p-6">
+      <div className="flex items-center gap-2 mb-3"><Icon size={18} className="text-primary" /><h3 className="font-semibold font-heading">{title}</h3></div>
+      {items.length ? (
+        <ul className="flex flex-col gap-2">{items.map((item) => <li key={item} className="text-sm text-muted-foreground flex items-start gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary mt-1.5 shrink-0" /> {item}</li>)}</ul>
+      ) : (
+        <p className="text-sm text-muted-foreground">Zatím nic uvedeno.</p>
+      )}
+    </div>
+  );
+}
+
+function TagCard({ title, items, icon: Icon, muted = false }) {
+  return (
+    <div className="card-soft p-6">
+      <div className="flex items-center gap-2 mb-3">{Icon && <Icon size={18} className="text-primary" />}<h3 className="font-semibold font-heading">{title}</h3></div>
+      {items.length ? <div className="flex flex-wrap gap-2">{items.map((item) => <span key={item} className={`chip ${muted ? "bg-muted text-muted-foreground" : "bg-primary/10 text-primary"}`}>{item}</span>)}</div> : <p className="text-sm text-muted-foreground">Zatím nic uvedeno.</p>}
+    </div>
+  );
+}
