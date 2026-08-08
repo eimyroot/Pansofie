@@ -1,0 +1,4 @@
+import React from "react";
+import { ENTRY_ROLES } from "@/lib/pansofieData";
+import SectionHeading from "@/components/pansofie/SectionHeading";
+export default function RoleEntry(){return <section className="py-20 sm:py-28 border-t border-border/60"><div className="container-px max-w-7xl mx-auto"><SectionHeading eyebrow="Vstup do Pansofie" title="Každý vstupuje jinou rolí. Cíl je společný." subtitle="Rodina, škola, mentor i komunita se potkávají kolem skutečných misí a projektů." center/><div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">{ENTRY_ROLES.map((role)=>{const Icon=role.icon;return <div key={role.id} className="card-soft p-5 text-center"><span className="mx-auto h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-3"><Icon size={19}/></span><p className="text-sm font-medium">{role.label}</p></div>})}</div></div></section>}

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: pansofie
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_BASE44_APP_ID
+        value: 6a76ebff883bcb27f8ca8927
+      - key: VITE_BASE44_APP_BASE_URL
+        value: https://pansofie-growth-path.base44.app
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

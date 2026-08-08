@@ -1,0 +1,10 @@
+{
+  "name": "Pansofie",
+  "short_name": "Pansofie",
+  "description": "Pansofie — systém celoživotního rozvoje. Poznej sebe. Tvoř s druhými. Zlepšuj svět.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9f7f2",
+  "theme_color": "#164b3b",
+  "lang": "cs"
+}

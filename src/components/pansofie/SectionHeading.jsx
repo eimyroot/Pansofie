@@ -1,0 +1,2 @@
+import React from "react";
+export default function SectionHeading({eyebrow,title,subtitle,center=false}){return <div className={center?"text-center max-w-3xl mx-auto":"max-w-3xl"}>{eyebrow&&<p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary mb-3">{eyebrow}</p>}<h2 className="text-3xl sm:text-4xl font-semibold font-display tracking-tight text-balance">{title}</h2>{subtitle&&<p className="text-muted-foreground mt-4 leading-relaxed text-balance">{subtitle}</p>}</div>}
