@@ -2,7 +2,19 @@
 
 > Poznej sebe. Tvoř s druhými. Zlepšuj svět.
 
-PANSOFIE is an independent React/Vite application for lifelong development through real-world missions, projects, reflection, portfolio evidence and meaningful collaboration.
+PANSOFIE is a system of lifelong development through real-world experiences that connects school, family and community so that a person can discover, act, document, reflect, transfer learning and contribute.
+
+## Canonical product baseline
+
+The governed product Source of Truth is in [`docs/canonical/`](docs/canonical/README.md).
+
+Canonical product loop:
+
+```text
+ČLOVĚK → MISE → SKUTEČNÁ ZKUŠENOST → DŮKAZ → REFLEXE → PORTFOLIO → SPOLUPRÁCE → DOPAD
+```
+
+Technology supports the method; it does not define the method. Older product concepts are historical/exploratory when they conflict with the canonical V1.0 baseline unless explicitly promoted through a governed decision.
 
 ## Stack
 
