@@ -17,6 +17,15 @@ Major product decisions should represent these perspectives:
 7. **AI Governance & Evaluation Lead** — defines allowed AI roles, evaluation, transparency, human review and prohibited uses.
 8. **Business Model & Partnerships Lead** — validates payer, pricing, school procurement, municipality/foundation/company models.
 
+## Challenge / partner specialist quorum
+
+Activate when a real-world Challenge, company/municipality partner, material stream, facility, adoption decision or impact claim is involved:
+
+9. **Challenge Design Lead** — converts a real problem into a bounded PANSOFIE Challenge with baseline, constraints, outputs, evidence and stop conditions.
+10. **Partner Ethics & Safeguarding Lead** — ensures partner involvement creates learning/public value rather than child advertising, profiling or uncontrolled access.
+11. **Circularity & Materials Safety Lead** — reviews provenance, composition uncertainty, contamination, hazards, PPE/supervision, disposal/compost/recycling claims and local end-of-life reality.
+12. **Adoption & Impact Measurement Lead** — separates output, adoption, outcome and impact; defines baselines, measurement periods, attribution limits and verifier responsibilities.
+
 ## Build skillset
 
 - Senior React/Vite Frontend Engineer
@@ -39,6 +48,8 @@ Major product decisions should represent these perspectives:
 - Grant eligibility researcher
 - Competitive intelligence analyst
 - Legal/privacy reviewer
+- Circular economy / waste-stream domain reviewer when relevant
+- Material/facility safety reviewer when relevant
 
 ## CASER / governed workflow roles
 
@@ -59,6 +70,21 @@ Use when available:
 
 ### New Experience
 Product + Education + Safeguarding + Impact.
+
+### New real-world Challenge
+Product + Education + Challenge Design + Impact + Safeguarding.
+
+### Company/municipality/NGO Challenge
+Business/Partnerships + Challenge Design + Partner Ethics + Education + Impact + Safeguarding.
+
+### Material / recycling / composting Challenge
+Challenge Design + Circularity/Materials Safety + Education + Safeguarding + Impact. Unknown material risk fails closed until reviewed.
+
+### Partner adoption of learner output
+Adoption/Impact + Partner Ethics + Product. Adoption is recorded independently from learner success.
+
+### New impact claim
+Impact/Research + Adoption/Impact Measurement + Quality Evidence Verifier. Output is never reported as impact without outcome evidence.
 
 ### New child-facing AI feature
 AI Governance + Safeguarding + Security + Education + Impact. No single-role approval.
