@@ -88,7 +88,11 @@ assert.ok(lower.includes("create table if not exists public.processing_basis_eve
 assert.ok(lower.includes("create table if not exists public.experience_reviews"));
 assert.ok(lower.includes("pansofie_can_review_run"));
 assert.ok(lower.includes("pansofie_can_guardian_view_passport"));
-assert.ok(lower.includes("guardian relationship alone never grants access"));
+assert.ok(lower.includes("guardian_passport_view"));
+assert.ok(lower.includes("portfolio_select_verified_guardian"));
+assert.ok(lower.includes("experiences_select_verified_guardian"));
+assert.ok(!lower.includes("evidence_select_verified_guardian"), "guardian Passport view must not imply raw evidence access");
+assert.ok(!lower.includes("reflections_select_verified_guardian"), "guardian Passport view must not imply private reflection access");
 assert.ok(lower.includes("school_reflection_review"), "reflection review must be a separate explicit purpose");
 assert.ok(lower.includes("portfolio_protect_verification"), "participant must not self-assert verification");
 
