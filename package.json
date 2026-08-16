@@ -10,7 +10,8 @@
     "check:domain": "node scripts/check-domain-model.mjs",
     "check:access": "node scripts/check-access-model.mjs",
     "check:flow": "node scripts/check-experience-flow.mjs",
-    "check": "npm run check:domain && npm run check:access && npm run check:flow && vite build"
+    "check:pilot": "node scripts/check-pilot-kit.mjs",
+    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
