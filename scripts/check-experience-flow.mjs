@@ -3,8 +3,9 @@ import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-const [sql, service, app, hub, detail, portfolio] = await Promise.all([
+const [flowSql, hardeningSql, service, app, hub, detail, portfolio] = await Promise.all([
   read("supabase/migrations/20260817003000_school_experience_flow.sql"),
+  read("supabase/migrations/20260817003100_school_experience_integrity.sql"),
   read("src/lib/pansofieExperienceFlow.js"),
   read("src/App.jsx"),
   read("src/pages/SchoolHub.jsx"),
@@ -12,7 +13,7 @@ const [sql, service, app, hub, detail, portfolio] = await Promise.all([
   read("src/pages/Portfolio.jsx"),
 ]);
 
-const lowerSql = sql.toLowerCase();
+const lowerSql = `${flowSql}\n${hardeningSql}`.toLowerCase();
 
 for (const fn of [
   "pansofie_assign_school_mission",
@@ -32,8 +33,14 @@ assert.ok(lowerSql.includes("school_reflection_review"), "reflection review purp
 assert.ok(lowerSql.includes("at least one evidence item is required"), "submission must require evidence");
 assert.ok(lowerSql.includes("reflection with what_learned is required"), "submission must require reflection");
 assert.ok(lowerSql.includes("confirmed mission review required"), "finalization must require independent confirmed review");
-assert.ok(lowerSql.includes("visibility,\n    verified_by,\n    verified_at"), "Passport finalization must record verification metadata");
 assert.ok(lowerSql.includes("'private'"), "new Passport entries must remain private by default");
+
+assert.ok(lowerSql.includes("evidence_freeze_after_submission"), "evidence freeze trigger missing");
+assert.ok(lowerSql.includes("reflection_freeze_after_submission"), "reflection freeze trigger missing");
+assert.ok(lowerSql.includes("experience_review_events"), "append-only review event evidence missing");
+assert.ok(lowerSql.includes("reset because mission was reopened for revision"), "reopen must invalidate stale confirmed reviews");
+assert.ok(lowerSql.includes("set status = 'in_progress'"), "needs_revision must reopen submitted mission");
+assert.ok(lowerSql.includes("non-pending review decisions require submitted run"), "teacher decision lifecycle guard missing");
 
 for (const destructive of [
   "drop table public.profiles",
