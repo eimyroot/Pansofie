@@ -47,13 +47,16 @@ Fresh project order:
 3. `20260817000500_school_guardian_consent_model.sql`
 4. `20260817003000_school_experience_flow.sql`
 5. `20260817003100_school_experience_integrity.sql`
+6. `20260817004500_security_definer_execute_hardening.sql`
+
+The execute-hardening migration is mandatory after the first real staging advisor pass identified default/broader-than-intended RPC execution privileges. Anonymous execution must be denied for all governed PANSOFIE functions, while trigger-only functions must not remain directly callable by browser roles.
 
 After each migration record success/failure. Stop on first failure; do not skip ahead.
 
 Then run:
 `supabase/verification/post_migration_structural_checks.sql`
 
-Run Supabase security and performance advisors after DDL changes and triage every warning before promotion.
+Run Supabase security and performance advisors after DDL changes and triage every warning before promotion. Authenticated SECURITY DEFINER RPC warnings may only be accepted when the function is intentionally client-callable and contains its own explicit authorization gate; trigger-only/public-anon exposure is not acceptable.
 
 ## Phase D — multi-role test fixture
 
@@ -78,6 +81,7 @@ Must pass:
 - guardian Passport purpose does not grant raw evidence/reflection;
 - unrelated account cannot read protected rows;
 - anonymous caller cannot invoke protected governed RPCs;
+- trigger-only functions cannot be invoked directly by anonymous/authenticated browser roles;
 - learner cannot mark own work independently verified or create final Experience by direct client authority;
 - submitted learner evidence/reflection remains frozen.
 

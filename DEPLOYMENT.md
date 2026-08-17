@@ -27,6 +27,9 @@ For a new isolated PANSOFIE staging project, apply migrations in filename order:
 3. `20260817000500_school_guardian_consent_model.sql`
 4. `20260817003000_school_experience_flow.sql`
 5. `20260817003100_school_experience_integrity.sql`
+6. `20260817004500_security_definer_execute_hardening.sql`
+
+The sixth migration was added after the first real Supabase staging advisor pass showed broader-than-intended function EXECUTE privileges. It explicitly blocks anonymous execution and removes direct client execution from trigger-only functions.
 
 For an existing environment, do not blindly replay migrations. First inventory existing schema/migration state and capture backup/export evidence.
 
@@ -57,6 +60,7 @@ At minimum verify:
 - verified guardian relationship alone grants no raw evidence/reflection access;
 - `guardian_passport_view` grants only the intended completed Experience/Passport view;
 - unrelated authenticated and anonymous users cannot access protected participant data;
+- anonymous users cannot execute PANSOFIE governed SECURITY DEFINER RPCs;
 - learner cannot self-finalize or self-verify;
 - `needs_revision` invalidates stale confirmed reviews and reopens editing;
 - resubmission requires fresh review before finalization;
