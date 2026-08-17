@@ -70,8 +70,11 @@ assert.ok(app.includes('path="/skola/mise/:runId"'), "School run detail route mi
 assert.ok(hub.includes("PANSOFIE SCHOOL"), "School hub must identify canonical program");
 assert.ok(hub.includes("Přiřadit misi"), "Teacher assignment UI missing");
 assert.ok(detail.includes("Odeslat ke kontrole"), "learner submission UI missing");
-assert.ok(detail.includes("Scoped teacher review"), "purpose-scoped teacher review UI missing");
-assert.ok(detail.includes("Experience + Passport"), "final Experience/Passport action missing");
+assert.ok(detail.includes("Kontrola zkušenosti"), "teacher review UI missing");
+assert.ok(detail.includes("Důkazy žáka"), "teacher must be able to inspect purpose-scoped evidence");
+assert.ok(detail.includes("Reflexe žáka"), "teacher must be able to inspect purpose-scoped reflection");
+assert.ok(detail.includes("Co doplnit"), "learner revision feedback UI missing");
+assert.ok(detail.includes("Dokončit a zapsat do Passportu"), "final Experience/Passport action missing");
 assert.ok(portfolio.includes("Nezobrazujeme náhradní nebo smyšlené položky"), "Passport must not fake user evidence when DB is unavailable");
 
 console.log("PANSOFIE R0.3 school Experience flow contract: PASS");
