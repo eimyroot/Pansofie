@@ -63,30 +63,10 @@ export async function listMySchoolRuns(userId) {
 
 export async function listOrganizationLearners(organizationIds) {
   if (!organizationIds?.length) return [];
-  const membershipResult = await supabase
-    .from("organization_memberships")
-    .select("id, organization_id, user_id, role, status")
-    .in("organization_id", organizationIds)
-    .eq("role", "learner")
-    .eq("status", "active")
-    .order("created_at", { ascending: true });
-
-  const memberships = throwIfError(membershipResult, "Learner membership load failed") || [];
-  if (!memberships.length) return [];
-
-  const userIds = [...new Set(memberships.map((item) => item.user_id))];
-  const profileResult = await supabase
-    .from("profiles")
-    .select("id, full_name")
-    .in("id", userIds);
-
-  const profiles = profileResult.error ? [] : profileResult.data || [];
-  const nameById = new Map(profiles.map((profile) => [profile.id, profile.full_name]));
-
-  return memberships.map((membership) => ({
-    ...membership,
-    display_name: nameById.get(membership.user_id) || `Žák ${membership.user_id.slice(0, 8)}`,
-  }));
+  const result = await supabase.rpc("pansofie_list_assignable_school_learners", {
+    target_org_ids: organizationIds,
+  });
+  return throwIfError(result, "Assignable learner directory load failed") || [];
 }
 
 export async function listTeacherSchoolRuns(organizationIds) {
