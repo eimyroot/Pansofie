@@ -11,7 +11,8 @@
     "check:access": "node scripts/check-access-model.mjs",
     "check:flow": "node scripts/check-experience-flow.mjs",
     "check:pilot": "node scripts/check-pilot-kit.mjs",
-    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && vite build"
+    "check:partners": "node scripts/check-partner-kit.mjs",
+    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && npm run check:partners && vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
