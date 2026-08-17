@@ -3,9 +3,10 @@ import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-const [flowSql, hardeningSql, service, app, hub, detail, portfolio] = await Promise.all([
+const [flowSql, hardeningSql, learnerDirectorySql, service, app, hub, detail, portfolio] = await Promise.all([
   read("supabase/migrations/20260817003000_school_experience_flow.sql"),
   read("supabase/migrations/20260817003100_school_experience_integrity.sql"),
+  read("supabase/migrations/20260817053000_school_assignable_learner_directory.sql"),
   read("src/lib/pansofieExperienceFlow.js"),
   read("src/App.jsx"),
   read("src/pages/SchoolHub.jsx"),
@@ -13,7 +14,7 @@ const [flowSql, hardeningSql, service, app, hub, detail, portfolio] = await Prom
   read("src/pages/Portfolio.jsx"),
 ]);
 
-const lowerSql = `${flowSql}\n${hardeningSql}`.toLowerCase();
+const lowerSql = `${flowSql}\n${hardeningSql}\n${learnerDirectorySql}`.toLowerCase();
 
 for (const fn of [
   "pansofie_assign_school_mission",
@@ -42,6 +43,11 @@ assert.ok(lowerSql.includes("reset because mission was reopened for revision"), 
 assert.ok(lowerSql.includes("set status = 'in_progress'"), "needs_revision must reopen submitted mission");
 assert.ok(lowerSql.includes("non-pending review decisions require submitted run"), "teacher decision lifecycle guard missing");
 
+assert.ok(lowerSql.includes("function public.pansofie_list_assignable_school_learners"), "assignable learner directory RPC missing");
+assert.ok(lowerSql.includes("school_mission_assignment"), "assignable learner directory must remain purpose-scoped");
+assert.ok(lowerSql.includes("array['teacher', 'coordinator']"), "assignable learner directory must require teacher/coordinator role");
+assert.ok(lowerSql.includes("revoke execute on function public.pansofie_list_assignable_school_learners(uuid[]) from anon"), "assignable learner directory must deny anon execute");
+
 for (const destructive of [
   "drop table public.profiles",
   "drop table public.user_roles",
@@ -53,6 +59,7 @@ for (const destructive of [
   assert.ok(!lowerSql.includes(destructive), `R0.3 must not mutate auth foundation: ${destructive}`);
 }
 
+assert.ok(service.includes('supabase.rpc("pansofie_list_assignable_school_learners"'), "client must use governed learner-directory RPC");
 assert.ok(service.includes('supabase.rpc("pansofie_assign_school_mission"'), "client must use governed assignment RPC");
 assert.ok(service.includes('supabase.rpc("pansofie_submit_mission"'), "client must use governed submission RPC");
 assert.ok(service.includes('supabase.rpc("pansofie_review_school_run"'), "client must use governed review RPC");
