@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Home,
   Target,
+  GraduationCap,
   TrendingUp,
   FolderOpen,
   Layers,
@@ -18,6 +19,7 @@ import { useAuth } from "@/lib/AuthContext";
 const NAV = [
   ["/dashboard", "Domů", Home],
   ["/mise", "Mise", Target],
+  ["/skola", "PANSOFIE School", GraduationCap],
   ["/rozvoj", "Můj rozvoj", TrendingUp],
   ["/portfolio", "Portfolio", FolderOpen],
   ["/projekty", "Projekty", Layers],
@@ -30,8 +32,8 @@ const NAV = [
 const MOBILE_NAV = [
   ["/dashboard", "Domů", Home],
   ["/mise", "Mise", Target],
-  ["/projekty", "Projekty", Layers],
-  ["/sit", "Síť", Users],
+  ["/skola", "Škola", GraduationCap],
+  ["/portfolio", "Passport", FolderOpen],
   ["/profil", "Profil", UserRound],
 ];
 

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "check:domain": "node scripts/check-domain-model.mjs",
     "check:access": "node scripts/check-access-model.mjs",
-    "check": "npm run check:domain && npm run check:access && vite build"
+    "check:flow": "node scripts/check-experience-flow.mjs",
+    "check": "npm run check:domain && npm run check:access && npm run check:flow && vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

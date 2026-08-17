@@ -19,6 +19,8 @@ import MemberLayout from "@/layouts/MemberLayout";
 import Dashboard from "@/pages/Dashboard";
 import MiseList from "@/pages/MiseList";
 import MissionDetail from "@/pages/MissionDetail";
+import SchoolHub from "@/pages/SchoolHub";
+import SchoolRunDetail from "@/pages/SchoolRunDetail";
 import Rozvoj from "@/pages/Rozvoj";
 import Portfolio from "@/pages/Portfolio";
 import ProjektyList from "@/pages/ProjektyList";
@@ -65,6 +67,8 @@ export default function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/mise" element={<MiseList />} />
               <Route path="/mise/:id" element={<MissionDetail />} />
+              <Route path="/skola" element={<SchoolHub />} />
+              <Route path="/skola/mise/:runId" element={<SchoolRunDetail />} />
               <Route path="/rozvoj" element={<Rozvoj />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/projekty" element={<ProjektyList />} />
