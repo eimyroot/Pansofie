@@ -21,6 +21,33 @@ It connects learning with action, evidence, reflection, transfer and meaningful 
 8. **No hidden manipulation.** No behavioural advertising to children, secret profiling, emotion recognition or human-worth scoring.
 9. **AI assists; humans remain accountable.** AI may question, organize, map and summarize, but must not diagnose or determine a child’s worth or destiny.
 10. **Claims require proof.** Marketing language never outruns evidence.
+11. **Every PANSOFIE relationship must create real, reciprocal value.** Every person, family, school, company, municipality, community, mentor, partner, program or system component connected to PANSOFIE must have a clear purpose: what it receives, what it contributes, who benefits, what risks it introduces and how the claimed contribution can be evidenced. Contribution evaluates a concrete relationship or result, never human worth.
+
+## Reciprocity principle
+
+PANSOFIE is a network of mutually beneficial relationships, not a network of accounts.
+
+For every meaningful actor or system relationship, PANSOFIE should be able to state:
+- **NEED** — what real need or problem is present;
+- **RECEIVES** — what value the actor receives;
+- **CONTRIBUTES** — what useful value the actor contributes;
+- **BENEFICIARY** — who or what benefits from that contribution;
+- **EVIDENCE** — how the contribution can be observed or supported;
+- **RECIPROCITY** — whether the relationship is fair to all involved;
+- **SAFETY** — whether the value exchange introduces disproportionate risk;
+- **REUSE / NEXT** — whether the result can improve a later Experience, decision or community outcome.
+
+Rules:
+- no value extraction without proportionate value return;
+- no decorative partner, role, feature or relationship without a real purpose;
+- no child labour, child-data access or marketing exposure disguised as contribution;
+- payment never buys a positive learner assessment, positive impact claim or protected data access;
+- contribution must never be converted into a score of a person;
+- where a contribution is claimed publicly, evidence and limitations must remain visible.
+
+The preferred system effect is compounding value:
+
+`REAL NEED → EXPERIENCE → CONTRIBUTION → EVIDENCE → ADOPTION / LEARNING → KNOWLEDGE → BETTER NEXT EXPERIENCE`
 
 ## Philosophical foundation
 
@@ -70,6 +97,7 @@ Every new idea must answer:
 8. Who is the payer, if any?
 9. What risk does it introduce?
 10. Why must it exist inside PANSOFIE?
+11. What does each connected actor receive and contribute, and who benefits?
 
 If these cannot be answered, status is `NOT NOW`.
 
