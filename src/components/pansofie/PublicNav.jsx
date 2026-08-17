@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { Leaf, Menu, X } from "lucide-react";
 
 const links = [
-  ["/pilot", "Pilot školy"],
+  ["/#ekosystem", "Ekosystém"],
+  ["/pilot", "Pilot"],
   ["/jak-funguje", "Jak to funguje"],
   ["/#sedm-cest", "7 cest"],
   ["/#programy", "Programy"],
-  ["/#labs", "Projekty & Labs"],
-  ["/login?returnTo=%2Fsit", "Komunita"],
+  ["/#labs", "Labs"],
 ];
 
 export default function PublicNav() {
@@ -28,7 +28,7 @@ export default function PublicNav() {
 
         <div className="hidden sm:flex items-center gap-2">
           <Link to="/login" className="px-4 py-2.5 text-sm font-medium">Přihlásit</Link>
-          <Link to="/pilot" className="px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold">Školní pilot</Link>
+          <Link to="/pilot" className="px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold">Otevřít pilot</Link>
         </div>
 
         <button className="xl:hidden h-10 w-10 rounded-xl border border-border flex items-center justify-center" onClick={() => setOpen((value) => !value)} aria-label="Menu">
@@ -39,8 +39,8 @@ export default function PublicNav() {
       {open && (
         <div className="xl:hidden border-t border-border/60 bg-background px-5 py-4 flex flex-col gap-2">
           {links.map(([to, label]) => <a key={label} href={to} className="py-2 text-sm" onClick={() => setOpen(false)}>{label}</a>)}
-          <Link to="/login" className="py-2 text-sm">Přihlásit</Link>
-          <Link to="/pilot" className="mt-2 px-4 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-semibold text-center" onClick={() => setOpen(false)}>Školní pilot</Link>
+          <Link to="/login" className="py-2 text-sm" onClick={() => setOpen(false)}>Přihlásit</Link>
+          <Link to="/pilot" className="mt-2 px-4 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-semibold text-center" onClick={() => setOpen(false)}>Otevřít pilot</Link>
         </div>
       )}
     </header>
