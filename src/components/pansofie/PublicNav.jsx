@@ -4,7 +4,7 @@ import { Leaf, Menu, X } from "lucide-react";
 
 const links = [
   ["/#ekosystem", "Ekosystém"],
-  ["/pilot", "Pilot"],
+  ["/pilot", "Pilot školy"],
   ["/jak-funguje", "Jak to funguje"],
   ["/#sedm-cest", "7 cest"],
   ["/#programy", "Programy"],
