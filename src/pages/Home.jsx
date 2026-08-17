@@ -25,6 +25,25 @@ export default function Home() {
         </div>
       </section>
       <PansofieIdea />
+
+      <section id="vzajemny-prinos" className="py-20 sm:py-24 border-t border-border/60">
+        <div className="container-px max-w-6xl mx-auto">
+          <div className="card-soft p-8 sm:p-12 bg-primary/[0.03] border-primary/20">
+            <div className="max-w-4xl">
+              <p className="text-sm font-semibold text-primary uppercase tracking-wide">Vzájemný přínos</p>
+              <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Každý, kdo vstupuje do Pansofie, má přinášet skutečnou hodnotu.</h2>
+              <p className="mt-5 text-lg text-muted-foreground leading-relaxed">Pansofie propojuje děti, rodiny, školy, firmy, obce, odborníky a komunity jen tam, kde vztah dává smysl a prospívá zúčastněným. Každý něco získává — zkušenost, podporu, příležitost nebo řešení — a zároveň přináší něco užitečného druhým: čas, znalost, péči, reálný problém, zdroje, zpětnou vazbu nebo možnost něco skutečně změnit.</p>
+              <p className="mt-4 text-base text-muted-foreground leading-relaxed">Přínos nikdy není skóre člověka ani povinnost „být užitečný“. Hodnotíme konkrétní výsledek spolupráce, ne lidskou hodnotu. Každý tvrzený přínos má mít příjemce, být férový, bezpečný a pokud možno doložitelný.</p>
+            </div>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="rounded-2xl border border-border bg-background p-5"><p className="text-xs font-semibold text-primary uppercase tracking-wide">1 · Získávám</p><h3 className="mt-2 font-semibold text-lg">Skutečnou hodnotu</h3><p className="mt-2 text-sm text-muted-foreground leading-relaxed">Učení, podporu, zkušenost, vztahy, příležitost, řešení nebo přístup ke světu mimo vlastní bublinu.</p></div>
+              <div className="rounded-2xl border border-border bg-background p-5"><p className="text-xs font-semibold text-primary uppercase tracking-wide">2 · Přináším</p><h3 className="mt-2 font-semibold text-lg">Něco užitečného</h3><p className="mt-2 text-sm text-muted-foreground leading-relaxed">Nápad, práci, zkušenost, péči, expertizu, problém k řešení, prostředí, zdroj nebo zpětnou vazbu.</p></div>
+              <div className="rounded-2xl border border-border bg-background p-5"><p className="text-xs font-semibold text-primary uppercase tracking-wide">3 · Zůstává</p><h3 className="mt-2 font-semibold text-lg">Doložitelný přínos</h3><p className="mt-2 text-sm text-muted-foreground leading-relaxed">Výsledek, zkušenost, změna, adopce nebo poznatek, který může pomoci člověku, škole, rodině, organizaci či komunitě.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="sedm-cest" className="py-20 sm:py-28 border-t border-border/60 bg-card/40"><div className="container-px max-w-7xl mx-auto"><SectionHeading eyebrow="7 pilířů rozvoje" title="Sedm pilířů, kterými se rozvíjíš" subtitle="Konzistentní rámec napříč celou platformou. Každý pilíř má oblasti, mise, zkušenosti, projekty a výsledky v portfoliu." center /><div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{PATHS.map((path) => <PathPillar key={path.id} path={path} />)}</div></div></section>
       <section id="jak-funguje" className="py-16 sm:py-20 border-t border-border/60"><div className="container-px max-w-4xl mx-auto"><div className="card-soft p-8 sm:p-10 bg-primary/[0.03] border-primary/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"><div><h2 className="text-2xl font-semibold font-display tracking-tight">Jak Pansofie funguje?</h2><p className="text-muted-foreground mt-2">Není to obsah ke čtení. Je to systém zkušeností — od mise k doloženému rozvoji.</p></div><Link to="/jak-funguje" className="shrink-0 inline-flex items-center gap-2 px-5 py-3 bg-primary text-primary-foreground rounded-2xl font-semibold hover:opacity-90 transition-opacity">Otevřít stránku <ArrowRight size={18} /></Link></div></div></section>
       <section id="labs" className="py-20 sm:py-28 border-t border-border/60 bg-card/40"><div className="container-px max-w-7xl mx-auto"><SectionHeading eyebrow="Projects & Labs" title="Labs — prostředí, kde se Pansofie odehrává" subtitle="Lab není rozvojová schopnost. Je to oblast aktivity, kde tvoříš reálné výsledky." center /><div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{LABS.map((lab) => { const Icon = lab.icon; return <div key={lab.id} className="card-soft p-6 group transition-all duration-300 hover:-translate-y-1"><div className="h-12 w-12 rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110" style={{ backgroundColor: `${lab.color}18`, color: lab.color }}><Icon size={24} strokeWidth={2} /></div><h3 className="text-lg font-semibold font-heading">{lab.name}</h3><p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{lab.desc}</p></div>; })}</div></div></section>
