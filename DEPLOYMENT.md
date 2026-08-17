@@ -28,8 +28,9 @@ For a new isolated PANSOFIE staging project, apply migrations in filename order:
 4. `20260817003000_school_experience_flow.sql`
 5. `20260817003100_school_experience_integrity.sql`
 6. `20260817004500_security_definer_execute_hardening.sql`
+7. `20260817004600_public_execute_cleanup.sql`
 
-The sixth migration was added after the first real Supabase staging advisor pass showed broader-than-intended function EXECUTE privileges. It explicitly blocks anonymous execution and removes direct client execution from trigger-only functions.
+The two hardening migrations were added after the first real Supabase staging advisor pass. The first removes direct browser-role access where explicitly granted; the second removes PostgreSQL's inherited `PUBLIC` EXECUTE privilege and then restores only the authenticated helpers/RPCs intentionally required by RLS and the current frontend.
 
 For an existing environment, do not blindly replay migrations. First inventory existing schema/migration state and capture backup/export evidence.
 
