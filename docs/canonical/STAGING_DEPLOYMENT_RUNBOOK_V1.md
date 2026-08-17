@@ -48,15 +48,16 @@ Fresh project order:
 4. `20260817003000_school_experience_flow.sql`
 5. `20260817003100_school_experience_integrity.sql`
 6. `20260817004500_security_definer_execute_hardening.sql`
+7. `20260817004600_public_execute_cleanup.sql`
 
-The execute-hardening migration is mandatory after the first real staging advisor pass identified default/broader-than-intended RPC execution privileges. Anonymous execution must be denied for all governed PANSOFIE functions, while trigger-only functions must not remain directly callable by browser roles.
+The execute-hardening migrations are mandatory because the first real staging advisor pass identified broader-than-intended function execution. The second hardening step specifically removes PostgreSQL's inherited `PUBLIC` EXECUTE privilege, which otherwise keeps anonymous access even after a direct `REVOKE ... FROM anon`.
 
 After each migration record success/failure. Stop on first failure; do not skip ahead.
 
 Then run:
 `supabase/verification/post_migration_structural_checks.sql`
 
-Run Supabase security and performance advisors after DDL changes and triage every warning before promotion. Authenticated SECURITY DEFINER RPC warnings may only be accepted when the function is intentionally client-callable and contains its own explicit authorization gate; trigger-only/public-anon exposure is not acceptable.
+Run Supabase security and performance advisors after DDL changes and triage every warning before promotion. Anonymous SECURITY DEFINER exposure and direct browser execution of trigger-only functions are blockers. Authenticated SECURITY DEFINER warnings may only be accepted when the function is intentionally required by RLS/current frontend and the authorization semantics are independently tested.
 
 ## Phase D — multi-role test fixture
 
