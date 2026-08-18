@@ -5,7 +5,7 @@ const files = {
   app: read("src/App.jsx"),
   nav: read("src/components/pansofie/PublicNav.jsx"),
   footer: read("src/components/pansofie/PublicFooter.jsx"),
-  join: read("src/pages/Join.jsx"),
+  join: read("src/pages/Join.jsx") + read("src/components/pansofie/EntryJourney.jsx"),
   login: read("src/pages/Login.jsx"),
   register: read("src/pages/Register.jsx"),
   member: read("src/layouts/MemberLayout.jsx"),
