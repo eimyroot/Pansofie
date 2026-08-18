@@ -43,29 +43,37 @@ test("PANSOFIEDIT offers all six role-adaptive entry points", async ({ page }) =
   for (const label of ["Škola", "Rodina", "Firma / organizace", "Obec / komunita", "Mentor / odborník", "Mladý člověk"]) {
     await expect(page.getByRole("button", { name: new RegExp(label.replace("/", "\\/")) })).toBeVisible();
   }
+  await expect(page.getByLabel("Živý náhled vznikající Experience")).toBeVisible();
 });
 
-test("school journey reaches a personalized Experience result and remains fail-closed", async ({ page }) => {
+test("school journey composes live, reaches scroll story and remains fail-closed", async ({ page }) => {
   const errors = runtimeErrors(page);
   await page.goto(`${BASE_URL}/zapojit-se?role=school`, { waitUntil: "networkidle" });
 
+  await expect(page.getByLabel("Živý náhled vznikající Experience")).toContainText("Škola");
   await expect(page.getByRole("heading", { name: /Co by měla Pansofie ve vaší škole změnit jako první/ })).toBeVisible();
   await page.getByRole("button", { name: /Více reálných zkušeností ve výuce/ }).click();
+  await expect(page.getByLabel("Živý náhled vznikající Experience")).toContainText("Více reálných zkušeností ve výuce");
   await page.getByRole("button", { name: /Pokračovat/ }).click();
 
   await page.getByRole("button", { name: /Kohortu žáků a pedagogické vedení/ }).click();
+  await expect(page.getByLabel("Živý náhled vznikající Experience")).toContainText("1 konkrétní přínos");
   await page.getByRole("button", { name: /Pokračovat/ }).click();
 
   await page.getByRole("button", { name: /Plýtváme materiálem/ }).click();
+  await expect(page.getByLabel("Živý náhled vznikající Experience")).toContainText("CIRCULAR CHALLENGE");
   await page.getByRole("button", { name: /Pokračovat/ }).click();
 
   await expect(page.getByRole("heading", { name: /Kdo může být součástí řešení/ })).toBeVisible();
   await page.getByRole("button", { name: /Firma \/ organizace/ }).click();
+  await expect(page.getByLabel("Živý náhled vznikající Experience")).toContainText("Firma / organizace");
   await page.getByRole("button", { name: /Pokračovat/ }).click();
 
   await expect(page.getByText(/Právě jste prošli principem Pansofie/)).toBeVisible();
   await expect(page.getByRole("heading", { name: /Návrh prvního školního pilotu/ }).first()).toBeVisible();
-  await expect(page.getByText("CIRCULAR CHALLENGE").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Sledujte, jak se problém mění v Experience/ })).toBeVisible();
+  await expect(page.getByText(/Výstup není skóre člověka/)).toBeVisible();
+  await expect(page.getByRole("button", { name: /Přejít na krok 10: DALŠÍ KROK/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: /Experience je střed/ })).toBeVisible();
 
   await page.getByRole("button", { name: /Připravit lokální shrnutí/ }).click();
@@ -84,8 +92,9 @@ test("mobile PANSOFIEDIT route has no horizontal overflow", async ({ browser }, 
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
   const page = await context.newPage();
   await page.goto(`${BASE_URL}/zapojit-se?role=partner`, { waitUntil: "networkidle" });
+  await expect(page.getByLabel("Živý náhled vznikající Experience")).toBeVisible();
   const dimensions = await page.evaluate(() => ({ innerWidth: window.innerWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth + 1);
-  await page.screenshot({ path: testInfo.outputPath("pansofiedit-entry-mobile.png"), fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath("pansofiedit-r2-mobile.png"), fullPage: true });
   await context.close();
 });
