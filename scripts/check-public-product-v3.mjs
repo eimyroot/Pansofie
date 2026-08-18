@@ -25,9 +25,9 @@ const required = [
   [files.how, "Experience je jádro"],
   [files.how, 'to="/pilot"'],
   [files.pilot, "Reálný field pilot ve škole ještě neproběhl"],
-  [files.partner, "Partner nekupuje"],
+  [files.partner, "nekupuje pozitivní hodnocení"],
   [files.partner, "automaticky převedené vlastnictví"],
-  [files.program, "samostatný Family runtime ještě není live"],
+  [files.program, "Samostatný Family runtime ještě není live"],
 ];
 
 const missing = required
