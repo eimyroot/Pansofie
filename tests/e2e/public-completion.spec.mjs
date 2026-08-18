@@ -17,8 +17,8 @@ function runtimeErrors(page) {
 }
 
 const ROUTES = [
-  ["/zapojit-se", /Najděme roli/],
-  ["/kontakt", /Najděme roli/],
+  ["/zapojit-se", /Vyzkoušejte Pansofii/],
+  ["/kontakt", /Vyzkoušejte Pansofii/],
   ["/o-projektu", /Pansofie staví učení/],
   ["/soukromi", /Soukromí podle účelu/],
   ["/bezpecnost", /Bezpečnost není disclaimer/],
@@ -38,11 +38,39 @@ for (const [path, heading] of ROUTES) {
   });
 }
 
-test("public interest form is explicitly fail-closed before legal operator activation", async ({ page }) => {
+test("PANSOFIEDIT offers all six role-adaptive entry points", async ({ page }) => {
+  await page.goto(`${BASE_URL}/zapojit-se`, { waitUntil: "networkidle" });
+  for (const label of ["Škola", "Rodina", "Firma / organizace", "Obec / komunita", "Mentor / odborník", "Mladý člověk"]) {
+    await expect(page.getByRole("button", { name: new RegExp(label.replace("/", "\\/")) })).toBeVisible();
+  }
+});
+
+test("school journey reaches a personalized Experience result and remains fail-closed", async ({ page }) => {
+  const errors = runtimeErrors(page);
   await page.goto(`${BASE_URL}/zapojit-se?role=school`, { waitUntil: "networkidle" });
-  await expect(page.getByText(/Kontaktní kanál je zatím fail-closed/)).toBeVisible();
-  await page.getByRole("button", { name: /Ověřit připravenost formuláře/ }).click();
-  await expect(page.getByRole("status")).toContainText("nic neodesílá ani neukládá");
+
+  await expect(page.getByRole("heading", { name: /Co by měla Pansofie ve vaší škole změnit jako první/ })).toBeVisible();
+  await page.getByRole("button", { name: /Více reálných zkušeností ve výuce/ }).click();
+  await page.getByRole("button", { name: /Pokračovat/ }).click();
+
+  await page.getByRole("button", { name: /Kohortu žáků a pedagogické vedení/ }).click();
+  await page.getByRole("button", { name: /Pokračovat/ }).click();
+
+  await page.getByRole("button", { name: /Plýtváme materiálem/ }).click();
+  await page.getByRole("button", { name: /Pokračovat/ }).click();
+
+  await expect(page.getByRole("heading", { name: /Kdo může být součástí řešení/ })).toBeVisible();
+  await page.getByRole("button", { name: /Firma \/ organizace/ }).click();
+  await page.getByRole("button", { name: /Pokračovat/ }).click();
+
+  await expect(page.getByText(/Právě jste prošli principem Pansofie/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Návrh prvního školního pilotu/ }).first()).toBeVisible();
+  await expect(page.getByText("CIRCULAR CHALLENGE").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Experience je střed/ })).toBeVisible();
+
+  await page.getByRole("button", { name: /Připravit lokální shrnutí/ }).click();
+  await expect(page.getByRole("status")).toContainText("nic neodesílá ani neukládá na server");
+  expect(errors, `runtime errors:\n${errors.join("\n")}`).toEqual([]);
 });
 
 test("public registration does not expose self-signup controls", async ({ page }) => {
@@ -52,12 +80,12 @@ test("public registration does not expose self-signup controls", async ({ page }
   await expect(page.getByRole("button", { name: /Vytvořit účet/ })).toHaveCount(0);
 });
 
-test("mobile join route has no horizontal overflow", async ({ browser }, testInfo) => {
+test("mobile PANSOFIEDIT route has no horizontal overflow", async ({ browser }, testInfo) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
   const page = await context.newPage();
   await page.goto(`${BASE_URL}/zapojit-se?role=partner`, { waitUntil: "networkidle" });
   const dimensions = await page.evaluate(() => ({ innerWidth: window.innerWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth + 1);
-  await page.screenshot({ path: testInfo.outputPath("join-mobile.png"), fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath("pansofiedit-entry-mobile.png"), fullPage: true });
   await context.close();
 });
