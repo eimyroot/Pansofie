@@ -32,8 +32,9 @@ export default function PublicNav() {
           ))}
         </nav>
 
-        <div className="hidden sm:flex items-center gap-1.5">
-          <Link to="/login" className="action-quiet px-3">Přihlásit</Link>
+        <div className="hidden sm:flex items-center gap-1">
+          <Link to="/login" className="action-quiet px-2.5">Přihlásit</Link>
+          <Link to="/zapojit-se" className="action-quiet px-2.5">Zapojit se</Link>
           <Link to="/zapojit-se?mode=simulator" className="action-primary min-h-10 rounded-xl px-4 py-2">
             Vyzkoušet 60 s <ArrowRight size={15} />
           </Link>
@@ -48,6 +49,7 @@ export default function PublicNav() {
         <div className="xl:hidden border-t border-border/60 bg-background px-5 py-4 flex flex-col gap-1 shadow-lg">
           {links.map(([to, label]) => <a key={label} href={to} className="rounded-xl px-3 py-2.5 text-sm hover:bg-card" onClick={() => setOpen(false)}>{label}</a>)}
           <Link to="/login" className="rounded-xl px-3 py-2.5 text-sm" onClick={() => setOpen(false)}>Přihlásit</Link>
+          <Link to="/zapojit-se" className="rounded-xl px-3 py-2.5 text-sm" onClick={() => setOpen(false)}>Zapojit se</Link>
           <Link to="/zapojit-se?mode=simulator" className="action-primary mt-2 w-full" onClick={() => setOpen(false)}>Vyzkoušet Pansofii za 60 sekund <ArrowRight size={16} /></Link>
         </div>
       )}
