@@ -68,7 +68,7 @@ assert.ok(service.includes('supabase.rpc("pansofie_finalize_school_experience"')
 assert.ok(app.includes('path="/skola"'), "School hub route missing");
 assert.ok(app.includes('path="/skola/mise/:runId"'), "School run detail route missing");
 assert.ok(hub.includes("PANSOFIE SCHOOL"), "School hub must identify canonical program");
-assert.ok(hub.includes("Přiřadit misi"), "Teacher assignment UI missing");
+assert.ok(hub.includes("Individuální přiřazení") && hub.includes("Přiřadit individuálně"), "Teacher assignment UI missing");
 assert.ok(detail.includes("Odeslat ke kontrole"), "learner submission UI missing");
 assert.ok(detail.includes("Kontrola zkušenosti"), "teacher review UI missing");
 assert.ok(detail.includes("Důkazy žáka"), "teacher must be able to inspect purpose-scoped evidence");
