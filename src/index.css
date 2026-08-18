@@ -4,25 +4,43 @@
 
 @layer base {
   :root {
-    --background: 40 30% 98%;
-    --foreground: 24 10% 10%;
+    /* Brand neutrals: editorial warmth, product clarity. */
+    --background: 48 26% 96%;
+    --foreground: 153 16% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 24 10% 10%;
+    --card-foreground: 153 16% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 24 10% 10%;
-    --primary: 158 64% 22%;
+    --popover-foreground: 153 16% 11%;
+    --primary: 161 62% 24%;
+    --primary-strong: 161 66% 17%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 40 30% 96%;
-    --secondary-foreground: 24 10% 10%;
-    --muted: 40 20% 95%;
-    --muted-foreground: 24 6% 45%;
-    --accent: 158 40% 94%;
-    --accent-foreground: 158 64% 20%;
-    --destructive: 0 72% 51%;
+    --experience: 164 59% 30%;
+    --secondary: 48 18% 93%;
+    --secondary-foreground: 153 16% 14%;
+    --muted: 48 16% 92%;
+    --muted-foreground: 150 7% 39%;
+    --accent: 158 28% 92%;
+    --accent-foreground: 161 62% 20%;
+    --destructive: 4 54% 42%;
     --destructive-foreground: 0 0% 100%;
-    --border: 24 10% 90%;
-    --input: 24 10% 88%;
-    --ring: 158 64% 22%;
+    --border: 42 12% 85%;
+    --input: 42 11% 80%;
+    --ring: 161 62% 24%;
+
+    /* Semantic states are deliberately separate from the brand green. */
+    --status-success: 159 57% 28%;
+    --status-warning: 38 76% 31%;
+    --status-danger: 4 54% 42%;
+    --status-info: 211 53% 38%;
+
+    /* Role colors are orientation cues only, never full-page themes. */
+    --role-learner: 226 34% 45%;
+    --role-school: 207 44% 34%;
+    --role-family: 19 34% 40%;
+    --role-partner: 40 72% 31%;
+    --role-community: 175 41% 30%;
+    --role-mentor: 260 25% 44%;
+
     --radius: 1rem;
     --font-heading: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
     --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
@@ -31,43 +49,165 @@
   }
 
   .dark {
-    --background: 24 10% 6%;
-    --foreground: 40 30% 96%;
-    --card: 24 10% 8%;
-    --card-foreground: 40 30% 96%;
-    --popover: 24 10% 8%;
-    --popover-foreground: 40 30% 96%;
-    --primary: 158 60% 45%;
-    --primary-foreground: 24 10% 8%;
-    --secondary: 24 10% 14%;
-    --secondary-foreground: 40 30% 96%;
-    --muted: 24 10% 14%;
-    --muted-foreground: 40 10% 65%;
-    --accent: 158 30% 18%;
-    --accent-foreground: 158 60% 80%;
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 24 10% 18%;
-    --input: 24 10% 20%;
-    --ring: 158 60% 45%;
+    --background: 154 14% 7%;
+    --foreground: 48 20% 95%;
+    --card: 154 13% 9%;
+    --card-foreground: 48 20% 95%;
+    --popover: 154 13% 9%;
+    --popover-foreground: 48 20% 95%;
+    --primary: 160 44% 56%;
+    --primary-strong: 160 46% 64%;
+    --primary-foreground: 154 14% 7%;
+    --experience: 162 42% 58%;
+    --secondary: 154 10% 14%;
+    --secondary-foreground: 48 20% 95%;
+    --muted: 154 9% 14%;
+    --muted-foreground: 48 8% 68%;
+    --accent: 159 18% 18%;
+    --accent-foreground: 158 45% 78%;
+    --destructive: 4 58% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 154 8% 20%;
+    --input: 154 8% 24%;
+    --ring: 160 44% 56%;
+    --status-success: 158 42% 58%;
+    --status-warning: 40 65% 62%;
+    --status-danger: 4 64% 66%;
+    --status-info: 211 62% 66%;
+    --role-learner: 226 52% 69%;
+    --role-school: 207 48% 65%;
+    --role-family: 19 42% 66%;
+    --role-partner: 40 62% 64%;
+    --role-community: 175 40% 62%;
+    --role-mentor: 260 38% 70%;
   }
 }
 
 @layer base {
   * { @apply border-border outline-ring/50; }
+  html { scroll-behavior: smooth; }
   body { @apply bg-background text-foreground font-body antialiased; }
   h1, h2, h3 { @apply font-heading tracking-tight; }
+
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
 }
 
 @layer components {
   .font-display { font-family: var(--font-display); font-optical-sizing: auto; }
   .container-px { @apply px-5 sm:px-8 lg:px-12; }
-  .card-soft { @apply bg-card rounded-3xl border border-border/70 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(0,0,0,0.08)]; }
+  .product-shell { @apply px-5 sm:px-8 lg:px-12 py-7 sm:py-9 max-w-7xl mx-auto; }
+
+  .card-soft,
+  .surface-raised {
+    @apply bg-card rounded-3xl border border-border/70;
+    box-shadow: 0 1px 2px rgba(23, 32, 28, 0.04), 0 18px 48px -32px rgba(23, 32, 28, 0.28);
+  }
+
+  .surface-panel {
+    @apply rounded-3xl border border-border/70;
+    background: color-mix(in srgb, hsl(var(--card)) 76%, hsl(var(--background)));
+  }
+
+  .surface-subtle {
+    @apply rounded-2xl border border-border/60;
+    background: color-mix(in srgb, hsl(var(--card)) 54%, hsl(var(--background)));
+  }
+
   .chip { @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium; }
+  .eyebrow { @apply text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-primary; }
+
+  .action-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-[transform,box-shadow,background-color] disabled:pointer-events-none disabled:opacity-50;
+    background: hsl(var(--primary));
+    box-shadow: 0 10px 28px -18px hsl(var(--primary) / 0.8);
+  }
+  .action-primary:hover { background: hsl(var(--primary-strong)); transform: translateY(-1px); }
+
+  .action-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-border bg-card px-5 py-2.5 text-sm font-semibold transition-[transform,border-color,background-color] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .action-secondary:hover { border-color: hsl(var(--primary) / 0.35); background: hsl(var(--accent) / 0.55); transform: translateY(-1px); }
+
+  .action-quiet {
+    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-xl px-2.5 py-2 text-sm font-semibold text-muted-foreground transition-colors;
+  }
+  .action-quiet:hover { color: hsl(var(--foreground)); background: hsl(var(--muted) / 0.65); }
+
+  .status-pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold;
+  }
+  .status-info { color: hsl(var(--status-info)); border-color: hsl(var(--status-info) / 0.22); background: hsl(var(--status-info) / 0.07); }
+  .status-progress { color: hsl(var(--experience)); border-color: hsl(var(--experience) / 0.22); background: hsl(var(--experience) / 0.07); }
+  .status-waiting { color: hsl(var(--status-warning)); border-color: hsl(var(--status-warning) / 0.22); background: hsl(var(--status-warning) / 0.08); }
+  .status-success { color: hsl(var(--status-success)); border-color: hsl(var(--status-success) / 0.22); background: hsl(var(--status-success) / 0.08); }
+  .status-danger { color: hsl(var(--status-danger)); border-color: hsl(var(--status-danger) / 0.22); background: hsl(var(--status-danger) / 0.07); }
+  .status-neutral { @apply text-muted-foreground border-border bg-muted/55; }
+
+  .next-action-card {
+    @apply rounded-[1.75rem] border p-5 sm:p-6;
+    border-color: hsl(var(--primary) / 0.22);
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--accent) / 0.48));
+    box-shadow: 0 18px 48px -36px hsl(var(--primary) / 0.75);
+  }
+
+  [data-role="learner"] { --role-accent: var(--role-learner); }
+  [data-role="school"] { --role-accent: var(--role-school); }
+  [data-role="family"] { --role-accent: var(--role-family); }
+  [data-role="partner"] { --role-accent: var(--role-partner); }
+  [data-role="community"] { --role-accent: var(--role-community); }
+  [data-role="mentor"] { --role-accent: var(--role-mentor); }
+
+  .role-chip {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold;
+    color: hsl(var(--role-accent));
+    border-color: hsl(var(--role-accent) / 0.2);
+    background: hsl(var(--role-accent) / 0.07);
+  }
+
+  .role-icon {
+    @apply flex items-center justify-center shrink-0;
+    color: hsl(var(--role-accent));
+    background: hsl(var(--role-accent) / 0.09);
+    border: 1px solid hsl(var(--role-accent) / 0.16);
+  }
+
+  .role-card {
+    @apply border bg-card transition-[border-color,background-color,transform,box-shadow];
+    border-color: hsl(var(--border));
+  }
+  .role-card:hover { border-color: hsl(var(--role-accent) / 0.35); transform: translateY(-1px); }
+  .role-card[data-selected="true"] {
+    border-color: hsl(var(--role-accent) / 0.5);
+    background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--role-accent) / 0.07));
+    box-shadow: 0 12px 28px -24px hsl(var(--role-accent) / 0.9);
+  }
+
+  .workspace-kicker {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em];
+    color: hsl(var(--role-accent, var(--primary)));
+  }
+
+  .workspace-header {
+    @apply mb-7 sm:mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between;
+  }
+
+  .metric-card { @apply rounded-2xl border border-border/70 bg-card p-4 sm:p-5; }
 }
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
