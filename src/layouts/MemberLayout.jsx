@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { GraduationCap, FolderOpen, UserRound, Leaf, LogOut } from "lucide-react";
+import { GraduationCap, FolderOpen, UserRound, Leaf, LogOut, HeartHandshake } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
+import { getMyFamilyAccessSummary } from "@/lib/pansofieFamilyFlow";
+import { listMyOrganizationMemberships } from "@/lib/pansofieExperienceFlow";
 
-const NAV = [
+const BASE_NAV = [
   ["/skola", "PANSOFIE School", GraduationCap],
   ["/portfolio", "Experience Passport", FolderOpen],
   ["/profil", "Profil", UserRound],
@@ -11,7 +13,29 @@ const NAV = [
 
 export default function MemberLayout() {
   const navigate = useNavigate();
-  const { profile, logout } = useAuth();
+  const { user, profile, logout } = useAuth();
+  const [showFamily, setShowFamily] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    if (!user?.id) return undefined;
+
+    Promise.all([
+      getMyFamilyAccessSummary().catch(() => ({ has_family_access: false })),
+      listMyOrganizationMemberships(user.id).catch(() => []),
+    ]).then(([family, memberships]) => {
+      if (!active) return;
+      const isSchoolStaff = memberships.some((item) => ["teacher", "coordinator"].includes(item.role));
+      setShowFamily(Boolean(family?.has_family_access || isSchoolStaff));
+    });
+
+    return () => { active = false; };
+  }, [user?.id]);
+
+  const nav = useMemo(() => {
+    if (!showFamily) return BASE_NAV;
+    return [BASE_NAV[0], ["/rodina", "PANSOFIE Family", HeartHandshake], ...BASE_NAV.slice(1)];
+  }, [showFamily]);
 
   const handleLogout = async () => {
     await logout();
@@ -28,11 +52,11 @@ export default function MemberLayout() {
 
         <div className="mb-4 rounded-2xl border border-primary/20 bg-primary/[0.04] p-3">
           <p className="text-[10px] font-semibold uppercase tracking-wide text-primary">Pilotní workspace</p>
-          <p className="mt-1 text-xs text-muted-foreground leading-relaxed">Zobrazuje pouze School flow, Passport a profil. Prototypové Síť, Zprávy, Události a sample projekty jsou pro field pilot skryté.</p>
+          <p className="mt-1 text-xs text-muted-foreground leading-relaxed">Zobrazuje jen governed School, Family, Passport a profil podle skutečných oprávnění. Prototypové Síť, Zprávy, Události a sample projekty jsou pro field pilot skryté.</p>
         </div>
 
         <nav className="flex flex-col gap-1">
-          {NAV.map(([to, label, Icon]) => (
+          {nav.map(([to, label, Icon]) => (
             <NavLink key={to} to={to} className={({ isActive }) => `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/60"}`}>
               <Icon size={18} /> {label}
             </NavLink>
@@ -48,10 +72,10 @@ export default function MemberLayout() {
 
       <div className="lg:pl-64"><main className="min-h-screen pb-20 lg:pb-0"><Outlet /></main></div>
 
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-card/95 backdrop-blur-md border-t border-border/70 grid grid-cols-3">
-        {NAV.map(([to, label, Icon]) => (
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-card/95 backdrop-blur-md border-t border-border/70 grid" style={{ gridTemplateColumns: `repeat(${nav.length}, minmax(0, 1fr))` }}>
+        {nav.map(([to, label, Icon]) => (
           <NavLink key={to} to={to} className={({ isActive }) => `flex flex-col items-center gap-0.5 py-2.5 text-[10px] ${isActive ? "text-primary" : "text-muted-foreground"}`}>
-            <Icon size={18} /> {label === "PANSOFIE School" ? "Škola" : label === "Experience Passport" ? "Passport" : label}
+            <Icon size={18} /> {label === "PANSOFIE School" ? "Škola" : label === "Experience Passport" ? "Passport" : label === "PANSOFIE Family" ? "Rodina" : label}
           </NavLink>
         ))}
       </nav>
