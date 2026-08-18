@@ -5,6 +5,7 @@ const journey = read("src/components/pansofie/EntryJourney.jsx");
 const map = read("src/components/pansofie/EcosystemMap.jsx");
 const data = read("src/lib/pansofieditJourney.js");
 const story = read("src/components/pansofie/ExperienceStory.jsx");
+const home = read("src/pages/Home.jsx");
 
 const required = [
   [journey, "Vyzkoušejte Pansofii"],
@@ -26,6 +27,9 @@ const required = [
   [data, "learner:"],
   [data, "CIRCULAR CHALLENGE"],
   [story, "Vyzkoušet Pansofii za 60 sekund"],
+  [home, 'to="/zapojit-se?mode=simulator"'],
+  [home, "Vyzkoušet Pansofii za 60 sekund"],
+  [home, "nic neposílá na server"],
 ];
 
 const forbidden = [

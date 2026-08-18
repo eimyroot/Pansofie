@@ -33,11 +33,12 @@ export default function Home() {
             <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-balance">Mladí lidé se učí spoustu důležitých věcí. Pansofie jim dává prostor je skutečně použít — s lidmi, na reálném problému a s výsledkem, který má smysl.</p>
             <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">Z reálné činnosti vzniká důkaz, reflexe, ověřená Experience a další krok.</p>
             <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/pilot" className="w-full sm:w-auto px-7 py-3.5 bg-primary text-primary-foreground rounded-2xl font-semibold inline-flex items-center justify-center gap-2 hover:opacity-90">Prozkoumat první pilot <ArrowRight size={18} /></Link>
-              <Link to="/zapojit-se" className="w-full sm:w-auto px-7 py-3.5 border border-border bg-card rounded-2xl font-semibold inline-flex items-center justify-center gap-2">Chci se zapojit <ArrowRight size={17} /></Link>
+              <Link to="/zapojit-se?mode=simulator" className="w-full sm:w-auto px-7 py-3.5 bg-primary text-primary-foreground rounded-2xl font-semibold inline-flex items-center justify-center gap-2 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">Vyzkoušet Pansofii za 60 sekund <ArrowRight size={18} /></Link>
+              <Link to="/pilot" className="w-full sm:w-auto px-7 py-3.5 border border-border bg-card rounded-2xl font-semibold inline-flex items-center justify-center gap-2">Prozkoumat první pilot <ArrowRight size={17} /></Link>
               <Link to="/jak-funguje" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground">Jak Pansofie funguje <ArrowRight size={15} /></Link>
             </div>
-            <div className="mt-10 flex flex-col lg:flex-row items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">{HERO_TRUST.map((item) => <span key={item} className="inline-flex items-center gap-2"><CheckCircle2 size={15} className="text-primary" />{item}</span>)}</div>
+            <p className="mt-4 text-xs sm:text-sm text-muted-foreground">Interaktivní průvodce běží pouze v tomto prohlížeči a v současné pre-field-pilot verzi nic neposílá na server.</p>
+            <div className="mt-8 flex flex-col lg:flex-row items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">{HERO_TRUST.map((item) => <span key={item} className="inline-flex items-center gap-2"><CheckCircle2 size={15} className="text-primary" />{item}</span>)}</div>
           </div>
         </section>
 
