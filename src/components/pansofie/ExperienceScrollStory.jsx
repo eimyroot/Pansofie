@@ -16,7 +16,7 @@ export default function ExperienceScrollStory({ path = [], role, problem }) {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target?.dataset?.storyIndex) setActiveIndex(Number(visible.target.dataset.storyIndex));
+        if (visible?.target?.dataset?.storyIndex !== undefined) setActiveIndex(Number(visible.target.dataset.storyIndex));
       },
       { rootMargin: "-28% 0px -45% 0px", threshold: [0.2, 0.45, 0.7] },
     );
@@ -26,6 +26,13 @@ export default function ExperienceScrollStory({ path = [], role, problem }) {
   }, [stages.length]);
 
   const active = stages[activeIndex] || stages[0];
+  const ActiveIcon = active?.Icon || Sparkles;
+
+  const goToStage = (index) => {
+    setActiveIndex(index);
+    const reducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    nodes.current[index]?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" });
+  };
 
   return (
     <section aria-labelledby="experience-scroll-story-title" className="mt-8 rounded-[2rem] border border-border bg-background overflow-hidden">
@@ -40,7 +47,7 @@ export default function ExperienceScrollStory({ path = [], role, problem }) {
           <div>
             <p className="text-[10px] uppercase tracking-[0.18em] text-background/50">Aktivní krok</p>
             <div className="mt-5 flex items-start gap-4">
-              {active && <span className="h-12 w-12 rounded-2xl bg-background/10 flex items-center justify-center shrink-0"><active.Icon size={22} /></span>}
+              <span className="h-12 w-12 rounded-2xl bg-background/10 flex items-center justify-center shrink-0"><ActiveIcon size={22} /></span>
               <div>
                 <p className="text-xs font-semibold text-background/55">{active?.number}</p>
                 <h4 className="mt-1 text-2xl sm:text-3xl font-semibold font-display">{active?.title}</h4>
@@ -63,10 +70,7 @@ export default function ExperienceScrollStory({ path = [], role, problem }) {
                   type="button"
                   aria-label={`Přejít na krok ${index + 1}: ${stage.title}`}
                   aria-pressed={activeIndex === index}
-                  onClick={() => {
-                    setActiveIndex(index);
-                    nodes.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
-                  }}
+                  onClick={() => goToStage(index)}
                   className={`h-2 rounded-full transition-[width,background-color] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background ${activeIndex === index ? "w-8 bg-background" : "w-2 bg-background/25 hover:bg-background/45"}`}
                 />
               ))}
@@ -86,7 +90,7 @@ export default function ExperienceScrollStory({ path = [], role, problem }) {
                 tabIndex={0}
                 onFocus={() => setActiveIndex(index)}
                 onMouseEnter={() => setActiveIndex(index)}
-                className={`min-h-[210px] sm:min-h-[240px] rounded-3xl border p-6 sm:p-7 flex flex-col justify-between transition-[border-color,background-color,transform] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${isActive ? "border-primary/45 bg-primary/[0.045] sm:translate-x-1" : "border-border bg-card/25"}`}
+                className={`min-h-[210px] sm:min-h-[240px] rounded-3xl border p-6 sm:p-7 flex flex-col justify-between transition-[border-color,background-color,transform] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${isActive ? "border-primary/45 bg-primary/[0.045] sm:translate-x-1 motion-reduce:translate-x-0" : "border-border bg-card/25"}`}
               >
                 <div className="flex items-start justify-between gap-5">
                   <span className={`h-11 w-11 rounded-2xl flex items-center justify-center ${isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}><Icon size={20} /></span>
