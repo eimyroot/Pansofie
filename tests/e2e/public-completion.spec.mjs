@@ -38,6 +38,29 @@ for (const [path, heading] of ROUTES) {
   });
 }
 
+test("professional homepage exposes one dominant Experience entry and truthful Family state", async ({ page }) => {
+  const errors = runtimeErrors(page);
+  await page.goto(BASE_URL, { waitUntil: "networkidle" });
+
+  await expect(page.getByText("Experience-first ekosystém")).toBeVisible();
+  const primary = page.getByRole("link", { name: /Vyzkoušet Pansofii za 60 sekund/ }).first();
+  await expect(primary).toBeVisible();
+  await expect(primary).toHaveAttribute("href", "/zapojit-se?mode=simulator");
+  await expect(page.getByRole("link", { name: /Prozkoumat první pilot/ })).toBeVisible();
+  await expect(page.getByText("Bounded runtime na stagingu")).toBeVisible();
+  await expect(page.getByText(/Family workspace je implementovaný pro purpose-specific pilotní přístup/)).toBeVisible();
+  expect(errors, `runtime errors on homepage:\n${errors.join("\n")}`).toEqual([]);
+});
+
+test("role ecosystem keeps Experience central while switching bounded role accents", async ({ page }) => {
+  await page.goto(`${BASE_URL}/#ekosystem`, { waitUntil: "networkidle" });
+  await expect(page.getByText("Experience je centrum")).toBeVisible();
+  const partner = page.getByRole("button", { name: /Firma \/ organizace/ }).last();
+  await partner.click();
+  await expect(partner).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByText(/Partner nekupuje hodnocení žáka/)).toBeVisible();
+});
+
 test("PANSOFIEDIT offers all six role-adaptive entry points", async ({ page }) => {
   await page.goto(`${BASE_URL}/zapojit-se`, { waitUntil: "networkidle" });
   for (const label of ["Škola", "Rodina", "Firma / organizace", "Obec / komunita", "Mentor / odborník", "Mladý člověk"]) {
@@ -96,5 +119,16 @@ test("mobile PANSOFIEDIT route has no horizontal overflow", async ({ browser }, 
   const dimensions = await page.evaluate(() => ({ innerWidth: window.innerWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth + 1);
   await page.screenshot({ path: testInfo.outputPath("pansofiedit-r2-mobile.png"), fullPage: true });
+  await context.close();
+});
+
+test("mobile professional homepage keeps primary action visible without overflow", async ({ browser }, testInfo) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
+  const page = await context.newPage();
+  await page.goto(BASE_URL, { waitUntil: "networkidle" });
+  await expect(page.getByRole("link", { name: /Vyzkoušet Pansofii za 60 sekund/ }).first()).toBeVisible();
+  const dimensions = await page.evaluate(() => ({ innerWidth: window.innerWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth + 1);
+  await page.screenshot({ path: testInfo.outputPath("pansofiedit-professional-home-mobile.png"), fullPage: true });
   await context.close();
 });
