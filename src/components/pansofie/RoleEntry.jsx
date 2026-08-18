@@ -80,12 +80,14 @@ function ActorButton({ actor, selected, onSelect }) {
   return (
     <button
       type="button"
+      data-role={actor.id}
+      data-selected={selected}
       onClick={() => onSelect(actor.id)}
       aria-pressed={selected}
-      className={`w-full text-left rounded-2xl border p-4 transition-all ${selected ? "border-primary bg-primary/[0.06] shadow-sm" : "border-border bg-background hover:border-primary/40 hover:bg-card"}`}
+      className="role-card w-full text-left rounded-2xl p-4"
     >
       <div className="flex items-center gap-3">
-        <span className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${selected ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}><Icon size={19} /></span>
+        <span className="role-icon h-10 w-10 rounded-xl"><Icon size={19} /></span>
         <div className="min-w-0">
           <p className="font-semibold text-sm leading-snug">{actor.label}</p>
           <p className="mt-1 text-[11px] text-muted-foreground leading-snug">{actor.status}</p>
@@ -106,11 +108,11 @@ export default function RoleEntry() {
         <SectionHeading
           eyebrow="PANSOFIE EKOSYSTÉM"
           title="Jedna Experience uprostřed. Každá role má skutečný důvod."
-          subtitle="Pansofie nepropojuje účty. Propojuje lidi a organizace kolem konkrétní zkušenosti pouze tehdy, když je jasné, co získávají, co přinášejí a jaká hranice jejich roli chrání."
+          subtitle="Nepropojujeme účty pro efekt. Každá role musí mít jasné: co získává, co přináší a jaká hranice ji chrání."
           center
         />
 
-        <div className="mt-10 lg:hidden overflow-x-auto -mx-5 px-5 pb-2">
+        <div className="mt-10 lg:hidden overflow-x-auto -mx-5 px-5 pb-2 no-scrollbar">
           <div className="flex gap-2 min-w-max">
             {ACTORS.map((actor) => {
               const Icon = actor.icon;
@@ -119,9 +121,11 @@ export default function RoleEntry() {
                 <button
                   key={actor.id}
                   type="button"
+                  data-role={actor.id}
+                  data-selected={active}
                   onClick={() => setSelectedId(actor.id)}
                   aria-pressed={active}
-                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium ${active ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background"}`}
+                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-colors ${active ? "role-chip" : "border-border bg-card text-muted-foreground"}`}
                 >
                   <Icon size={16} /> {actor.short}
                 </button>
@@ -135,31 +139,32 @@ export default function RoleEntry() {
             {ACTORS.slice(0, 3).map((actor) => <ActorButton key={actor.id} actor={actor} selected={actor.id === selected.id} onSelect={setSelectedId} />)}
           </div>
 
-          <article className="rounded-[2rem] border border-primary/25 bg-primary/[0.035] p-6 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[430px] shadow-sm">
+          <article className="relative overflow-hidden rounded-[2rem] border border-primary/25 bg-card p-6 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[430px] shadow-sm">
+            <div className="absolute inset-x-0 top-0 h-1 bg-primary" aria-hidden="true" />
             <div>
               <div className="flex items-start justify-between gap-4">
-                <span className="h-14 w-14 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center"><SelectedIcon size={25} /></span>
-                <span className="rounded-full border border-primary/20 bg-background px-3 py-1.5 text-[11px] font-semibold text-muted-foreground">{selected.status}</span>
+                <span className="h-14 w-14 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center shadow-sm"><SelectedIcon size={25} /></span>
+                <span data-role={selected.id} className="role-chip">{selected.status}</span>
               </div>
 
-              <p className="mt-8 text-xs font-semibold tracking-[0.18em] text-primary uppercase">Experience je centrum</p>
+              <p className="mt-8 eyebrow">Experience je centrum</p>
               <h3 className="mt-2 text-3xl sm:text-4xl font-semibold font-display tracking-tight">{selected.label}</h3>
 
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-border bg-background p-5">
-                  <p className="text-[11px] font-semibold tracking-wide text-primary">ZÍSKÁVÁ</p>
+                <div className="surface-subtle p-5">
+                  <p className="text-[11px] font-semibold tracking-[0.12em] text-primary">ZÍSKÁVÁ</p>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{selected.receives}</p>
                 </div>
-                <div className="rounded-2xl border border-border bg-background p-5">
-                  <p className="text-[11px] font-semibold tracking-wide text-primary">PŘINÁŠÍ</p>
+                <div className="surface-subtle p-5">
+                  <p className="text-[11px] font-semibold tracking-[0.12em] text-primary">PŘINÁŠÍ</p>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{selected.contributes}</p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 flex items-start gap-3 rounded-2xl border border-border/80 bg-background/80 p-4">
+            <div className="mt-6 flex items-start gap-3 rounded-2xl border border-border/80 bg-background/70 p-4">
               <ShieldCheck size={18} className="text-primary shrink-0 mt-0.5" />
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{selected.boundary}</p>
+              <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Hranice</p><p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-relaxed">{selected.boundary}</p></div>
             </div>
           </article>
 
@@ -170,7 +175,7 @@ export default function RoleEntry() {
 
         <div className="mt-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2">
           {FLOW.map((item, index) => (
-            <div key={item} className="rounded-xl border border-border bg-card/40 px-3 py-3.5">
+            <div key={item} className="surface-subtle px-3 py-3.5">
               <span className="text-[10px] font-semibold text-primary">{String(index + 1).padStart(2, "0")}</span>
               <p className="mt-2 text-xs font-medium leading-snug">{item}</p>
             </div>
