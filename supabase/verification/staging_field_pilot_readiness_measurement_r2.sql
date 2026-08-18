@@ -6,6 +6,7 @@ declare
   missing_tables text[];
   missing_functions text[];
   rls_missing text[];
+  fn text;
 begin
   select array_agg(name) into missing_tables
   from unnest(array[
@@ -56,6 +57,31 @@ begin
   if rls_missing is not null then
     raise exception 'FIELD_PILOT_R2 RLS missing: %', rls_missing;
   end if;
+
+  -- Internal seed helper must not be callable by either browser role.
+  if has_function_privilege('anon', 'public.pansofie_seed_canonical_pilot_plan(uuid)', 'EXECUTE')
+     or has_function_privilege('authenticated', 'public.pansofie_seed_canonical_pilot_plan(uuid)', 'EXECUTE') then
+    raise exception 'FIELD_PILOT_R2 private seed helper execute boundary failed';
+  end if;
+
+  -- Governed operator RPCs are authenticated-only, never anon.
+  foreach fn in array array[
+    'public.pansofie_set_pilot_responsibility(uuid,text,text,text,uuid)',
+    'public.pansofie_record_teacher_load(uuid,date,integer,text)',
+    'public.pansofie_report_pilot_incident(uuid,text,text,text)',
+    'public.pansofie_set_pilot_incident_status(uuid,text)',
+    'public.pansofie_pilot_readiness(uuid)',
+    'public.pansofie_activate_pilot_cohort(uuid)',
+    'public.pansofie_pilot_metrics(uuid)',
+    'public.pansofie_set_pilot_cohort_dates(uuid,date,date)'
+  ] loop
+    if has_function_privilege('anon', fn, 'EXECUTE') then
+      raise exception 'FIELD_PILOT_R2 anon execute leaked for %', fn;
+    end if;
+    if not has_function_privilege('authenticated', fn, 'EXECUTE') then
+      raise exception 'FIELD_PILOT_R2 authenticated execute missing for %', fn;
+    end if;
+  end loop;
 
   if (select count(*) from public.missions where slug in ('zlepsi-svou-skolu','digitalni-most','circular-challenge') and status='published') <> 3 then
     raise exception 'FIELD_PILOT_R2 canonical 3 published Missions missing';
