@@ -43,7 +43,7 @@ jobs:
         run: sleep 30
 
       - name: Run public product browser acceptance
-        run: npx playwright test tests/e2e/pilot-staging.spec.mjs tests/e2e/public-completion.spec.mjs --reporter=line --retries=1
+        run: npx playwright test tests/e2e/pilot-staging.spec.mjs tests/e2e/public-completion.spec.mjs tests/e2e/partner-challenge-r4.spec.mjs --reporter=line --retries=1
 
       - name: Upload browser acceptance evidence
         if: always()
