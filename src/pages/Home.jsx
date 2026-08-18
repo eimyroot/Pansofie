@@ -32,7 +32,7 @@ export default function Home() {
           <div className="container-px max-w-7xl mx-auto text-center">
             <span className="chip border border-primary/15 bg-card/70 text-primary mb-6 shadow-sm"><Sparkles size={14} /> Experience-first ekosystém</span>
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold font-display tracking-tight text-balance leading-[1.04]">Poznej sebe.<br />Tvoř s druhými. <span className="text-primary">Zlepšuj svět.</span></h1>
-            <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-balance">Pansofie převádí skutečné potřeby do bezpečných Experiences, ve kterých mladý člověk něco opravdu udělá, doloží, pochopí a může na to navázat.</p>
+            <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-balance">Mladí lidé se učí spoustu důležitých věcí. Pansofie převádí skutečné potřeby do bezpečných Experiences, ve kterých je mohou opravdu použít — něco udělat, doložit, pochopit a navázat dalším krokem.</p>
             <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">Jedna Experience propojuje žáka, školu, rodinu a podle potřeby firmu, obec nebo odborníka — bez otevřené sociální sítě a bez skórování člověka.</p>
 
             <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
