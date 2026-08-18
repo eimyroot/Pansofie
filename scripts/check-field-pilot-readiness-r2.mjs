@@ -3,15 +3,17 @@ import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-const [r2, dates, service, readinessUi, operationsUi] = await Promise.all([
+const [r2, dates, executeHardening, service, readinessUi, operationsUi] = await Promise.all([
   read("supabase/migrations/20260818181000_field_pilot_readiness_measurement_r2.sql"),
   read("supabase/migrations/20260818182000_field_pilot_readiness_dates_r2.sql"),
+  read("supabase/migrations/20260818182500_field_pilot_readiness_execute_hardening_r2.sql"),
   read("src/lib/pansofieExperienceFlow.js"),
   read("src/components/pansofie/PilotReadinessPanel.jsx"),
   read("src/components/pansofie/PilotOperationsPanel.jsx"),
 ]);
 
-const sql = `${r2}\n${dates}`.toLowerCase();
+const sql = `${r2}\n${dates}\n${executeHardening}`.toLowerCase();
+const hardening = executeHardening.toLowerCase();
 
 for (const table of [
   "pilot_cohort_experience_plan",
@@ -34,25 +36,25 @@ for (const responsibility of [
   assert.ok(sql.includes(`'${responsibility}'`), `missing required responsibility ${responsibility}`);
 }
 
-const privateHelpers = ["pansofie_seed_canonical_pilot_plan"];
-for (const fn of privateHelpers) {
-  assert.ok(sql.includes(`function public.${fn}`), `missing private R2 helper ${fn}`);
-  assert.ok(sql.includes(`revoke all on function public.${fn}(uuid) from public`), `private helper ${fn} must revoke PUBLIC execute`);
-  assert.ok(!sql.includes(`grant execute on function public.${fn}(uuid) to authenticated`), `private helper ${fn} must not be browser-callable`);
-}
+assert.ok(sql.includes("function public.pansofie_seed_canonical_pilot_plan"), "missing private pilot plan helper");
+assert.ok(hardening.includes("revoke execute on function public.pansofie_seed_canonical_pilot_plan(uuid) from anon"), "private seed helper must explicitly revoke anon");
+assert.ok(hardening.includes("revoke execute on function public.pansofie_seed_canonical_pilot_plan(uuid) from authenticated"), "private seed helper must explicitly revoke authenticated");
+assert.ok(!hardening.includes("grant execute on function public.pansofie_seed_canonical_pilot_plan(uuid) to authenticated"), "private seed helper must not be browser-callable");
 
-for (const fn of [
-  "pansofie_set_pilot_responsibility",
-  "pansofie_record_teacher_load",
-  "pansofie_report_pilot_incident",
-  "pansofie_set_pilot_incident_status",
-  "pansofie_pilot_readiness",
-  "pansofie_activate_pilot_cohort",
-  "pansofie_pilot_metrics",
-  "pansofie_set_pilot_cohort_dates",
-]) {
+const operatorFns = [
+  ["pansofie_set_pilot_responsibility", "uuid, text, text, text, uuid"],
+  ["pansofie_record_teacher_load", "uuid, date, integer, text"],
+  ["pansofie_report_pilot_incident", "uuid, text, text, text"],
+  ["pansofie_set_pilot_incident_status", "uuid, text"],
+  ["pansofie_pilot_readiness", "uuid"],
+  ["pansofie_activate_pilot_cohort", "uuid"],
+  ["pansofie_pilot_metrics", "uuid"],
+  ["pansofie_set_pilot_cohort_dates", "uuid, date, date"],
+];
+for (const [fn, signature] of operatorFns) {
   assert.ok(sql.includes(`function public.${fn}`), `missing governed R2 function ${fn}`);
-  assert.ok(sql.includes(`grant execute on function public.${fn}`), `missing authenticated execute grant for ${fn}`);
+  assert.ok(hardening.includes(`revoke execute on function public.${fn}(${signature}) from anon`), `${fn} must explicitly revoke anon execute`);
+  assert.ok(hardening.includes(`grant execute on function public.${fn}(${signature}) to authenticated`), `${fn} must explicitly grant authenticated execute`);
 }
 
 for (const slug of ["zlepsi-svou-skolu", "digitalni-most", "circular-challenge"]) {
