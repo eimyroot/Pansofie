@@ -8,6 +8,7 @@ import { RequireAdmin, RequireAuth } from "@/components/auth/RouteGuards";
 import Home from "@/pages/Home";
 import JakFunguje from "@/pages/JakFunguje";
 import Pilot from "@/pages/Pilot";
+import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
 import Login from "@/pages/Login";
 import AdminLogin from "@/pages/AdminLogin";
@@ -51,6 +52,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/jak-funguje" element={<JakFunguje />} />
             <Route path="/pilot" element={<Pilot />} />
+            <Route path="/partneri" element={<Partner />} />
             <Route path="/program/:id" element={<ProgramDetail />} />
 
             <Route path="/login" element={<Login />} />
