@@ -22,7 +22,9 @@ import PageNotFound from "@/pages/PageNotFound";
 import MemberLayout from "@/layouts/MemberLayout";
 import SchoolHub from "@/pages/SchoolHub";
 import SchoolRunDetail from "@/pages/SchoolRunDetail";
+import SchoolChallengeInbox from "@/pages/SchoolChallengeInbox";
 import FamilyHub from "@/pages/FamilyHub";
+import PartnerHub from "@/pages/PartnerHub";
 import Portfolio from "@/pages/Portfolio";
 import Profile from "@/pages/Profile";
 
@@ -30,6 +32,7 @@ import AdminLayout from "@/layouts/AdminLayout";
 import AdminReporting from "@/pages/AdminReporting";
 import AdminPrograms from "@/pages/AdminPrograms";
 import AdminMissions from "@/pages/AdminMissions";
+import AdminPartnerChallenges from "@/pages/AdminPartnerChallenges";
 import AdminUsers from "@/pages/AdminUsers";
 import AdminTeams from "@/pages/AdminTeams";
 import AdminProjects from "@/pages/AdminProjects";
@@ -66,7 +69,9 @@ export default function App() {
             <Route element={<RequireAuth><MemberLayout /></RequireAuth>}>
               <Route path="/skola" element={<SchoolHub />} />
               <Route path="/skola/mise/:runId" element={<SchoolRunDetail />} />
+              <Route path="/skola/challenges" element={<SchoolChallengeInbox />} />
               <Route path="/rodina" element={<FamilyHub />} />
+              <Route path="/partner-workspace" element={<PartnerHub />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/profil" element={<Profile />} />
 
@@ -86,6 +91,7 @@ export default function App() {
               <Route index element={<AdminReporting />} />
               <Route path="programy" element={<AdminPrograms />} />
               <Route path="mise" element={<AdminMissions />} />
+              <Route path="challenges" element={<AdminPartnerChallenges />} />
               <Route path="uzivatele" element={<AdminUsers />} />
               <Route path="tymy" element={<AdminTeams />} />
               <Route path="projekty" element={<AdminProjects />} />

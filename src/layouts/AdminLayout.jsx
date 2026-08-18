@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
 import {
   Briefcase,
+  BriefcaseBusiness,
   Target,
   Users,
   UsersRound,
@@ -20,6 +21,7 @@ const NAV = [
   { to: "/admin", label: "Reporting", icon: BarChart3, end: true },
   { to: "/admin/programy", label: "Programy", icon: Briefcase },
   { to: "/admin/mise", label: "Mise", icon: Target },
+  { to: "/admin/challenges", label: "Partner Challenges", icon: BriefcaseBusiness },
   { to: "/admin/uzivatele", label: "Uživatelé", icon: Users },
   { to: "/admin/tymy", label: "Týmy", icon: UsersRound },
   { to: "/admin/projekty", label: "Projekty", icon: Layers },
@@ -62,7 +64,7 @@ export default function AdminLayout() {
             <p className="text-xs font-medium truncate">{profile?.name || "Administrátor"}</p>
             <p className="text-[11px] text-muted-foreground truncate mt-0.5">{profile?.email || ""}</p>
           </div>
-          <Link to="/dashboard" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"><ArrowLeft size={18} /> Zpět do Pansofie</Link>
+          <Link to="/skola" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"><ArrowLeft size={18} /> Zpět do Pansofie</Link>
           <button type="button" onClick={handleLogout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"><LogOut size={18} /> Odhlásit admina</button>
         </div>
       </aside>

@@ -1,20 +1,23 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { FolderOpen, GraduationCap, HeartHandshake, Leaf, LogOut, UserRound } from "lucide-react";
+import { BriefcaseBusiness, FolderOpen, GraduationCap, HeartHandshake, Inbox, Leaf, LogOut, UserRound } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import { getMyFamilyAccessSummary } from "@/lib/pansofieFamilyFlow";
 import { listMyOrganizationMemberships } from "@/lib/pansofieExperienceFlow";
 
-const BASE_NAV = [
-  { to: "/skola", label: "PANSOFIE School", mobile: "Škola", icon: GraduationCap, role: "school" },
-  { to: "/portfolio", label: "Experience Passport", mobile: "Passport", icon: FolderOpen, role: "learner" },
-  { to: "/profil", label: "Profil", mobile: "Profil", icon: UserRound, role: null },
-];
+const NAV_ITEMS = {
+  school: { to: "/skola", label: "PANSOFIE School", mobile: "Škola", icon: GraduationCap, role: "school" },
+  challenges: { to: "/skola/challenges", label: "Challenge Inbox", mobile: "Challenges", icon: Inbox, role: "school" },
+  family: { to: "/rodina", label: "PANSOFIE Family", mobile: "Rodina", icon: HeartHandshake, role: "family" },
+  partner: { to: "/partner-workspace", label: "PANSOFIE Partner", mobile: "Partner", icon: BriefcaseBusiness, role: "partner" },
+  passport: { to: "/portfolio", label: "Experience Passport", mobile: "Passport", icon: FolderOpen, role: "learner" },
+  profile: { to: "/profil", label: "Profil", mobile: "Profil", icon: UserRound, role: null },
+};
 
 export default function MemberLayout() {
   const navigate = useNavigate();
   const { user, profile, logout } = useAuth();
-  const [showFamily, setShowFamily] = useState(false);
+  const [access, setAccess] = useState({ school: true, schoolStaff: false, learner: true, family: false, partner: false });
 
   useEffect(() => {
     let active = true;
@@ -25,21 +28,32 @@ export default function MemberLayout() {
       listMyOrganizationMemberships(user.id).catch(() => []),
     ]).then(([family, memberships]) => {
       if (!active) return;
+      const schoolRoles = memberships.filter((item) => ["learner", "teacher", "coordinator"].includes(item.role));
       const isSchoolStaff = memberships.some((item) => ["teacher", "coordinator"].includes(item.role));
-      setShowFamily(Boolean(family?.has_family_access || isSchoolStaff));
+      const isLearner = memberships.some((item) => item.role === "learner");
+      const isPartner = memberships.some((item) => item.role === "partner_contact" && item.status === "active");
+      setAccess({
+        school: schoolRoles.length > 0,
+        schoolStaff: isSchoolStaff,
+        learner: isLearner,
+        family: Boolean(family?.has_family_access || isSchoolStaff),
+        partner: isPartner,
+      });
     });
 
     return () => { active = false; };
   }, [user?.id]);
 
   const nav = useMemo(() => {
-    if (!showFamily) return BASE_NAV;
-    return [
-      BASE_NAV[0],
-      { to: "/rodina", label: "PANSOFIE Family", mobile: "Rodina", icon: HeartHandshake, role: "family" },
-      ...BASE_NAV.slice(1),
-    ];
-  }, [showFamily]);
+    const items = [];
+    if (access.school) items.push(NAV_ITEMS.school);
+    if (access.schoolStaff) items.push(NAV_ITEMS.challenges);
+    if (access.family) items.push(NAV_ITEMS.family);
+    if (access.partner) items.push(NAV_ITEMS.partner);
+    if (access.learner) items.push(NAV_ITEMS.passport);
+    items.push(NAV_ITEMS.profile);
+    return items;
+  }, [access]);
 
   const handleLogout = async () => {
     await logout();
@@ -59,7 +73,7 @@ export default function MemberLayout() {
 
         <div className="mb-5 surface-subtle p-3.5">
           <p className="eyebrow">Governed pilot</p>
-          <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">Zobrazuje pouze role a data, ke kterým má účet skutečné oprávnění. Prototypové social funkce zůstávají skryté.</p>
+          <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">Navigace se skládá podle skutečných membership/guardian oprávnění. Partner, School, Family a Passport nejsou jeden univerzální dashboard.</p>
         </div>
 
         <nav className="flex flex-col gap-1.5" aria-label="Pilotní workspace">
@@ -86,23 +100,25 @@ export default function MemberLayout() {
 
       <div className="lg:pl-[272px]"><main className="min-h-screen pb-20 lg:pb-0"><Outlet /></main></div>
 
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-card/96 backdrop-blur-md border-t border-border/70 grid px-1 pb-[env(safe-area-inset-bottom)]" style={{ gridTemplateColumns: `repeat(${nav.length}, minmax(0, 1fr))` }} aria-label="Mobilní pilotní navigace">
-        {nav.map(({ to, mobile, icon: Icon, role }) => (
-          <NavLink
-            key={to}
-            to={to}
-            data-role={role || undefined}
-            className={({ isActive }) => `relative flex min-h-[58px] flex-col items-center justify-center gap-1 rounded-xl text-[10px] font-medium ${isActive ? "text-foreground" : "text-muted-foreground"}`}
-          >
-            {({ isActive }) => (
-              <>
-                {isActive && <span className="absolute top-0 h-0.5 w-8 rounded-full" style={{ background: role ? "hsl(var(--role-accent))" : "hsl(var(--primary))" }} aria-hidden="true" />}
-                <Icon size={18} style={isActive && role ? { color: "hsl(var(--role-accent))" } : undefined} />
-                <span>{mobile}</span>
-              </>
-            )}
-          </NavLink>
-        ))}
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-card/96 backdrop-blur-md border-t border-border/70 overflow-x-auto no-scrollbar pb-[env(safe-area-inset-bottom)]" aria-label="Mobilní pilotní navigace">
+        <div className="flex min-w-max items-stretch">
+          {nav.map(({ to, mobile, icon: Icon, role }) => (
+            <NavLink
+              key={to}
+              to={to}
+              data-role={role || undefined}
+              className={({ isActive }) => `relative flex min-h-[58px] min-w-[78px] flex-col items-center justify-center gap-1 rounded-xl px-2 text-[10px] font-medium ${isActive ? "text-foreground" : "text-muted-foreground"}`}
+            >
+              {({ isActive }) => (
+                <>
+                  {isActive && <span className="absolute top-0 h-0.5 w-8 rounded-full" style={{ background: role ? "hsl(var(--role-accent))" : "hsl(var(--primary))" }} aria-hidden="true" />}
+                  <Icon size={18} style={isActive && role ? { color: "hsl(var(--role-accent))" } : undefined} />
+                  <span>{mobile}</span>
+                </>
+              )}
+            </NavLink>
+          ))}
+        </div>
       </nav>
     </div>
   );
