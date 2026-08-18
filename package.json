@@ -17,7 +17,8 @@
     "check:pilot-visible": "node scripts/check-pilot-visible.mjs",
     "check:public-product": "node scripts/check-public-product-v3.mjs",
     "check:public-completion": "node scripts/check-public-web-completion-r1.mjs",
-    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && npm run check:partners && npm run check:deploy && npm run check:db-security && npm run check:pilot-visible && npm run check:public-product && npm run check:public-completion && vite build"
+    "check:pansofiedit": "node scripts/check-pansofiedit-r1.mjs",
+    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && npm run check:partners && npm run check:deploy && npm run check:db-security && npm run check:pilot-visible && npm run check:public-product && npm run check:public-completion && npm run check:pansofiedit && vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
