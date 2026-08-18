@@ -10,6 +10,7 @@ import {
   Users,
 } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
+import PilotOperationsPanel from "@/components/pansofie/PilotOperationsPanel";
 import {
   assignSchoolMission,
   listMyOrganizationMemberships,
@@ -49,10 +50,6 @@ export default function SchoolHub() {
   const teacherMemberships = useMemo(
     () => memberships.filter((item) => ["teacher", "coordinator"].includes(item.role)),
     [memberships]
-  );
-  const teacherOrgIds = useMemo(
-    () => teacherMemberships.map((item) => item.organization_id),
-    [teacherMemberships]
   );
   const learnerName = useMemo(
     () => new Map(learners.map((item) => [item.user_id, item.display_name])),
@@ -99,9 +96,7 @@ export default function SchoolHub() {
     }
   }, [user?.id]);
 
-  useEffect(() => {
-    reload();
-  }, [reload]);
+  useEffect(() => { reload(); }, [reload]);
 
   const selectedOrgLearners = learners.filter((row) => row.organization_id === form.organizationId);
 
@@ -125,7 +120,7 @@ export default function SchoolHub() {
         learnerId: form.learnerId,
         organizationId: form.organizationId,
       });
-      setActionMessage("Mise byla přiřazena. Pokud už existoval aktivní běh stejné mise, zůstal zachován původní běh.");
+      setActionMessage("Mise byla přiřazena a nový běh je připnutý k přesné immutable verzi zadání.");
       await reload();
     } catch (err) {
       setError(err.message || "Misi se nepodařilo přiřadit.");
@@ -140,25 +135,14 @@ export default function SchoolHub() {
         <div>
           <div className="flex items-center gap-2 text-primary mb-2"><GraduationCap size={20} /><span className="text-sm font-semibold">PANSOFIE SCHOOL</span></div>
           <h1 className="text-2xl sm:text-3xl font-semibold font-heading">Skutečné zkušenosti</h1>
-          <p className="text-muted-foreground mt-2 max-w-2xl">Přiřazená mise se mění ve zkušenost teprve po reálné činnosti, důkazu, reflexi a odděleném ověření.</p>
+          <p className="text-muted-foreground mt-2 max-w-2xl">Přiřazená mise se mění ve Experience teprve po reálné činnosti, důkazu, reflexi a odděleném ověření.</p>
         </div>
-        <button type="button" onClick={reload} disabled={loading} className="px-4 py-2 rounded-xl border border-border bg-card inline-flex items-center gap-2 text-sm font-medium disabled:opacity-50">
-          <RefreshCw size={15} className={loading ? "animate-spin" : ""} /> Obnovit
-        </button>
+        <button type="button" onClick={reload} disabled={loading} className="px-4 py-2 rounded-xl border border-border bg-card inline-flex items-center gap-2 text-sm font-medium disabled:opacity-50"><RefreshCw size={15} className={loading ? "animate-spin" : ""} /> Obnovit</button>
       </div>
 
-      {error && (
-        <div className="mb-6 rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm flex items-start gap-3">
-          <AlertTriangle size={18} className="text-destructive shrink-0 mt-0.5" />
-          <div><p className="font-semibold">Školní flow není v tomto prostředí dostupné.</p><p className="text-muted-foreground mt-1">{error}</p><p className="text-muted-foreground mt-1">R0.1–R0.3 Supabase migrace musí být aplikované ve správném pořadí. UI samo databázi nemění.</p></div>
-        </div>
-      )}
+      {error && <div className="mb-6 rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm flex items-start gap-3"><AlertTriangle size={18} className="text-destructive shrink-0 mt-0.5" /><div><p className="font-semibold">Školní flow není v tomto prostředí dostupné.</p><p className="text-muted-foreground mt-1">{error}</p><p className="text-muted-foreground mt-1">R0.1–R0.3 a Field Pilot Operationalization R1 migrace musí být aplikované ve správném pořadí. UI samo databázi nemění.</p></div></div>}
 
-      {actionMessage && (
-        <div className="mb-6 rounded-2xl border border-primary/25 bg-primary/5 p-4 text-sm flex items-start gap-3">
-          <CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" /> {actionMessage}
-        </div>
-      )}
+      {actionMessage && <div className="mb-6 rounded-2xl border border-primary/25 bg-primary/5 p-4 text-sm flex items-start gap-3"><CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" /> {actionMessage}</div>}
 
       <section className="mb-12">
         <div className="flex items-center gap-2 mb-4"><BookOpen size={18} className="text-primary" /><h2 className="text-lg font-semibold font-heading">Moje školní mise</h2></div>
@@ -170,9 +154,9 @@ export default function SchoolHub() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {myRuns.map((run) => (
               <Link key={run.id} to={`/skola/mise/${run.id}`} className="card-soft p-5 group hover:-translate-y-0.5 transition-transform">
-                <div className="flex items-start justify-between gap-4"><div><p className="text-xs text-muted-foreground mb-1">{run.organizations?.name || "PANSOFIE SCHOOL"}</p><h3 className="font-semibold text-lg">{run.missions?.title || "Mise"}</h3></div><StatusPill status={run.status} /></div>
+                <div className="flex items-start justify-between gap-4"><div><p className="text-xs text-muted-foreground mb-1">{run.organizations?.name || "PANSOFIE SCHOOL"}{run.team_id ? " · týmová Experience" : ""}</p><h3 className="font-semibold text-lg">{run.missions?.title || "Mise"}</h3></div><StatusPill status={run.status} /></div>
                 <p className="text-sm text-muted-foreground mt-3 line-clamp-2">{run.missions?.summary || run.missions?.why || "Praktická zkušenost v reálném světě."}</p>
-                <div className="mt-4 text-sm text-primary font-medium inline-flex items-center gap-1">Otevřít zkušenost <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" /></div>
+                <div className="mt-4 text-sm text-primary font-medium inline-flex items-center gap-1">Otevřít Experience <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" /></div>
               </Link>
             ))}
           </div>
@@ -181,19 +165,16 @@ export default function SchoolHub() {
 
       {teacherMemberships.length > 0 && (
         <>
+          <PilotOperationsPanel teacherMemberships={teacherMemberships} learners={learners} missions={missions} onChanged={reload} />
+
           <section className="mb-12">
-            <div className="flex items-center gap-2 mb-4"><Users size={18} className="text-primary" /><h2 className="text-lg font-semibold font-heading">Přiřadit misi</h2></div>
+            <div className="flex items-center gap-2 mb-4"><Users size={18} className="text-primary" /><h2 className="text-lg font-semibold font-heading">Individuální přiřazení</h2></div>
+            <p className="text-sm text-muted-foreground mb-4">Fallback pro individuální Experience. Field pilot preferuje bounded týmové přiřazení výše.</p>
             <form onSubmit={handleAssign} className="card-soft p-6 grid grid-cols-1 lg:grid-cols-4 gap-4 items-end">
-              <label className="text-sm"><span className="block font-medium mb-2">Organizace</span><select value={form.organizationId} onChange={(e) => handleOrgChange(e.target.value)} className="w-full rounded-xl border border-border bg-background px-3 py-2.5">
-                {teacherMemberships.map((membership) => <option key={membership.id} value={membership.organization_id}>{membership.organizations?.name || membership.organization_id}</option>)}
-              </select></label>
-              <label className="text-sm"><span className="block font-medium mb-2">Žák</span><select value={form.learnerId} onChange={(e) => setForm((current) => ({ ...current, learnerId: e.target.value }))} className="w-full rounded-xl border border-border bg-background px-3 py-2.5">
-                {selectedOrgLearners.map((learner) => <option key={learner.id} value={learner.user_id}>{learner.display_name}</option>)}
-              </select></label>
-              <label className="text-sm"><span className="block font-medium mb-2">Publikovaná mise</span><select value={form.missionId} onChange={(e) => setForm((current) => ({ ...current, missionId: e.target.value }))} className="w-full rounded-xl border border-border bg-background px-3 py-2.5">
-                {missions.map((mission) => <option key={mission.id} value={mission.id}>{mission.title}</option>)}
-              </select></label>
-              <button type="submit" disabled={assigning || !selectedOrgLearners.length || !missions.length} className="rounded-xl bg-primary text-primary-foreground px-4 py-2.5 font-semibold disabled:opacity-50">{assigning ? "Přiřazuji…" : "Přiřadit misi"}</button>
+              <label className="text-sm"><span className="block font-medium mb-2">Organizace</span><select value={form.organizationId} onChange={(e) => handleOrgChange(e.target.value)} className="w-full rounded-xl border border-border bg-background px-3 py-2.5">{teacherMemberships.map((membership) => <option key={membership.id} value={membership.organization_id}>{membership.organizations?.name || membership.organization_id}</option>)}</select></label>
+              <label className="text-sm"><span className="block font-medium mb-2">Žák</span><select value={form.learnerId} onChange={(e) => setForm((current) => ({ ...current, learnerId: e.target.value }))} className="w-full rounded-xl border border-border bg-background px-3 py-2.5">{selectedOrgLearners.map((learner) => <option key={learner.id} value={learner.user_id}>{learner.display_name}</option>)}</select></label>
+              <label className="text-sm"><span className="block font-medium mb-2">Publikovaná mise</span><select value={form.missionId} onChange={(e) => setForm((current) => ({ ...current, missionId: e.target.value }))} className="w-full rounded-xl border border-border bg-background px-3 py-2.5">{missions.map((mission) => <option key={mission.id} value={mission.id}>{mission.title}</option>)}</select></label>
+              <button type="submit" disabled={assigning || !selectedOrgLearners.length || !missions.length} className="rounded-xl bg-primary text-primary-foreground px-4 py-2.5 font-semibold disabled:opacity-50">{assigning ? "Přiřazuji…" : "Přiřadit individuálně"}</button>
             </form>
           </section>
 
@@ -204,10 +185,7 @@ export default function SchoolHub() {
             ) : (
               <div className="flex flex-col gap-3">
                 {teacherRuns.map((run) => (
-                  <Link key={run.id} to={`/skola/mise/${run.id}`} className="card-soft p-5 flex flex-col sm:flex-row sm:items-center gap-4 group">
-                    <div className="flex-1"><p className="text-xs text-muted-foreground">{run.organizations?.name || "Organizace"} · {learnerName.get(run.user_id) || `Žák ${run.user_id.slice(0, 8)}`}</p><h3 className="font-semibold mt-1">{run.missions?.title || "Mise"}</h3></div>
-                    <div className="flex items-center gap-3"><StatusPill status={run.status} /><ArrowRight size={16} className="text-primary transition-transform group-hover:translate-x-1" /></div>
-                  </Link>
+                  <Link key={run.id} to={`/skola/mise/${run.id}`} className="card-soft p-5 flex flex-col sm:flex-row sm:items-center gap-4 group"><div className="flex-1"><p className="text-xs text-muted-foreground">{run.organizations?.name || "Organizace"} · {learnerName.get(run.user_id) || `Žák ${run.user_id.slice(0, 8)}`}{run.team_id ? " · tým" : ""}</p><h3 className="font-semibold mt-1">{run.missions?.title || "Mise"}</h3></div><div className="flex items-center gap-3"><StatusPill status={run.status} /><ArrowRight size={16} className="text-primary transition-transform group-hover:translate-x-1" /></div></Link>
                 ))}
               </div>
             )}
