@@ -9,7 +9,7 @@ import { LABS, PATHS, PROCESS_STEPS, PROGRAMS } from "@/lib/pansofieData";
 
 const PROGRAM_STATE = {
   school: { label: "Připraveno pro první pilot", detail: "Digitální School flow je otestovaný na stagingu. Reálný školní field pilot je další krok." },
-  family: { label: "Zapojení v prvním pilotu", detail: "Rodina dostává bezpečnou a dobrovolnou roli kolem konkrétní Experience; samostatný Family produkt ještě není live." },
+  family: { label: "Bounded runtime na stagingu", detail: "Family workspace je implementovaný pro purpose-specific pilotní přístup: rodina vidí bezpečný kontext, může přidat ohraničený podnět a soukromá reflexe zůstává mimo její přístup." },
   community: { label: "Zapojení podle Experience", detail: "Obec, spolek nebo komunita mohou přinést lokální potřebu, kontext a možnost výsledek použít. Samostatný runtime ještě není live." },
   youth: { label: "Připravujeme", detail: "Youth je směr pro 15+, samostatnost, práci, projekty a mentoring. Není prezentován jako hotový produkt." },
 };
