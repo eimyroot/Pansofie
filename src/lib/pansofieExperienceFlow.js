@@ -55,7 +55,7 @@ export async function listMySchoolRuns(userId) {
   if (!userId) return [];
   const result = await supabase
     .from("mission_runs")
-    .select("id, status, started_at, submitted_at, completed_at, organization_id, assigned_by, created_at, missions(id, slug, title, summary, why, program_id, lab_id, path_ids, evidence_prompt, reflection_prompt, transfer_prompt, contribution_prompt, safety_notes), organizations(id, slug, name, organization_type)")
+    .select("id, status, started_at, submitted_at, completed_at, organization_id, assigned_by, mission_version_id, cohort_id, team_id, created_at, missions(id, slug, title, summary, why, program_id, lab_id, path_ids, evidence_prompt, reflection_prompt, transfer_prompt, contribution_prompt, safety_notes), organizations(id, slug, name, organization_type)")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
   return throwIfError(result, "My mission runs load failed") || [];
@@ -73,11 +73,75 @@ export async function listTeacherSchoolRuns(organizationIds) {
   if (!organizationIds?.length) return [];
   const result = await supabase
     .from("mission_runs")
-    .select("id, user_id, status, started_at, submitted_at, completed_at, organization_id, assigned_by, created_at, missions(id, slug, title, summary, path_ids), organizations(id, slug, name)")
+    .select("id, user_id, status, started_at, submitted_at, completed_at, organization_id, assigned_by, mission_version_id, cohort_id, team_id, created_at, missions(id, slug, title, summary, path_ids), organizations(id, slug, name)")
     .in("organization_id", organizationIds)
     .in("status", ["assigned", "in_progress", "submitted"])
     .order("created_at", { ascending: false });
   return throwIfError(result, "Teacher run queue load failed") || [];
+}
+
+export async function listPilotCohorts(organizationIds) {
+  if (!organizationIds?.length) return [];
+  const result = await supabase
+    .from("pilot_cohorts")
+    .select("id, organization_id, name, status, starts_on, ends_on, created_at, pilot_cohort_members(id, user_id, role, status)")
+    .in("organization_id", organizationIds)
+    .order("created_at", { ascending: false });
+  return throwIfError(result, "Pilot cohorts load failed") || [];
+}
+
+export async function listExperienceTeams(cohortIds) {
+  if (!cohortIds?.length) return [];
+  const result = await supabase
+    .from("experience_teams")
+    .select("id, cohort_id, name, status, created_at, experience_team_members(id, user_id, role, status)")
+    .in("cohort_id", cohortIds)
+    .order("created_at", { ascending: true });
+  return throwIfError(result, "Experience teams load failed") || [];
+}
+
+export async function createPilotCohort({ organizationId, name, startsOn = null, endsOn = null }) {
+  const result = await supabase.rpc("pansofie_create_pilot_cohort", {
+    target_org_id: organizationId,
+    target_name: name,
+    target_starts_on: startsOn,
+    target_ends_on: endsOn,
+  });
+  return throwIfError(result, "Pilot cohort creation failed");
+}
+
+export async function addPilotCohortMember({ cohortId, userId, role }) {
+  const result = await supabase.rpc("pansofie_add_pilot_cohort_member", {
+    target_cohort_id: cohortId,
+    target_user_id: userId,
+    target_role: role,
+  });
+  return throwIfError(result, "Pilot cohort member add failed");
+}
+
+export async function createExperienceTeam({ cohortId, name }) {
+  const result = await supabase.rpc("pansofie_create_experience_team", {
+    target_cohort_id: cohortId,
+    target_name: name,
+  });
+  return throwIfError(result, "Experience team creation failed");
+}
+
+export async function addExperienceTeamMember({ teamId, userId, role = "learner" }) {
+  const result = await supabase.rpc("pansofie_add_experience_team_member", {
+    target_team_id: teamId,
+    target_user_id: userId,
+    target_role: role,
+  });
+  return throwIfError(result, "Experience team member add failed");
+}
+
+export async function assignPilotTeamMission({ missionId, teamId }) {
+  const result = await supabase.rpc("pansofie_assign_pilot_team_mission", {
+    target_mission_id: missionId,
+    target_team_id: teamId,
+  });
+  return throwIfError(result, "Pilot team mission assignment failed") || [];
 }
 
 export async function assignSchoolMission({ missionId, learnerId, organizationId }) {
@@ -159,7 +223,7 @@ export async function finalizeSchoolExperience(runId) {
 export async function getRunDetail(runId) {
   const runResult = await supabase
     .from("mission_runs")
-    .select("id, mission_id, user_id, organization_id, assigned_by, status, started_at, submitted_at, completed_at, created_at, missions(id, slug, title, summary, why, program_id, lab_id, path_ids, evidence_prompt, reflection_prompt, transfer_prompt, contribution_prompt, safety_notes), organizations(id, slug, name, organization_type)")
+    .select("id, mission_id, mission_version_id, cohort_id, team_id, user_id, organization_id, assigned_by, status, started_at, submitted_at, completed_at, created_at, missions(id, slug, title, summary, why, program_id, lab_id, path_ids, evidence_prompt, reflection_prompt, transfer_prompt, contribution_prompt, safety_notes), organizations(id, slug, name, organization_type), mission_versions(id, version_no, snapshot, content_hash)")
     .eq("id", runId)
     .single();
   const run = throwIfError(runResult, "Mission run load failed");
@@ -182,14 +246,11 @@ export async function getRunDetail(runId) {
       .order("updated_at", { ascending: false }),
     supabase
       .from("experiences")
-      .select("id, title, path_ids, impact_summary, occurred_at, portfolio_items(id, title, summary, visibility, verified_by, verified_at)")
+      .select("id, mission_version_id, cohort_id, team_id, title, path_ids, impact_summary, occurred_at, portfolio_items(id, title, summary, visibility, verified_by, verified_at)")
       .eq("run_id", runId)
       .maybeSingle(),
   ]);
 
-  // Purpose-specific RLS may intentionally hide evidence/reflection/reviews from
-  // a teacher who lacks that exact processing basis. Treat an RLS-visible empty
-  // result as scoped absence, but surface actual query errors.
   if (evidenceResult.error) throw new Error(`Evidence load failed: ${evidenceResult.error.message}`);
   if (reflectionResult.error) throw new Error(`Reflection load failed: ${reflectionResult.error.message}`);
   if (reviewsResult.error) throw new Error(`Reviews load failed: ${reviewsResult.error.message}`);
@@ -208,7 +269,7 @@ export async function listMyPortfolio(userId) {
   if (!userId) return [];
   const result = await supabase
     .from("portfolio_items")
-    .select("id, title, summary, visibility, verified_by, verified_at, created_at, experiences(id, mission_id, path_ids, impact_summary, occurred_at)")
+    .select("id, title, summary, visibility, verified_by, verified_at, created_at, experiences(id, mission_id, mission_version_id, cohort_id, team_id, path_ids, impact_summary, occurred_at)")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
   return throwIfError(result, "Portfolio load failed") || [];
