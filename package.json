@@ -15,7 +15,8 @@
     "check:deploy": "node scripts/check-deployment-readiness.mjs",
     "check:db-security": "node scripts/check-db-security.mjs",
     "check:pilot-visible": "node scripts/check-pilot-visible.mjs",
-    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && npm run check:partners && npm run check:deploy && npm run check:db-security && npm run check:pilot-visible && vite build"
+    "check:public-product": "node scripts/check-public-product-v3.mjs",
+    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && npm run check:partners && npm run check:deploy && npm run check:db-security && npm run check:pilot-visible && npm run check:public-product && vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
