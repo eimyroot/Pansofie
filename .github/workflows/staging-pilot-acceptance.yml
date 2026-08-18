@@ -1,4 +1,4 @@
-name: Staging Pilot Acceptance
+name: Staging Public Product Acceptance
 
 on:
   pull_request:
@@ -11,13 +11,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: staging-pilot-acceptance-${{ github.ref }}
+  group: staging-public-product-acceptance-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  public-pilot:
+  public-product:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     env:
       PANSOFIE_STAGING_URL: https://pansofie-staging.vercel.app
     steps:
@@ -36,14 +36,14 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run staging Pilot R1 acceptance
+      - name: Run public product V3.1 browser acceptance
         run: npx playwright test tests/e2e/pilot-staging.spec.mjs --reporter=line
 
-      - name: Upload Playwright evidence on failure
-        if: failure()
+      - name: Upload browser acceptance evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: staging-pilot-acceptance-failure
+          name: pansofie-public-product-v3-1-browser-evidence
           path: test-results/
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: warn
+          retention-days: 14

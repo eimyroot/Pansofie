@@ -22,14 +22,70 @@ function runtimeErrors(page) {
   return errors;
 }
 
-test("deep-link /pilot renders the merged Pilot R1 product", async ({ page }) => {
+const PUBLIC_ROUTES = [
+  ["/", /Poznej sebe/],
+  ["/pilot", /Tři skutečné zkušenosti/],
+  ["/jak-funguje", /Od skutečné potřeby k/],
+  ["/partneri", /Přineste skutečný problém/],
+  ["/program/school", /Pansofie School/],
+  ["/program/family", /Pansofie Family/],
+  ["/program/community", /Pansofie Community/],
+  ["/program/youth", /Pansofie Youth/],
+];
+
+for (const [path, heading] of PUBLIC_ROUTES) {
+  test(`public route ${path} renders without runtime failure`, async ({ page }) => {
+    const errors = runtimeErrors(page);
+    const response = await page.goto(`${BASE_URL}${path}`, { waitUntil: "networkidle" });
+
+    expect(response, `${path} must return a document response`).not.toBeNull();
+    expect(response.status(), `${path} must not be protected/broken`).toBeLessThan(400);
+    await expect(page.getByRole("heading", { name: heading }).first()).toBeVisible();
+    expect(errors, `runtime errors on ${path}:\n${errors.join("\n")}`).toEqual([]);
+  });
+}
+
+test("homepage communicates Experience-first V3.1 truthfully", async ({ page, browserName }, testInfo) => {
+  const errors = runtimeErrors(page);
+  await page.setViewportSize({ width: 1440, height: 1100 });
+  await page.goto(`${BASE_URL}/`, { waitUntil: "networkidle" });
+
+  await expect(page.getByText("Ekosystém skutečných zkušeností", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Nejdřív něco skutečně uděláš/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Jedna Experience uprostřed/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Přínos není skóre člověka." })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Prozkoumat první pilot" }).first()).toHaveAttribute("href", "/pilot");
+
+  await page.screenshot({ path: testInfo.outputPath(`homepage-desktop-${browserName}.png`), fullPage: true });
+  expect(errors, `runtime errors on homepage:\n${errors.join("\n")}`).toEqual([]);
+});
+
+test("public core pages render desktop evidence screenshots", async ({ page, browserName }, testInfo) => {
+  await page.setViewportSize({ width: 1440, height: 1100 });
+  const routes = [
+    ["pilot", "/pilot"],
+    ["how-it-works", "/jak-funguje"],
+    ["partners", "/partneri"],
+  ];
+
+  for (const [name, path] of routes) {
+    const errors = runtimeErrors(page);
+    const response = await page.goto(`${BASE_URL}${path}`, { waitUntil: "networkidle" });
+    expect(response).not.toBeNull();
+    expect(response.status()).toBeLessThan(400);
+    await page.screenshot({ path: testInfo.outputPath(`${name}-desktop-${browserName}.png`), fullPage: true });
+    expect(errors, `runtime errors on ${path}:\n${errors.join("\n")}`).toEqual([]);
+  }
+});
+
+test("pilot truthfully distinguishes staging verification from field pilot", async ({ page }) => {
   const errors = runtimeErrors(page);
   const response = await page.goto(`${BASE_URL}/pilot`, { waitUntil: "networkidle" });
 
-  expect(response, "deep-link must return a document response").not.toBeNull();
-  expect(response.status(), "deep-link /pilot must not be protected/broken").toBeLessThan(400);
-  await expect(page.getByText("PANSOFIE SCHOOL · PILOT R1")).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Tři skutečné zkušenosti/ })).toBeVisible();
+  expect(response).not.toBeNull();
+  expect(response.status()).toBeLessThan(400);
+  await expect(page.getByText("PANSOFIE SCHOOL · PŘIPRAVENO PRO PRVNÍ FIELD PILOT")).toBeVisible();
+  await expect(page.getByText(/Reálný field pilot ve škole ještě neproběhl/)).toBeVisible();
   await expect(page.getByText("Zlepši svou školu", { exact: true })).toBeVisible();
   await expect(page.getByText("Digitální most", { exact: true })).toBeVisible();
   await expect(page.getByText("Circular Challenge", { exact: true })).toBeVisible();
@@ -37,11 +93,11 @@ test("deep-link /pilot renders the merged Pilot R1 product", async ({ page }) =>
   expect(errors, `runtime errors on /pilot:\n${errors.join("\n")}`).toEqual([]);
 });
 
-test("pilot CTA preserves governed returnTo=/skola through login", async ({ page }) => {
+test("pilot account CTA preserves governed returnTo=/skola through login", async ({ page }) => {
   const errors = runtimeErrors(page);
   await page.goto(`${BASE_URL}/pilot`, { waitUntil: "networkidle" });
 
-  const cta = page.getByRole("link", { name: /Vstoupit do školního pilotu/ });
+  const cta = page.getByRole("link", { name: "Mám pilotní účet" });
   await expect(cta).toHaveAttribute("href", "/login?returnTo=%2Fskola");
   await cta.click();
 
@@ -66,26 +122,25 @@ test("unauthenticated /skola is fail-closed and redirects to login", async ({ br
   await context.close();
 });
 
-test("mobile pilot has no horizontal overflow and keeps primary CTA usable", async ({ browser }, testInfo) => {
+test("mobile homepage and pilot have no horizontal overflow", async ({ browser }, testInfo) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
   const page = await context.newPage();
-  const errors = runtimeErrors(page);
 
-  const response = await page.goto(`${BASE_URL}/pilot`, { waitUntil: "networkidle" });
-  expect(response).not.toBeNull();
-  expect(response.status()).toBeLessThan(400);
+  for (const [name, path] of [["homepage", "/"], ["pilot", "/pilot"]]) {
+    const errors = runtimeErrors(page);
+    const response = await page.goto(`${BASE_URL}${path}`, { waitUntil: "networkidle" });
+    expect(response).not.toBeNull();
+    expect(response.status()).toBeLessThan(400);
 
-  const dimensions = await page.evaluate(() => ({
-    innerWidth: window.innerWidth,
-    scrollWidth: document.documentElement.scrollWidth,
-  }));
-  expect(dimensions.scrollWidth, `horizontal overflow: ${JSON.stringify(dimensions)}`).toBeLessThanOrEqual(dimensions.innerWidth + 1);
+    const dimensions = await page.evaluate(() => ({
+      innerWidth: window.innerWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    }));
+    expect(dimensions.scrollWidth, `horizontal overflow on ${path}: ${JSON.stringify(dimensions)}`).toBeLessThanOrEqual(dimensions.innerWidth + 1);
 
-  const cta = page.getByRole("link", { name: /Vstoupit do školního pilotu/ });
-  await expect(cta).toBeVisible();
-  await expect(cta).toHaveAttribute("href", "/login?returnTo=%2Fskola");
+    await page.screenshot({ path: testInfo.outputPath(`${name}-mobile.png`), fullPage: true });
+    expect(errors, `runtime errors on mobile ${path}:\n${errors.join("\n")}`).toEqual([]);
+  }
 
-  await page.screenshot({ path: testInfo.outputPath("pilot-mobile.png"), fullPage: true });
-  expect(errors, `runtime errors on mobile /pilot:\n${errors.join("\n")}`).toEqual([]);
   await context.close();
 });
