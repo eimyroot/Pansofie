@@ -21,7 +21,8 @@
     "check:pansofiedit-r2": "node scripts/check-pansofiedit-r2.mjs",
     "check:field-pilot-ops": "node scripts/check-field-pilot-operationalization-r1.mjs",
     "check:field-pilot-readiness": "node scripts/check-field-pilot-readiness-r2.mjs",
-    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && npm run check:partners && npm run check:deploy && npm run check:db-security && npm run check:pilot-visible && npm run check:public-product && npm run check:public-completion && npm run check:pansofiedit && npm run check:pansofiedit-r2 && npm run check:field-pilot-ops && npm run check:field-pilot-readiness && vite build"
+    "check:field-pilot-family": "node scripts/check-field-pilot-family-participation-r3.mjs",
+    "check": "npm run check:domain && npm run check:access && npm run check:flow && npm run check:pilot && npm run check:partners && npm run check:deploy && npm run check:db-security && npm run check:pilot-visible && npm run check:public-product && npm run check:public-completion && npm run check:pansofiedit && npm run check:pansofiedit-r2 && npm run check:field-pilot-ops && npm run check:field-pilot-readiness && npm run check:field-pilot-family && vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
