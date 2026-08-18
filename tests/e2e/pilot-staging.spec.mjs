@@ -45,12 +45,12 @@ for (const [path, heading] of PUBLIC_ROUTES) {
   });
 }
 
-test("homepage communicates Experience-first V3.1 truthfully", async ({ page, browserName }, testInfo) => {
+test("homepage communicates current Experience-first truthfully", async ({ page, browserName }, testInfo) => {
   const errors = runtimeErrors(page);
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(`${BASE_URL}/`, { waitUntil: "networkidle" });
 
-  await expect(page.getByText("Ekosystém skutečných zkušeností", { exact: true })).toBeVisible();
+  await expect(page.getByText("Experience-first ekosystém", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: /Nejdřív něco skutečně uděláš/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: /Jedna Experience uprostřed/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Přínos není skóre člověka." })).toBeVisible();
