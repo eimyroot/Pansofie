@@ -34,8 +34,14 @@ for (const responsibility of [
   assert.ok(sql.includes(`'${responsibility}'`), `missing required responsibility ${responsibility}`);
 }
 
+const privateHelpers = ["pansofie_seed_canonical_pilot_plan"];
+for (const fn of privateHelpers) {
+  assert.ok(sql.includes(`function public.${fn}`), `missing private R2 helper ${fn}`);
+  assert.ok(sql.includes(`revoke all on function public.${fn}(uuid) from public`), `private helper ${fn} must revoke PUBLIC execute`);
+  assert.ok(!sql.includes(`grant execute on function public.${fn}(uuid) to authenticated`), `private helper ${fn} must not be browser-callable`);
+}
+
 for (const fn of [
-  "pansofie_seed_canonical_pilot_plan",
   "pansofie_set_pilot_responsibility",
   "pansofie_record_teacher_load",
   "pansofie_report_pilot_incident",
