@@ -1,7 +1,9 @@
 name: Staging Public Product Acceptance
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
       - "tests/e2e/**"
       - "src/**"
@@ -18,7 +20,7 @@ concurrency:
 jobs:
   public-product:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 20
     env:
       PANSOFIE_STAGING_URL: https://pansofie-staging.vercel.app
     steps:
@@ -37,8 +39,11 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Allow canonical staging alias to settle
+        run: sleep 30
+
       - name: Run public product browser acceptance
-        run: npx playwright test tests/e2e/pilot-staging.spec.mjs tests/e2e/public-completion.spec.mjs --reporter=line
+        run: npx playwright test tests/e2e/pilot-staging.spec.mjs tests/e2e/public-completion.spec.mjs --reporter=line --retries=1
 
       - name: Upload browser acceptance evidence
         if: always()
