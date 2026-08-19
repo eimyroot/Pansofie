@@ -63,10 +63,10 @@ test("homepage has one coherent public narrative", async ({ page }) => {
 
 test("dedicated role page exposes all six role infographics", async ({ page }) => {
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
-  for (const label of ["Žák", "Rodina", "Škola", "Mentor", "Partner", "Komunita"]) {
-    await expect(page.getByRole("button", { name: new RegExp(label, "i") }).first()).toBeVisible();
+  for (const role of ["learner", "family", "school", "mentor", "partner", "community"]) {
+    await expect(page.locator(`button[data-role="${role}"]`).first()).toBeVisible();
   }
-  const partner = page.getByRole("button", { name: /Partner/i }).first();
+  const partner = page.locator('button[data-role="partner"]').first();
   await partner.click();
   await expect(partner).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByRole("heading", { name: /Firma \/ organizace/i })).toBeVisible();
