@@ -37,9 +37,9 @@ const ACTORS = [
     short: "Škola",
     icon: Building2,
     status: "Připraveno pro první pilot",
-    receives: "Experience metodiku, učitelský workflow, RVP návaznost, Passport a podklady pro vyhodnocení pilotu.",
-    contributes: "Bezpečný rámec, pedagogy, kohortu, skutečné školní potřeby a ověření použitelnosti v reálném provozu.",
-    boundary: "Škola ověřuje doloženou práci, ale nemění žákovu vlastní reflexi ani nevytváří jeden lidský score.",
+    receives: "Experience metodiku, učitelský postup, návaznost na RVP, Experience Passport a podklady pro vyhodnocení pilotu.",
+    contributes: "Bezpečný rámec, pedagogy, skupinu žáků, skutečné školní potřeby a ověření použitelnosti v reálném provozu.",
+    boundary: "Škola ověřuje doloženou práci, ale nemění žákovu vlastní reflexi ani nevytváří jedno souhrnné skóre člověka.",
   },
   {
     id: "partner",
@@ -47,9 +47,9 @@ const ACTORS = [
     short: "Firma",
     icon: BriefcaseBusiness,
     status: "Hledáme pilotní partnery",
-    receives: "Kvalitní pohled na ohraničený reálný problém, týmové výstupy a možnost odděleně rozhodnout o dalším pilotu nebo adopci.",
-    contributes: "Reálnou Challenge, expertizu, kontext, zdroje, čas odborníka, zpětnou vazbu a případně možnost výsledek vyzkoušet.",
-    boundary: "Partner nekupuje hodnocení žáka, child data ani automatické vlastnictví výstupu.",
+    receives: "Kvalitní pohled na ohraničený reálný problém, týmové výstupy a možnost samostatně rozhodnout, zda má smysl výsledek dál rozvíjet nebo vyzkoušet.",
+    contributes: "Reálnou výzvu, expertizu, kontext, zdroje, čas odborníka, zpětnou vazbu a případně možnost výsledek vyzkoušet.",
+    boundary: "Partner nekupuje hodnocení žáka, přístup k soukromým datům dítěte ani automatické vlastnictví výstupu.",
   },
   {
     id: "community",
@@ -59,7 +59,7 @@ const ACTORS = [
     status: "Zapojení podle Experience",
     receives: "Pozornost k reálnému místnímu problému, návrhy a výsledky navázané na konkrétní veřejnou nebo komunitní potřebu.",
     contributes: "Místní problém, prostředí, znalost kontextu, kontakty, data v bezpečném rozsahu a možnost výsledek použít.",
-    boundary: "Veřejný přínos se odděluje od tvrzení o dopadu; output není automaticky impact.",
+    boundary: "Veřejný přínos se odděluje od tvrzení o skutečném dopadu; samotný výstup ještě není důkazem změny.",
   },
   {
     id: "mentor",
@@ -67,7 +67,7 @@ const ACTORS = [
     short: "Mentor",
     icon: UserRoundCheck,
     status: "Zapojení pod dohledem",
-    receives: "Smysluplné zapojení do konkrétní práce a jasně ohraničenou roli bez sociálního feedu.",
+    receives: "Smysluplné zapojení do konkrétní práce a jasně ohraničenou roli bez otevřené sociální sítě.",
     contributes: "Know-how, otázky, odbornou zpětnou vazbu a realistický pohled na kvalitu výstupu.",
     boundary: "Mentor nemá neomezený soukromý komunikační kanál k dítěti.",
   },
@@ -107,8 +107,8 @@ export default function RoleEntry() {
       <div className="container-px max-w-7xl mx-auto">
         <SectionHeading
           eyebrow="PANSOFIE EKOSYSTÉM"
-          title="Jedna Experience uprostřed. Každá role má skutečný důvod."
-          subtitle="Nepropojujeme účty pro efekt. Každá role musí mít jasné: co získává, co přináší a jaká hranice ji chrání."
+          title="Jedna Experience uprostřed. Každá role má jasný důvod se zapojit."
+          subtitle="Nepropojujeme lidi jen proto, aby vznikla další síť. Každá role musí vědět, co získává, co přináší a kde je její bezpečná hranice."
           center
         />
 
