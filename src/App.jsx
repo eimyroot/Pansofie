@@ -22,9 +22,9 @@ import PageNotFound from "@/pages/PageNotFound";
 import MemberLayout from "@/layouts/MemberLayout";
 import SchoolHub from "@/pages/SchoolHub";
 import SchoolRunDetail from "@/pages/SchoolRunDetail";
-import SchoolChallengeInbox from "@/pages/SchoolChallengeInbox";
+import SchoolChallengeWorkspace from "@/pages/SchoolChallengeWorkspace";
 import FamilyHub from "@/pages/FamilyHub";
-import PartnerHub from "@/pages/PartnerHub";
+import PartnerWorkspace from "@/pages/PartnerWorkspace";
 import Portfolio from "@/pages/Portfolio";
 import Profile from "@/pages/Profile";
 
@@ -69,9 +69,9 @@ export default function App() {
             <Route element={<RequireAuth><MemberLayout /></RequireAuth>}>
               <Route path="/skola" element={<SchoolHub />} />
               <Route path="/skola/mise/:runId" element={<SchoolRunDetail />} />
-              <Route path="/skola/challenges" element={<SchoolChallengeInbox />} />
+              <Route path="/skola/challenges" element={<SchoolChallengeWorkspace />} />
               <Route path="/rodina" element={<FamilyHub />} />
-              <Route path="/partner-workspace" element={<PartnerHub />} />
+              <Route path="/partner-workspace" element={<PartnerWorkspace />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/profil" element={<Profile />} />
 

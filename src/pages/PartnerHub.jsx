@@ -139,7 +139,7 @@ export default function PartnerHub() {
     if (selected.challenge_status === "blocked") return { title: "Challenge je zablokovaná", detail: selected.screening_note || "Alespoň jedna zásadní hranice neprošla screeningem.", kind: "danger" };
     if (selected.challenge_status === "ready" && !selected.assignment_id) return { title: "Challenge je READY", detail: "Teď následuje managed match. Partner nevybírá děti ani neprochází jejich profily.", kind: "success" };
     if (selected.assignment_status === "proposed") return { title: "Škola rozhoduje o přijetí", detail: `${selected.school_name || "Vybraná škola"} · ${selected.cohort_name || "pilotní kohorta"} · ${selected.team_name || "Experience tým"}.`, kind: "waiting" };
-    if (selected.challenge_status === "active") return { title: "Challenge běží jako Experience", detail: "R4 zde končí. Partner zatím nevidí learner raw evidence, soukromou reflexi ani Passport.", kind: "success" };
+    if (selected.challenge_status === "active") return { title: "Challenge běží jako Experience", detail: "Partner stále nevidí learner raw evidence, soukromou reflexi ani Passport. Jakmile škola odešle bounded výstup, review pokračuje níže v R5.", kind: "success" };
     return { title: "Challenge je v řízeném procesu", detail: "Stav je oddělený od hodnocení člověka a od tvrzení o dopadu.", kind: "neutral" };
   }, [organizations.length, selected, verifiedOrganizations.length]);
 
@@ -197,7 +197,7 @@ export default function PartnerHub() {
     <div className="product-shell" data-role="partner">
       <header className="workspace-header">
         <div>
-          <div className="workspace-kicker"><BriefcaseBusiness size={18} /><span>PANSOFIE PARTNER · R4</span></div>
+          <div className="workspace-kicker"><BriefcaseBusiness size={18} /><span>PANSOFIE PARTNER · CHALLENGE WORKFLOW</span></div>
           <h1 className="mt-2 text-3xl sm:text-4xl font-semibold">Přineste reálný problém. Ne přístup k dětem.</h1>
           <p className="mt-3 max-w-3xl text-muted-foreground">Partner workspace vede Challenge přes ověření, Quality Gate a managed match. Partner hodnotí zadání a později výstup — nikdy lidskou hodnotu learnera.</p>
         </div>
@@ -252,7 +252,7 @@ export default function PartnerHub() {
 
           {selected?.screening_decision && <section className="surface-panel p-5 sm:p-6"><div className="flex items-center gap-2"><FileCheck2 size={18} className="text-primary" /><h2 className="font-semibold">Challenge Quality Gate</h2></div><p className="mt-2 text-sm text-muted-foreground">Žádné číselné skóre. Každá dimenze má samostatný stav a screening zůstává immutable evidence.</p><div className="mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">{QUALITY_DIMENSIONS.map(([key, label]) => <div key={key} className="surface-subtle p-4"><p className="text-xs font-semibold">{label}</p><div className="mt-2"><GateState value={selected.screening_dimensions?.[key]} /></div></div>)}</div>{selected.screening_note && <p className="mt-4 text-sm text-muted-foreground">{selected.screening_note}</p>}</section>}
 
-          <section className="surface-panel p-5 sm:p-6"><div className="flex items-start gap-3"><ShieldCheck size={19} className="text-primary shrink-0 mt-0.5" /><div><h2 className="font-semibold">Partner boundary</h2><p className="mt-2 text-sm text-muted-foreground leading-relaxed">Tento workspace neobsahuje learner names, raw evidence, soukromou reflexi, teacher review learnera ani Passport. Managed match ukáže pouze školu, kohortu a tým jako organizační kontext.</p></div></div><div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"><CircleDot size={14} /> R4 končí aktivací Challenge. Partner Review / Adoption patří do R5.</div></section>
+          <section className="surface-panel p-5 sm:p-6"><div className="flex items-start gap-3"><ShieldCheck size={19} className="text-primary shrink-0 mt-0.5" /><div><h2 className="font-semibold">Partner boundary</h2><p className="mt-2 text-sm text-muted-foreground leading-relaxed">Tento workspace neobsahuje learner names, raw evidence, soukromou reflexi, teacher review learnera ani Passport. Managed match ukáže pouze školu, kohortu a tým jako organizační kontext.</p></div></div><div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"><CircleDot size={14} /> Po aktivaci Challenge pokračuje Partner Review / Adoption níže v R5 pouze nad školou odeslaným bounded výstupem.</div></section>
         </div>
       </section>
     </div>
