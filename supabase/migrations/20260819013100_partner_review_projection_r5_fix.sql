@@ -1,7 +1,11 @@
 -- R5 projection follow-up: expose the adoption decision identifier needed only to
 -- attach later bounded OutcomeEvidence. No learner/private data is added.
+-- This is a brand-new R5 function with no production compatibility requirement;
+-- PostgreSQL requires DROP before changing a TABLE return signature.
 
-create or replace function public.pansofie_list_my_partner_deliverables()
+drop function if exists public.pansofie_list_my_partner_deliverables();
+
+create function public.pansofie_list_my_partner_deliverables()
 returns table (
   deliverable_id uuid,
   assignment_id uuid,
