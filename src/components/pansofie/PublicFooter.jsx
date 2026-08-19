@@ -7,7 +7,7 @@ const GROUPS = [
     title: "Pansofie",
     links: [
       ["/jak-funguje", "Jak to funguje"],
-      ["/#ekosystem", "Pro koho"],
+      ["/pro-koho", "Pro koho"],
       ["/pilot", "Pilot školy"],
       ["/partneri", "Pro partnery"],
       ["/zapojit-se", "Vyzkoušet PANSOFIEDIT"],
