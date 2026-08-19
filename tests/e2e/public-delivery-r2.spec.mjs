@@ -94,7 +94,7 @@ test("legacy contact path redirects to truthful role-aware journey", async ({ pa
 test("404 has useful recovery actions", async ({ page }) => {
   await page.goto(`${BASE_URL}/tohle-neexistuje`, { waitUntil: "networkidle" });
   await expect(page.getByRole("heading", { name: /Tahle cesta v Pansofii neexistuje/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Domů" })).toHaveAttribute("href", "/");
+  await expect(page.getByRole("link", { name: "Domů", exact: true })).toHaveAttribute("href", "/");
   await expect(page.getByRole("link", { name: /Jak to funguje/i }).last()).toHaveAttribute("href", "/jak-funguje");
   await expect(page.getByRole("link", { name: /Pro koho/i }).last()).toHaveAttribute("href", "/pro-koho");
 });
