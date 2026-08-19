@@ -15,14 +15,22 @@ const files = {
 
 const required = [
   [files.app, 'path="/partneri"'],
-  [files.home, "Mladí lidé se učí spoustu důležitých věcí"],
+  [files.app, 'path="/pro-koho"'],
+  [files.home, "Pansofie propojuje učení se skutečnou zkušeností"],
   [files.home, "<ExperienceStory />"],
+  [files.home, "<RoleEntry />"],
+  [files.home, "<PublicMaturity />"],
+  [files.home, "Aktivita ≠ výstup ≠ outcome ≠ impact"],
   [files.home, "Přínos není skóre člověka."],
-  [files.roles, "Experience je centrum"],
-  [files.roles, "Připraveno pro první pilot"],
+  [files.roles, "Stejná Experience. Šest různých rolí."],
+  [files.roles, "Partner hodnotí výstup proti zadání, nikdy lidskou hodnotu"],
+  [files.roles, "learner raw evidence"],
+  [files.roles, "Digitální workflow je připravené"],
   [files.story, "pilotní scénář"],
   [files.story, "ne zveřejněná případová studie"],
   [files.how, "Experience je jádro"],
+  [files.how, "Aktivita, Output, Adoption, Outcome a Impact"],
+  [files.how, 'to="/pro-koho"'],
   [files.how, 'to="/pilot"'],
   [files.pilot, "Reálný field pilot ve škole ještě neproběhl"],
   [files.partner, "nekupuje pozitivní hodnocení"],
@@ -40,6 +48,8 @@ const forbidden = [
   [files.program, "PILOT NOW"],
   [files.how, 'to="/dashboard"'],
   [files.program, "impact reporting"],
+  [files.roles, "human-worth score"],
+  [files.roles, "hireability score"],
 ];
 
 const presentForbidden = forbidden
