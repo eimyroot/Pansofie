@@ -176,7 +176,7 @@ export default function LivingRoleConstellation() {
               key={role.id}
               type="button"
               className="living-role-constellation-node"
-              data-role={role.id}
+              data-constellation-role={role.id}
               data-active={active}
               aria-pressed={active}
               style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
