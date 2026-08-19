@@ -26,7 +26,7 @@ test("Living Experience Flow changes state without losing truth boundaries", asy
   await verification.click();
   await expect(verification).toHaveAttribute("aria-current", "step");
   await expect(flow.getByText("Oddělené ověření")).toBeVisible();
-  await expect(flow.getByText(/Aktivita ≠ výstup ≠ outcome ≠ impact/i)).toBeVisible();
+  await expect(flow).toContainText("Aktivita ≠ výstup ≠ outcome ≠ impact.");
 
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "home-living-experience-desktop.png"), fullPage: true });
@@ -42,10 +42,10 @@ test("role relationship map reacts to selected role and preserves access boundar
 
   const map = page.locator(".role-relationship-map");
   await expect(map).toBeVisible();
-  await expect(map.getByText("EXPERIENCE")).toBeVisible();
-  await expect(map.getByText(/reálnou výzvu a kontext/i)).toBeVisible();
-  await expect(map.getByText(/konkrétní týmový výstup k reálnému problému/i)).toBeVisible();
-  await expect(map.getByText(/Partner hodnotí výstup proti zadání, nikdy lidskou hodnotu/i)).toBeVisible();
+  await expect(map.locator(".role-map-core")).toContainText("EXPERIENCE");
+  await expect(map.locator(".role-map-node--actor")).toContainText("reálnou výzvu a kontext");
+  await expect(map.locator(".role-map-node--result")).toContainText("konkrétní týmový výstup k reálnému problému");
+  await expect(map.locator(".role-map-boundary")).toContainText("Partner hodnotí výstup proti zadání, nikdy lidskou hodnotu");
 
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-partner-map-desktop.png"), fullPage: true });
@@ -58,7 +58,7 @@ test("R3 role interaction remains usable on mobile", async ({ page }) => {
   const school = page.getByRole("button", { name: /Škola/i }).first();
   await school.click();
   await expect(school).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator(".role-relationship-map").getByText(/pedagogický rámec a bezpečný dohled/i)).toBeVisible();
+  await expect(page.locator(".role-relationship-map .role-map-node--actor")).toContainText("pedagogický rámec a bezpečný dohled");
 
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-school-map-mobile.png"), fullPage: true });
