@@ -7,9 +7,10 @@ const GROUPS = [
     title: "Pansofie",
     links: [
       ["/jak-funguje", "Jak to funguje"],
+      ["/pro-koho", "Pro koho"],
       ["/pilot", "Pilot školy"],
       ["/partneri", "Pro partnery"],
-      ["/zapojit-se", "Zapojit se"],
+      ["/zapojit-se", "Vyzkoušet PANSOFIEDIT"],
     ],
   },
   {
@@ -21,10 +22,9 @@ const GROUPS = [
     ],
   },
   {
-    title: "O projektu",
+    title: "Stav produktu",
     links: [
-      ["/o-projektu", "O Pansofii"],
-      ["/kontakt", "Kontakt"],
+      ["/o-projektu", "Co je funkční a co teprve ověřujeme"],
       ["/login", "Přihlášení"],
     ],
   },
@@ -41,7 +41,7 @@ export default function PublicFooter() {
               Pansofie
             </Link>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">Poznej sebe. Tvoř s druhými. Zlepšuj svět.</p>
-            <p className="mt-3 text-xs text-muted-foreground leading-relaxed">Pansofie je ve fázi přípravy prvního reálného školního pilotu. Veřejně oddělujeme to, co je už technicky ověřené, od toho, co musí teprve potvrdit field pilot.</p>
+            <p className="mt-3 text-xs text-muted-foreground leading-relaxed">Digitální produkt a řízené role jsou technicky ověřené. Reálný školní field pilot, pedagogický impact a dlouhodobé outcomes musí teprve potvrdit skutečný provoz.</p>
           </div>
 
           {GROUPS.map((group) => (
@@ -55,7 +55,7 @@ export default function PublicFooter() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-border/60 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-muted-foreground">
-          <p>Současná veřejná verze je pre-field-pilot. Nejde o tvrzení prokázaného pedagogického nebo dlouhodobého dopadu.</p>
+          <p>Technická připravenost není důkaz dopadu. Pansofie veřejně odděluje implementaci, pilotní ověření, Outcome a Impact.</p>
           <p>© 2026 Pansofie</p>
         </div>
       </div>

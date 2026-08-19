@@ -26,7 +26,7 @@ export default function ExperienceStory() {
       <div className="container-px max-w-7xl mx-auto">
         <div className="grid grid-cols-1 xl:grid-cols-[0.74fr_1.26fr] gap-10 xl:gap-16 items-start">
           <div className="xl:sticky xl:top-28">
-            <p className="eyebrow">Jak vypadá jedna Experience</p>
+            <p className="eyebrow">01 · JAK VYPADÁ JEDNA EXPERIENCE</p>
             <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Nejdřív něco skutečně uděláš. Až potom vzniká záznam o rozvoji.</h2>
             <p className="mt-5 text-lg text-muted-foreground leading-relaxed">Experience <strong className="text-foreground font-semibold">Zlepši svou školu</strong> ukazuje princip Pansofie od konkrétní potřeby až po ověřený Experience Passport.</p>
 
