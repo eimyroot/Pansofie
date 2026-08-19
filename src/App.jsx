@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClientInstance } from "@/lib/query-client";
 import { AuthProvider } from "@/lib/AuthContext";
 import { RequireAdmin, RequireAuth } from "@/components/auth/RouteGuards";
+import PublicNetworkShell from "@/components/pansofie/PublicNetworkShell";
 
 import Home from "@/pages/Home";
 import JakFunguje from "@/pages/JakFunguje";
@@ -42,6 +43,7 @@ import AdminModeration from "@/pages/AdminModeration";
 import AdminSecurity from "@/pages/AdminSecurity";
 
 const PilotRedirect = () => <Navigate to="/skola" replace />;
+const publicSurface = (element) => <PublicNetworkShell>{element}</PublicNetworkShell>;
 
 export default function App() {
   return (
@@ -49,18 +51,18 @@ export default function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/jak-funguje" element={<JakFunguje />} />
-            <Route path="/pro-koho" element={<Roles />} />
-            <Route path="/pilot" element={<Pilot />} />
-            <Route path="/partneri" element={<Partner />} />
-            <Route path="/program/:id" element={<ProgramDetail />} />
-            <Route path="/zapojit-se" element={<Join />} />
+            <Route path="/" element={publicSurface(<Home />)} />
+            <Route path="/jak-funguje" element={publicSurface(<JakFunguje />)} />
+            <Route path="/pro-koho" element={publicSurface(<Roles />)} />
+            <Route path="/pilot" element={publicSurface(<Pilot />)} />
+            <Route path="/partneri" element={publicSurface(<Partner />)} />
+            <Route path="/program/:id" element={publicSurface(<ProgramDetail />)} />
+            <Route path="/zapojit-se" element={publicSurface(<Join />)} />
             <Route path="/kontakt" element={<Navigate to="/zapojit-se" replace />} />
-            <Route path="/o-projektu" element={<PublicInfoPage kind="about" />} />
-            <Route path="/soukromi" element={<PublicInfoPage kind="privacy" />} />
-            <Route path="/bezpecnost" element={<PublicInfoPage kind="safety" />} />
-            <Route path="/podminky" element={<PublicInfoPage kind="terms" />} />
+            <Route path="/o-projektu" element={publicSurface(<PublicInfoPage kind="about" />)} />
+            <Route path="/soukromi" element={publicSurface(<PublicInfoPage kind="privacy" />)} />
+            <Route path="/bezpecnost" element={publicSurface(<PublicInfoPage kind="safety" />)} />
+            <Route path="/podminky" element={publicSurface(<PublicInfoPage kind="terms" />)} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -102,7 +104,7 @@ export default function App() {
               <Route path="bezpecnost" element={<AdminSecurity />} />
             </Route>
 
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="*" element={publicSurface(<PageNotFound />)} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

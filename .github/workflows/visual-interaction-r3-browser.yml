@@ -1,0 +1,70 @@
+name: Visual Interaction R3 Browser Proof
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "tests/e2e/visual-interaction-r3.spec.mjs"
+      - ".github/workflows/visual-interaction-r3-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: visual-interaction-r3-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PANSOFIE_LOCAL_URL: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install chromium
+
+      - name: Start local Vite server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pansofie-visual-interaction-r3.log 2>&1 &
+          echo $! > /tmp/pansofie-visual-interaction-r3.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5173/ >/dev/null; then
+              echo "LOCAL_VITE=READY"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pansofie-visual-interaction-r3.log
+          exit 1
+
+      - name: Run Visual Interaction R3 browser acceptance
+        run: npx playwright test tests/e2e/visual-interaction-r3.spec.mjs --reporter=line
+
+      - name: Upload R3 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pansofie-visual-interaction-r3-browser-evidence
+          path: |
+            browser-evidence/visual-interaction-r3/
+            test-results/
+            /tmp/pansofie-visual-interaction-r3.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Vite server
+        if: always()
+        run: |
+          if [ -f /tmp/pansofie-visual-interaction-r3.pid ]; then kill "$(cat /tmp/pansofie-visual-interaction-r3.pid)" || true; fi

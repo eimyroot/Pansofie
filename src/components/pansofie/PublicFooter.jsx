@@ -30,6 +30,8 @@ const GROUPS = [
   },
 ];
 
+const FOOTER_NETWORK = ["Experience", "Důkaz", "Ověření", "Důvěra", "Další krok"];
+
 export default function PublicFooter() {
   return (
     <footer className="border-t border-border/60 bg-card/35">
@@ -37,7 +39,7 @@ export default function PublicFooter() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr_1fr_1fr] gap-9 lg:gap-12">
           <div className="max-w-sm">
             <Link to="/" className="inline-flex items-center gap-2 font-heading font-bold text-lg">
-              <span className="h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center"><Leaf size={18} /></span>
+              <span className="network-brand-node h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center"><Leaf size={18} /></span>
               Pansofie
             </Link>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">Poznej sebe. Tvoř s druhými. Zlepšuj svět.</p>
@@ -54,7 +56,16 @@ export default function PublicFooter() {
           ))}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-border/60 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-muted-foreground">
+        <div className="footer-network-thread" aria-label="Logika Pansofie od Experience k dalšímu kroku">
+          {FOOTER_NETWORK.map((item, index) => (
+            <React.Fragment key={item}>
+              {index > 0 && <span className="footer-network-edge" aria-hidden="true"><i /></span>}
+              <span className="footer-network-node">{item}</span>
+            </React.Fragment>
+          ))}
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-border/60 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-muted-foreground">
           <p>Technická připravenost není důkaz dopadu. Pansofie veřejně odděluje implementaci, pilotní ověření, Outcome a Impact.</p>
           <p>© 2026 Pansofie</p>
         </div>
