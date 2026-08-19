@@ -121,10 +121,27 @@
 
   .action-primary {
     @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-[transform,box-shadow,background-color] disabled:pointer-events-none disabled:opacity-50;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
     background: hsl(var(--primary));
     box-shadow: 0 10px 28px -18px hsl(var(--primary) / 0.8);
   }
-  .action-primary:hover { background: hsl(var(--primary-strong)); transform: translateY(-1px); }
+  .action-primary::after {
+    content: "";
+    position: absolute;
+    inset: -60% -25%;
+    z-index: -1;
+    transform: translateX(-72%) rotate(12deg);
+    background: linear-gradient(90deg, transparent 20%, hsl(var(--primary-foreground) / 0.18) 50%, transparent 80%);
+    transition: transform 560ms cubic-bezier(.22,.9,.2,1);
+  }
+  .action-primary:hover {
+    background: hsl(var(--primary-strong));
+    transform: translateY(-2px);
+    box-shadow: 0 18px 42px -24px hsl(var(--primary) / 0.9), 0 0 0 1px hsl(var(--primary) / 0.18);
+  }
+  .action-primary:hover::after { transform: translateX(72%) rotate(12deg); }
 
   .action-secondary {
     @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-border bg-card px-5 py-2.5 text-sm font-semibold transition-[transform,border-color,background-color] disabled:pointer-events-none disabled:opacity-50;
@@ -176,13 +193,28 @@
 
   .role-card {
     @apply border bg-card transition-[border-color,background-color,transform,box-shadow];
+    position: relative;
+    overflow: hidden;
     border-color: hsl(var(--border));
   }
-  .role-card:hover { border-color: hsl(var(--role-accent) / 0.35); transform: translateY(-1px); }
+  .role-card::after {
+    content: "";
+    position: absolute;
+    inset: auto -35% -70% -35%;
+    height: 85%;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle at 50% 0%, hsl(var(--role-accent) / 0.2), transparent 68%);
+    transition: opacity 240ms ease, transform 360ms cubic-bezier(.2,.8,.2,1);
+    transform: translateY(14px);
+  }
+  .role-card:hover { border-color: hsl(var(--role-accent) / 0.35); transform: translateY(-2px); }
+  .role-card:hover::after,
+  .role-card[data-selected="true"]::after { opacity: 1; transform: translateY(0); }
   .role-card[data-selected="true"] {
     border-color: hsl(var(--role-accent) / 0.5);
     background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--role-accent) / 0.07));
-    box-shadow: 0 12px 28px -24px hsl(var(--role-accent) / 0.9);
+    box-shadow: 0 16px 34px -25px hsl(var(--role-accent) / 0.9), inset 0 0 0 1px hsl(var(--role-accent) / 0.05);
   }
 
   .workspace-kicker {
@@ -195,12 +227,380 @@
   }
 
   .metric-card { @apply rounded-2xl border border-border/70 bg-card p-4 sm:p-5; }
+
+  /* R3 visual interaction language: ambient motion explains hierarchy rather than decorating every surface. */
+  main > section:first-of-type {
+    isolation: isolate;
+  }
+  main > section:first-of-type::before,
+  main > section:first-of-type::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 999px;
+    filter: blur(8px);
+  }
+  main > section:first-of-type::before {
+    width: min(54rem, 76vw);
+    height: min(54rem, 76vw);
+    top: -24rem;
+    right: -10rem;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.13), hsl(var(--primary) / 0.025) 46%, transparent 72%);
+    animation: pansofie-ambient-drift 9s ease-in-out infinite alternate;
+  }
+  main > section:first-of-type::after {
+    width: 28rem;
+    height: 28rem;
+    left: -14rem;
+    bottom: -16rem;
+    background: radial-gradient(circle, hsl(var(--role-learner) / 0.08), transparent 70%);
+    animation: pansofie-ambient-breathe 8s ease-in-out infinite alternate;
+  }
+  main > section:first-of-type .surface-raised {
+    position: relative;
+    overflow: hidden;
+    transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 420ms ease, border-color 300ms ease;
+  }
+  main > section:first-of-type .surface-raised::after {
+    content: "";
+    position: absolute;
+    width: 13rem;
+    height: 13rem;
+    top: -7rem;
+    right: -5rem;
+    pointer-events: none;
+    border-radius: 999px;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.16), transparent 70%);
+    animation: pansofie-ambient-breathe 6s ease-in-out infinite alternate;
+  }
+  main > section:first-of-type .surface-raised:hover {
+    transform: translateY(-3px);
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: 0 34px 90px -48px hsl(var(--primary) / 0.6);
+  }
+
+  .experience-section,
+  .role-explorer-section { position: relative; overflow: clip; }
+
+  .experience-interactive-shell {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2rem;
+    border: 1px solid hsl(var(--primary) / 0.22);
+    background:
+      linear-gradient(145deg, hsl(var(--card) / 0.98), hsl(var(--background) / 0.92)),
+      hsl(var(--card));
+    box-shadow: 0 30px 90px -60px hsl(var(--primary) / 0.75), inset 0 1px 0 hsl(var(--card));
+  }
+
+  .experience-ambient {
+    position: absolute;
+    inset: -35%;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 70% 24%, hsl(var(--primary) / 0.13), transparent 21%),
+      radial-gradient(circle at 26% 76%, hsl(var(--role-learner) / 0.08), transparent 22%);
+    animation: pansofie-ambient-rotate 16s linear infinite;
+  }
+
+  .experience-progress {
+    height: 3px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: hsl(var(--border) / 0.7);
+  }
+  .experience-progress-fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--experience)));
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.35);
+    transition: width 420ms cubic-bezier(.2,.85,.2,1);
+  }
+
+  .experience-step {
+    @apply flex min-h-[112px] flex-col items-start rounded-2xl border p-3 text-left;
+    position: relative;
+    border-color: hsl(var(--border) / 0.82);
+    background: hsl(var(--card) / 0.66);
+    transition: transform 260ms cubic-bezier(.2,.8,.2,1), border-color 240ms ease, background-color 240ms ease, box-shadow 260ms ease;
+  }
+  .experience-step:hover { transform: translateY(-3px); border-color: hsl(var(--primary) / 0.24); }
+  .experience-step[data-complete="true"] { border-color: hsl(var(--primary) / 0.18); }
+  .experience-step[data-active="true"] {
+    transform: translateY(-4px);
+    border-color: hsl(var(--primary) / 0.48);
+    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--primary) / 0.07));
+    box-shadow: 0 16px 34px -25px hsl(var(--primary) / 0.9), 0 0 0 1px hsl(var(--primary) / 0.06);
+  }
+  .experience-step-icon {
+    @apply flex h-9 w-9 items-center justify-center rounded-xl;
+    color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.09);
+    transition: transform 260ms cubic-bezier(.2,.8,.2,1), background-color 240ms ease;
+  }
+  .experience-step[data-active="true"] .experience-step-icon {
+    color: hsl(var(--primary-foreground));
+    background: hsl(var(--primary));
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 8px 24px -14px hsl(var(--primary) / 0.9);
+  }
+
+  .experience-detail {
+    @apply flex items-start gap-4 rounded-[1.5rem] border p-5 sm:p-6;
+    border-color: hsl(var(--primary) / 0.18);
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.06), hsl(var(--card) / 0.76));
+    animation: pansofie-panel-in 360ms cubic-bezier(.2,.8,.2,1) both;
+  }
+  .experience-detail-icon {
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl;
+    color: hsl(var(--primary-foreground));
+    background: hsl(var(--primary));
+    box-shadow: 0 12px 28px -18px hsl(var(--primary) / 0.9);
+  }
+
+  .experience-boundary-card {
+    @apply rounded-2xl border border-border/70 bg-card/70 p-4;
+    min-height: 78px;
+  }
+  .experience-boundary-card--verified {
+    border-color: hsl(var(--primary) / 0.18);
+    background: hsl(var(--primary) / 0.045);
+  }
+  .experience-signal {
+    @apply flex min-h-10 items-center justify-center text-primary;
+  }
+  .experience-signal span {
+    animation: pansofie-signal-pulse 1.8s ease-in-out infinite;
+  }
+
+  .role-relationship-map {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 54px minmax(180px, .72fr) 54px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 10px;
+    position: relative;
+    padding: 18px;
+    border-radius: 2rem;
+    border: 1px solid hsl(var(--role-accent) / 0.2);
+    background:
+      radial-gradient(circle at 50% 50%, hsl(var(--role-accent) / 0.065), transparent 26%),
+      linear-gradient(145deg, hsl(var(--card)), hsl(var(--background) / 0.7));
+    box-shadow: 0 24px 70px -55px hsl(var(--role-accent) / 0.9);
+    transition: border-color 300ms ease, box-shadow 300ms ease;
+  }
+
+  .role-map-node {
+    @apply flex items-start gap-3 rounded-[1.35rem] border p-4;
+    min-width: 0;
+    border-color: hsl(var(--border) / 0.8);
+    background: hsl(var(--card) / 0.78);
+    animation: pansofie-panel-in 340ms cubic-bezier(.2,.8,.2,1) both;
+  }
+  .role-map-node--actor { border-color: hsl(var(--role-accent) / 0.28); }
+  .role-map-node--result { border-color: hsl(var(--primary) / 0.2); }
+  .role-map-kicker { @apply text-[10px] font-semibold uppercase tracking-[0.13em] text-muted-foreground; }
+  .role-map-title { @apply mt-1 text-sm font-semibold; }
+  .role-map-copy { @apply mt-1 text-xs leading-relaxed text-muted-foreground; }
+  .role-map-result-icon {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl;
+    color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.09);
+    border: 1px solid hsl(var(--primary) / 0.15);
+  }
+
+  .role-map-core {
+    @apply relative flex flex-col items-center justify-center rounded-[1.5rem] border px-4 py-5 text-center;
+    isolation: isolate;
+    color: hsl(var(--role-accent));
+    border-color: hsl(var(--role-accent) / 0.3);
+    background: hsl(var(--card) / 0.84);
+    box-shadow: inset 0 0 0 1px hsl(var(--role-accent) / 0.04), 0 16px 45px -36px hsl(var(--role-accent));
+  }
+  .role-map-core p { @apply mt-2 text-xs font-bold tracking-[0.16em]; }
+  .role-map-core small { @apply mt-1 text-[10px] leading-snug text-muted-foreground; }
+  .role-map-core-glow {
+    position: absolute;
+    z-index: -1;
+    width: 90px;
+    height: 90px;
+    border-radius: 999px;
+    background: radial-gradient(circle, hsl(var(--role-accent) / 0.16), transparent 68%);
+    animation: pansofie-core-pulse 3.4s ease-in-out infinite;
+  }
+
+  .role-map-connector {
+    position: relative;
+    min-height: 84px;
+  }
+  .role-map-connector::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: hsl(var(--role-accent) / 0.24);
+  }
+  .role-map-connector--out::before { background: hsl(var(--primary) / 0.24); }
+  .role-map-connector span {
+    position: absolute;
+    top: calc(50% - 3px);
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: hsl(var(--role-accent));
+    box-shadow: 0 0 12px hsl(var(--role-accent) / 0.5);
+    animation: pansofie-signal-travel 2.2s ease-in-out infinite;
+  }
+  .role-map-connector--out span { background: hsl(var(--primary)); box-shadow: 0 0 12px hsl(var(--primary) / 0.5); }
+
+  .role-map-boundary {
+    grid-column: 1 / -1;
+    @apply flex items-start gap-2 rounded-xl border px-3.5 py-3 text-xs leading-relaxed text-muted-foreground;
+    color: hsl(var(--role-accent));
+    border-color: hsl(var(--role-accent) / 0.16);
+    background: hsl(var(--role-accent) / 0.035);
+  }
+  .role-map-boundary span { color: hsl(var(--muted-foreground)); }
+
+  .role-panel-enter { animation: pansofie-panel-in 360ms cubic-bezier(.2,.8,.2,1) both; }
+  .smart-hover-surface {
+    transition: transform 260ms cubic-bezier(.2,.8,.2,1), border-color 240ms ease, box-shadow 260ms ease, background-color 240ms ease;
+  }
+  .smart-hover-surface:hover {
+    transform: translateY(-2px);
+    border-color: hsl(var(--role-accent) / 0.22);
+    background: linear-gradient(145deg, hsl(var(--card) / 0.72), hsl(var(--role-accent) / 0.035));
+    box-shadow: 0 14px 34px -30px hsl(var(--role-accent) / 0.8);
+  }
+
+  .role-cta-glow {
+    transition: transform 220ms ease, box-shadow 260ms ease;
+  }
+  .role-cta-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px -18px hsl(var(--role-accent) / 0.9), 0 0 0 1px hsl(var(--role-accent) / 0.2);
+  }
+
+  .experience-lifecycle {
+    display: grid;
+    grid-template-columns: repeat(11, auto);
+    align-items: center;
+    gap: 7px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .experience-lifecycle-node {
+    @apply min-w-[128px] rounded-2xl border border-border/60 bg-card px-3 py-3.5;
+    transition: border-color 240ms ease, transform 240ms ease, box-shadow 240ms ease;
+  }
+  .experience-lifecycle-node:hover {
+    transform: translateY(-2px);
+    border-color: hsl(var(--primary) / 0.26);
+    box-shadow: 0 12px 28px -26px hsl(var(--primary) / 0.8);
+  }
+  .experience-lifecycle-node span { @apply text-[10px] font-semibold text-primary; }
+  .experience-lifecycle-node p { @apply mt-2 text-xs font-medium leading-snug; }
+  .experience-lifecycle-line {
+    position: relative;
+    width: 24px;
+    height: 12px;
+  }
+  .experience-lifecycle-line::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: hsl(var(--primary) / 0.2);
+  }
+  .experience-lifecycle-line i {
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: hsl(var(--primary));
+    animation: pansofie-signal-travel-small 2.4s ease-in-out infinite;
+  }
 }
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@keyframes pansofie-ambient-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: .72; }
+  100% { transform: translate3d(-4rem, 3rem, 0) scale(1.08); opacity: 1; }
+}
+@keyframes pansofie-ambient-breathe {
+  0% { transform: scale(.92); opacity: .55; }
+  100% { transform: scale(1.08); opacity: 1; }
+}
+@keyframes pansofie-ambient-rotate {
+  from { transform: rotate(0deg) scale(1.02); }
+  to { transform: rotate(360deg) scale(1.02); }
+}
+@keyframes pansofie-panel-in {
+  from { opacity: 0; transform: translateY(9px) scale(.995); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes pansofie-signal-pulse {
+  0%, 100% { transform: translateX(-2px); opacity: .5; }
+  50% { transform: translateX(3px); opacity: 1; }
+}
+@keyframes pansofie-core-pulse {
+  0%, 100% { transform: scale(.86); opacity: .48; }
+  50% { transform: scale(1.2); opacity: .9; }
+}
+@keyframes pansofie-signal-travel {
+  0% { left: 0; opacity: 0; transform: scale(.65); }
+  18% { opacity: 1; }
+  82% { opacity: 1; }
+  100% { left: calc(100% - 7px); opacity: 0; transform: scale(1); }
+}
+@keyframes pansofie-signal-travel-small {
+  0% { left: 0; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { left: calc(100% - 5px); opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  .role-relationship-map {
+    grid-template-columns: 1fr;
+  }
+  .role-map-connector {
+    min-height: 28px;
+  }
+  .role-map-connector::before {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+  .role-map-connector span {
+    top: 0;
+    left: calc(50% - 3px);
+    animation: pansofie-signal-travel-vertical 1.8s ease-in-out infinite;
+  }
+  .role-map-boundary { grid-column: 1; }
+}
+
+@keyframes pansofie-signal-travel-vertical {
+  0% { top: 0; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { top: calc(100% - 7px); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
