@@ -63,7 +63,7 @@ export default function ExperienceStory() {
                 <span className="experience-progress-fill" style={{ width: `${progress}%` }} />
               </div>
 
-              <div className="mt-5 grid grid-cols-3 sm:grid-cols-6 gap-2" role="list" aria-label="Kroky Experience">
+              <div className="mt-5 grid grid-cols-3 sm:grid-cols-6 gap-2" aria-label="Kroky Experience">
                 {STEPS.map((step, index) => {
                   const Icon = step.icon;
                   const selected = activeStep === index;
@@ -72,10 +72,10 @@ export default function ExperienceStory() {
                     <button
                       key={step.number}
                       type="button"
-                      role="listitem"
                       data-active={selected}
                       data-complete={completed}
                       aria-current={selected ? "step" : undefined}
+                      aria-label={`${step.number} · ${step.title}`}
                       onMouseEnter={() => setActiveStep(index)}
                       onFocus={() => setActiveStep(index)}
                       onClick={() => setActiveStep(index)}
