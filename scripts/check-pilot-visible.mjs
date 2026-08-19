@@ -8,17 +8,18 @@ const files = {
 
 const required = [
   [files.app, 'path="/pilot"'],
-  [files.nav, '["/pilot", "Pilot školy"]'],
+  [files.nav, '["/pilot", "Pro školy"]'],
+  [files.pilot, "PŘIPRAVENO K PRVNÍMU OVĚŘENÍ VE ŠKOLE"],
   [files.pilot, "Zlepši svou školu"],
   [files.pilot, "Digitální most"],
   [files.pilot, "Circular Challenge"],
   [files.pilot, "Důkaz"],
   [files.pilot, "Reflexe"],
-  [files.pilot, "Učitelský review"],
-  [files.pilot, "Passport"],
+  [files.pilot, "Ověření učitelem"],
+  [files.pilot, "Experience Passport"],
   [files.pilot, "/login?returnTo=%2Fskola"],
   [files.pilot, "Žádné AI hodnocení člověka"],
-  [files.pilot, "Výstup, adopce, outcome a impact"],
+  [files.pilot, "Výstup, jeho použití a skutečný dopad"],
 ];
 
 const missing = required.filter(([content, token]) => !content.includes(token)).map(([, token]) => token);
