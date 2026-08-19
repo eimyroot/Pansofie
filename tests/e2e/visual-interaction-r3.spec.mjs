@@ -22,7 +22,7 @@ test("Living Experience Flow changes state without losing truth boundaries", asy
   await expect(flow).toBeVisible();
   await expect(flow.getByText("Living Experience Flow")).toBeVisible();
 
-  const verification = flow.getByRole("listitem", { name: /05.*Ověření/i });
+  const verification = flow.getByRole("button", { name: /05.*Ověření/i });
   await verification.click();
   await expect(verification).toHaveAttribute("aria-current", "step");
   await expect(flow.getByText("Oddělené ověření")).toBeVisible();
