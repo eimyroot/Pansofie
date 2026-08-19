@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -29,6 +29,15 @@ const ROLE_ICONS = {
 };
 
 const STEP_LABELS = ["Kdo jste", "Co chcete změnit", "Co přinášíte", "Skutečný problém", "Kdo se zapojí", "Váš výsledek"];
+
+const NEXT_STEPS = {
+  school: { to: "/pilot", label: "Prozkoumat školní pilot", text: "Podívejte se, jak je první školní ověření navržené a co potřebuje od školy." },
+  partner: { to: "/partneri", label: "Jak funguje partnerství", text: "Zjistěte, jak může organizace přinést reálnou výzvu bez kupování výsledku nebo přístupu k soukromým datům." },
+  family: { to: "/jak-funguje", label: "Pochopit roli rodiny", text: "Podívejte se, jak Pansofie odděluje podporu rodiny od soukromé reflexe mladého člověka." },
+  community: { to: "/partneri", label: "Přinést místní potřebu", text: "Prozkoumejte, jak se reálná potřeba může stát bezpečně ohraničenou Experience." },
+  mentor: { to: "/jak-funguje", label: "Pochopit roli odborníka", text: "Zjistěte, kde pomáhá expertiza a kde naopak musí zůstat jasná hranice." },
+  learner: { to: "/jak-funguje", label: "Jak Experience pokračuje", text: "Projděte si celý princip od skutečné potřeby přes důkaz a reflexi až k Experience Passportu." },
+};
 
 function ChoiceCard({ selected, onClick, children, icon: Icon, disabled = false, multi = false }) {
   return (
@@ -61,14 +70,13 @@ export default function EntryJourney() {
   const [contributions, setContributions] = useState([]);
   const [problemId, setProblemId] = useState("");
   const [participants, setParticipants] = useState(validRequestedRole ? defaultParticipantsFor(validRequestedRole) : ["learner", "teacher"]);
-  const [contact, setContact] = useState({ name: "", organization: "", email: "" });
-  const [notice, setNotice] = useState("");
 
   const role = roleId ? ENTRY_ROLES[roleId] : null;
   const problem = PROBLEMS.find((item) => item.id === problemId) || null;
   const goal = role?.goals.find(([id]) => id === goalId) || null;
   const path = useMemo(() => problem && role ? buildExperiencePath(problem, roleId) : [], [problem, role, roleId]);
   const progress = Math.round(((step + 1) / STEP_LABELS.length) * 100);
+  const nextStep = NEXT_STEPS[roleId] || NEXT_STEPS.learner;
 
   const selectRole = (id) => {
     setRoleId(id);
@@ -76,7 +84,6 @@ export default function EntryJourney() {
     setContributions([]);
     setProblemId("");
     setParticipants(defaultParticipantsFor(id));
-    setNotice("");
   };
 
   const toggleContribution = (id) => {
@@ -97,13 +104,6 @@ export default function EntryJourney() {
     setContributions([]);
     setProblemId("");
     setParticipants(["learner", "teacher"]);
-    setContact({ name: "", organization: "", email: "" });
-    setNotice("");
-  };
-
-  const localContact = (event) => {
-    event.preventDefault();
-    setNotice("Vaše shrnutí je připravené pouze v tomto prohlížeči. Tato pre-field-pilot verze nic neodesílá ani neukládá na server. Kontaktní režim zůstává fail-closed do zveřejnění právního provozovatele a privacy kontaktu.");
   };
 
   const journeyCard = (
@@ -212,26 +212,28 @@ export default function EntryJourney() {
             <section className="rounded-3xl border border-border bg-background p-6"><p className="text-xs font-semibold uppercase tracking-wide text-primary">Přinášíte</p><div className="mt-4 space-y-3">{role.brings.map((item) => <div key={item} className="flex gap-3 text-sm"><Check size={16} className="text-primary shrink-0 mt-0.5" /><span>{item}</span></div>)}</div></section>
           </div>
 
-          <section className="mt-8 rounded-[2rem] bg-foreground text-background p-6 sm:p-8"><div className="flex items-start gap-4"><ShieldCheck className="shrink-0 mt-1" size={22} /><div><p className="text-xs uppercase tracking-[0.18em] text-background/55">Safety boundary pro tuto roli</p><div className="mt-4 space-y-3">{role.safety.map((item) => <p key={item} className="text-sm sm:text-base text-background/75 leading-relaxed">• {item}</p>)}</div></div></div></section>
+          <section className="mt-8 rounded-[2rem] bg-foreground text-background p-6 sm:p-8"><div className="flex items-start gap-4"><ShieldCheck className="shrink-0 mt-1" size={22} /><div><p className="text-xs uppercase tracking-[0.18em] text-background/55">Bezpečná hranice pro tuto roli</p><div className="mt-4 space-y-3">{role.safety.map((item) => <p key={item} className="text-sm sm:text-base text-background/75 leading-relaxed">• {item}</p>)}</div></div></div></section>
 
-          <section className="mt-8 rounded-[2rem] border border-primary/25 bg-primary/[0.035] p-6 sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-wide text-primary">Váš doporučený další krok</p>
-            <h3 className="mt-2 text-2xl sm:text-3xl font-semibold font-display">{role.resultTitle}</h3>
-            <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed">Tento výsledek vznikl pouze z voleb v tomto prohlížeči. Nejde o automatické hodnocení člověka ani o rozhodnutí o přijetí do pilotu.</p>
-          </section>
+          <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-4">
+            <section className="rounded-[2rem] border border-primary/25 bg-primary/[0.035] p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Váš doporučený další krok</p>
+              <h3 className="mt-2 text-2xl sm:text-3xl font-semibold font-display">{nextStep.label}</h3>
+              <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed">{nextStep.text}</p>
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <Link to={nextStep.to} className="action-primary w-full sm:w-auto px-6 py-3.5">{nextStep.label} <ArrowRight size={17} /></Link>
+                <button type="button" onClick={reset} className="action-secondary w-full sm:w-auto px-6 py-3.5"><RefreshCcw size={16} /> Projít znovu</button>
+              </div>
+            </section>
 
-          <form onSubmit={localContact} className="mt-8 rounded-[2rem] border border-border bg-background p-6 sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-wide text-primary">Chci pokračovat</p>
-            <h3 className="mt-2 text-2xl font-semibold font-display">Kam vám jednou pošleme další krok?</h3>
-            <p className="mt-3 text-sm text-muted-foreground">Kontaktní režim je zatím fail-closed. Pole můžete vyplnit pro náhled, ale nic neopouští tuto stránku.</p>
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <label className="text-sm font-medium">Jméno<input value={contact.name} onChange={(e) => setContact({ ...contact, name: e.target.value })} className="mt-2 w-full h-12 rounded-xl border border-border bg-background px-4 font-normal" /></label>
-              <label className="text-sm font-medium">Organizace<input value={contact.organization} onChange={(e) => setContact({ ...contact, organization: e.target.value })} className="mt-2 w-full h-12 rounded-xl border border-border bg-background px-4 font-normal" /></label>
-              <label className="text-sm font-medium sm:col-span-2">E-mail<input type="email" value={contact.email} onChange={(e) => setContact({ ...contact, email: e.target.value })} className="mt-2 w-full h-12 rounded-xl border border-border bg-background px-4 font-normal" /></label>
-            </div>
-            <button type="submit" className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 font-semibold text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">Připravit lokální shrnutí <ArrowRight size={17} /></button>
-            {notice && <div role="status" className="mt-5 rounded-2xl border border-primary/20 bg-primary/[0.04] p-4 text-sm leading-relaxed">{notice}</div>}
-          </form>
+            <aside className="surface-subtle p-6 sm:p-7 flex items-start gap-4">
+              <ShieldCheck size={21} className="text-primary shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">Soukromí ukázky</p>
+                <h3 className="mt-2 text-lg font-semibold font-heading">Nic neposíláme za vašimi zády.</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">Tato ukázka nic neodesílá ani neukládá na server. Výsledek vzniká jen z voleb v této stránce a není automatickým hodnocením člověka ani rozhodnutím o přijetí do pilotu.</p>
+              </div>
+            </aside>
+          </div>
         </section>
       ) : null}
     </div>
