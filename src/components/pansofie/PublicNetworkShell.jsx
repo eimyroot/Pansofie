@@ -96,11 +96,16 @@ function targetSectionIndex(nodeIndex, nodeCount, sectionCount) {
   return Math.round((nodeIndex / (nodeCount - 1)) * (sectionCount - 1));
 }
 
+function targetNodeIndex(sectionIndex, sectionCount, nodeCount) {
+  if (nodeCount <= 1) return 0;
+  if (sectionCount <= 1) return Math.min(sectionIndex, nodeCount - 1);
+  return Math.round((sectionIndex / (sectionCount - 1)) * (nodeCount - 1));
+}
+
 export default function PublicNetworkShell({ children }) {
   const location = useLocation();
   const shellRef = useRef(null);
   const sectionsRef = useRef([]);
-  const frameRef = useRef(null);
   const [activeNode, setActiveNode] = useState(0);
 
   const network = useMemo(() => networkForPath(location.pathname), [location.pathname]);
@@ -117,7 +122,8 @@ export default function PublicNetworkShell({ children }) {
   }, [network.key]);
 
   useEffect(() => {
-    const sections = Array.from(document.querySelectorAll("main > section"));
+    const shell = shellRef.current;
+    const sections = shell ? Array.from(shell.querySelectorAll("main > section")) : [];
     sectionsRef.current = sections;
     if (!sections.length || typeof IntersectionObserver === "undefined") return undefined;
 
@@ -131,12 +137,7 @@ export default function PublicNetworkShell({ children }) {
         const sectionIndex = sections.indexOf(visible.target);
         if (sectionIndex < 0) return;
 
-        const mappedNode = targetSectionIndex(
-          sectionIndex,
-          Math.max(sections.length, 2),
-          network.nodes.length,
-        );
-        setActiveNode(Math.min(network.nodes.length - 1, mappedNode));
+        setActiveNode(targetNodeIndex(sectionIndex, sections.length, network.nodes.length));
       },
       { rootMargin: "-26% 0px -56% 0px", threshold: [0.08, 0.2, 0.45, 0.7] },
     );
@@ -287,7 +288,7 @@ export default function PublicNetworkShell({ children }) {
         <i className="network-scroll-node" />
       </div>
 
-      <div ref={frameRef} className="public-network-content">
+      <div className="public-network-content">
         {children}
       </div>
     </div>
