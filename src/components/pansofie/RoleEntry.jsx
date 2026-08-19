@@ -10,6 +10,7 @@ import {
   GraduationCap,
   HeartHandshake,
   Landmark,
+  Network,
   ShieldCheck,
   UserRoundCheck,
 } from "lucide-react";
@@ -135,7 +136,7 @@ export default function RoleEntry() {
   const SelectedIcon = selected.icon;
 
   return (
-    <section id="ekosystem" className="py-20 sm:py-28 border-t border-border/60 scroll-mt-24">
+    <section id="ekosystem" className="role-explorer-section py-20 sm:py-28 border-t border-border/60 scroll-mt-24">
       <div className="container-px max-w-7xl mx-auto">
         <SectionHeading
           eyebrow="02 · KDO JE SOUČÁSTÍ EXPERIENCE"
@@ -156,6 +157,7 @@ export default function RoleEntry() {
                   data-role={actor.id}
                   data-selected={active}
                   onClick={() => setSelectedId(actor.id)}
+                  onFocus={() => setSelectedId(actor.id)}
                   aria-pressed={active}
                   className={`role-card min-w-[150px] lg:min-w-0 rounded-2xl p-3.5 text-left ${active ? "ring-1 ring-[hsl(var(--role-accent)/0.28)]" : ""}`}
                 >
@@ -168,8 +170,44 @@ export default function RoleEntry() {
           </div>
         </div>
 
+        <div data-role={selected.id} className="role-relationship-map mt-6" aria-label={`Vztah role ${selected.label} k Experience`}>
+          <div key={`${selected.id}-source`} className="role-map-node role-map-node--actor">
+            <span className="role-icon h-11 w-11 rounded-2xl"><SelectedIcon size={20} /></span>
+            <div>
+              <p className="role-map-kicker">Přináší do Experience</p>
+              <p className="role-map-title">{selected.short}</p>
+              <p className="role-map-copy">{selected.contributes[0]}</p>
+            </div>
+          </div>
+
+          <div className="role-map-connector" aria-hidden="true"><span /></div>
+
+          <div className="role-map-core">
+            <span className="role-map-core-glow" aria-hidden="true" />
+            <Network size={22} />
+            <p>EXPERIENCE</p>
+            <small>společná práce · oddělené přístupy</small>
+          </div>
+
+          <div className="role-map-connector role-map-connector--out" aria-hidden="true"><span /></div>
+
+          <div key={`${selected.id}-result`} className="role-map-node role-map-node--result">
+            <span className="role-map-result-icon"><Check size={18} /></span>
+            <div>
+              <p className="role-map-kicker">Získává z Experience</p>
+              <p className="role-map-title">Konkrétní hodnotu</p>
+              <p className="role-map-copy">{selected.receives[0]}</p>
+            </div>
+          </div>
+
+          <div className="role-map-boundary">
+            <ShieldCheck size={16} />
+            <span>{selected.boundary}</span>
+          </div>
+        </div>
+
         <article data-role={selected.id} className="mt-6 overflow-hidden rounded-[2rem] border border-[hsl(var(--role-accent)/0.28)] bg-card shadow-[0_28px_70px_-52px_hsl(var(--role-accent)/0.7)]">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.78fr_1.22fr]">
+          <div key={selected.id} className="role-panel-enter grid grid-cols-1 lg:grid-cols-[0.78fr_1.22fr]">
             <div className="relative p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-border/70 bg-[linear-gradient(145deg,hsl(var(--card)),hsl(var(--role-accent)/0.06))]">
               <div className="absolute inset-x-0 top-0 h-1 bg-[hsl(var(--role-accent))]" aria-hidden="true" />
               <div className="flex items-start justify-between gap-4">
@@ -198,19 +236,19 @@ export default function RoleEntry() {
 
             <div className="p-6 sm:p-8 lg:p-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <section className="surface-subtle p-5 sm:p-6">
+                <section className="surface-subtle smart-hover-surface p-5 sm:p-6">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Získává</p>
                   <div className="mt-4"><BulletList items={selected.receives} muted /></div>
                 </section>
-                <section className="surface-subtle p-5 sm:p-6">
+                <section className="surface-subtle smart-hover-surface p-5 sm:p-6">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Přináší</p>
                   <div className="mt-4"><BulletList items={selected.contributes} muted /></div>
                 </section>
-                <section className="surface-subtle p-5 sm:p-6">
+                <section className="surface-subtle smart-hover-surface p-5 sm:p-6">
                   <div className="flex items-center gap-2 text-primary"><Eye size={16} aria-hidden="true" /><p className="text-[11px] font-semibold uppercase tracking-[0.14em]">Vidí</p></div>
                   <div className="mt-4"><BulletList items={selected.sees} muted /></div>
                 </section>
-                <section className="surface-subtle p-5 sm:p-6">
+                <section className="surface-subtle smart-hover-surface p-5 sm:p-6">
                   <div className="flex items-center gap-2 text-muted-foreground"><EyeOff size={16} aria-hidden="true" /><p className="text-[11px] font-semibold uppercase tracking-[0.14em]">Nevidí / nemá automaticky</p></div>
                   <div className="mt-4"><BulletList items={selected.notSees} muted /></div>
                 </section>
@@ -228,7 +266,7 @@ export default function RoleEntry() {
                   <p className="text-[10px] uppercase tracking-[0.14em] text-background/55">Další krok</p>
                   <p className="mt-1 font-semibold">Podívejte se na Pansofii z této role.</p>
                 </div>
-                <Link to={selected.cta.to} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-background px-4 py-2.5 text-sm font-semibold text-foreground shrink-0">
+                <Link to={selected.cta.to} className="role-cta-glow inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-background px-4 py-2.5 text-sm font-semibold text-foreground shrink-0">
                   {selected.cta.label} <ArrowRight size={16} />
                 </Link>
               </div>
@@ -236,12 +274,15 @@ export default function RoleEntry() {
           </div>
         </article>
 
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2" aria-label="Životní cyklus Experience">
+        <div className="experience-lifecycle mt-6" aria-label="Životní cyklus Experience">
           {FLOW.map((item, index) => (
-            <div key={item} className="surface-subtle px-3 py-3.5">
-              <span className="text-[10px] font-semibold text-primary">{String(index + 1).padStart(2, "0")}</span>
-              <p className="mt-2 text-xs font-medium leading-snug">{item}</p>
-            </div>
+            <React.Fragment key={item}>
+              <div className="experience-lifecycle-node">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{item}</p>
+              </div>
+              {index < FLOW.length - 1 && <div className="experience-lifecycle-line" aria-hidden="true"><i /></div>}
+            </React.Fragment>
           ))}
         </div>
       </div>
