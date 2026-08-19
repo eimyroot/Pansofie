@@ -83,7 +83,7 @@ test("role relationship map reacts to selected role and preserves access boundar
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
-  const partner = page.getByRole("button", { name: /Partner/i }).first();
+  const partner = page.locator('button[data-role="partner"]').first();
   await partner.click();
   await expect(partner).toHaveAttribute("aria-pressed", "true");
 
@@ -118,7 +118,7 @@ test("R3 role interaction remains usable on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
-  const school = page.getByRole("button", { name: /Škola/i }).first();
+  const school = page.locator('button[data-role="school"]').first();
   await school.click();
   await expect(school).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".role-relationship-map .role-map-node--actor")).toContainText("pedagogický rámec a bezpečný dohled");
