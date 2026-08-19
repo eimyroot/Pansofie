@@ -70,7 +70,7 @@ test("dedicated role page exposes all six role infographics", async ({ page }) =
   await partner.click();
   await expect(partner).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByRole("heading", { name: /Firma \/ organizace/i })).toBeVisible();
-  await expect(page.getByText(/Partner hodnotí výstup proti zadání, nikdy lidskou hodnotu/i)).toBeVisible();
+  await expect(page.locator(".role-map-boundary")).toContainText("Partner hodnotí výstup proti zadání, nikdy lidskou hodnotu");
   await expect(page.getByText(/learner raw evidence/i)).toBeVisible();
   await expect(page.getByRole("link", { name: /Jak funguje partnerství/i })).toHaveAttribute("href", "/partneri");
 });
