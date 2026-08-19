@@ -29,7 +29,7 @@ const required = [
   [story, "Vyzkoušet Pansofii za 60 sekund"],
   [home, 'to="/zapojit-se?mode=simulator"'],
   [home, "Vyzkoušet Pansofii za 60 sekund"],
-  [home, "nic neposílá na server"],
+  [home, "Interaktivní ukázka nic neodesílá ani neukládá na server"],
 ];
 
 const forbidden = [
