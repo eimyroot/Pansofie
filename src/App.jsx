@@ -5,6 +5,7 @@ import { queryClientInstance } from "@/lib/query-client";
 import { AuthProvider } from "@/lib/AuthContext";
 import { RequireAdmin, RequireAuth } from "@/components/auth/RouteGuards";
 import PublicNetworkShell from "@/components/pansofie/PublicNetworkShell";
+import "@/living-motion-r4-extensions.css";
 
 import Home from "@/pages/Home";
 import JakFunguje from "@/pages/JakFunguje";

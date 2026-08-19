@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -7,6 +7,8 @@ import {
   GraduationCap,
   Lightbulb,
   MessageSquareText,
+  Pause,
+  Play,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -21,10 +23,55 @@ const STEPS = [
 ];
 
 export default function ExperienceStory() {
+  const shellRef = useRef(null);
   const [activeStep, setActiveStep] = useState(0);
+  const [autoMotion, setAutoMotion] = useState(true);
+  const [inView, setInView] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const active = STEPS[activeStep];
   const ActiveIcon = active.icon;
   const progress = ((activeStep + 1) / STEPS.length) * 100;
+  const running = autoMotion && inView && !reduceMotion;
+
+  useEffect(() => {
+    const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    const sync = () => {
+      const reduced = Boolean(media?.matches);
+      setReduceMotion(reduced);
+      if (reduced) setAutoMotion(false);
+    };
+    sync();
+    media?.addEventListener?.("change", sync);
+    return () => media?.removeEventListener?.("change", sync);
+  }, []);
+
+  useEffect(() => {
+    const element = shellRef.current;
+    if (!element || typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting && entry.intersectionRatio > 0.18),
+      { threshold: [0, 0.18, 0.42] },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!running) return undefined;
+    const interval = window.setInterval(() => {
+      setActiveStep((current) => (current + 1) % STEPS.length);
+    }, 1850);
+    return () => window.clearInterval(interval);
+  }, [running]);
+
+  const chooseStep = (index) => {
+    setAutoMotion(false);
+    setActiveStep(index);
+  };
 
   return (
     <section id="experience" className="experience-section py-20 sm:py-28 border-t border-border/60 bg-card/40 scroll-mt-24">
@@ -46,7 +93,12 @@ export default function ExperienceStory() {
             </div>
           </div>
 
-          <div className="experience-interactive-shell" aria-label="Interaktivní průběh jedné Experience">
+          <div
+            ref={shellRef}
+            className="experience-interactive-shell"
+            data-auto-running={running}
+            aria-label="Interaktivní průběh jedné Experience"
+          >
             <div className="experience-ambient" aria-hidden="true" />
 
             <div className="relative z-10 p-5 sm:p-7">
@@ -54,13 +106,27 @@ export default function ExperienceStory() {
                 <div>
                   <p className="eyebrow">Living Experience Flow</p>
                   <h3 className="mt-2 text-2xl sm:text-3xl font-semibold font-display">Zlepši svou školu</h3>
-                  <p className="mt-2 text-sm text-muted-foreground max-w-xl">Přejeďte, zaostřete nebo klepněte na krok. Tok ukáže, kde právě vzniká práce, důkaz nebo ověření.</p>
+                  <p className="mt-2 text-sm text-muted-foreground max-w-xl">Tok se sám projde procesem. Kdykoli vyberte krok a převezměte řízení.</p>
                 </div>
-                <span className="status-pill status-neutral shrink-0">Ukázkový scénář</span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="status-pill status-neutral">Ukázkový scénář</span>
+                  <button
+                    type="button"
+                    className="experience-motion-toggle"
+                    aria-pressed={!autoMotion}
+                    onClick={() => setAutoMotion((value) => !value)}
+                    disabled={reduceMotion}
+                    title={reduceMotion ? "Pohyb je vypnutý podle nastavení zařízení" : undefined}
+                  >
+                    {running ? <Pause size={14} /> : <Play size={14} />}
+                    {running ? "Pozastavit tok" : "Spustit tok"}
+                  </button>
+                </div>
               </div>
 
               <div className="experience-progress mt-6" aria-hidden="true">
                 <span className="experience-progress-fill" style={{ width: `${progress}%` }} />
+                {running && <i className="experience-progress-packet" />}
               </div>
 
               <div className="mt-5 grid grid-cols-3 sm:grid-cols-6 gap-2" aria-label="Kroky Experience">
@@ -76,9 +142,9 @@ export default function ExperienceStory() {
                       data-complete={completed}
                       aria-current={selected ? "step" : undefined}
                       aria-label={`${step.number} · ${step.title}`}
-                      onMouseEnter={() => setActiveStep(index)}
-                      onFocus={() => setActiveStep(index)}
-                      onClick={() => setActiveStep(index)}
+                      onMouseEnter={() => chooseStep(index)}
+                      onFocus={() => chooseStep(index)}
+                      onClick={() => chooseStep(index)}
                       className="experience-step"
                     >
                       <span className="experience-step-icon"><Icon size={17} /></span>
@@ -89,7 +155,7 @@ export default function ExperienceStory() {
                 })}
               </div>
 
-              <div key={active.number} className="experience-detail mt-5" aria-live="polite">
+              <div key={active.number} className="experience-detail mt-5" aria-live={running ? "off" : "polite"}>
                 <div className="experience-detail-icon"><ActiveIcon size={23} /></div>
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
