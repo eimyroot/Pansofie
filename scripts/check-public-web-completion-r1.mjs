@@ -15,10 +15,13 @@ const files = {
 
 const required = [
   [files.app, 'path="/zapojit-se"'],
+  [files.app, 'path="/kontakt"'],
+  [files.app, '<Navigate to="/zapojit-se" replace />'],
   [files.app, 'path="/soukromi"'],
   [files.app, 'path="/bezpecnost"'],
   [files.app, 'path="/podminky"'],
-  [files.nav, 'to="/zapojit-se"'],
+  [files.nav, 'to="/zapojit-se?mode=simulator"'],
+  [files.footer, '"/zapojit-se"'],
   [files.footer, '"/bezpecnost"'],
   [files.footer, '"/soukromi"'],
   [files.join, "nic neodesílá ani neukládá"],
