@@ -54,6 +54,7 @@ export default function PublicNetworkShell({ children }) {
   const location = useLocation();
   const shellRef = useRef(null);
   const sectionsRef = useRef([]);
+  const manualStageUntilRef = useRef(0);
   const [activeNode, setActiveNode] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [stageHost, setStageHost] = useState(null);
@@ -70,6 +71,7 @@ export default function PublicNetworkShell({ children }) {
   }, []);
 
   useEffect(() => {
+    manualStageUntilRef.current = 0;
     setActiveNode(0);
     document.body.classList.add("pansofie-network-live", "pansofie-motion-r4", "pansofie-network-r5");
     document.body.dataset.networkRoute = network.key;
@@ -85,8 +87,8 @@ export default function PublicNetworkShell({ children }) {
   useEffect(() => {
     const shell = shellRef.current;
     const main = shell?.querySelector("main");
-    const firstSection = main?.querySelector(":scope > section");
-    if (!main || !firstSection || network.key === "public") {
+    const firstAnchor = main?.querySelector(":scope > section") || main?.firstElementChild;
+    if (!main || !firstAnchor || network.key === "public") {
       setStageHost(null);
       return undefined;
     }
@@ -94,7 +96,7 @@ export default function PublicNetworkShell({ children }) {
     const host = document.createElement("div");
     host.className = "reference-network-host";
     host.dataset.referenceNetworkRoute = network.key;
-    firstSection.insertAdjacentElement("afterend", host);
+    firstAnchor.insertAdjacentElement("afterend", host);
     setStageHost(host);
 
     return () => {
@@ -119,7 +121,9 @@ export default function PublicNetworkShell({ children }) {
       sections.forEach((section, index) => {
         section.dataset.motionState = index < sectionIndex ? "passed" : index === sectionIndex ? "active" : "pending";
       });
-      setActiveNode(targetNodeIndex(sectionIndex, sections.length, network.nodes.length));
+      if (performance.now() >= manualStageUntilRef.current) {
+        setActiveNode(targetNodeIndex(sectionIndex, sections.length, network.nodes.length));
+      }
     };
 
     const observer = typeof IntersectionObserver === "undefined" ? null : new IntersectionObserver(
@@ -235,6 +239,7 @@ export default function PublicNetworkShell({ children }) {
   };
 
   const selectStageNode = (index) => {
+    manualStageUntilRef.current = performance.now() + 2200;
     setActiveNode(index);
   };
 
