@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import {
   Activity,
   ArrowRight,
@@ -152,6 +152,8 @@ function rotatedSlot(nodeIndex, activeIndex, count) {
 export default function ReferenceNetworkStage({ network, activeIndex = 0, onSelect }) {
   const nodes = network?.nodes || [];
   const safeIndex = Math.min(Math.max(activeIndex, 0), Math.max(nodes.length - 1, 0));
+  const previousIndexRef = useRef(safeIndex);
+  const previousIndex = previousIndexRef.current;
   const selectedLabel = nodes[safeIndex] || nodes[0] || "Experience";
   const relatedLabels = RELATIONSHIPS[network?.key]?.[selectedLabel] || [nodes[(safeIndex + 1) % nodes.length], nodes[(safeIndex + nodes.length - 1) % nodes.length]].filter(Boolean);
   const [receives, contributes, boundary] = detailFor(network?.key, selectedLabel);
@@ -161,7 +163,12 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
     label,
     index,
     slot: rotatedSlot(index, safeIndex, nodes.length),
-  })), [nodes, safeIndex]);
+    previousSlot: rotatedSlot(index, previousIndex, nodes.length),
+  })), [nodes, safeIndex, previousIndex]);
+
+  useEffect(() => {
+    previousIndexRef.current = safeIndex;
+  }, [safeIndex]);
 
   const selectedPlacement = placements.find((item) => item.index === safeIndex) || placements[0];
   const relatedPlacements = placements.filter((item) => relatedLabels.includes(item.label));
@@ -199,7 +206,7 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
             const isActive = item.index === safeIndex;
             const isRelated = relatedLabels.includes(item.label);
             return (
-              <React.Fragment key={`core-edge-${item.label}`}>
+              <React.Fragment key={`core-edge-${item.label}-${safeIndex}`}>
                 <line
                   className="reference-network-r5__svg-edge"
                   data-active={isActive}
@@ -208,7 +215,10 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
                   y1={CORE.y}
                   x2={item.slot.x}
                   y2={item.slot.y}
-                />
+                >
+                  <animate attributeName="x2" from={item.previousSlot.x} to={item.slot.x} dur="0.64s" fill="freeze" />
+                  <animate attributeName="y2" from={item.previousSlot.y} to={item.slot.y} dur="0.64s" fill="freeze" />
+                </line>
                 {isActive && (
                   <line
                     className="reference-network-r5__svg-edge reference-network-r5__svg-edge--signal"
@@ -216,14 +226,17 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
                     y1={CORE.y}
                     x2={item.slot.x}
                     y2={item.slot.y}
-                  />
+                  >
+                    <animate attributeName="x2" from={item.previousSlot.x} to={item.slot.x} dur="0.64s" fill="freeze" />
+                    <animate attributeName="y2" from={item.previousSlot.y} to={item.slot.y} dur="0.64s" fill="freeze" />
+                  </line>
                 )}
               </React.Fragment>
             );
           })}
 
           {selectedPlacement && relatedPlacements.map((item) => (
-            <React.Fragment key={`cross-${selectedLabel}-${item.label}`}>
+            <React.Fragment key={`cross-${selectedLabel}-${item.label}-${safeIndex}`}>
               <line
                 className="reference-network-r5__svg-edge reference-network-r5__svg-edge--cross"
                 x1={selectedPlacement.slot.x}
