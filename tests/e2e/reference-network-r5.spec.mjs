@@ -27,6 +27,10 @@ async function expectNoHorizontalOverflow(page) {
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth + 1);
 }
 
+function center(box) {
+  return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+}
+
 for (const [key, route] of ROUTES) {
   test(`${key} mounts the shared six-node reference network`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1100 });
@@ -42,14 +46,16 @@ for (const [key, route] of ROUTES) {
   });
 }
 
-test("roles stage matches the reference interaction: click/focus moves nodes, hover stays stable, links and details change", async ({ page }) => {
+test("roles stage matches reference geometry: fixed role positions, stable hover, changing links and details", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
   const stage = page.locator('.reference-network-r5[data-network-key="roles"]');
+  const core = stage.locator(".reference-network-r5__core");
   const partner = stage.locator('button[data-reference-node="Partner"]');
   const school = stage.locator('button[data-reference-node="Škola"]');
   const community = stage.locator('button[data-reference-node="Komunita"]');
+  const mentor = stage.locator('button[data-reference-node="Mentor"]');
 
   await expect(stage).toBeVisible();
   await expect(stage).toHaveAttribute("data-selected-node", "Žák");
@@ -59,16 +65,36 @@ test("roles stage matches the reference interaction: click/focus moves nodes, ho
   await expect(stage).toHaveAttribute("data-selected-node", "Žák");
 
   const before = await partner.boundingBox();
+  const coreBox = await core.boundingBox();
+  const mentorBox = await mentor.boundingBox();
+  const schoolBox = await school.boundingBox();
   expect(before).not.toBeNull();
+  expect(coreBox).not.toBeNull();
+  expect(mentorBox).not.toBeNull();
+  expect(schoolBox).not.toBeNull();
+
+  const partnerBefore = center(before);
+  const coreCenter = center(coreBox);
+  const mentorCenter = center(mentorBox);
+  const schoolCenter = center(schoolBox);
+  expect(Math.abs(partnerBefore.x - coreCenter.x)).toBeLessThan(15);
+  expect(partnerBefore.y).toBeGreaterThan(coreCenter.y + 120);
+  expect(mentorCenter.x).toBeLessThan(coreCenter.x - 120);
+  expect(mentorCenter.y).toBeLessThan(coreCenter.y - 60);
+  expect(schoolCenter.x).toBeGreaterThan(coreCenter.x + 120);
+  expect(schoolCenter.y).toBeGreaterThan(coreCenter.y + 60);
 
   await partner.focus();
   await expect(partner).toHaveAttribute("aria-pressed", "true");
   await expect(stage).toHaveAttribute("data-selected-node", "Partner");
-  await page.waitForTimeout(850);
+  await page.waitForTimeout(700);
 
   const after = await partner.boundingBox();
   expect(after).not.toBeNull();
-  expect(Math.abs(after.y - before.y)).toBeGreaterThan(60);
+  const partnerAfter = center(after);
+  expect(Math.abs(partnerAfter.x - partnerBefore.x)).toBeLessThan(4);
+  expect(Math.abs(partnerAfter.y - partnerBefore.y)).toBeLessThan(4);
+
   await expect(school).toHaveAttribute("data-related", "true");
   await expect(community).toHaveAttribute("data-related", "true");
   expect(await stage.locator(".reference-network-r5__svg-edge--cross").count()).toBeGreaterThanOrEqual(2);
@@ -76,6 +102,8 @@ test("roles stage matches the reference interaction: click/focus moves nodes, ho
 
   const activeEdgeAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
   expect(activeEdgeAnimation).toContain("r5-svg-signal");
+  const nodeAnimation = await partner.evaluate((element) => getComputedStyle(element).animationName);
+  expect(nodeAnimation).toContain("r5-node-land");
 
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-partner-reference-desktop.png"), fullPage: true });
 });
@@ -94,7 +122,7 @@ test("partner route turns business flow into the same connected graph grammar", 
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "partner-review-reference-desktop.png"), fullPage: true });
 });
 
-test("mobile keeps nodes, SVG links and detail cards aligned and bounded", async ({ page }) => {
+test("mobile keeps fixed nodes, SVG links and detail cards aligned without overlap", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
@@ -105,7 +133,23 @@ test("mobile keeps nodes, SVG links and detail cards aligned and bounded", async
   const mentor = stage.locator('button[data-reference-node="Mentor"]');
   await mentor.focus();
   await expect(mentor).toHaveAttribute("aria-pressed", "true");
+  await page.waitForTimeout(700);
   expect(await stage.locator(".reference-network-r5__svg-edge--cross").count()).toBeGreaterThan(0);
+
+  const overlapCount = await stage.locator("button[data-reference-node]").evaluateAll((nodes) => {
+    const boxes = nodes.map((node) => node.getBoundingClientRect());
+    let overlaps = 0;
+    for (let i = 0; i < boxes.length; i += 1) {
+      for (let j = i + 1; j < boxes.length; j += 1) {
+        const a = boxes[i];
+        const b = boxes[j];
+        if (Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1) overlaps += 1;
+      }
+    }
+    return overlaps;
+  });
+  expect(overlapCount).toBe(0);
+
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-reference-mobile.png"), fullPage: true });
 });
@@ -118,7 +162,7 @@ test("reduced motion keeps the graph stateful but removes travelling animation",
   const stage = page.locator('.reference-network-r5[data-network-key="home"]');
   await expect(stage).toBeVisible();
   const activeEdgeAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
-  expect(activeEdgeAnimation).toBe("none");
+  expect(["", "none"]).toContain(activeEdgeAnimation);
 
   const proof = stage.locator('button[data-reference-node="Důkaz"]');
   await proof.focus();
