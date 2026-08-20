@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, UsersRound } from "lucide-react";
 import PublicNav from "@/components/pansofie/PublicNav";
 import PublicFooter from "@/components/pansofie/PublicFooter";
-import LivingRoleConstellation from "@/components/pansofie/LivingRoleConstellation";
 import RoleEntry from "@/components/pansofie/RoleEntry";
 
 export default function Roles() {
@@ -17,10 +16,6 @@ export default function Roles() {
             <h1 className="text-4xl sm:text-6xl font-semibold font-display tracking-tight text-balance leading-[1.05]">Jedna Experience propojí více lidí. <span className="text-primary">Nikdo ale nepotřebuje vidět všechno.</span></h1>
             <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl leading-relaxed">Vyberte roli a podívejte se, co v Pansofii skutečně dělá, co získává, co přináší, co smí vidět a kde končí její přístup.</p>
           </div>
-        </section>
-
-        <section className="container-px max-w-7xl mx-auto pb-10 sm:pb-16">
-          <LivingRoleConstellation />
         </section>
 
         <RoleEntry />

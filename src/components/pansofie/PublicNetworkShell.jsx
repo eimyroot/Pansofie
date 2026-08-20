@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
+import ReferenceNetworkStage from "@/components/pansofie/ReferenceNetworkStage";
 import "@/living-network.css";
 import "@/living-motion-r4.css";
 
@@ -23,15 +25,6 @@ const FALLBACK_NETWORK = {
   nodes: ["Experience", "Role", "Důkaz", "Ověření", "Důvěra", "Další krok"],
 };
 
-const ORBIT_POINTS = [
-  { x: 50, y: 12 },
-  { x: 82, y: 31 },
-  { x: 82, y: 69 },
-  { x: 50, y: 88 },
-  { x: 18, y: 69 },
-  { x: 18, y: 31 },
-];
-
 function networkForPath(pathname) {
   return ROUTE_NETWORKS.find((network) => network.match(pathname)) || FALLBACK_NETWORK;
 }
@@ -52,11 +45,12 @@ export default function PublicNetworkShell({ children }) {
   const location = useLocation();
   const shellRef = useRef(null);
   const sectionsRef = useRef([]);
+  const manualStageUntilRef = useRef(0);
   const [activeNode, setActiveNode] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [stageHost, setStageHost] = useState(null);
 
   const network = useMemo(() => networkForPath(location.pathname), [location.pathname]);
-  const activePoint = ORBIT_POINTS[activeNode] || ORBIT_POINTS[0];
 
   useEffect(() => {
     const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
@@ -67,17 +61,39 @@ export default function PublicNetworkShell({ children }) {
   }, []);
 
   useEffect(() => {
+    manualStageUntilRef.current = 0;
     setActiveNode(0);
-    document.body.classList.add("pansofie-network-live", "pansofie-motion-r4");
+    document.body.classList.add("pansofie-network-live", "pansofie-motion-r4", "pansofie-network-r5");
     document.body.dataset.networkRoute = network.key;
 
     const readyFrame = requestAnimationFrame(() => document.body.classList.add("pansofie-motion-ready"));
     return () => {
       cancelAnimationFrame(readyFrame);
-      document.body.classList.remove("pansofie-network-live", "pansofie-motion-r4", "pansofie-motion-ready");
+      document.body.classList.remove("pansofie-network-live", "pansofie-motion-r4", "pansofie-motion-ready", "pansofie-network-r5");
       delete document.body.dataset.networkRoute;
     };
   }, [network.key]);
+
+  useEffect(() => {
+    const shell = shellRef.current;
+    const main = shell?.querySelector("main");
+    const firstAnchor = main?.querySelector(":scope > section") || main?.firstElementChild;
+    if (!main || !firstAnchor || network.key === "public") {
+      setStageHost(null);
+      return undefined;
+    }
+
+    const host = document.createElement("div");
+    host.className = "reference-network-host";
+    host.dataset.referenceNetworkRoute = network.key;
+    firstAnchor.insertAdjacentElement("afterend", host);
+    setStageHost(host);
+
+    return () => {
+      setStageHost(null);
+      host.remove();
+    };
+  }, [location.pathname, network.key]);
 
   useEffect(() => {
     const shell = shellRef.current;
@@ -95,7 +111,9 @@ export default function PublicNetworkShell({ children }) {
       sections.forEach((section, index) => {
         section.dataset.motionState = index < sectionIndex ? "passed" : index === sectionIndex ? "active" : "pending";
       });
-      setActiveNode(targetNodeIndex(sectionIndex, sections.length, network.nodes.length));
+      if (performance.now() >= manualStageUntilRef.current) {
+        setActiveNode(targetNodeIndex(sectionIndex, sections.length, network.nodes.length));
+      }
     };
 
     const observer = typeof IntersectionObserver === "undefined" ? null : new IntersectionObserver(
@@ -110,7 +128,7 @@ export default function PublicNetworkShell({ children }) {
       { rootMargin: "-24% 0px -52% 0px", threshold: [0.06, 0.16, 0.32, 0.58] },
     );
 
-    observer?.observe && sections.forEach((section) => observer.observe(section));
+    if (observer) sections.forEach((section) => observer.observe(section));
 
     let raf = 0;
     const updateSectionMotion = () => {
@@ -186,8 +204,6 @@ export default function PublicNetworkShell({ children }) {
         const y = Math.min(100, Math.max(0, (event.clientY / Math.max(window.innerHeight, 1)) * 100));
         shell.style.setProperty("--network-pointer-x", `${x}%`);
         shell.style.setProperty("--network-pointer-y", `${y}%`);
-        shell.style.setProperty("--network-parallax-x", `${(x - 50) * 0.12}px`);
-        shell.style.setProperty("--network-parallax-y", `${(y - 50) * 0.09}px`);
       });
     };
 
@@ -210,72 +226,21 @@ export default function PublicNetworkShell({ children }) {
     });
   };
 
+  const selectStageNode = (index) => {
+    manualStageUntilRef.current = performance.now() + 2200;
+    setActiveNode(index);
+  };
+
   return (
     <div
       ref={shellRef}
-      className="public-network-shell public-network-shell--r4"
+      className="public-network-shell public-network-shell--r4 public-network-shell--r5"
       data-network-route={network.key}
       data-active-network-node={activeNode}
-      style={{
-        "--network-node-index": activeNode,
-        "--network-focus-x": `${activePoint.x}%`,
-        "--network-focus-y": `${activePoint.y}%`,
-      }}
+      style={{ "--network-node-index": activeNode }}
     >
       <div className="network-cursor-glow" aria-hidden="true" />
       <div className="network-motion-sweep" aria-hidden="true" />
-
-      <div className="route-network-orbit route-network-orbit--r4" aria-hidden="true">
-        <svg viewBox="0 0 100 100" role="presentation">
-          <circle className="route-orbit-r4-ring route-orbit-r4-ring--outer" cx="50" cy="50" r="43" />
-          <circle className="route-orbit-r4-ring route-orbit-r4-ring--inner" cx="50" cy="50" r="28" />
-
-          <g key={`${network.key}-${activeNode}`} className="route-orbit-edges route-orbit-edges--r4">
-            {ORBIT_POINTS.map((point, index) => (
-              <line
-                key={`core-${network.nodes[index]}`}
-                x1="50"
-                y1="50"
-                x2={point.x}
-                y2={point.y}
-                data-active={index === activeNode}
-                data-passed={index < activeNode}
-              />
-            ))}
-            <line
-              className="route-orbit-crosslink"
-              x1={ORBIT_POINTS[activeNode].x}
-              y1={ORBIT_POINTS[activeNode].y}
-              x2={ORBIT_POINTS[(activeNode + 1) % ORBIT_POINTS.length].x}
-              y2={ORBIT_POINTS[(activeNode + 1) % ORBIT_POINTS.length].y}
-            />
-          </g>
-
-          {!reduceMotion && (
-            <g key={`signal-${network.key}-${activeNode}`} className="route-orbit-travellers">
-              <circle className="route-orbit-traveller" r="1.55">
-                <animateMotion dur="1.55s" repeatCount="indefinite" path={`M 50 50 L ${activePoint.x} ${activePoint.y}`} />
-              </circle>
-              <circle className="route-orbit-traveller route-orbit-traveller--echo" r="0.9">
-                <animateMotion begin="0.52s" dur="1.55s" repeatCount="indefinite" path={`M 50 50 L ${activePoint.x} ${activePoint.y}`} />
-              </circle>
-            </g>
-          )}
-
-          <circle className="route-orbit-core-halo route-orbit-core-halo--r4" cx="50" cy="50" r="15" />
-          <circle className="route-orbit-core" cx="50" cy="50" r="9.5" />
-          <text className="route-orbit-core-label" x="50" y="51.5" textAnchor="middle">{network.core}</text>
-
-          {ORBIT_POINTS.map((point, index) => (
-            <g key={network.nodes[index]} className="route-orbit-node route-orbit-node--r4" data-active={index === activeNode} data-passed={index < activeNode}>
-              <circle cx={point.x} cy={point.y} r={index === activeNode ? 5.8 : 4.2} />
-              <text x={point.x} y={point.y + (point.y < 50 ? -7 : 8)} textAnchor="middle">
-                {network.nodes[index]}
-              </text>
-            </g>
-          ))}
-        </svg>
-      </div>
 
       <div className="route-network-ribbon route-network-ribbon--r4" aria-label="Živá mapa aktuální stránky">
         <div className="route-network-ribbon-inner">
@@ -302,11 +267,10 @@ export default function PublicNetworkShell({ children }) {
         </div>
       </div>
 
-      <div className="network-scroll-rail network-scroll-rail--r4" aria-hidden="true">
-        <span className="network-scroll-track" />
-        <span className="network-scroll-progress" />
-        <i className="network-scroll-node" />
-      </div>
+      {stageHost && createPortal(
+        <ReferenceNetworkStage network={network} activeIndex={activeNode} onSelect={selectStageNode} />,
+        stageHost,
+      )}
 
       <div className="public-network-content public-network-content--r4">
         {children}

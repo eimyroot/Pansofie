@@ -47,9 +47,10 @@ for (const [name, route, routeKey] of PUBLIC_NETWORK_ROUTES) {
       await expect(ribbon.locator("button.route-network-ribbon-node")).toHaveCount(6);
       await expect(ribbon.locator('button[aria-pressed="true"]')).toHaveCount(1);
 
-      if (viewport.label === "desktop") {
-        await expect(page.locator(".route-network-orbit")).toBeVisible();
-      }
+      const stage = page.locator(`.reference-network-r5[data-network-key="${routeKey}"]`);
+      await expect(stage).toBeVisible();
+      await expect(stage.locator("button[data-reference-node]")).toHaveCount(6);
+      await expect(page.locator(".route-network-orbit")).toHaveCount(0);
 
       await expectNoHorizontalOverflow(page);
     });
@@ -108,6 +109,10 @@ test("partner page exposes its relationship sequence as one network", async ({ p
     await expect(ribbon.getByRole("button", { name: new RegExp(node, "i") })).toBeVisible();
   }
 
+  const stage = page.locator('.reference-network-r5[data-network-key="partner"]');
+  await expect(stage).toBeVisible();
+  await expect(stage.locator("button[data-reference-node]")).toHaveCount(6);
+
   const activeNav = page.locator('a.public-nav-link[data-active="true"]');
   await expect(activeNav).toHaveAttribute("href", "/partneri");
   await expectNoHorizontalOverflow(page);
@@ -122,13 +127,14 @@ test("R3 role interaction remains usable on mobile", async ({ page }) => {
   await school.click();
   await expect(school).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".role-relationship-map .role-map-node--actor")).toContainText("pedagogický rámec a bezpečný dohled");
-  await expect(page.locator(".route-network-orbit")).toBeHidden();
+  await expect(page.locator(".route-network-orbit")).toHaveCount(0);
+  await expect(page.locator('.reference-network-r5[data-network-key="roles"]')).toBeVisible();
 
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-school-network-mobile.png"), fullPage: true });
 });
 
-test("prefers-reduced-motion disables decorative R3 network motion", async ({ browser }) => {
+test("prefers-reduced-motion disables decorative R3/R5 network motion", async ({ browser }) => {
   const context = await browser.newContext({
     viewport: { width: 1280, height: 900 },
     reducedMotion: "reduce",
@@ -136,10 +142,17 @@ test("prefers-reduced-motion disables decorative R3 network motion", async ({ br
   const page = await context.newPage();
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
 
-  for (const selector of [".experience-ambient", ".route-network-orbit", ".route-network-ribbon-edge i"]) {
+  for (const selector of [".experience-ambient", ".route-network-ribbon-edge i"]) {
     const duration = await page.locator(selector).first().evaluate((element) => Number.parseFloat(getComputedStyle(element).animationDuration));
     expect(duration).toBeLessThanOrEqual(0.01);
   }
+
+  const stage = page.locator('.reference-network-r5[data-network-key="home"]');
+  await expect(stage).toBeVisible();
+  const signals = stage.locator(".reference-network-r5__svg-edge--signal");
+  expect(await signals.count()).toBeGreaterThan(0);
+  const edgeAnimation = await signals.first().evaluate((element) => getComputedStyle(element).animationName);
+  expect(edgeAnimation.includes("r5-svg-signal")).toBe(false);
   await expect(page.locator(".network-cursor-glow")).toBeHidden();
   await context.close();
 });
