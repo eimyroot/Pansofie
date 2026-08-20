@@ -68,42 +68,43 @@ test("Living Experience Flow visibly advances and user can pause it", async ({ p
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "experience-running-desktop.png"), fullPage: true });
 });
 
-test("role constellation physically reorganizes around Experience", async ({ page }) => {
+test("role network physically reorganizes around Experience", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
-  const stage = page.locator(".living-role-constellation-stage");
-  const partner = page.locator('button[data-constellation-role="partner"]');
+  const stage = page.locator('.reference-network-r5[data-network-key="roles"]');
+  const partner = stage.locator('button[data-reference-node="Partner"]');
   await expect(stage).toBeVisible();
   await expect(partner).toBeVisible();
 
   const before = await partner.boundingBox();
   expect(before).not.toBeNull();
   await partner.click();
-  await expect(stage).toHaveAttribute("data-selected-role", "partner");
+  await expect(partner).toHaveAttribute("aria-pressed", "true");
   await page.waitForTimeout(900);
   const after = await partner.boundingBox();
   expect(after).not.toBeNull();
   expect(Math.abs(after.y - before.y)).toBeGreaterThan(60);
-  await expect(partner).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator(".living-role-constellation-summary")).toContainText("Hodnotí výstup, nikdy člověka.");
+  await expect(stage.locator(".reference-network-r5__details")).toContainText("Firma nekupuje pozitivní výsledek");
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-constellation-partner-desktop.png"), fullPage: true });
 });
 
-test("R4 remains bounded and usable on mobile", async ({ page }) => {
+test("R4/R5 network remains bounded and usable on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
   await expect(page.locator(".route-network-orbit--r4")).toBeHidden();
-  await expect(page.locator(".living-role-constellation")).toBeVisible();
-  await page.locator('button[data-constellation-role="school"]').click();
-  await expect(page.locator(".living-role-constellation-stage")).toHaveAttribute("data-selected-role", "school");
+  const stage = page.locator('.reference-network-r5[data-network-key="roles"]');
+  await expect(stage).toBeVisible();
+  const school = stage.locator('button[data-reference-node="Škola"]');
+  await school.click();
+  await expect(school).toHaveAttribute("aria-pressed", "true");
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-constellation-mobile.png"), fullPage: true });
 });
 
-test("prefers-reduced-motion removes decorative R4 motion and autoplay", async ({ browser }) => {
+test("prefers-reduced-motion removes decorative R4/R5 motion and autoplay", async ({ browser }) => {
   const context = await browser.newContext({
     viewport: { width: 1280, height: 900 },
     reducedMotion: "reduce",
@@ -115,6 +116,11 @@ test("prefers-reduced-motion removes decorative R4 motion and autoplay", async (
   const flow = page.getByLabel("Interaktivní průběh jedné Experience");
   await flow.scrollIntoViewIfNeeded();
   await expect(flow).toHaveAttribute("data-auto-running", "false");
+
+  const stage = page.locator('.reference-network-r5[data-network-key="home"]');
+  await expect(stage).toBeVisible();
+  const edgeAnimation = await stage.locator('.reference-network-r5__edge[data-active="true"]').first().evaluate((element) => getComputedStyle(element, "::after").animationName);
+  expect(edgeAnimation).toBe("none");
 
   const sectionDuration = await page.locator("main > section").first().locator(":scope > :first-child").evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
   expect(sectionDuration).toBeLessThanOrEqual(0.01);
