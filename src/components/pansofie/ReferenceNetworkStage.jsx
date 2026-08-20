@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import {
   Activity,
   ArrowRight,
@@ -57,9 +57,9 @@ const RELATIONSHIPS = {
     Žák: ["Rodina", "Škola", "Mentor"],
     Rodina: ["Žák", "Škola"],
     Škola: ["Žák", "Rodina", "Partner", "Komunita"],
-    Mentor: ["Žák", "Škola"],
     Partner: ["Škola", "Komunita"],
     Komunita: ["Škola", "Partner"],
+    Mentor: ["Žák", "Škola"],
   },
   pilot: {
     Škola: ["Experience", "Žák", "Ověření"],
@@ -92,9 +92,9 @@ const DETAIL_OVERRIDES = {
     Žák: ["Skutečnou zkušenost, vedení a soukromý Passport.", "Pohled, otázky, práci v týmu, výstup, důkaz a vlastní reflexi.", "Přínos se nikdy nepřevádí na skóre člověka ani předpověď jeho budoucnosti."],
     Rodina: ["Bezpečnou a smysluplnou roli v rozvoji dítěte bez narušení soukromí.", "Reálný kontext, podnět a pohled z domova — ne hodnocení.", "Rodina automaticky nevidí soukromou reflexi žáka."],
     Škola: ["Doložený průběh a ověřitelnou práci bez univerzálního profilu dítěte.", "Bezpečný rámec, pedagogické vedení a oddělené ověření.", "Škola ověřuje práci; Pansofie z toho nevytváří skóre lidské hodnoty."],
-    Mentor: ["Jasně ohraničené odborné zapojení do konkrétní Experience.", "Expertizu, otázky a zpětnou vazbu k doložené práci.", "Mentor nemá neomezený soukromý kanál k dítěti."],
     Partner: ["Reálný důvod se zapojit a možnost vidět výsledek v praxi.", "Skutečný problém, kontext a review bounded výstupu.", "Firma nekupuje pozitivní výsledek ani přístup k soukromým datům."],
     Komunita: ["Místní potřebu, kontext a možnost výsledek vyzkoušet nebo použít.", "Reálné prostředí, kde má práce smysl a dopad se teprve ověřuje.", "Zapojení se řídí konkrétní Experience, ne plošnou kampaní."],
+    Mentor: ["Jasně ohraničené odborné zapojení do konkrétní Experience.", "Expertizu, otázky a zpětnou vazbu k doložené práci.", "Mentor nemá neomezený soukromý kanál k dítěti."],
   },
   partner: {
     Challenge: ["Jasné zadání s očekávaným bounded výstupem.", "Reálný problém a kontext, ne marketingový slib.", "Challenge nedává Partnerovi přístup k soukromému profilu člověka."],
@@ -145,16 +145,13 @@ function iconFor(label) {
   return CircleDot;
 }
 
-function rotatedSlot(nodeIndex, activeIndex, count) {
-  const normalized = (nodeIndex - activeIndex + count) % count;
-  return SLOTS[normalized] || SLOTS[nodeIndex % SLOTS.length];
+function slotFor(index) {
+  return SLOTS[index % SLOTS.length];
 }
 
 export default function ReferenceNetworkStage({ network, activeIndex = 0, onSelect }) {
   const nodes = network?.nodes || [];
   const safeIndex = Math.min(Math.max(activeIndex, 0), Math.max(nodes.length - 1, 0));
-  const previousIndexRef = useRef(safeIndex);
-  const previousIndex = previousIndexRef.current;
   const selectedLabel = nodes[safeIndex] || nodes[0] || "Experience";
   const relatedLabels = RELATIONSHIPS[network?.key]?.[selectedLabel] || [nodes[(safeIndex + 1) % nodes.length], nodes[(safeIndex + nodes.length - 1) % nodes.length]].filter(Boolean);
   const [receives, contributes, boundary] = detailFor(network?.key, selectedLabel);
@@ -163,13 +160,8 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
   const placements = useMemo(() => nodes.map((label, index) => ({
     label,
     index,
-    slot: rotatedSlot(index, safeIndex, nodes.length),
-    previousSlot: rotatedSlot(index, previousIndex, nodes.length),
-  })), [nodes, safeIndex, previousIndex]);
-
-  useEffect(() => {
-    previousIndexRef.current = safeIndex;
-  }, [safeIndex]);
+    slot: slotFor(index),
+  })), [nodes]);
 
   const selectedPlacement = placements.find((item) => item.index === safeIndex) || placements[0];
   const relatedPlacements = placements.filter((item) => relatedLabels.includes(item.label));
@@ -197,17 +189,12 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
       <div className="reference-network-r5__canvas">
         <div className="reference-network-r5__ambient" aria-hidden="true" />
 
-        <svg
-          className="reference-network-r5__links"
-          viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
+        <svg className="reference-network-r5__links" viewBox={`0 0 ${STAGE_W} ${STAGE_H}`} preserveAspectRatio="none" aria-hidden="true">
           {placements.map((item) => {
             const isActive = item.index === safeIndex;
             const isRelated = relatedLabels.includes(item.label);
             return (
-              <React.Fragment key={`core-edge-${item.label}-${safeIndex}`}>
+              <React.Fragment key={`core-edge-${item.label}`}>
                 <line
                   className="reference-network-r5__svg-edge"
                   data-active={isActive}
@@ -216,10 +203,7 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
                   y1={CORE.y}
                   x2={item.slot.x}
                   y2={item.slot.y}
-                >
-                  <animate attributeName="x2" from={item.previousSlot.x} to={item.slot.x} dur="0.64s" fill="freeze" />
-                  <animate attributeName="y2" from={item.previousSlot.y} to={item.slot.y} dur="0.64s" fill="freeze" />
-                </line>
+                />
                 {isActive && (
                   <line
                     className="reference-network-r5__svg-edge reference-network-r5__svg-edge--signal"
@@ -227,17 +211,14 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
                     y1={CORE.y}
                     x2={item.slot.x}
                     y2={item.slot.y}
-                  >
-                    <animate attributeName="x2" from={item.previousSlot.x} to={item.slot.x} dur="0.64s" fill="freeze" />
-                    <animate attributeName="y2" from={item.previousSlot.y} to={item.slot.y} dur="0.64s" fill="freeze" />
-                  </line>
+                  />
                 )}
               </React.Fragment>
             );
           })}
 
           {selectedPlacement && relatedPlacements.map((item) => (
-            <React.Fragment key={`cross-${selectedLabel}-${item.label}-${safeIndex}`}>
+            <React.Fragment key={`cross-${selectedLabel}-${item.label}`}>
               <line
                 className="reference-network-r5__svg-edge reference-network-r5__svg-edge--cross"
                 x1={selectedPlacement.slot.x}
