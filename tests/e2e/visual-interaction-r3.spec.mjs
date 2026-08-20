@@ -149,8 +149,10 @@ test("prefers-reduced-motion disables decorative R3/R5 network motion", async ({
 
   const stage = page.locator('.reference-network-r5[data-network-key="home"]');
   await expect(stage).toBeVisible();
-  const edgeAnimation = await stage.locator('.reference-network-r5__edge[data-active="true"]').first().evaluate((element) => getComputedStyle(element, "::after").animationName);
-  expect(edgeAnimation).toBe("none");
+  const signals = stage.locator(".reference-network-r5__svg-edge--signal");
+  expect(await signals.count()).toBeGreaterThan(0);
+  const edgeAnimation = await signals.first().evaluate((element) => getComputedStyle(element).animationName);
+  expect(edgeAnimation.includes("r5-svg-signal")).toBe(false);
   await expect(page.locator(".network-cursor-glow")).toBeHidden();
   await context.close();
 });
