@@ -35,6 +35,7 @@ const SLOTS = [
   { x: 210, y: 430 },
   { x: 210, y: 205 },
 ];
+const ROLE_SLOT_INDEX = { Žák: 0, Rodina: 1, Škola: 2, Partner: 3, Komunita: 4, Mentor: 5 };
 
 const RELATIONSHIPS = {
   home: {
@@ -145,8 +146,9 @@ function iconFor(label) {
   return CircleDot;
 }
 
-function slotFor(index) {
-  return SLOTS[index % SLOTS.length];
+function slotFor(networkKey, label, index) {
+  const slotIndex = networkKey === "roles" ? (ROLE_SLOT_INDEX[label] ?? index) : index;
+  return SLOTS[slotIndex % SLOTS.length];
 }
 
 export default function ReferenceNetworkStage({ network, activeIndex = 0, onSelect }) {
@@ -160,8 +162,8 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
   const placements = useMemo(() => nodes.map((label, index) => ({
     label,
     index,
-    slot: slotFor(index),
-  })), [nodes]);
+    slot: slotFor(network?.key, label, index),
+  })), [network?.key, nodes]);
 
   const selectedPlacement = placements.find((item) => item.index === safeIndex) || placements[0];
   const relatedPlacements = placements.filter((item) => relatedLabels.includes(item.label));
