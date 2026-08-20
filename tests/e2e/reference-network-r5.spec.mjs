@@ -31,6 +31,11 @@ function center(box) {
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 }
 
+function relativeCenter(box, containerBox) {
+  const point = center(box);
+  return { x: point.x - containerBox.x, y: point.y - containerBox.y };
+}
+
 for (const [key, route] of ROUTES) {
   test(`${key} mounts the shared six-node reference network`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1100 });
@@ -51,6 +56,7 @@ test("roles stage matches reference geometry: fixed role positions, stable hover
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
   const stage = page.locator('.reference-network-r5[data-network-key="roles"]');
+  const canvas = stage.locator(".reference-network-r5__canvas");
   const core = stage.locator(".reference-network-r5__core");
   const partner = stage.locator('button[data-reference-node="Partner"]');
   const school = stage.locator('button[data-reference-node="Škola"]');
@@ -64,19 +70,21 @@ test("roles stage matches reference geometry: fixed role positions, stable hover
   await page.waitForTimeout(250);
   await expect(stage).toHaveAttribute("data-selected-node", "Žák");
 
-  const before = await partner.boundingBox();
+  const canvasBefore = await canvas.boundingBox();
+  const partnerBeforeBox = await partner.boundingBox();
   const coreBox = await core.boundingBox();
   const mentorBox = await mentor.boundingBox();
   const schoolBox = await school.boundingBox();
-  expect(before).not.toBeNull();
+  expect(canvasBefore).not.toBeNull();
+  expect(partnerBeforeBox).not.toBeNull();
   expect(coreBox).not.toBeNull();
   expect(mentorBox).not.toBeNull();
   expect(schoolBox).not.toBeNull();
 
-  const partnerBefore = center(before);
-  const coreCenter = center(coreBox);
-  const mentorCenter = center(mentorBox);
-  const schoolCenter = center(schoolBox);
+  const partnerBefore = relativeCenter(partnerBeforeBox, canvasBefore);
+  const coreCenter = relativeCenter(coreBox, canvasBefore);
+  const mentorCenter = relativeCenter(mentorBox, canvasBefore);
+  const schoolCenter = relativeCenter(schoolBox, canvasBefore);
   expect(Math.abs(partnerBefore.x - coreCenter.x)).toBeLessThan(15);
   expect(partnerBefore.y).toBeGreaterThan(coreCenter.y + 120);
   expect(mentorCenter.x).toBeLessThan(coreCenter.x - 120);
@@ -89,9 +97,11 @@ test("roles stage matches reference geometry: fixed role positions, stable hover
   await expect(stage).toHaveAttribute("data-selected-node", "Partner");
   await page.waitForTimeout(700);
 
-  const after = await partner.boundingBox();
-  expect(after).not.toBeNull();
-  const partnerAfter = center(after);
+  const canvasAfter = await canvas.boundingBox();
+  const partnerAfterBox = await partner.boundingBox();
+  expect(canvasAfter).not.toBeNull();
+  expect(partnerAfterBox).not.toBeNull();
+  const partnerAfter = relativeCenter(partnerAfterBox, canvasAfter);
   expect(Math.abs(partnerAfter.x - partnerBefore.x)).toBeLessThan(4);
   expect(Math.abs(partnerAfter.y - partnerBefore.y)).toBeLessThan(4);
 
