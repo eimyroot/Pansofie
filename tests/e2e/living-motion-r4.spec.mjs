@@ -72,7 +72,7 @@ test("Living Experience Flow visibly advances and user can pause it", async ({ p
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "experience-running-desktop.png"), fullPage: true });
 });
 
-test("role network physically reorganizes around Experience", async ({ page }) => {
+test("role network keeps spatial context while active relationships change", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
@@ -83,12 +83,20 @@ test("role network physically reorganizes around Experience", async ({ page }) =
 
   const before = await partner.boundingBox();
   expect(before).not.toBeNull();
+  const beforeCenter = { x: before.x + before.width / 2, y: before.y + before.height / 2 };
+
   await partner.click();
   await expect(partner).toHaveAttribute("aria-pressed", "true");
-  await page.waitForTimeout(900);
+  await page.waitForTimeout(700);
   const after = await partner.boundingBox();
   expect(after).not.toBeNull();
-  expect(Math.abs(after.y - before.y)).toBeGreaterThan(60);
+  const afterCenter = { x: after.x + after.width / 2, y: after.y + after.height / 2 };
+  expect(Math.abs(afterCenter.x - beforeCenter.x)).toBeLessThan(4);
+  expect(Math.abs(afterCenter.y - beforeCenter.y)).toBeLessThan(4);
+
+  expect(await stage.locator(".reference-network-r5__svg-edge--cross").count()).toBeGreaterThan(0);
+  const signalAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
+  expect(signalAnimation).toContain("r5-svg-signal");
   await expect(stage.locator(".reference-network-r5__details")).toContainText("Firma nekupuje pozitivní výsledek");
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-constellation-partner-desktop.png"), fullPage: true });
@@ -104,16 +112,14 @@ test("R4/R5 network remains bounded and usable on mobile", async ({ page }) => {
   const school = stage.locator('button[data-reference-node="Škola"]');
   await school.click();
   await expect(school).toHaveAttribute("aria-pressed", "true");
+  await page.waitForTimeout(700);
   await expect(stage.locator(".reference-network-r5__links")).toBeVisible();
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-constellation-mobile.png"), fullPage: true });
 });
 
 test("prefers-reduced-motion removes decorative R4/R5 motion and autoplay", async ({ browser }) => {
-  const context = await browser.newContext({
-    viewport: { width: 1280, height: 900 },
-    reducedMotion: "reduce",
-  });
+  const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
   const page = await context.newPage();
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
 
