@@ -36,13 +36,13 @@ for (const [key, route] of ROUTES) {
     await expect(stage).toBeVisible();
     await expect(stage.locator(".reference-network-r5__core")).toBeVisible();
     await expect(stage.locator("button[data-reference-node]")).toHaveCount(6);
-    await expect(stage.locator('.reference-network-r5__edge[data-active="true"]')).not.toHaveCount(0);
+    expect(await stage.locator('.reference-network-r5__svg-edge[data-active="true"]').count()).toBeGreaterThan(0);
     await expect(stage.locator(".reference-network-r5__details")).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
 }
 
-test("roles stage matches the reference interaction: active node moves, related links strengthen and details change", async ({ page }) => {
+test("roles stage matches the reference interaction: click/focus moves nodes, hover stays stable, links and details change", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
@@ -52,11 +52,18 @@ test("roles stage matches the reference interaction: active node moves, related 
   const community = stage.locator('button[data-reference-node="Komunita"]');
 
   await expect(stage).toBeVisible();
+  await expect(stage).toHaveAttribute("data-selected-node", "Žák");
+
+  await partner.hover();
+  await page.waitForTimeout(250);
+  await expect(stage).toHaveAttribute("data-selected-node", "Žák");
+
   const before = await partner.boundingBox();
   expect(before).not.toBeNull();
 
   await partner.focus();
   await expect(partner).toHaveAttribute("aria-pressed", "true");
+  await expect(stage).toHaveAttribute("data-selected-node", "Partner");
   await page.waitForTimeout(850);
 
   const after = await partner.boundingBox();
@@ -64,11 +71,11 @@ test("roles stage matches the reference interaction: active node moves, related 
   expect(Math.abs(after.y - before.y)).toBeGreaterThan(60);
   await expect(school).toHaveAttribute("data-related", "true");
   await expect(community).toHaveAttribute("data-related", "true");
-  expect(await stage.locator('.reference-network-r5__edge--cross[data-active="true"]').count()).toBeGreaterThanOrEqual(2);
+  expect(await stage.locator(".reference-network-r5__svg-edge--cross").count()).toBeGreaterThanOrEqual(2);
   await expect(stage.locator(".reference-network-r5__details")).toContainText("Firma nekupuje pozitivní výsledek");
 
-  const activeEdgeAnimation = await stage.locator('.reference-network-r5__edge[data-active="true"]').first().evaluate((element) => getComputedStyle(element, "::after").animationName);
-  expect(activeEdgeAnimation).toContain("r5-edge-travel");
+  const activeEdgeAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
+  expect(activeEdgeAnimation).toContain("r5-svg-signal");
 
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-partner-reference-desktop.png"), fullPage: true });
 });
@@ -87,16 +94,18 @@ test("partner route turns business flow into the same connected graph grammar", 
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "partner-review-reference-desktop.png"), fullPage: true });
 });
 
-test("mobile keeps the reference network interactive and bounded", async ({ page }) => {
+test("mobile keeps nodes, SVG links and detail cards aligned and bounded", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
   const stage = page.locator('.reference-network-r5[data-network-key="roles"]');
   await expect(stage).toBeVisible();
   await expect(stage.locator("button[data-reference-node]")).toHaveCount(6);
+  await expect(stage.locator(".reference-network-r5__links")).toBeVisible();
   const mentor = stage.locator('button[data-reference-node="Mentor"]');
   await mentor.focus();
   await expect(mentor).toHaveAttribute("aria-pressed", "true");
+  expect(await stage.locator(".reference-network-r5__svg-edge--cross").count()).toBeGreaterThan(0);
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-reference-mobile.png"), fullPage: true });
 });
@@ -108,7 +117,7 @@ test("reduced motion keeps the graph stateful but removes travelling animation",
 
   const stage = page.locator('.reference-network-r5[data-network-key="home"]');
   await expect(stage).toBeVisible();
-  const activeEdgeAnimation = await stage.locator('.reference-network-r5__edge[data-active="true"]').first().evaluate((element) => getComputedStyle(element, "::after").animationName);
+  const activeEdgeAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
   expect(activeEdgeAnimation).toBe("none");
 
   const proof = stage.locator('button[data-reference-node="Důkaz"]');
