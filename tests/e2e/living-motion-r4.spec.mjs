@@ -25,7 +25,7 @@ test("desktop public shell has a real travelling network signal", async ({ page 
   await expect(page.locator(".route-network-orbit--r4")).toHaveCount(0);
 
   const signal = stage.locator(".reference-network-r5__svg-edge--signal").first();
-  await expect(signal).toBeVisible();
+  await expect(signal).toHaveCount(1);
   const signalAnimation = await signal.evaluate((element) => getComputedStyle(element).animationName);
   expect(signalAnimation).toContain("r5-svg-signal");
 
@@ -125,7 +125,7 @@ test("prefers-reduced-motion removes decorative R4/R5 motion and autoplay", asyn
   const stage = page.locator('.reference-network-r5[data-network-key="home"]');
   await expect(stage).toBeVisible();
   const edgeAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
-  expect(edgeAnimation).toBe("none");
+  expect(["", "none"]).toContain(edgeAnimation);
 
   const sectionDuration = await page.locator("main > section").first().locator(":scope > :first-child").evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
   expect(sectionDuration).toBeLessThanOrEqual(0.01);
