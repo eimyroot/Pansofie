@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
+import ReferenceNetworkStage from "@/components/pansofie/ReferenceNetworkStage";
 import "@/living-network.css";
 import "@/living-motion-r4.css";
 
@@ -54,6 +56,7 @@ export default function PublicNetworkShell({ children }) {
   const sectionsRef = useRef([]);
   const [activeNode, setActiveNode] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [stageHost, setStageHost] = useState(null);
 
   const network = useMemo(() => networkForPath(location.pathname), [location.pathname]);
   const activePoint = ORBIT_POINTS[activeNode] || ORBIT_POINTS[0];
@@ -68,16 +71,37 @@ export default function PublicNetworkShell({ children }) {
 
   useEffect(() => {
     setActiveNode(0);
-    document.body.classList.add("pansofie-network-live", "pansofie-motion-r4");
+    document.body.classList.add("pansofie-network-live", "pansofie-motion-r4", "pansofie-network-r5");
     document.body.dataset.networkRoute = network.key;
 
     const readyFrame = requestAnimationFrame(() => document.body.classList.add("pansofie-motion-ready"));
     return () => {
       cancelAnimationFrame(readyFrame);
-      document.body.classList.remove("pansofie-network-live", "pansofie-motion-r4", "pansofie-motion-ready");
+      document.body.classList.remove("pansofie-network-live", "pansofie-motion-r4", "pansofie-motion-ready", "pansofie-network-r5");
       delete document.body.dataset.networkRoute;
     };
   }, [network.key]);
+
+  useEffect(() => {
+    const shell = shellRef.current;
+    const main = shell?.querySelector("main");
+    const firstSection = main?.querySelector(":scope > section");
+    if (!main || !firstSection || network.key === "public") {
+      setStageHost(null);
+      return undefined;
+    }
+
+    const host = document.createElement("div");
+    host.className = "reference-network-host";
+    host.dataset.referenceNetworkRoute = network.key;
+    firstSection.insertAdjacentElement("afterend", host);
+    setStageHost(host);
+
+    return () => {
+      setStageHost(null);
+      host.remove();
+    };
+  }, [location.pathname, network.key]);
 
   useEffect(() => {
     const shell = shellRef.current;
@@ -210,10 +234,14 @@ export default function PublicNetworkShell({ children }) {
     });
   };
 
+  const selectStageNode = (index) => {
+    setActiveNode(index);
+  };
+
   return (
     <div
       ref={shellRef}
-      className="public-network-shell public-network-shell--r4"
+      className="public-network-shell public-network-shell--r4 public-network-shell--r5"
       data-network-route={network.key}
       data-active-network-node={activeNode}
       style={{
@@ -307,6 +335,11 @@ export default function PublicNetworkShell({ children }) {
         <span className="network-scroll-progress" />
         <i className="network-scroll-node" />
       </div>
+
+      {stageHost && createPortal(
+        <ReferenceNetworkStage network={network} activeIndex={activeNode} onSelect={selectStageNode} />,
+        stageHost,
+      )}
 
       <div className="public-network-content public-network-content--r4">
         {children}
