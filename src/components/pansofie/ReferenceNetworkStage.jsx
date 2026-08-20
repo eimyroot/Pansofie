@@ -37,71 +37,71 @@ const SLOTS = [
 
 const RELATIONSHIPS = {
   home: {
-    "Potřeba": ["Akce", "Důkaz"],
-    "Akce": ["Potřeba", "Důkaz"],
-    "Důkaz": ["Akce", "Ověření"],
-    "Reflexe": ["Důkaz", "Passport"],
-    "Ověření": ["Důkaz", "Passport"],
-    "Passport": ["Reflexe", "Ověření"],
+    Potřeba: ["Akce", "Důkaz"],
+    Akce: ["Potřeba", "Důkaz"],
+    Důkaz: ["Akce", "Ověření"],
+    Reflexe: ["Důkaz", "Passport"],
+    Ověření: ["Důkaz", "Passport"],
+    Passport: ["Reflexe", "Ověření"],
   },
   method: {
-    "Potřeba": ["Akce", "Důkaz"],
-    "Akce": ["Potřeba", "Důkaz"],
-    "Důkaz": ["Akce", "Ověření"],
-    "Reflexe": ["Důkaz", "Transfer"],
-    "Ověření": ["Důkaz", "Transfer"],
-    "Transfer": ["Reflexe", "Ověření"],
+    Potřeba: ["Akce", "Důkaz"],
+    Akce: ["Potřeba", "Důkaz"],
+    Důkaz: ["Akce", "Ověření"],
+    Reflexe: ["Důkaz", "Transfer"],
+    Ověření: ["Důkaz", "Transfer"],
+    Transfer: ["Reflexe", "Ověření"],
   },
   roles: {
-    "Žák": ["Rodina", "Škola", "Mentor"],
-    "Rodina": ["Žák", "Škola"],
-    "Škola": ["Žák", "Rodina", "Partner", "Komunita"],
-    "Mentor": ["Žák", "Škola"],
-    "Partner": ["Škola", "Komunita"],
-    "Komunita": ["Škola", "Partner"],
+    Žák: ["Rodina", "Škola", "Mentor"],
+    Rodina: ["Žák", "Škola"],
+    Škola: ["Žák", "Rodina", "Partner", "Komunita"],
+    Mentor: ["Žák", "Škola"],
+    Partner: ["Škola", "Komunita"],
+    Komunita: ["Škola", "Partner"],
   },
   pilot: {
-    "Škola": ["Experience", "Žák", "Ověření"],
-    "Experience": ["Škola", "Žák", "Důkaz"],
-    "Žák": ["Experience", "Rodina", "Důkaz"],
-    "Rodina": ["Žák", "Škola"],
-    "Důkaz": ["Experience", "Ověření"],
-    "Ověření": ["Škola", "Důkaz"],
+    Škola: ["Experience", "Žák", "Ověření"],
+    Experience: ["Škola", "Žák", "Důkaz"],
+    Žák: ["Experience", "Rodina", "Důkaz"],
+    Rodina: ["Žák", "Škola"],
+    Důkaz: ["Experience", "Ověření"],
+    Ověření: ["Škola", "Důkaz"],
   },
   partner: {
-    "Challenge": ["Výstup", "Review"],
-    "Výstup": ["Challenge", "Review"],
-    "Review": ["Výstup", "Rozhodnutí"],
-    "Rozhodnutí": ["Review", "Outcome"],
-    "Outcome": ["Rozhodnutí", "Hranice"],
-    "Hranice": ["Challenge", "Review", "Outcome"],
+    Challenge: ["Výstup", "Review"],
+    Výstup: ["Challenge", "Review"],
+    Review: ["Výstup", "Rozhodnutí"],
+    Rozhodnutí: ["Review", "Outcome"],
+    Outcome: ["Rozhodnutí", "Hranice"],
+    Hranice: ["Challenge", "Review", "Outcome"],
   },
   status: {
-    "Implementace": ["Testování", "Pilot"],
-    "Testování": ["Implementace", "Pilot"],
-    "Pilot": ["Testování", "Outcome"],
-    "Outcome": ["Pilot", "Impact"],
-    "Impact": ["Outcome", "Další krok"],
+    Implementace: ["Testování", "Pilot"],
+    Testování: ["Implementace", "Pilot"],
+    Pilot: ["Testování", "Outcome"],
+    Outcome: ["Pilot", "Impact"],
+    Impact: ["Outcome", "Další krok"],
     "Další krok": ["Pilot", "Impact"],
   },
 };
 
 const DETAIL_OVERRIDES = {
   roles: {
-    "Žák": ["Skutečnou zkušenost, vedení a soukromý Passport.", "Pohled, otázky, práci v týmu, výstup, důkaz a vlastní reflexi.", "Přínos se nikdy nepřevádí na skóre člověka ani předpověď jeho budoucnosti."],
-    "Rodina": ["Bezpečnou a smysluplnou roli v rozvoji dítěte bez narušení soukromí.", "Reálný kontext, podnět a pohled z domova — ne hodnocení.", "Rodina automaticky nevidí soukromou reflexi žáka."],
-    "Škola": ["Doložený průběh a ověřitelnou práci bez univerzálního profilu dítěte.", "Bezpečný rámec, pedagogické vedení a oddělené ověření.", "Škola ověřuje práci; Pansofie z toho nevytváří skóre lidské hodnoty."],
-    "Mentor": ["Jasně ohraničené odborné zapojení do konkrétní Experience.", "Expertizu, otázky a zpětnou vazbu k doložené práci.", "Mentor nemá neomezený soukromý kanál k dítěti."],
-    "Partner": ["Reálný důvod se zapojit a možnost vidět výsledek v praxi.", "Skutečný problém, kontext a review bounded výstupu.", "Firma nekupuje pozitivní výsledek ani přístup k soukromým datům."],
-    "Komunita": ["Místní potřebu, kontext a možnost výsledek vyzkoušet nebo použít.", "Reálné prostředí, kde má práce smysl a dopad se teprve ověřuje.", "Zapojení se řídí konkrétní Experience, ne plošnou kampaní."],
+    Žák: ["Skutečnou zkušenost, vedení a soukromý Passport.", "Pohled, otázky, práci v týmu, výstup, důkaz a vlastní reflexi.", "Přínos se nikdy nepřevádí na skóre člověka ani předpověď jeho budoucnosti."],
+    Rodina: ["Bezpečnou a smysluplnou roli v rozvoji dítěte bez narušení soukromí.", "Reálný kontext, podnět a pohled z domova — ne hodnocení.", "Rodina automaticky nevidí soukromou reflexi žáka."],
+    Škola: ["Doložený průběh a ověřitelnou práci bez univerzálního profilu dítěte.", "Bezpečný rámec, pedagogické vedení a oddělené ověření.", "Škola ověřuje práci; Pansofie z toho nevytváří skóre lidské hodnoty."],
+    Mentor: ["Jasně ohraničené odborné zapojení do konkrétní Experience.", "Expertizu, otázky a zpětnou vazbu k doložené práci.", "Mentor nemá neomezený soukromý kanál k dítěti."],
+    Partner: ["Reálný důvod se zapojit a možnost vidět výsledek v praxi.", "Skutečný problém, kontext a review bounded výstupu.", "Firma nekupuje pozitivní výsledek ani přístup k soukromým datům."],
+    Komunita: ["Místní potřebu, kontext a možnost výsledek vyzkoušet nebo použít.", "Reálné prostředí, kde má práce smysl a dopad se teprve ověřuje.", "Zapojení se řídí konkrétní Experience, ne plošnou kampaní."],
   },
   partner: {
-    "Challenge": ["Jasné zadání s očekávaným bounded výstupem.", "Reálný problém a kontext, ne marketingový slib.", "Challenge nedává Partnerovi přístup k soukromému profilu člověka."],
-    "Výstup": ["Konkrétní artefakt, který lze posoudit proti briefu.", "Doloženou práci v bezpečném rozsahu.", "Výstup není automaticky Outcome ani Impact."],
-    "Review": ["Transparentní zpětnou vazbu k práci.", "Hodnocení výstupu proti zadání.", "Partner hodnotí výstup, nikdy lidskou hodnotu."],
-    "Rozhodnutí": ["Jasný další krok: NOT ADOPT / EXPLORE FURTHER / PILOT.", "Odpovědné rozhodnutí bez automatického pozitivního výsledku.", "PILOT je rozhodnutí o dalším kroku, ne důkaz Impactu."],
-    "Outcome": ["Možnost doložit, co se po použití skutečně změnilo.", "Evidence reálného použití místo dojmu.", "Outcome se netvrdí bez skutečné evidence."],
-    "Hranice": ["Jasnou důvěru v to, co Partner smí a nesmí vidět.", "Minimální data nutná pro konkrétní účel.", "Žádná soukromá reflexe, raw learner evidence ani Passport bez oprávnění."],
+    Challenge: ["Jasné zadání s očekávaným bounded výstupem.", "Reálný problém a kontext, ne marketingový slib.", "Challenge nedává Partnerovi přístup k soukromému profilu člověka."],
+    Výstup: ["Konkrétní artefakt, který lze posoudit proti briefu.", "Doloženou práci v bezpečném rozsahu.", "Výstup není automaticky Outcome ani Impact."],
+    Review: ["Transparentní zpětnou vazbu k práci.", "Hodnocení výstupu proti zadání.", "Partner hodnotí výstup, nikdy lidskou hodnotu."],
+    Rozhodnutí: ["Jasný další krok: NOT ADOPT / EXPLORE FURTHER / PILOT.", "Odpovědné rozhodnutí bez automatického pozitivního výsledku.", "PILOT je rozhodnutí o dalším kroku, ne důkaz Impactu."],
+    Outcome: ["Možnost doložit, co se po použití skutečně změnilo.", "Evidence reálného použití místo dojmu.", "Outcome se netvrdí bez skutečné evidence."],
+    Hranice: ["Jasnou důvěru v to, co Partner smí a nesmí vidět.", "Minimální data nutná pro konkrétní účel.", "Žádná soukromá reflexe, raw learner evidence ani Passport bez oprávnění."],
   },
 };
 
@@ -149,19 +149,6 @@ function rotatedSlot(nodeIndex, activeIndex, count) {
   return SLOTS[normalized] || SLOTS[nodeIndex % SLOTS.length];
 }
 
-function lineStyle(from, to) {
-  const dx = to.x - from.x;
-  const dy = to.y - from.y;
-  const distance = Math.sqrt(dx * dx + dy * dy);
-  const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-  return {
-    left: `${(from.x / STAGE_W) * 100}%`,
-    top: `${(from.y / STAGE_H) * 100}%`,
-    width: `${(distance / STAGE_W) * 100}%`,
-    transform: `rotate(${angle}deg)`,
-  };
-}
-
 export default function ReferenceNetworkStage({ network, activeIndex = 0, onSelect }) {
   const nodes = network?.nodes || [];
   const safeIndex = Math.min(Math.max(activeIndex, 0), Math.max(nodes.length - 1, 0));
@@ -202,29 +189,58 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
       <div className="reference-network-r5__canvas">
         <div className="reference-network-r5__ambient" aria-hidden="true" />
 
-        {placements.map((item) => {
-          const isActive = item.index === safeIndex;
-          return (
-            <span
-              key={`core-edge-${item.label}`}
-              className="reference-network-r5__edge"
-              data-active={isActive}
-              data-related={relatedLabels.includes(item.label)}
-              style={lineStyle(CORE, item.slot)}
-              aria-hidden="true"
-            />
-          );
-        })}
+        <svg
+          className="reference-network-r5__links"
+          viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {placements.map((item) => {
+            const isActive = item.index === safeIndex;
+            const isRelated = relatedLabels.includes(item.label);
+            return (
+              <React.Fragment key={`core-edge-${item.label}`}>
+                <line
+                  className="reference-network-r5__svg-edge"
+                  data-active={isActive}
+                  data-related={isRelated}
+                  x1={CORE.x}
+                  y1={CORE.y}
+                  x2={item.slot.x}
+                  y2={item.slot.y}
+                />
+                {isActive && (
+                  <line
+                    className="reference-network-r5__svg-edge reference-network-r5__svg-edge--signal"
+                    x1={CORE.x}
+                    y1={CORE.y}
+                    x2={item.slot.x}
+                    y2={item.slot.y}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
 
-        {selectedPlacement && relatedPlacements.map((item) => (
-          <span
-            key={`cross-${selectedLabel}-${item.label}`}
-            className="reference-network-r5__edge reference-network-r5__edge--cross"
-            data-active="true"
-            style={lineStyle(selectedPlacement.slot, item.slot)}
-            aria-hidden="true"
-          />
-        ))}
+          {selectedPlacement && relatedPlacements.map((item) => (
+            <React.Fragment key={`cross-${selectedLabel}-${item.label}`}>
+              <line
+                className="reference-network-r5__svg-edge reference-network-r5__svg-edge--cross"
+                x1={selectedPlacement.slot.x}
+                y1={selectedPlacement.slot.y}
+                x2={item.slot.x}
+                y2={item.slot.y}
+              />
+              <line
+                className="reference-network-r5__svg-edge reference-network-r5__svg-edge--signal reference-network-r5__svg-edge--cross-signal"
+                x1={selectedPlacement.slot.x}
+                y1={selectedPlacement.slot.y}
+                x2={item.slot.x}
+                y2={item.slot.y}
+              />
+            </React.Fragment>
+          ))}
+        </svg>
 
         <div className="reference-network-r5__core" aria-hidden="true">
           <span><Network size={25} /></span>
