@@ -7,7 +7,8 @@ const links = [
   ["/pro-koho", "Pro koho"],
   ["/pilot", "Pro školy"],
   ["/partneri", "Pro partnery"],
-  ["/o-projektu", "Stav produktu"],
+  ["/o-projektu", "O Pansofii"],
+  ["/zapojit-se", "Přidejte se"],
 ];
 
 function matchesPath(pathname, to) {

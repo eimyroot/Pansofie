@@ -14,6 +14,7 @@ import Pilot from "@/pages/Pilot";
 import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
 import Join from "@/pages/Join";
+import About from "@/pages/About";
 import PublicInfoPage from "@/pages/PublicInfoPage";
 import Login from "@/pages/Login";
 import AdminLogin from "@/pages/AdminLogin";
@@ -59,8 +60,9 @@ export default function App() {
             <Route path="/partneri" element={publicSurface(<Partner />)} />
             <Route path="/program/:id" element={publicSurface(<ProgramDetail />)} />
             <Route path="/zapojit-se" element={publicSurface(<Join />)} />
-            <Route path="/kontakt" element={<Navigate to="/zapojit-se" replace />} />
-            <Route path="/o-projektu" element={publicSurface(<PublicInfoPage kind="about" />)} />
+            <Route path="/pridejte-se" element={<Navigate to="/zapojit-se" replace />} />
+            <Route path="/kontakt" element={<Navigate to="/zapojit-se" replace state={{ entryMode: "simulator" }} />} />
+            <Route path="/o-projektu" element={publicSurface(<About />)} />
             <Route path="/soukromi" element={publicSurface(<PublicInfoPage kind="privacy" />)} />
             <Route path="/bezpecnost" element={publicSurface(<PublicInfoPage kind="safety" />)} />
             <Route path="/podminky" element={publicSurface(<PublicInfoPage kind="terms" />)} />
