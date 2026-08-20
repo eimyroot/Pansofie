@@ -10,7 +10,8 @@ const GROUPS = [
       ["/pro-koho", "Pro koho"],
       ["/pilot", "Pilot školy"],
       ["/partneri", "Pro partnery"],
-      ["/zapojit-se", "Vyzkoušet PANSOFIEDIT"],
+      ["/zapojit-se", "Přidejte se k síti"],
+      ["/zapojit-se?mode=simulator", "Vyzkoušet PANSOFIEDIT"],
     ],
   },
   {
@@ -22,9 +23,9 @@ const GROUPS = [
     ],
   },
   {
-    title: "Stav produktu",
+    title: "O projektu",
     links: [
-      ["/o-projektu", "Co je funkční a co teprve ověřujeme"],
+      ["/o-projektu", "O Pansofii a stav produktu"],
       ["/login", "Přihlášení"],
     ],
   },
