@@ -8,16 +8,18 @@ Implement the public product as a calm but visibly living network following the 
 
 - central core remains visually stable
 - exactly six surrounding semantic nodes per public route
-- selected node moves into the primary focus slot
+- semantic nodes keep stable spatial positions so the user never loses orientation
+- the role network follows the approved reference geometry: Žák top, Rodina upper-right, Škola lower-right, Partner bottom, Komunita lower-left, Mentor upper-left
+- selected node becomes dark green and receives a bounded focus/spring response without relocating the whole graph
 - related nodes receive restrained green emphasis
 - unrelated nodes recede without disappearing
-- core-to-node and node-to-related-node links stay physically attached during responsive layout
+- core-to-node and selected-to-related-node links reconfigure with selection while staying physically attached to their endpoints
 - active links carry a visible travelling signal
 - hover may react visually but does not change selection
-- click/focus changes selection and morphs node positions
+- click/focus changes selection, active relationships and contextual detail
 - contextual cards show ZÍSKÁVÁ / PŘINÁŠÍ / HRANICE
 - flow strip explains what currently moves through the selected relationship
-- mobile keeps the graph bounded and readable rather than removing the interaction
+- mobile keeps the graph bounded and readable rather than removing the interaction; settled nodes must not overlap
 
 ## Whole-site grammar
 
