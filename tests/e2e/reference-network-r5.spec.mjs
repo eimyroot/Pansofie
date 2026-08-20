@@ -20,27 +20,18 @@ const ROUTES = [
 ];
 
 async function expectNoHorizontalOverflow(page) {
-  const dimensions = await page.evaluate(() => ({
-    innerWidth: window.innerWidth,
-    scrollWidth: document.documentElement.scrollWidth,
-  }));
+  const dimensions = await page.evaluate(() => ({ innerWidth: window.innerWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth + 1);
 }
 
-function center(box) {
-  return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
-}
-
-function relativeCenter(box, containerBox) {
-  const point = center(box);
-  return { x: point.x - containerBox.x, y: point.y - containerBox.y };
+async function declaredPosition(locator) {
+  return locator.evaluate((element) => ({ left: Number.parseFloat(element.style.left), top: Number.parseFloat(element.style.top) }));
 }
 
 for (const [key, route] of ROUTES) {
   test(`${key} mounts the shared six-node reference network`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1100 });
     await page.goto(`${BASE_URL}${route}`, { waitUntil: "networkidle" });
-
     const stage = page.locator(`.reference-network-r5[data-network-key="${key}"]`);
     await expect(stage).toBeVisible();
     await expect(stage.locator(".reference-network-r5__core")).toBeVisible();
@@ -56,64 +47,54 @@ test("roles stage matches reference geometry: fixed role positions, stable hover
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
   const stage = page.locator('.reference-network-r5[data-network-key="roles"]');
-  const canvas = stage.locator(".reference-network-r5__canvas");
-  const core = stage.locator(".reference-network-r5__core");
-  const partner = stage.locator('button[data-reference-node="Partner"]');
+  const learner = stage.locator('button[data-reference-node="Žák"]');
+  const family = stage.locator('button[data-reference-node="Rodina"]');
   const school = stage.locator('button[data-reference-node="Škola"]');
+  const partner = stage.locator('button[data-reference-node="Partner"]');
   const community = stage.locator('button[data-reference-node="Komunita"]');
   const mentor = stage.locator('button[data-reference-node="Mentor"]');
 
   await expect(stage).toBeVisible();
   await expect(stage).toHaveAttribute("data-selected-node", "Žák");
 
+  const geometry = {
+    learner: await declaredPosition(learner),
+    family: await declaredPosition(family),
+    school: await declaredPosition(school),
+    partner: await declaredPosition(partner),
+    community: await declaredPosition(community),
+    mentor: await declaredPosition(mentor),
+  };
+  expect(Math.abs(geometry.learner.left - 50)).toBeLessThan(1);
+  expect(geometry.learner.top).toBeLessThan(20);
+  expect(geometry.family.left).toBeGreaterThan(70);
+  expect(geometry.family.top).toBeLessThan(40);
+  expect(geometry.school.left).toBeGreaterThan(70);
+  expect(geometry.school.top).toBeGreaterThan(60);
+  expect(Math.abs(geometry.partner.left - 50)).toBeLessThan(1);
+  expect(geometry.partner.top).toBeGreaterThan(80);
+  expect(geometry.community.left).toBeLessThan(30);
+  expect(geometry.community.top).toBeGreaterThan(60);
+  expect(geometry.mentor.left).toBeLessThan(30);
+  expect(geometry.mentor.top).toBeLessThan(40);
+
   await partner.hover();
   await page.waitForTimeout(250);
   await expect(stage).toHaveAttribute("data-selected-node", "Žák");
-
-  const canvasBefore = await canvas.boundingBox();
-  const partnerBeforeBox = await partner.boundingBox();
-  const coreBox = await core.boundingBox();
-  const mentorBox = await mentor.boundingBox();
-  const schoolBox = await school.boundingBox();
-  expect(canvasBefore).not.toBeNull();
-  expect(partnerBeforeBox).not.toBeNull();
-  expect(coreBox).not.toBeNull();
-  expect(mentorBox).not.toBeNull();
-  expect(schoolBox).not.toBeNull();
-
-  const partnerBefore = relativeCenter(partnerBeforeBox, canvasBefore);
-  const coreCenter = relativeCenter(coreBox, canvasBefore);
-  const mentorCenter = relativeCenter(mentorBox, canvasBefore);
-  const schoolCenter = relativeCenter(schoolBox, canvasBefore);
-  expect(Math.abs(partnerBefore.x - coreCenter.x)).toBeLessThan(15);
-  expect(partnerBefore.y).toBeGreaterThan(coreCenter.y + 120);
-  expect(mentorCenter.x).toBeLessThan(coreCenter.x - 120);
-  expect(mentorCenter.y).toBeLessThan(coreCenter.y - 60);
-  expect(schoolCenter.x).toBeGreaterThan(coreCenter.x + 120);
-  expect(schoolCenter.y).toBeGreaterThan(coreCenter.y + 60);
+  expect(await declaredPosition(partner)).toEqual(geometry.partner);
 
   await partner.focus();
   await expect(partner).toHaveAttribute("aria-pressed", "true");
   await expect(stage).toHaveAttribute("data-selected-node", "Partner");
   await page.waitForTimeout(700);
-
-  const canvasAfter = await canvas.boundingBox();
-  const partnerAfterBox = await partner.boundingBox();
-  expect(canvasAfter).not.toBeNull();
-  expect(partnerAfterBox).not.toBeNull();
-  const partnerAfter = relativeCenter(partnerAfterBox, canvasAfter);
-  expect(Math.abs(partnerAfter.x - partnerBefore.x)).toBeLessThan(4);
-  expect(Math.abs(partnerAfter.y - partnerBefore.y)).toBeLessThan(4);
+  expect(await declaredPosition(partner)).toEqual(geometry.partner);
 
   await expect(school).toHaveAttribute("data-related", "true");
   await expect(community).toHaveAttribute("data-related", "true");
   expect(await stage.locator(".reference-network-r5__svg-edge--cross").count()).toBeGreaterThanOrEqual(2);
   await expect(stage.locator(".reference-network-r5__details")).toContainText("Firma nekupuje pozitivní výsledek");
-
-  const activeEdgeAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
-  expect(activeEdgeAnimation).toContain("r5-svg-signal");
-  const nodeAnimation = await partner.evaluate((element) => getComputedStyle(element).animationName);
-  expect(nodeAnimation).toContain("r5-node-land");
+  expect(await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName)).toContain("r5-svg-signal");
+  expect(await partner.evaluate((element) => getComputedStyle(element).animationName)).toContain("r5-node-land");
 
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-partner-reference-desktop.png"), fullPage: true });
 });
@@ -121,7 +102,6 @@ test("roles stage matches reference geometry: fixed role positions, stable hover
 test("partner route turns business flow into the same connected graph grammar", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(`${BASE_URL}/partneri`, { waitUntil: "networkidle" });
-
   const stage = page.locator('.reference-network-r5[data-network-key="partner"]');
   const review = stage.locator('button[data-reference-node="Review"]');
   await review.focus();
@@ -135,7 +115,6 @@ test("partner route turns business flow into the same connected graph grammar", 
 test("mobile keeps fixed nodes, SVG links and detail cards aligned without overlap", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
-
   const stage = page.locator('.reference-network-r5[data-network-key="roles"]');
   await expect(stage).toBeVisible();
   await expect(stage.locator("button[data-reference-node]")).toHaveCount(6);
@@ -159,7 +138,6 @@ test("mobile keeps fixed nodes, SVG links and detail cards aligned without overl
     return overlaps;
   });
   expect(overlapCount).toBe(0);
-
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-reference-mobile.png"), fullPage: true });
 });
@@ -168,12 +146,9 @@ test("reduced motion keeps the graph stateful but removes travelling animation",
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
   const page = await context.newPage();
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
-
   const stage = page.locator('.reference-network-r5[data-network-key="home"]');
   await expect(stage).toBeVisible();
-  const activeEdgeAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
-  expect(["", "none"]).toContain(activeEdgeAnimation);
-
+  expect(["", "none"]).toContain(await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName));
   const proof = stage.locator('button[data-reference-node="Důkaz"]');
   await proof.focus();
   await expect(proof).toHaveAttribute("aria-pressed", "true");
