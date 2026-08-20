@@ -24,10 +24,10 @@ test("desktop public shell has a real travelling network signal", async ({ page 
   await expect(stage).toBeVisible();
   await expect(page.locator(".route-network-orbit--r4")).toHaveCount(0);
 
-  const activeEdge = stage.locator('.reference-network-r5__edge[data-active="true"]').first();
-  await expect(activeEdge).toBeVisible();
-  const signalAnimation = await activeEdge.evaluate((element) => getComputedStyle(element, "::after").animationName);
-  expect(signalAnimation).toContain("r5-edge-travel");
+  const signal = stage.locator(".reference-network-r5__svg-edge--signal").first();
+  await expect(signal).toBeVisible();
+  const signalAnimation = await signal.evaluate((element) => getComputedStyle(element).animationName);
+  expect(signalAnimation).toContain("r5-svg-signal");
 
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "home-motion-desktop.png"), fullPage: true });
@@ -104,6 +104,7 @@ test("R4/R5 network remains bounded and usable on mobile", async ({ page }) => {
   const school = stage.locator('button[data-reference-node="Škola"]');
   await school.click();
   await expect(school).toHaveAttribute("aria-pressed", "true");
+  await expect(stage.locator(".reference-network-r5__links")).toBeVisible();
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-constellation-mobile.png"), fullPage: true });
 });
@@ -123,7 +124,7 @@ test("prefers-reduced-motion removes decorative R4/R5 motion and autoplay", asyn
 
   const stage = page.locator('.reference-network-r5[data-network-key="home"]');
   await expect(stage).toBeVisible();
-  const edgeAnimation = await stage.locator('.reference-network-r5__edge[data-active="true"]').first().evaluate((element) => getComputedStyle(element, "::after").animationName);
+  const edgeAnimation = await stage.locator(".reference-network-r5__svg-edge--signal").first().evaluate((element) => getComputedStyle(element).animationName);
   expect(edgeAnimation).toBe("none");
 
   const sectionDuration = await page.locator("main > section").first().locator(":scope > :first-child").evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
