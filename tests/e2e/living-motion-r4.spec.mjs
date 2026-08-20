@@ -19,12 +19,16 @@ test("desktop public shell has a real travelling network signal", async ({ page 
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
 
   const shell = page.locator('.public-network-shell--r4[data-network-route="home"]');
+  const stage = page.locator('.reference-network-r5[data-network-key="home"]');
   await expect(shell).toBeVisible();
-  await expect(page.locator(".route-network-orbit--r4")).toBeVisible();
-  await expect(page.locator(".route-orbit-traveller animateMotion")).toHaveCount(2);
+  await expect(stage).toBeVisible();
+  await expect(page.locator(".route-network-orbit--r4")).toHaveCount(0);
 
-  const ringAnimation = await page.locator(".route-orbit-r4-ring--outer").evaluate((element) => getComputedStyle(element).animationName);
-  expect(ringAnimation).toContain("r4-orbit-spin");
+  const activeEdge = stage.locator('.reference-network-r5__edge[data-active="true"]').first();
+  await expect(activeEdge).toBeVisible();
+  const signalAnimation = await activeEdge.evaluate((element) => getComputedStyle(element, "::after").animationName);
+  expect(signalAnimation).toContain("r5-edge-travel");
+
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "home-motion-desktop.png"), fullPage: true });
 });
@@ -94,7 +98,7 @@ test("R4/R5 network remains bounded and usable on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
 
-  await expect(page.locator(".route-network-orbit--r4")).toBeHidden();
+  await expect(page.locator(".route-network-orbit--r4")).toHaveCount(0);
   const stage = page.locator('.reference-network-r5[data-network-key="roles"]');
   await expect(stage).toBeVisible();
   const school = stage.locator('button[data-reference-node="Škola"]');
@@ -112,7 +116,7 @@ test("prefers-reduced-motion removes decorative R4/R5 motion and autoplay", asyn
   const page = await context.newPage();
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
 
-  await expect(page.locator(".route-orbit-traveller animateMotion")).toHaveCount(0);
+  await expect(page.locator(".route-network-orbit--r4")).toHaveCount(0);
   const flow = page.getByLabel("Interaktivní průběh jedné Experience");
   await flow.scrollIntoViewIfNeeded();
   await expect(flow).toHaveAttribute("data-auto-running", "false");
