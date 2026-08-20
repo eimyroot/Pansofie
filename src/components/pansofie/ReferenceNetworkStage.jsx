@@ -105,7 +105,7 @@ const DETAIL_OVERRIDES = {
   },
 };
 
-function fallbackDetail(key, label) {
+function fallbackDetail(_key, label) {
   const lower = label.toLocaleLowerCase("cs-CZ");
   if (/potřeba|challenge/.test(lower)) return ["Jasný důvod, proč má další práce smysl.", "Konkrétní kontext místo abstraktního zadání.", "Síť začíná účelem; ne sběrem dat bez důvodu."];
   if (/důkaz|výstup/.test(lower)) return ["Doložitelnou stopu skutečné práce.", "Konkrétní artefakt, měření nebo dokumentaci.", "Důkaz práce není automaticky důkaz dlouhodobého dopadu."];
@@ -180,7 +180,12 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
   const relatedPlacements = placements.filter((item) => relatedLabels.includes(item.label));
 
   return (
-    <section className="reference-network-r5" data-network-key={network?.key || "public"} aria-label={`Interaktivní síť ${network?.core || "Pansofie"}`}>
+    <section
+      className="reference-network-r5"
+      data-network-key={network?.key || "public"}
+      data-selected-node={selectedLabel}
+      aria-label={`Interaktivní síť ${network?.core || "Pansofie"}`}
+    >
       <div className="reference-network-r5__intro">
         <div>
           <p className="eyebrow">ŽIVÁ SÍŤ · INTERAKTIVNÍ MAPA</p>
@@ -240,7 +245,6 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
               data-related={related}
               aria-pressed={active}
               style={{ left: `${(item.slot.x / STAGE_W) * 100}%`, top: `${(item.slot.y / STAGE_H) * 100}%` }}
-              onMouseEnter={() => onSelect?.(item.index, { source: "hover" })}
               onFocus={() => onSelect?.(item.index, { source: "focus" })}
               onClick={() => onSelect?.(item.index, { source: "click" })}
             >
