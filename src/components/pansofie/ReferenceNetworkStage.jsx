@@ -22,6 +22,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import "@/reference-network-r5.css";
+import "@/reference-network-r5-svg.css";
 
 const STAGE_W = 1000;
 const STAGE_H = 620;
