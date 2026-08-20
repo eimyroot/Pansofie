@@ -60,7 +60,7 @@ for (const viewport of [
 
     await page.goto(`${BASE_URL}/o-projektu`, { waitUntil: "networkidle" });
     await expect(page.getByRole("heading", { name: /Pansofie je funkční digitální produkt/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Proč Pansofie vzniká/i })).toBeVisible();
+    await expect(page.getByText("Proč Pansofie vzniká", { exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Jsme ve fázi, kdy se produkt musí potkat s realitou/i })).toBeVisible();
     await expect(page.getByText(/Jména lidí za projektem, právního provozovatele a faktický veřejný kontaktní kanál/i)).toBeVisible();
     await expect(page.getByRole("heading", { name: "FUNKČNÍ / TECHNICKY OVĚŘENÉ" })).toBeVisible();
