@@ -1,0 +1,354 @@
+/* PANSOFIE R6 — Luminous Network / Color Language.
+   Color is semantic: it appears strongest only when a node or relationship becomes active. */
+
+:root {
+  --r6-core: 161 62% 24%;
+  --r6-jade: 158 50% 34%;
+  --r6-amber: 35 76% 41%;
+  --r6-teal: 188 58% 32%;
+  --r6-violet: 258 48% 48%;
+  --r6-coral: 13 66% 43%;
+  --r6-lime: 83 43% 35%;
+  --r6-cyan: 193 66% 38%;
+  --r6-orchid: 278 43% 48%;
+  --r6-blue: 219 55% 48%;
+  --r6-deep: 166 44% 27%;
+}
+
+.public-network-shell {
+  --r6-shell-active: var(--r6-core);
+  --r6-shell-next: var(--r6-cyan);
+}
+
+/* Route/ribbon active color becomes the ambient color for the whole page. */
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Potřeba"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Challenge"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Účel"]) { --r6-shell-active: var(--r6-amber); --r6-shell-next: var(--r6-coral); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Akce"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Experience"]) { --r6-shell-active: var(--r6-coral); --r6-shell-next: var(--r6-cyan); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Důkaz"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Výstup"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Evidence"]) { --r6-shell-active: var(--r6-cyan); --r6-shell-next: var(--r6-jade); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Reflexe"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Review"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Testování"]) { --r6-shell-active: var(--r6-violet); --r6-shell-next: var(--r6-jade); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Ověření"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Důvěra"]) { --r6-shell-active: var(--r6-jade); --r6-shell-next: var(--r6-blue); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Passport"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Transfer"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Rozhodnutí"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Další krok"]) { --r6-shell-active: var(--r6-blue); --r6-shell-next: var(--r6-jade); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Žák"]) { --r6-shell-active: var(--r6-jade); --r6-shell-next: var(--r6-teal); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Rodina"]) { --r6-shell-active: var(--r6-amber); --r6-shell-next: var(--r6-jade); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Škola"]) { --r6-shell-active: var(--r6-teal); --r6-shell-next: var(--r6-jade); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Mentor"]) { --r6-shell-active: var(--r6-violet); --r6-shell-next: var(--r6-jade); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Partner"]) { --r6-shell-active: var(--r6-coral); --r6-shell-next: var(--r6-teal); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Komunita"]) { --r6-shell-active: var(--r6-lime); --r6-shell-next: var(--r6-teal); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Outcome"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Impact"]) { --r6-shell-active: var(--r6-lime); --r6-shell-next: var(--r6-core); }
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Hranice"]),
+.public-network-shell:has(.route-network-ribbon-node[data-active="true"][data-network-node="Bezpečí"]) { --r6-shell-active: var(--r6-deep); --r6-shell-next: var(--r6-jade); }
+
+/* Existing motion layers become restrained colored light fields. */
+.public-network-shell .network-cursor-glow {
+  opacity: .74;
+  background: radial-gradient(circle at center,
+    hsl(var(--r6-shell-active) / .16) 0%,
+    hsl(var(--r6-shell-next) / .06) 34%,
+    transparent 70%);
+  filter: blur(10px) saturate(1.08);
+  transition: background 520ms ease, opacity 320ms ease;
+}
+
+.public-network-shell .network-motion-sweep {
+  opacity: .65;
+  background: linear-gradient(112deg,
+    transparent 14%,
+    hsl(var(--r6-shell-active) / .035) 35%,
+    hsl(var(--r6-shell-next) / .075) 50%,
+    hsl(var(--r6-shell-active) / .035) 64%,
+    transparent 86%);
+  filter: blur(18px) saturate(1.12);
+}
+
+.public-network-shell .network-motion-section[data-motion-state="active"] {
+  box-shadow: inset 0 1px 0 hsl(var(--r6-shell-active) / .055);
+}
+
+.public-network-shell .public-nav-link[data-active="true"] {
+  text-shadow: 0 0 18px hsl(var(--r6-shell-active) / .23);
+}
+
+/* Route ribbon: color shows where the reader is in the semantic network. */
+.route-network-ribbon-node { --r6-node: var(--r6-core); }
+.route-network-ribbon-node[data-network-node="Potřeba"],
+.route-network-ribbon-node[data-network-node="Challenge"],
+.route-network-ribbon-node[data-network-node="Účel"],
+.route-network-ribbon-node[data-network-node="Rodina"] { --r6-node: var(--r6-amber); }
+.route-network-ribbon-node[data-network-node="Akce"],
+.route-network-ribbon-node[data-network-node="Partner"] { --r6-node: var(--r6-coral); }
+.route-network-ribbon-node[data-network-node="Důkaz"],
+.route-network-ribbon-node[data-network-node="Výstup"],
+.route-network-ribbon-node[data-network-node="Evidence"] { --r6-node: var(--r6-cyan); }
+.route-network-ribbon-node[data-network-node="Reflexe"],
+.route-network-ribbon-node[data-network-node="Review"],
+.route-network-ribbon-node[data-network-node="Mentor"],
+.route-network-ribbon-node[data-network-node="Testování"] { --r6-node: var(--r6-violet); }
+.route-network-ribbon-node[data-network-node="Ověření"],
+.route-network-ribbon-node[data-network-node="Žák"],
+.route-network-ribbon-node[data-network-node="Důvěra"] { --r6-node: var(--r6-jade); }
+.route-network-ribbon-node[data-network-node="Škola"],
+.route-network-ribbon-node[data-network-node="Pilot"] { --r6-node: var(--r6-teal); }
+.route-network-ribbon-node[data-network-node="Komunita"],
+.route-network-ribbon-node[data-network-node="Outcome"],
+.route-network-ribbon-node[data-network-node="Impact"] { --r6-node: var(--r6-lime); }
+.route-network-ribbon-node[data-network-node="Passport"],
+.route-network-ribbon-node[data-network-node="Transfer"],
+.route-network-ribbon-node[data-network-node="Rozhodnutí"],
+.route-network-ribbon-node[data-network-node="Další krok"] { --r6-node: var(--r6-blue); }
+.route-network-ribbon-node[data-network-node="Hranice"],
+.route-network-ribbon-node[data-network-node="Bezpečí"] { --r6-node: var(--r6-deep); }
+
+.route-network-ribbon-node[data-active="true"] {
+  border-color: hsl(var(--r6-node) / .3);
+  color: hsl(var(--r6-node));
+  background: linear-gradient(180deg, hsl(var(--r6-node) / .085), hsl(var(--card) / .8));
+  box-shadow: 0 8px 30px -21px hsl(var(--r6-node) / .85), 0 0 0 1px hsl(var(--r6-node) / .04);
+}
+.route-network-ribbon-node[data-active="true"] > span {
+  color: hsl(var(--r6-node));
+}
+.route-network-ribbon-edge[data-passed="true"] i {
+  background: linear-gradient(90deg, hsl(var(--r6-shell-active) / .2), hsl(var(--r6-shell-active) / .7), hsl(var(--r6-shell-next) / .35));
+  box-shadow: 0 0 9px hsl(var(--r6-shell-active) / .24);
+}
+
+/* Stage palette. Quiet nodes stay restrained; color blooms on relationship. */
+.reference-network-r5 {
+  --r6-active: var(--r6-core);
+  --r6-secondary: var(--r6-cyan);
+}
+.reference-network-r5[data-selected-node="Potřeba"],
+.reference-network-r5[data-selected-node="Challenge"],
+.reference-network-r5[data-selected-node="Účel"],
+.reference-network-r5[data-selected-node="Rodina"] { --r6-active: var(--r6-amber); --r6-secondary: var(--r6-coral); }
+.reference-network-r5[data-selected-node="Akce"],
+.reference-network-r5[data-selected-node="Partner"] { --r6-active: var(--r6-coral); --r6-secondary: var(--r6-teal); }
+.reference-network-r5[data-selected-node="Důkaz"],
+.reference-network-r5[data-selected-node="Výstup"],
+.reference-network-r5[data-selected-node="Evidence"] { --r6-active: var(--r6-cyan); --r6-secondary: var(--r6-jade); }
+.reference-network-r5[data-selected-node="Reflexe"],
+.reference-network-r5[data-selected-node="Review"],
+.reference-network-r5[data-selected-node="Mentor"],
+.reference-network-r5[data-selected-node="Testování"] { --r6-active: var(--r6-violet); --r6-secondary: var(--r6-cyan); }
+.reference-network-r5[data-selected-node="Ověření"],
+.reference-network-r5[data-selected-node="Žák"],
+.reference-network-r5[data-selected-node="Důvěra"] { --r6-active: var(--r6-jade); --r6-secondary: var(--r6-blue); }
+.reference-network-r5[data-selected-node="Škola"],
+.reference-network-r5[data-selected-node="Pilot"] { --r6-active: var(--r6-teal); --r6-secondary: var(--r6-jade); }
+.reference-network-r5[data-selected-node="Komunita"],
+.reference-network-r5[data-selected-node="Outcome"],
+.reference-network-r5[data-selected-node="Impact"] { --r6-active: var(--r6-lime); --r6-secondary: var(--r6-teal); }
+.reference-network-r5[data-selected-node="Passport"],
+.reference-network-r5[data-selected-node="Transfer"],
+.reference-network-r5[data-selected-node="Rozhodnutí"],
+.reference-network-r5[data-selected-node="Další krok"] { --r6-active: var(--r6-blue); --r6-secondary: var(--r6-jade); }
+.reference-network-r5[data-selected-node="Hranice"],
+.reference-network-r5[data-selected-node="Bezpečí"] { --r6-active: var(--r6-deep); --r6-secondary: var(--r6-jade); }
+
+.reference-network-host {
+  background:
+    radial-gradient(circle at 22% 20%, hsl(var(--r6-shell-active) / .055), transparent 32%),
+    radial-gradient(circle at 78% 34%, hsl(var(--r6-shell-next) / .05), transparent 31%),
+    linear-gradient(180deg, hsl(var(--background)), hsl(var(--background) / .98));
+  transition: background 620ms ease;
+}
+
+.reference-network-r5__ambient {
+  width: 430px;
+  height: 430px;
+  background:
+    radial-gradient(circle at 45% 44%, hsl(var(--r6-active) / .16), transparent 34%),
+    radial-gradient(circle at 62% 58%, hsl(var(--r6-secondary) / .095), transparent 48%),
+    radial-gradient(circle, hsl(var(--primary) / .035), transparent 68%);
+  filter: blur(6px) saturate(1.18);
+  transition: background 520ms ease, filter 520ms ease;
+}
+
+.reference-network-r5__node { --r6-node: var(--r6-core); }
+.reference-network-r5__node[data-reference-node="Žák"] { --r6-node: var(--r6-jade); }
+.reference-network-r5__node[data-reference-node="Rodina"] { --r6-node: var(--r6-amber); }
+.reference-network-r5__node[data-reference-node="Škola"] { --r6-node: var(--r6-teal); }
+.reference-network-r5__node[data-reference-node="Mentor"] { --r6-node: var(--r6-violet); }
+.reference-network-r5__node[data-reference-node="Partner"],
+.reference-network-r5__node[data-reference-node="Challenge"],
+.reference-network-r5__node[data-reference-node="Akce"] { --r6-node: var(--r6-coral); }
+.reference-network-r5__node[data-reference-node="Komunita"],
+.reference-network-r5__node[data-reference-node="Outcome"],
+.reference-network-r5__node[data-reference-node="Impact"] { --r6-node: var(--r6-lime); }
+.reference-network-r5__node[data-reference-node="Potřeba"],
+.reference-network-r5__node[data-reference-node="Účel"] { --r6-node: var(--r6-amber); }
+.reference-network-r5__node[data-reference-node="Důkaz"],
+.reference-network-r5__node[data-reference-node="Výstup"],
+.reference-network-r5__node[data-reference-node="Evidence"] { --r6-node: var(--r6-cyan); }
+.reference-network-r5__node[data-reference-node="Reflexe"],
+.reference-network-r5__node[data-reference-node="Review"],
+.reference-network-r5__node[data-reference-node="Testování"] { --r6-node: var(--r6-violet); }
+.reference-network-r5__node[data-reference-node="Ověření"],
+.reference-network-r5__node[data-reference-node="Důvěra"] { --r6-node: var(--r6-jade); }
+.reference-network-r5__node[data-reference-node="Passport"],
+.reference-network-r5__node[data-reference-node="Transfer"],
+.reference-network-r5__node[data-reference-node="Rozhodnutí"],
+.reference-network-r5__node[data-reference-node="Další krok"] { --r6-node: var(--r6-blue); }
+.reference-network-r5__node[data-reference-node="Hranice"],
+.reference-network-r5__node[data-reference-node="Bezpečí"] { --r6-node: var(--r6-deep); }
+.reference-network-r5__node[data-reference-node="Pilot"] { --r6-node: var(--r6-teal); }
+
+.reference-network-r5__node {
+  background: linear-gradient(145deg, hsl(var(--card) / .985), hsl(var(--r6-node) / .025));
+  border-color: hsl(var(--r6-node) / .14);
+}
+.reference-network-r5__node[data-related="true"] {
+  color: hsl(var(--r6-node));
+  border-color: hsl(var(--r6-node) / .48);
+  background: linear-gradient(145deg, hsl(var(--r6-node) / .075), hsl(var(--card) / .96) 72%);
+  box-shadow: 0 14px 30px -25px hsl(var(--r6-node) / .75), inset 0 0 0 1px hsl(var(--r6-node) / .035);
+}
+.reference-network-r5__node[data-active="true"] {
+  color: white;
+  border-color: hsl(var(--r6-node) / .84);
+  background: linear-gradient(145deg, hsl(var(--r6-node)), hsl(var(--primary-strong)) 118%);
+  box-shadow:
+    0 20px 38px -20px hsl(var(--r6-node) / .9),
+    0 0 0 4px hsl(var(--r6-node) / .07),
+    0 0 34px hsl(var(--r6-node) / .13);
+}
+.reference-network-r5__node[data-active="true"]::after {
+  border-color: hsl(var(--r6-node) / .44);
+  box-shadow: 0 0 18px hsl(var(--r6-node) / .14);
+}
+
+.reference-network-r5__core {
+  background: radial-gradient(circle at 36% 28%, hsl(var(--primary) / .92), hsl(var(--primary-strong)) 72%);
+  box-shadow:
+    0 17px 35px -19px hsl(var(--primary) / .86),
+    0 0 0 8px hsl(var(--r6-active) / .045),
+    0 0 42px hsl(var(--r6-active) / .09);
+  transition: box-shadow 420ms ease, background 420ms ease;
+}
+.reference-network-r5__core::before {
+  border-color: hsl(var(--r6-active) / .17);
+}
+
+/* R5 SVG topology, now brighter and reactive. */
+.reference-network-r5__svg-edge[data-related="true"] {
+  stroke: hsl(var(--r6-active) / .28);
+  filter: drop-shadow(0 0 3px hsl(var(--r6-active) / .08));
+}
+.reference-network-r5__svg-edge[data-active="true"] {
+  stroke: hsl(var(--r6-active));
+  stroke-width: 3.5;
+  filter: drop-shadow(0 0 7px hsl(var(--r6-active) / .33));
+}
+.reference-network-r5__svg-edge--cross {
+  stroke: hsl(var(--r6-active) / .78);
+  filter: drop-shadow(0 0 6px hsl(var(--r6-active) / .18));
+}
+.reference-network-r5__svg-edge--signal {
+  stroke: hsl(var(--r6-active));
+  stroke-width: 4.8;
+  stroke-dasharray: 7 27;
+  filter: drop-shadow(0 0 6px hsl(var(--r6-active) / .92)) drop-shadow(0 0 13px hsl(var(--r6-active) / .22));
+  animation-duration: 1.15s;
+}
+.reference-network-r5__svg-edge--cross-signal {
+  stroke-width: 5;
+  animation-duration: 1.35s;
+}
+
+.reference-network-r5__identity,
+.reference-network-r5__detail-card {
+  box-shadow: inset 0 2px 0 hsl(var(--r6-active) / .12), 0 18px 42px -40px hsl(var(--r6-active) / .5);
+  transition: border-color 350ms ease, box-shadow 350ms ease, background 350ms ease;
+}
+.reference-network-r5__identity-head > span {
+  background: linear-gradient(145deg, hsl(var(--r6-active)), hsl(var(--primary-strong)) 120%);
+  box-shadow: 0 10px 25px -16px hsl(var(--r6-active) / .9), 0 0 18px hsl(var(--r6-active) / .08);
+}
+.reference-network-r5__identity-head p,
+.reference-network-r5__detail-card > span {
+  color: hsl(var(--r6-active));
+}
+.reference-network-r5__detail-card--boundary {
+  background: linear-gradient(145deg, hsl(var(--r6-active) / .94), hsl(var(--primary-strong)) 125%);
+  border-color: hsl(var(--r6-active) / .5);
+  box-shadow: 0 22px 44px -30px hsl(var(--r6-active) / .72), inset 0 1px 0 hsl(0 0% 100% / .08);
+}
+.reference-network-r5__detail-card--boundary > span,
+.reference-network-r5__detail-card--boundary p { color: white; }
+
+.reference-network-r5__flowline {
+  background:
+    linear-gradient(90deg, hsl(var(--r6-active) / .055), hsl(var(--r6-secondary) / .035), hsl(var(--card) / .72));
+  border-color: hsl(var(--r6-active) / .16);
+  box-shadow: 0 18px 50px -45px hsl(var(--r6-active) / .7);
+}
+.reference-network-r5__flowline > span::before {
+  background: hsl(var(--r6-active));
+  box-shadow: 0 0 0 4px hsl(var(--r6-active) / .07), 0 0 18px hsl(var(--r6-active) / .5);
+}
+.reference-network-r5__flowline b {
+  border-color: hsl(var(--r6-active) / .25);
+  color: hsl(var(--r6-active));
+  background: hsl(var(--r6-active) / .06);
+}
+
+/* Short, calm homepage awakening: core -> connections -> nodes -> details. */
+.reference-network-r5[data-network-key="home"] .reference-network-r5__core {
+  animation: r6-awaken-core 1.15s cubic-bezier(.2,.82,.2,1) both;
+}
+.reference-network-r5[data-network-key="home"] .reference-network-r5__links {
+  animation: r6-awaken-links 1.2s ease .18s both;
+}
+.reference-network-r5[data-network-key="home"] .reference-network-r5__node {
+  animation: r6-awaken-node .78s cubic-bezier(.2,.82,.2,1) .46s both;
+}
+.reference-network-r5[data-network-key="home"] .reference-network-r5__details,
+.reference-network-r5[data-network-key="home"] .reference-network-r5__flowline {
+  animation: r6-awaken-detail .68s ease .78s both;
+}
+
+@keyframes r6-awaken-core {
+  0% { opacity: 0; filter: blur(5px) saturate(.8); }
+  45% { opacity: 1; filter: blur(0) saturate(1.22); }
+  100% { opacity: 1; filter: none; }
+}
+@keyframes r6-awaken-links {
+  0% { opacity: 0; filter: blur(3px); }
+  100% { opacity: 1; filter: none; }
+}
+@keyframes r6-awaken-node {
+  0% { opacity: 0; filter: blur(2px); }
+  100% { opacity: 1; filter: none; }
+}
+@keyframes r6-awaken-detail {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: none; }
+}
+
+@media (max-width: 620px) {
+  .reference-network-r5__ambient { width: 260px; height: 260px; opacity: .82; }
+  .public-network-shell .network-cursor-glow { opacity: .32; }
+  .reference-network-r5__svg-edge--signal { stroke-width: 3.7; filter: drop-shadow(0 0 4px hsl(var(--r6-active) / .55)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-network-r5[data-network-key="home"] .reference-network-r5__core,
+  .reference-network-r5[data-network-key="home"] .reference-network-r5__links,
+  .reference-network-r5[data-network-key="home"] .reference-network-r5__node,
+  .reference-network-r5[data-network-key="home"] .reference-network-r5__details,
+  .reference-network-r5[data-network-key="home"] .reference-network-r5__flowline {
+    animation: none !important;
+  }
+  .public-network-shell .network-motion-sweep { animation: none !important; }
+}
