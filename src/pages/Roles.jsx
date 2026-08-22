@@ -13,8 +13,8 @@ export default function Roles() {
         <section className="container-px max-w-7xl mx-auto pt-12 sm:pt-20 pb-4 sm:pb-8">
           <div className="max-w-4xl">
             <span className="chip bg-primary/10 text-primary mb-5"><UsersRound size={14} /> Pro koho je Pansofie</span>
-            <h1 className="text-4xl sm:text-6xl font-semibold font-display tracking-tight text-balance leading-[1.05]">Jedna Experience propojí více lidí. <span className="text-primary">Nikdo ale nepotřebuje vidět všechno.</span></h1>
-            <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl leading-relaxed">Vyberte roli a podívejte se, co v Pansofii skutečně dělá, co získává, co přináší, co smí vidět a kde končí její přístup.</p>
+            <h1 className="text-4xl sm:text-6xl font-semibold font-display tracking-tight text-balance leading-[1.05]">Jedna skutečná zkušenost může propojit více lidí. <span className="text-primary">Každý ale vidí jen to, co pro svou roli potřebuje.</span></h1>
+            <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl leading-relaxed">Vyberte, kdo jste. Uvidíte, co v Pansofii konkrétně děláte, co můžete získat a přinést, k jakým informacím máte přístup a kde je bezpečná hranice vaší role.</p>
           </div>
         </section>
 
@@ -22,8 +22,8 @@ export default function Roles() {
 
         <section className="border-t border-border/60 bg-card/35">
           <div className="container-px max-w-5xl mx-auto py-20 sm:py-24 text-center">
-            <h2 className="text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Nejrychlejší způsob, jak Pansofii pochopit, je projít ji z vlastní role.</h2>
-            <p className="mt-5 text-lg text-muted-foreground max-w-3xl mx-auto">PANSOFIEDIT během 60–90 sekund složí ukázkovou Experience podle toho, kdo jste, co chcete změnit a co do ní můžete přinést.</p>
+            <h2 className="text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Nejrychleji Pansofii pochopíte, když si ji projdete z vlastní role.</h2>
+            <p className="mt-5 text-lg text-muted-foreground max-w-3xl mx-auto">PANSOFIEDIT vám během 60–90 sekund ukáže modelovou zkušenost podle toho, kdo jste, co chcete změnit a co do spolupráce můžete přinést.</p>
             <Link to="/zapojit-se?mode=simulator" className="action-primary mt-8 inline-flex px-7 py-3.5">Vyzkoušet z vlastní role <ArrowRight size={18} /></Link>
           </div>
         </section>
