@@ -55,7 +55,7 @@ test("Living Experience Flow visibly advances and user can pause it", async ({ p
   const initial = await flow.locator('[aria-current="step"]').getAttribute("aria-label");
   await page.waitForTimeout(2100);
   expect(await flow.locator('[aria-current="step"]').getAttribute("aria-label")).not.toEqual(initial);
-  await flow.getByRole("button", { name: /Pozastavit tok/i }).click();
+  await flow.getByRole("button", { name: /Pozastavit/i }).click();
   await expect(flow).toHaveAttribute("data-auto-running", "false");
   await expect(flow.locator(".experience-progress-packet")).toHaveCount(0);
   await expectNoHorizontalOverflow(page);
