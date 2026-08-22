@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
 import ReferenceNetworkStage from "@/components/pansofie/ReferenceNetworkStage";
+import { publicLabel } from "@/lib/publicCopyLabels";
 import "@/living-network.css";
 import "@/living-motion-r4.css";
 
@@ -244,7 +245,7 @@ export default function PublicNetworkShell({ children }) {
 
       <div className="route-network-ribbon route-network-ribbon--r4" aria-label="Živá mapa aktuální stránky">
         <div className="route-network-ribbon-inner">
-          <span className="route-network-ribbon-core">{network.core}</span>
+          <span className="route-network-ribbon-core">{publicLabel(network.core)}</span>
           <div className="route-network-ribbon-flow">
             {network.nodes.map((node, index) => (
               <React.Fragment key={node}>
@@ -259,7 +260,7 @@ export default function PublicNetworkShell({ children }) {
                   onClick={() => activateNode(index)}
                 >
                   <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{node}</strong>
+                  <strong>{publicLabel(node)}</strong>
                 </button>
               </React.Fragment>
             ))}
