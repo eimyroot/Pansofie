@@ -37,7 +37,7 @@ for (const viewport of [
     const errors = runtimeErrors(page);
 
     await page.goto(`${BASE_URL}/zapojit-se`, { waitUntil: "networkidle" });
-    await expect(page.getByRole("heading", { name: /Pansofie potřebuje lidi, kteří přinesou realitu/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Pansofie potřebuje lidi, kteří přinesou něco skutečného/i })).toBeVisible();
     await expect(page.getByText(/Nemusíte mít školu ani firmu/i)).toBeVisible();
 
     for (const id of ["school", "teacher", "learner", "family", "mentor", "partner", "community", "supporter"]) {
@@ -59,13 +59,15 @@ for (const viewport of [
     const errors = runtimeErrors(page);
 
     await page.goto(`${BASE_URL}/o-projektu`, { waitUntil: "networkidle" });
-    await expect(page.getByRole("heading", { name: /Pansofie je funkční digitální produkt/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Učení má větší smysl, když se propojí se skutečným životem/i })).toBeVisible();
     await expect(page.getByText("Proč Pansofie vzniká", { exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Nestačí znát jednotlivé věci\. Potřebujeme vidět, jak spolu souvisejí/i })).toBeVisible();
+    await expect(page.getByText(/Dnešní Pansofie je ale náš současný produkt/i)).toBeVisible();
     await expect(page.getByRole("heading", { name: /Jsme ve fázi, kdy se produkt musí potkat s realitou/i })).toBeVisible();
-    await expect(page.getByText(/Jména lidí za projektem, právního provozovatele a faktický veřejný kontaktní kanál/i)).toBeVisible();
-    await expect(page.getByRole("heading", { name: "FUNKČNÍ / TECHNICKY OVĚŘENÉ" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "JEŠTĚ NEPROBĚHLO" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Ne publikum\. První síť lidí/i })).toBeVisible();
+    await expect(page.getByText(/Jména lidí za projektem, právního provozovatele a veřejný kontaktní kanál/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: "UŽ FUNGUJE" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "ZATÍM NEMÁME DŮKAZ" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Ne publikum\. Lidi, kteří nám pomohou zjistit, co je opravdu užitečné/i })).toBeVisible();
 
     await expectNoHorizontalOverflow(page);
     expect(errors).toEqual([]);
@@ -81,14 +83,14 @@ test("PANSOFIEDIT remains available through explicit simulator mode", async ({ p
   await expect(page.locator("form")).toHaveCount(0);
 });
 
-test("role deep-link still enters the role-aware journey", async ({ page }) => {
+test("role deep-link still enters the role-specific journey", async ({ page }) => {
   await page.goto(`${BASE_URL}/zapojit-se?role=mentor`, { waitUntil: "networkidle" });
   await expect(page.getByText("Mentor / odborník", { exact: true }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Jak chcete do Experience přinést odbornou zkušenost/i })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Pansofie potřebuje lidi, kteří přinesou realitu/i })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: /Jak chcete do zkušenosti přinést svou odbornost/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Pansofie potřebuje lidi, kteří přinesou něco skutečného/i })).toHaveCount(0);
 });
 
-test("legacy contact keeps the old truthful journey contract on the same target URL", async ({ page }) => {
+test("legacy contact keeps the truthful journey contract on the same target URL", async ({ page }) => {
   await page.goto(`${BASE_URL}/kontakt`, { waitUntil: "networkidle" });
   await expect(page).toHaveURL(`${BASE_URL}/zapojit-se`);
   await expect(page.getByRole("heading", { name: /Vyzkoušejte Pansofii/i })).toBeVisible();
