@@ -32,7 +32,7 @@ export default function ResetPassword() {
       await supabase.auth.signOut();
       setTimeout(() => navigate("/login", { replace: true }), 800);
     } catch (err) {
-      setError(err.message || "Heslo se nepodařilo změnit. Otevři nový odkaz z e-mailu.");
+      setError(err.message || "Heslo se nepodařilo změnit. Otevřete nový odkaz z e-mailu.");
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,7 @@ export default function ResetPassword() {
 
   if (done) {
     return (
-      <AuthLayout icon={Lock} title="Heslo změněno" subtitle="Můžeš se znovu přihlásit">
+      <AuthLayout icon={Lock} title="Heslo bylo změněno" subtitle="Nyní se můžete znovu přihlásit">
         <Link to="/login" className="h-12 rounded-xl bg-primary text-primary-foreground font-semibold flex items-center justify-center">
           Přihlásit se
         </Link>
@@ -49,7 +49,7 @@ export default function ResetPassword() {
   }
 
   return (
-    <AuthLayout icon={Lock} title="Nové heslo" subtitle="Zadej nové heslo pro svůj účet">
+    <AuthLayout icon={Lock} title="Nové heslo" subtitle="Zadejte nové heslo pro svůj účet">
       {error && (
         <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm flex items-start gap-2">
           <AlertTriangle size={16} className="mt-0.5 shrink-0" /> {error}
