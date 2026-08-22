@@ -72,7 +72,7 @@ test("Living Experience Flow changes state without losing truth boundaries", asy
   await expect(flow).toContainText("Samotná aktivita není totéž co výstup ani skutečný dopad.");
 
   const ribbon = page.getByLabel("Živá mapa aktuální stránky");
-  const passport = ribbon.getByRole("button", { name: /Passport/i });
+  const passport = ribbon.getByRole("button", { name: /Experience Passport/i });
   await passport.click();
   await expect(passport).toHaveAttribute("aria-pressed", "true");
 
@@ -106,13 +106,14 @@ test("partner page exposes its relationship sequence as one network", async ({ p
 
   const shell = page.locator('.public-network-shell[data-network-route="partner"]');
   const ribbon = shell.getByLabel("Živá mapa aktuální stránky");
-  for (const node of ["Challenge", "Výstup", "Review", "Rozhodnutí", "Outcome", "Hranice"]) {
+  for (const node of ["Výzva", "Výstup", "Zpětná vazba", "Rozhodnutí", "Co se stalo potom", "Hranice"]) {
     await expect(ribbon.getByRole("button", { name: new RegExp(node, "i") })).toBeVisible();
   }
 
   const stage = page.locator('.reference-network-r5[data-network-key="partner"]');
   await expect(stage).toBeVisible();
   await expect(stage.locator("button[data-reference-node]")).toHaveCount(6);
+  await expect(stage).toContainText("JAK SPOLU ČÁSTI SOUVISEJÍ");
 
   const activeNav = page.locator('a.public-nav-link[data-active="true"]');
   await expect(activeNav).toHaveAttribute("href", "/partneri");
