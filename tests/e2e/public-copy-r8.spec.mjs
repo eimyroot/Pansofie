@@ -94,7 +94,7 @@ test("R8 About page preserves historical versus product truth boundary", async (
   await page.goto(`${BASE_URL}/o-projektu`, { waitUntil: "networkidle" });
   await expect(page.getByText(/Pansofie se inspiruje pansofickou snahou Jana Amose Komenského/i)).toBeVisible();
   await expect(page.getByText(/Dnešní Pansofie je ale náš současný produkt/i)).toBeVisible();
-  await expect(page.getByText(/Komenskému nepřipisujeme software, AI, herní mechaniky, skóre ani dnešní architekturu Pansofie/i)).toBeVisible();
+  await expect(page.getByText(/Komenskému nepřipisujeme dnešní software, umělou inteligenci, herní mechaniky, skóre ani současnou architekturu Pansofie/i)).toBeVisible();
 });
 
 test("R8 join surface remains truthful and does not fake lead submission", async ({ page }) => {
