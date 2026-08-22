@@ -9,17 +9,17 @@ const required = [
   [journey, "ExperienceComposer"],
   [journey, "ExperienceScrollStory"],
   [journey, "grid-cols-[minmax(0,1fr)_360px]"],
-  [composer, "Živý Experience Composer"],
-  [composer, "Pansofie se skládá podle vašich voleb."],
-  [composer, "aria-label=\"Živý náhled vznikající Experience\""],
+  [composer, "Průběžný náhled"],
+  [composer, "Vaše modelová zkušenost se skládá podle voleb."],
+  [composer, "aria-label=\"Živý náhled vznikající zkušenosti\""],
   [composer, "motion-reduce:transition-none"],
-  [story, "Scroll storytelling"],
-  [story, "Sledujte, jak se problém mění v Experience."],
+  [story, "Celá cesta krok za krokem"],
+  [story, "Sledujte, jak se problém mění ve skutečnou zkušenost."],
   [story, "IntersectionObserver"],
   [story, "aria-pressed"],
   [story, "focus-visible:ring-2"],
   [story, "motion-reduce:transition-none"],
-  [story, "Výstup není skóre člověka"],
+  [story, "Tato ukázka nehodnotí člověka"],
 ];
 
 const forbidden = [
@@ -29,6 +29,8 @@ const forbidden = [
   [story, "fetch("],
   [story, "supabase"],
   [story, "localStorage"],
+  [composer, "Živý Experience Composer"],
+  [story, "Scroll storytelling"],
 ];
 
 const missing = required.filter(([content, token]) => !content.includes(token)).map(([, token]) => token);
