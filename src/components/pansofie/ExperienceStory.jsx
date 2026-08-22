@@ -79,7 +79,7 @@ export default function ExperienceStory() {
         <div className="grid grid-cols-1 xl:grid-cols-[0.72fr_1.28fr] gap-10 xl:gap-16 items-start">
           <div className="xl:sticky xl:top-28">
             <p className="eyebrow">01 · JAK VYPADÁ JEDNA SKUTEČNÁ ZKUŠENOST</p>
-            <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Nejdřív něco skutečně uděláš. Teprve potom má smysl zapisovat, co sis z toho odnesl.</h2>
+            <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Nejdřív něco skutečně uděláte. Teprve potom má smysl zachytit, co jste si z toho odnesli.</h2>
             <p className="mt-5 text-lg text-muted-foreground leading-relaxed">Ukázka <strong className="text-foreground font-semibold">Zlepši svou školu</strong> vede od konkrétní potřeby přes práci a důkaz až k ověřenému záznamu zkušenosti.</p>
 
             <div className="mt-6 flex items-start gap-3 border-l-2 border-primary/30 pl-4">
