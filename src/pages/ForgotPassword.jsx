@@ -30,7 +30,7 @@ export default function ForgotPassword() {
     <AuthLayout
       icon={Mail}
       title="Obnovit heslo"
-      subtitle="Pošleme ti odkaz pro nastavení nového hesla"
+      subtitle="Pošleme vám odkaz pro nastavení nového hesla"
       footer={
         <Link to="/login" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft size={15} /> Zpět na přihlášení
@@ -39,7 +39,7 @@ export default function ForgotPassword() {
     >
       {sent ? (
         <div className="text-sm text-muted-foreground leading-relaxed">
-          Pokud účet s tímto e-mailem existuje, obdržíš odkaz pro změnu hesla.
+          Pokud účet s tímto e-mailem existuje, obdržíte odkaz pro změnu hesla.
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -47,7 +47,7 @@ export default function ForgotPassword() {
             <Label htmlFor="email">E-mail</Label>
             <div className="relative">
               <Mail size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-              <Input id="email" type="email" autoComplete="email" autoFocus placeholder="you@example.com" value={email} onChange={(event) => setEmail(event.target.value)} className="pl-10 h-12" required />
+              <Input id="email" type="email" autoComplete="email" autoFocus placeholder="vas@email.cz" value={email} onChange={(event) => setEmail(event.target.value)} className="pl-10 h-12" required />
             </div>
           </div>
           <Button type="submit" className="w-full h-12" disabled={loading}>
