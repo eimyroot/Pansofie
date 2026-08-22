@@ -9,7 +9,7 @@ fs.mkdirSync(EVIDENCE_DIR, { recursive: true });
 const JOURNEY = [
   ["home", "/", /Poznej sebe.*Tvoř s druhými.*Zlepšuj svět/i],
   ["how", "/jak-funguje", /Od skutečné potřeby k.*ověřené zkušenosti/i],
-  ["roles", "/pro-koho", /Jedna zkušenost propojí více lidí/i],
+  ["roles", "/pro-koho", /Jedna skutečná zkušenost může propojit více lidí/i],
   ["pilot", "/pilot", /Ne další školní aplikace/i],
   ["partner", "/partneri", /Přineste skutečný problém/i],
   ["about", "/o-projektu", /Učení má větší smysl, když se propojí se skutečným životem/i],
