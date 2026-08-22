@@ -37,9 +37,9 @@ export default function ExperienceScrollStory({ path = [], role, problem }) {
   return (
     <section aria-labelledby="experience-scroll-story-title" className="mt-8 rounded-[2rem] border border-border bg-background overflow-hidden">
       <div className="p-6 sm:p-8 border-b border-border bg-card/35">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Scroll storytelling</p>
-        <h3 id="experience-scroll-story-title" className="mt-2 text-2xl sm:text-4xl font-semibold font-display tracking-tight">Sledujte, jak se problém mění v Experience.</h3>
-        <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-3xl leading-relaxed">Nejde o dekorativní animaci. Každý krok vysvětluje, proč Pansofie odděluje reálnou práci, důkaz, reflexi, review, Passport a další rozhodnutí.</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Celá cesta krok za krokem</p>
+        <h3 id="experience-scroll-story-title" className="mt-2 text-2xl sm:text-4xl font-semibold font-display tracking-tight">Sledujte, jak se problém mění ve skutečnou zkušenost.</h3>
+        <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-3xl leading-relaxed">Každý krok má svůj důvod. Pansofie zvlášť drží práci, důkaz, vlastní reflexi, lidské ověření, soukromý záznam a další rozhodnutí.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr]">
@@ -58,8 +58,8 @@ export default function ExperienceScrollStory({ path = [], role, problem }) {
 
           <div className="mt-8 rounded-2xl border border-background/15 bg-background/[0.06] p-5">
             <p className="text-[10px] uppercase tracking-[0.18em] text-background/45">Váš scénář</p>
-            <p className="mt-2 text-sm font-semibold">{role?.label || "Role"} → {problem?.challenge || "Experience"}</p>
-            <p className="mt-2 text-xs text-background/55 leading-relaxed">Výstup není skóre člověka. Je to vysvětlení procesu konkrétní Experience.</p>
+            <p className="mt-2 text-sm font-semibold">{role?.label || "Role"} → {problem?.challenge || "Zkušenost"}</p>
+            <p className="mt-2 text-xs text-background/55 leading-relaxed">Tato ukázka nehodnotí člověka. Jen vysvětluje postup jedné modelové zkušenosti.</p>
           </div>
 
           <div className="mt-auto pt-8">
