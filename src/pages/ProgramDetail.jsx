@@ -8,30 +8,30 @@ import PublicFooter from "@/components/pansofie/PublicFooter";
 const META = {
   school: {
     status: "Připraveno pro první pilot",
-    note: "Digitální School flow je otestovaný na stagingu. Skutečný školní field pilot je další krok.",
-    receives: ["3 pilotní Experiences", "učitelský workflow", "soukromý Experience Passport", "podklady pro vyhodnocení pilotu"],
-    contributes: ["bezpečné prostředí", "pedagogické vedení", "reálné školní potřeby", "evidence o použitelnosti a zátěži"],
+    note: "Digitální postup pro školu je otestovaný. Dalším krokem je ověřit ho v běžném provozu skutečné školy.",
+    receives: ["3 pilotní zkušenosti", "jasný postup pro učitele", "soukromý Experience Passport", "podklady pro vyhodnocení pilotu"],
+    contributes: ["bezpečné prostředí", "pedagogické vedení", "reálné školní potřeby", "zpětnou vazbu o použitelnosti a zátěži"],
     cta: ["/zapojit-se?role=school", "Chci zapojit školu"],
   },
   family: {
     status: "Zapojení v prvním pilotu",
-    note: "Samostatný Family runtime ještě není live. Rodina se zapojuje bezpečně a dobrovolně kolem konkrétní Experience.",
+    note: "Rodina se zatím zapojuje kolem konkrétní zkušenosti. Její role je dobrovolná, praktická a má jasné hranice soukromí.",
     receives: ["srozumitelný kontext", "bezpečný přehled", "možnost dobrovolně pomoci", "jasné hranice soukromí"],
-    contributes: ["podnět z reálného života", "zkušenost nebo kontakt", "zpětnou vazbu", "kontinuitu mezi školou a domovem"],
+    contributes: ["podnět z reálného života", "zkušenost nebo kontakt", "zpětnou vazbu", "propojení mezi školou a domovem"],
     cta: ["/zapojit-se?role=family", "Zajímá mě role rodiny"],
   },
   community: {
-    status: "Zapojení podle Experience",
-    note: "Samostatný Community runtime ještě není live. Obec nebo organizace může přinést lokální potřebu, kontext a možnost dalšího kroku.",
-    receives: ["pozornost k místní potřebě", "týmové výstupy", "možnost posoudit další pilot", "transparentní proces"],
-    contributes: ["lokální problém", "prostředí a kontext", "odbornou znalost", "zpětnou vazbu nebo možnost adopce"],
+    status: "Zapojení podle konkrétní zkušenosti",
+    note: "Obec nebo komunita může už dnes přinést místní potřebu, kontext a možnost vyzkoušet dobrý výsledek v reálném prostředí. Samostatná komunitní část produktu se teprve připravuje.",
+    receives: ["pozornost k místní potřebě", "týmové výstupy", "možnost posoudit další krok", "srozumitelný a transparentní postup"],
+    contributes: ["lokální problém", "prostředí a kontext", "odbornou nebo místní znalost", "zpětnou vazbu nebo možnost výsledek vyzkoušet"],
     cta: ["/zapojit-se?role=community", "Přinést lokální potřebu"],
   },
   youth: {
     status: "Připravujeme",
-    note: "Samostatný Youth runtime ještě není live. Youth je budoucí pokračování stejného Experience principu pro 15+.",
-    receives: ["návaznost na Experiences", "větší samostatnost", "projekty a mentoring", "přenos zkušeností dál"],
-    contributes: ["iniciativu", "vlastní projekty", "peer spolupráci", "reálné výstupy"],
+    note: "Pansofie Youth je připravovaná větev pro mladé 15+. Má navázat na stejný princip skutečné zkušenosti, ale samostatná část produktu zatím není spuštěná.",
+    receives: ["návaznost na předchozí zkušenosti", "větší samostatnost", "projekty a mentoring", "možnost přenést zkušenost do další situace"],
+    contributes: ["iniciativu", "vlastní projekty", "spolupráci s vrstevníky", "reálné výstupy"],
     cta: ["/zapojit-se?role=general", "Chci sledovat další vývoj"],
   },
 };
@@ -61,9 +61,9 @@ export default function ProgramDetail() {
           ))}
         </div>
 
-        <div className="mt-6 rounded-3xl border border-primary/20 bg-primary/[0.025] p-6 sm:p-7 flex items-start gap-3"><ShieldCheck size={21} className="text-primary shrink-0 mt-0.5" /><div><h2 className="font-semibold">Reciprocity & safety boundary</h2><p className="mt-2 text-sm text-muted-foreground">Přínos se vztahuje ke konkrétní práci a spolupráci, ne k lidské hodnotě. Přístup k soukromým údajům nevzniká automaticky z žádné role.</p></div></div>
+        <div className="mt-6 rounded-3xl border border-primary/20 bg-primary/[0.025] p-6 sm:p-7 flex items-start gap-3"><ShieldCheck size={21} className="text-primary shrink-0 mt-0.5" /><div><h2 className="font-semibold">Vzájemná hodnota a bezpečné hranice</h2><p className="mt-2 text-sm text-muted-foreground">Každá role má přinášet něco konkrétního a zároveň získávat smysluplnou hodnotu. Žádná role ale automaticky nezískává přístup k soukromým údajům a žádný přínos se nepřevádí na hodnocení lidské hodnoty.</p></div></div>
 
-        <div className="mt-8 flex flex-col sm:flex-row gap-3"><Link to={meta.cta[0]} className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground rounded-2xl font-semibold">{meta.cta[1]} <ArrowRight size={17} /></Link><Link to="/#ekosystem" className="inline-flex items-center justify-center px-6 py-3.5 bg-card border border-border rounded-2xl font-semibold">Zobrazit celý ekosystém</Link></div>
+        <div className="mt-8 flex flex-col sm:flex-row gap-3"><Link to={meta.cta[0]} className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground rounded-2xl font-semibold">{meta.cta[1]} <ArrowRight size={17} /></Link><Link to="/#ekosystem" className="inline-flex items-center justify-center px-6 py-3.5 bg-card border border-border rounded-2xl font-semibold">Zobrazit všechny role</Link></div>
       </main>
       <PublicFooter />
     </div>
