@@ -107,7 +107,7 @@ test("partner route turns business flow into the same connected graph grammar", 
   await review.focus();
   await expect(review).toHaveAttribute("aria-pressed", "true");
   await expect(stage.locator(".reference-network-r5__details")).toContainText("Partner hodnotí výstup, nikdy lidskou hodnotu");
-  await expect(stage.locator(".reference-network-r5__flowline")).toContainText("REVIEW");
+  await expect(stage.locator(".reference-network-r5__flowline")).toContainText("Zpětná vazba");
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "partner-review-reference-desktop.png"), fullPage: true });
 });
