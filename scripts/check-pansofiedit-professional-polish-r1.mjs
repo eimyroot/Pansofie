@@ -52,16 +52,16 @@ assert.ok(nav.includes("Vyzkoušet 60 s"), "public nav must expose the simulator
 assert.ok(nav.includes("/zapojit-se?mode=simulator"), "public nav simulator route missing");
 assert.ok(nav.includes("/pro-koho"), "public role information architecture entry missing");
 assert.ok(home.includes("action-primary"), "homepage primary action hierarchy missing");
-assert.ok(home.includes("Experience-first rozvoj v reálném světě"), "homepage Experience-first positioning marker missing");
+assert.ok(home.includes("Učení, které pokračuje v reálném světě"), "homepage human-first positioning marker missing");
 assert.ok(home.includes("<PublicMaturity />"), "homepage maturity/truth surface missing");
 
 for (const role of ["learner", "school", "family", "partner", "community", "mentor"]) {
   assert.ok(roles.includes(`id: \"${role}\"`), `role ecosystem missing ${role}`);
 }
 assert.ok(roles.includes("data-role={actor.id}"), "role semantic visual binding missing");
-assert.ok(roles.includes("Role v Experience"), "Experience-centered role grammar missing");
+assert.ok(roles.includes("Role v této zkušenosti"), "experience-centered role grammar missing");
 assert.ok(roles.includes("Nevidí / nemá automaticky"), "role data-access boundary surface missing");
-assert.ok(roles.includes("Příklady Experience"), "role-specific Experience examples missing");
+assert.ok(roles.includes("Příklady zkušeností"), "role-specific experience examples missing");
 
 assert.ok(member.includes("Pilot workspace"), "member shell workspace identity missing");
 assert.ok(member.includes('role: "school"'), "School navigation role tone missing");
