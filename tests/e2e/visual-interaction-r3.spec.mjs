@@ -61,18 +61,18 @@ test("Living Experience Flow changes state without losing truth boundaries", asy
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
 
-  const flow = page.getByLabel("Interaktivní průběh jedné Experience");
+  const flow = page.getByLabel("Interaktivní průběh jedné zkušenosti");
   await expect(flow).toBeVisible();
-  await expect(flow.getByText("Living Experience Flow")).toBeVisible();
+  await expect(flow.getByText("Jak zkušenost postupuje")).toBeVisible();
 
   const verification = flow.getByRole("button", { name: /05.*Ověření/i });
   await verification.click();
   await expect(verification).toHaveAttribute("aria-current", "step");
   await expect(flow.getByText("Oddělené ověření")).toBeVisible();
-  await expect(flow).toContainText("Aktivita ≠ výstup ≠ outcome ≠ impact.");
+  await expect(flow).toContainText("Samotná aktivita není totéž co výstup ani skutečný dopad.");
 
   const ribbon = page.getByLabel("Živá mapa aktuální stránky");
-  const passport = ribbon.getByRole("button", { name: /Passport/i });
+  const passport = ribbon.getByRole("button", { name: /Experience Passport/i });
   await passport.click();
   await expect(passport).toHaveAttribute("aria-pressed", "true");
 
@@ -93,7 +93,8 @@ test("role relationship map reacts to selected role and preserves access boundar
   await expect(map.locator(".role-map-core")).toContainText("EXPERIENCE");
   await expect(map.locator(".role-map-node--actor")).toContainText("reálnou výzvu a kontext");
   await expect(map.locator(".role-map-node--result")).toContainText("konkrétní týmový výstup k reálnému problému");
-  await expect(map.locator(".role-map-boundary")).toContainText("Partner hodnotí výstup proti zadání, nikdy lidskou hodnotu");
+  await expect(map.locator(".role-map-boundary")).toContainText("Partner hodnotí výstup podle zadání, nikdy lidskou hodnotu");
+  await expect(map.locator(".role-map-boundary")).toContainText("Rozhodnutí výsledek vyzkoušet není samo o sobě důkaz jeho dopadu");
 
   await expectNoHorizontalOverflow(page);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "roles-partner-network-desktop.png"), fullPage: true });
@@ -105,13 +106,14 @@ test("partner page exposes its relationship sequence as one network", async ({ p
 
   const shell = page.locator('.public-network-shell[data-network-route="partner"]');
   const ribbon = shell.getByLabel("Živá mapa aktuální stránky");
-  for (const node of ["Challenge", "Výstup", "Review", "Rozhodnutí", "Outcome", "Hranice"]) {
+  for (const node of ["Výzva", "Výstup", "Zpětná vazba", "Rozhodnutí", "Co se stalo potom", "Hranice"]) {
     await expect(ribbon.getByRole("button", { name: new RegExp(node, "i") })).toBeVisible();
   }
 
   const stage = page.locator('.reference-network-r5[data-network-key="partner"]');
   await expect(stage).toBeVisible();
   await expect(stage.locator("button[data-reference-node]")).toHaveCount(6);
+  await expect(stage).toContainText("JAK SPOLU ČÁSTI SOUVISEJÍ");
 
   const activeNav = page.locator('a.public-nav-link[data-active="true"]');
   await expect(activeNav).toHaveAttribute("href", "/partneri");

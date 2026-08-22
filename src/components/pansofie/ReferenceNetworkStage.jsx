@@ -21,6 +21,7 @@ import {
   UserRoundCheck,
   UsersRound,
 } from "lucide-react";
+import { publicLabel } from "@/lib/publicCopyLabels";
 import "@/reference-network-r5.css";
 import "@/reference-network-r5-svg.css";
 
@@ -90,33 +91,35 @@ const RELATIONSHIPS = {
 
 const DETAIL_OVERRIDES = {
   roles: {
-    Žák: ["Skutečnou zkušenost, vedení a soukromý Passport.", "Pohled, otázky, práci v týmu, výstup, důkaz a vlastní reflexi.", "Přínos se nikdy nepřevádí na skóre člověka ani předpověď jeho budoucnosti."],
+    Žák: ["Skutečnou zkušenost, vedení a soukromý záznam toho, co zvládl.", "Pohled, otázky, práci v týmu, výstup, důkaz a vlastní reflexi.", "Přínos se nikdy nepřevádí na skóre člověka ani předpověď jeho budoucnosti."],
     Rodina: ["Bezpečnou a smysluplnou roli v rozvoji dítěte bez narušení soukromí.", "Reálný kontext, podnět a pohled z domova — ne hodnocení.", "Rodina automaticky nevidí soukromou reflexi žáka."],
-    Škola: ["Doložený průběh a ověřitelnou práci bez univerzálního profilu dítěte.", "Bezpečný rámec, pedagogické vedení a oddělené ověření.", "Škola ověřuje práci; Pansofie z toho nevytváří skóre lidské hodnoty."],
-    Partner: ["Reálný důvod se zapojit a možnost vidět výsledek v praxi.", "Skutečný problém, kontext a review bounded výstupu.", "Firma nekupuje pozitivní výsledek ani přístup k soukromým datům."],
-    Komunita: ["Místní potřebu, kontext a možnost výsledek vyzkoušet nebo použít.", "Reálné prostředí, kde má práce smysl a dopad se teprve ověřuje.", "Zapojení se řídí konkrétní Experience, ne plošnou kampaní."],
-    Mentor: ["Jasně ohraničené odborné zapojení do konkrétní Experience.", "Expertizu, otázky a zpětnou vazbu k doložené práci.", "Mentor nemá neomezený soukromý kanál k dítěti."],
+    Škola: ["Doložený průběh a ověřitelnou práci bez univerzálního profilu dítěte.", "Bezpečný rámec, pedagogické vedení a samostatné ověření.", "Škola ověřuje práci; Pansofie z toho nevytváří skóre lidské hodnoty."],
+    Partner: ["Reálný důvod se zapojit a možnost posoudit konkrétní výsledek.", "Skutečný problém, kontext a zpětnou vazbu k jasně vymezenému výstupu.", "Firma nekupuje pozitivní výsledek ani přístup k soukromým datům."],
+    Komunita: ["Místní potřebu, kontext a možnost výsledek vyzkoušet nebo použít.", "Reálné prostředí, kde má práce smysl a případný dopad se teprve ověřuje.", "Zapojení se řídí konkrétní zkušeností, ne plošnou kampaní."],
+    Mentor: ["Jasně ohraničené odborné zapojení do konkrétní zkušenosti.", "Expertizu, otázky a zpětnou vazbu k doložené práci.", "Mentor nemá neomezený soukromý kanál k dítěti."],
   },
   partner: {
-    Challenge: ["Jasné zadání s očekávaným bounded výstupem.", "Reálný problém a kontext, ne marketingový slib.", "Challenge nedává Partnerovi přístup k soukromému profilu člověka."],
-    Výstup: ["Konkrétní artefakt, který lze posoudit proti briefu.", "Doloženou práci v bezpečném rozsahu.", "Výstup není automaticky Outcome ani Impact."],
-    Review: ["Transparentní zpětnou vazbu k práci.", "Hodnocení výstupu proti zadání.", "Partner hodnotí výstup, nikdy lidskou hodnotu."],
-    Rozhodnutí: ["Jasný další krok: NOT ADOPT / EXPLORE FURTHER / PILOT.", "Odpovědné rozhodnutí bez automatického pozitivního výsledku.", "PILOT je rozhodnutí o dalším kroku, ne důkaz Impactu."],
-    Outcome: ["Možnost doložit, co se po použití skutečně změnilo.", "Evidence reálného použití místo dojmu.", "Outcome se netvrdí bez skutečné evidence."],
-    Hranice: ["Jasnou důvěru v to, co Partner smí a nesmí vidět.", "Minimální data nutná pro konkrétní účel.", "Žádná soukromá reflexe, raw learner evidence ani Passport bez oprávnění."],
+    Challenge: ["Jasné zadání a očekávaný výstup.", "Reálný problém a dostatek kontextu, ne marketingový slib.", "Výzva nedává partnerovi přístup k soukromému profilu člověka."],
+    Výstup: ["Konkrétní výsledek, který lze posoudit podle zadání.", "Doloženou práci v bezpečně vymezeném rozsahu.", "Samotný výstup ještě neříká, zda byl použit ani jaký měl dopad."],
+    Review: ["Transparentní zpětnou vazbu k práci.", "Posouzení výstupu podle původního zadání.", "Partner hodnotí výstup, nikdy lidskou hodnotu."],
+    Rozhodnutí: ["Jasný další krok: nepoužít, dál prozkoumat, nebo bezpečně vyzkoušet.", "Odpovědné rozhodnutí bez předem slíbeného pozitivního výsledku.", "Rozhodnutí něco vyzkoušet ještě není důkaz, že řešení funguje."],
+    Outcome: ["Možnost doložit, co se po použití skutečně změnilo.", "Důkaz reálného použití místo dojmu.", "Změnu netvrdíme, dokud pro ni nemáme skutečné podklady."],
+    Hranice: ["Jasné vysvětlení toho, co partner smí a nesmí vidět.", "Jen minimum dat nutné pro konkrétní účel.", "Žádná soukromá reflexe, neveřejné podklady žáka ani jeho osobní záznam bez oprávnění."],
   },
 };
 
 function fallbackDetail(_key, label) {
   const lower = label.toLocaleLowerCase("cs-CZ");
-  if (/potřeba|challenge/.test(lower)) return ["Jasný důvod, proč má další práce smysl.", "Konkrétní kontext místo abstraktního zadání.", "Síť začíná účelem; ne sběrem dat bez důvodu."];
-  if (/důkaz|výstup/.test(lower)) return ["Doložitelnou stopu skutečné práce.", "Konkrétní artefakt, měření nebo dokumentaci.", "Důkaz práce není automaticky důkaz dlouhodobého dopadu."];
-  if (/ověření|review|test/.test(lower)) return ["Oddělenou kontrolu toho, co bylo doloženo.", "Zpětnou vazbu k práci a jasný další krok.", "Ověření neslouží k vytvoření skóre lidské hodnoty."];
+  const visibleLabel = publicLabel(label);
+  if (/potřeba|challenge/.test(lower)) return ["Jasný důvod, proč má další práce smysl.", "Konkrétní kontext místo abstraktního zadání.", "Síť začíná účelem, ne sběrem dat bez důvodu."];
+  if (/důkaz|výstup|evidence/.test(lower)) return ["Doložitelnou stopu skutečné práce.", "Konkrétní výstup, měření nebo dokumentaci.", "Důkaz práce není automaticky důkaz dlouhodobého dopadu."];
+  if (/ověření|review|test/.test(lower)) return ["Samostatnou kontrolu toho, co bylo doloženo.", "Zpětnou vazbu k práci a jasný další krok.", "Ověření neslouží k vytvoření skóre lidské hodnoty."];
   if (/reflexe/.test(lower)) return ["Vlastní význam a pojmenování toho, co člověk pochopil.", "Pohled na to, co fungovalo a co příště změnit.", "Soukromá reflexe není automatický report pro všechny role."];
-  if (/passport/.test(lower)) return ["Soukromý záznam skutečné zkušenosti.", "Ověřenou návaznost na další krok.", "Passport je private-by-default a není veřejný žebříček člověka."];
-  if (/impact/.test(lower)) return ["Teprve dlouhodobější důkaz skutečné změny.", "Outcome evidence, čas a kontext.", "Technická připravenost ani dokončená aktivita nejsou důkaz Impactu."];
+  if (/passport/.test(lower)) return ["Soukromý záznam skutečné zkušenosti.", "Ověřenou návaznost na další krok.", "Experience Passport je ve výchozím nastavení soukromý a není veřejný žebříček člověka."];
+  if (/impact/.test(lower)) return ["Dlouhodobější důkaz skutečné změny.", "Čas, kontext a ověřitelné podklady o tom, co se opravdu změnilo.", "Technická připravenost ani dokončená aktivita nejsou důkaz dlouhodobého dopadu."];
+  if (/outcome/.test(lower)) return ["Informaci o tom, co následovalo po použití výsledku.", "Ověřitelné podklady z reálného provozu.", "To, co se stalo potom, se nesmí domýšlet bez důkazu."];
   if (/pilot/.test(lower)) return ["Kontrolované ověření v reálném provozu.", "Kontext, účastníky a konkrétní pravidla.", "Pilot není automaticky důkaz pedagogického nebo dlouhodobého dopadu."];
-  return ["Jasnou hodnotu z konkrétního vztahu v síti.", `Kontext a práci spojenou s uzlem ${label}.`, "Každý přístup zůstává účelově omezený a vysvětlitelný."];
+  return ["Jasnou hodnotu z konkrétního vztahu v síti.", `Kontext a práci spojenou s částí „${visibleLabel}“.`, "Každý přístup zůstává účelově omezený a vysvětlitelný."];
 }
 
 function detailFor(networkKey, label) {
@@ -133,7 +136,7 @@ function iconFor(label) {
   if (/komunita|obec/.test(lower)) return Landmark;
   if (/potřeba|challenge/.test(lower)) return Lightbulb;
   if (/akce|experience/.test(lower)) return Sparkles;
-  if (/důkaz|výstup/.test(lower)) return FileCheck2;
+  if (/důkaz|výstup|evidence/.test(lower)) return FileCheck2;
   if (/reflexe/.test(lower)) return MessageSquareText;
   if (/ověření|review|test/.test(lower)) return CheckCircle2;
   if (/hranice|soukromí|bezpe/.test(lower)) return ShieldCheck;
@@ -155,6 +158,8 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
   const nodes = network?.nodes || [];
   const safeIndex = Math.min(Math.max(activeIndex, 0), Math.max(nodes.length - 1, 0));
   const selectedLabel = nodes[safeIndex] || nodes[0] || "Experience";
+  const selectedPublicLabel = publicLabel(selectedLabel);
+  const corePublicLabel = publicLabel(network?.core || "Pansofie");
   const relatedLabels = RELATIONSHIPS[network?.key]?.[selectedLabel] || [nodes[(safeIndex + 1) % nodes.length], nodes[(safeIndex + nodes.length - 1) % nodes.length]].filter(Boolean);
   const [receives, contributes, boundary] = detailFor(network?.key, selectedLabel);
   const SelectedIcon = iconFor(selectedLabel);
@@ -173,16 +178,16 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
       className="reference-network-r5"
       data-network-key={network?.key || "public"}
       data-selected-node={selectedLabel}
-      aria-label={`Interaktivní síť ${network?.core || "Pansofie"}`}
+      aria-label={`Interaktivní síť ${corePublicLabel}`}
     >
       <div className="reference-network-r5__intro">
         <div>
-          <p className="eyebrow">ŽIVÁ SÍŤ · INTERAKTIVNÍ MAPA</p>
-          <h2>{network?.core || "Pansofie"} je střed. Vyber uzel a sleduj, co se mezi nimi skutečně propojí.</h2>
-          <p>Aktivní vztah zesílí, související uzly se připojí a ostatní ustoupí. Síť vysvětluje mechanismus — ne nahrazuje obsah ani důkaz.</p>
+          <p className="eyebrow">JAK SPOLU ČÁSTI SOUVISEJÍ</p>
+          <h2>{corePublicLabel} je uprostřed. Vyberte část mapy a podívejte se, co s ní souvisí.</h2>
+          <p>Mapa zvýrazní právě vybranou část a její nejbližší vztahy. Pomáhá vysvětlit souvislosti, ale nenahrazuje obsah ani důkaz.</p>
         </div>
         <div className="reference-network-r5__legend" aria-label="Legenda sítě">
-          <span><i data-kind="active" /> aktivní</span>
+          <span><i data-kind="active" /> vybrané</span>
           <span><i data-kind="related" /> související</span>
           <span><i data-kind="quiet" /> ostatní</span>
         </div>
@@ -241,7 +246,7 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
 
         <div className="reference-network-r5__core" aria-hidden="true">
           <span><Network size={25} /></span>
-          <strong>{network?.core || "Experience"}</strong>
+          <strong>{corePublicLabel}</strong>
         </div>
 
         {placements.map((item) => {
@@ -262,7 +267,7 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
               onClick={() => onSelect?.(item.index, { source: "click" })}
             >
               <Icon size={18} aria-hidden="true" />
-              <span>{item.label}</span>
+              <span>{publicLabel(item.label)}</span>
             </button>
           );
         })}
@@ -273,11 +278,11 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
           <div className="reference-network-r5__identity-head">
             <span><SelectedIcon size={19} /></span>
             <div>
-              <h3>{selectedLabel}</h3>
-              <p>Aktivní uzel sítě</p>
+              <h3>{selectedPublicLabel}</h3>
+              <p>Právě vybraná část</p>
             </div>
           </div>
-          <p>{network?.core || "Experience"} zůstává centrem — vybraný uzel pouze mění, které vztahy právě potřebujeme vidět.</p>
+          <p>{corePublicLabel} zůstává uprostřed. Výběr pouze zvýrazní vztahy, které jsou pro tuto část nejdůležitější.</p>
         </article>
 
         <article className="reference-network-r5__detail-card">
@@ -296,16 +301,16 @@ export default function ReferenceNetworkStage({ network, activeIndex = 0, onSele
         </article>
       </div>
 
-      <div className="reference-network-r5__flowline" aria-label={`Aktivní tok z uzlu ${selectedLabel}`}>
-        <span>CO TEĎ PROUDÍ Z {selectedLabel.toLocaleUpperCase("cs-CZ")}</span>
+      <div className="reference-network-r5__flowline" aria-label={`Souvislosti vybrané části ${selectedPublicLabel}`}>
+        <span>CO TATO ČÁST PŘINÁŠÍ</span>
         <div>
-          <b>{selectedLabel}</b>
+          <b>{selectedPublicLabel}</b>
           <ArrowRight size={14} />
           <em>{contributes}</em>
           {relatedLabels.slice(0, 2).map((label) => (
             <React.Fragment key={label}>
               <ArrowRight size={14} />
-              <b>{label}</b>
+              <b>{publicLabel(label)}</b>
             </React.Fragment>
           ))}
         </div>

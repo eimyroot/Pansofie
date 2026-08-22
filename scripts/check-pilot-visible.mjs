@@ -19,14 +19,22 @@ const required = [
   [files.pilot, "Experience Passport"],
   [files.pilot, "/login?returnTo=%2Fskola"],
   [files.pilot, "Žádné AI hodnocení člověka"],
-  [files.pilot, "Výstup, jeho použití a skutečný dopad"],
+  [files.pilot, "Samotná činnost, vytvořený výstup, jeho použití a skutečný dopad"],
+  [files.pilot, "Pilot v reálné škole ale ještě neproběhl"],
+];
+
+const forbidden = [
+  [files.pilot, "field pilot"],
+  [files.pilot, "safeguarding"],
 ];
 
 const missing = required.filter(([content, token]) => !content.includes(token)).map(([, token]) => token);
+const presentForbidden = forbidden.filter(([content, token]) => content.includes(token)).map(([, token]) => token);
 
-if (missing.length) {
+if (missing.length || presentForbidden.length) {
   console.error("PILOT_VISIBLE_CONTRACT=FAIL");
-  console.error(`Missing: ${missing.join(" | ")}`);
+  if (missing.length) console.error(`Missing: ${missing.join(" | ")}`);
+  if (presentForbidden.length) console.error(`Forbidden: ${presentForbidden.join(" | ")}`);
   process.exit(1);
 }
 

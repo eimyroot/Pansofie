@@ -10,14 +10,14 @@ const home = read("src/pages/Home.jsx");
 const required = [
   [journey, "Vyzkoušejte Pansofii"],
   [journey, "Jak vstupujete do Pansofie?"],
-  [journey, "Co můžete do Experience skutečně přinést?"],
-  [journey, "Vyberte skutečný problém."],
-  [journey, "Kdo může být součástí řešení?"],
+  [journey, "Co můžete konkrétně nabídnout?"],
+  [journey, "Vyberte problém, na kterém si princip ukážeme."],
+  [journey, "Kdo má skutečný důvod být součástí řešení?"],
   [journey, "Právě jste prošli principem Pansofie"],
   [journey, "nic neodesílá ani neukládá na server"],
   [journey, "motion-reduce:transition-none"],
   [journey, "focus-visible:ring-2"],
-  [map, "Experience je střed"],
+  [map, "Uprostřed je společná práce"],
   [map, "aria-pressed"],
   [data, "school:"],
   [data, "family:"],
@@ -25,7 +25,7 @@ const required = [
   [data, "community:"],
   [data, "mentor:"],
   [data, "learner:"],
-  [data, "CIRCULAR CHALLENGE"],
+  [data, "CIRKULÁRNÍ VÝZVA"],
   [story, "Vyzkoušet Pansofii za 60 sekund"],
   [home, 'to="/zapojit-se?mode=simulator"'],
   [home, "Vyzkoušet Pansofii za 60 sekund"],
@@ -38,6 +38,9 @@ const forbidden = [
   [journey, "localStorage"],
   [journey, "sessionStorage"],
   [journey, "navigator.sendBeacon"],
+  [journey, "Experience Simulator"],
+  [data, "Knowledge role"],
+  [data, "Partner Challenge preview"],
 ];
 
 const missing = required.filter(([content, token]) => !content.includes(token)).map(([, token]) => token);

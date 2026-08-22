@@ -36,12 +36,12 @@ export default function Login() {
   return (
     <AuthLayout
       icon={LogIn}
-      title="Vítej zpět"
-      subtitle="Přihlášení pro pozvané účastníky a tým prvního pilotu"
+      title="Vítejte zpět"
+      subtitle="Přihlášení pro pozvané účastníky a tým prvního školního pilotu"
       footer={<><span>Pilotní účty vznikají na pozvání. </span><Link to="/zapojit-se" className="text-primary font-medium hover:underline">Chci se zapojit</Link></>}
     >
       <div className="mb-6 rounded-2xl border border-primary/20 bg-primary/[0.04] p-4 text-sm text-muted-foreground leading-relaxed">
-        Veřejná registrace je před prvním field pilotem vypnutá. Pokud jste už dostali pilotní účet, přihlaste se e-mailem a heslem.
+        Veřejná registrace je před prvním pilotem v reálné škole vypnutá. Pokud jste už dostali pilotní účet, přihlaste se e-mailem a heslem.
       </div>
 
       {error && <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
@@ -49,7 +49,7 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">E-mail</Label>
-          <div className="relative"><Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" /><Input id="email" type="email" autoComplete="email" autoFocus placeholder="you@example.com" value={email} onChange={(event) => setEmail(event.target.value)} className="pl-10 h-12" required /></div>
+          <div className="relative"><Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" /><Input id="email" type="email" autoComplete="email" autoFocus placeholder="vas@email.cz" value={email} onChange={(event) => setEmail(event.target.value)} className="pl-10 h-12" required /></div>
         </div>
 
         <div className="space-y-2">

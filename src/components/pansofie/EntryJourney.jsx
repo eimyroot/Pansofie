@@ -28,15 +28,15 @@ const ROLE_ICONS = {
   learner: Compass,
 };
 
-const STEP_LABELS = ["Kdo jste", "Co chcete změnit", "Co přinášíte", "Skutečný problém", "Kdo se zapojí", "Váš výsledek"];
+const STEP_LABELS = ["Kdo jste", "Co chcete změnit", "Co přinášíte", "Co budeme řešit", "Kdo se zapojí", "Návrh zkušenosti"];
 
 const NEXT_STEPS = {
-  school: { to: "/pilot", label: "Prozkoumat školní pilot", text: "Podívejte se, jak je první školní ověření navržené a co potřebuje od školy." },
-  partner: { to: "/partneri", label: "Jak funguje partnerství", text: "Zjistěte, jak může organizace přinést reálnou výzvu bez kupování výsledku nebo přístupu k soukromým datům." },
+  school: { to: "/pilot", label: "Prozkoumat školní pilot", text: "Podívejte se, jak je první školní ověření navržené a co konkrétně potřebuje od školy." },
+  partner: { to: "/partneri", label: "Jak funguje partnerství", text: "Zjistěte, jak může organizace přinést reálnou výzvu bez kupování výsledku nebo přístupu k soukromým údajům." },
   family: { to: "/jak-funguje", label: "Pochopit roli rodiny", text: "Podívejte se, jak Pansofie odděluje podporu rodiny od soukromé reflexe mladého člověka." },
-  community: { to: "/partneri", label: "Přinést místní potřebu", text: "Prozkoumejte, jak se reálná potřeba může stát bezpečně ohraničenou Experience." },
-  mentor: { to: "/jak-funguje", label: "Pochopit roli odborníka", text: "Zjistěte, kde pomáhá expertiza a kde naopak musí zůstat jasná hranice." },
-  learner: { to: "/jak-funguje", label: "Jak Experience pokračuje", text: "Projděte si celý princip od skutečné potřeby přes důkaz a reflexi až k Experience Passportu." },
+  community: { to: "/partneri", label: "Přinést místní potřebu", text: "Prozkoumejte, jak se skutečná místní potřeba může změnit v bezpečně vymezenou zkušenost." },
+  mentor: { to: "/jak-funguje", label: "Pochopit roli odborníka", text: "Zjistěte, kde odborná zkušenost pomáhá a kde naopak musí zůstat jasná hranice." },
+  learner: { to: "/jak-funguje", label: "Jak zkušenost pokračuje", text: "Projděte si celý princip od skutečné potřeby přes důkaz a reflexi až k Experience Passportu." },
 };
 
 function ChoiceCard({ selected, onClick, children, icon: Icon, disabled = false, multi = false }) {
@@ -111,7 +111,7 @@ export default function EntryJourney() {
       {step === 0 && (
         <div>
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">Jak vstupujete do Pansofie?</p>
-          <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">Vyberte roli. Zbytek cesty se přizpůsobí.</h2>
+          <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">Vyberte roli. Další otázky se přizpůsobí.</h2>
           <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
             {Object.values(ENTRY_ROLES).map((item) => <ChoiceCard key={item.id} selected={roleId === item.id} onClick={() => selectRole(item.id)} icon={ROLE_ICONS[item.id]}>{item.label}<span className="block mt-1 text-xs font-normal text-muted-foreground">{item.kicker}</span></ChoiceCard>)}
           </div>
@@ -122,34 +122,34 @@ export default function EntryJourney() {
         <div>
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">{role.label}</p>
           <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">{role.prompt}</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Vyberte jeden hlavní cíl. Další vrstvy odhalíme až potom.</p>
+          <p className="mt-3 text-sm text-muted-foreground">Vyberte jeden hlavní cíl. Další možnosti se ukážou postupně.</p>
           <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-3">{role.goals.map(([id, label]) => <ChoiceCard key={id} selected={goalId === id} onClick={() => setGoalId(id)}>{label}</ChoiceCard>)}</div>
         </div>
       )}
 
       {step === 2 && role && (
         <div>
-          <p className="text-sm font-semibold text-primary uppercase tracking-wide">Reciprocita</p>
-          <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">Co můžete do Experience skutečně přinést?</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Vyberte jednu nebo více možností. Pansofie nemá vztahy, ve kterých jedna strana pouze čerpá hodnotu.</p>
+          <p className="text-sm font-semibold text-primary uppercase tracking-wide">Co do spolupráce přinášíte</p>
+          <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">Co můžete konkrétně nabídnout?</h2>
+          <p className="mt-3 text-sm text-muted-foreground">Vyberte jednu nebo více možností. Smyslem je, aby spolupráce přinášela hodnotu oběma stranám.</p>
           <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-3">{role.contributions.map(([id, label]) => <ChoiceCard key={id} selected={contributions.includes(id)} onClick={() => toggleContribution(id)} multi>{label}</ChoiceCard>)}</div>
         </div>
       )}
 
       {step === 3 && (
         <div>
-          <p className="text-sm font-semibold text-primary uppercase tracking-wide">Experience Simulator</p>
-          <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">Vyberte skutečný problém.</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Nejde o test správné odpovědi. Volbou problému pouze vytvoříme názorný Experience scénář.</p>
+          <p className="text-sm font-semibold text-primary uppercase tracking-wide">Modelová zkušenost</p>
+          <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">Vyberte problém, na kterém si princip ukážeme.</h2>
+          <p className="mt-3 text-sm text-muted-foreground">Nejde o test se správnou odpovědí. Volba jen vytvoří názorný scénář, na kterém uvidíte celý postup.</p>
           <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-3">{PROBLEMS.map((item) => <ChoiceCard key={item.id} selected={problemId === item.id} onClick={() => setProblemId(item.id)}>{item.label}<span className="block mt-1 text-xs font-normal text-muted-foreground">{item.short}</span></ChoiceCard>)}</div>
         </div>
       )}
 
       {step === 4 && (
         <div>
-          <p className="text-sm font-semibold text-primary uppercase tracking-wide">Lidé kolem Experience</p>
-          <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">Kdo může být součástí řešení?</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Žák / tým a učitel tvoří bezpečný základ pilotního scénáře. Další role přidávejte jen tehdy, když mají skutečný účel.</p>
+          <p className="text-sm font-semibold text-primary uppercase tracking-wide">Lidé kolem zkušenosti</p>
+          <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display">Kdo má skutečný důvod být součástí řešení?</h2>
+          <p className="mt-3 text-sm text-muted-foreground">Žák nebo tým a učitel tvoří bezpečný základ školního scénáře. Další role přidávejte jen tehdy, když mají konkrétní úkol a přínos.</p>
           <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">{PARTICIPANTS.map(([id, label]) => <ChoiceCard key={id} selected={participants.includes(id)} onClick={() => toggleParticipant(id)} disabled={id === "learner" || id === "teacher"} multi>{label}{(id === "learner" || id === "teacher") && <span className="block mt-1 text-xs font-normal text-muted-foreground">povinný bezpečný základ</span>}</ChoiceCard>)}</div>
         </div>
       )}
@@ -167,8 +167,8 @@ export default function EntryJourney() {
     <div className="container-px max-w-7xl mx-auto py-10 sm:py-16">
       <div className="max-w-4xl mx-auto text-center">
         <span className="chip bg-primary/10 text-primary mb-5"><Sparkles size={14} /> PANSOFIEDIT · 60–90 sekund</span>
-        <h1 className="text-4xl sm:text-6xl font-semibold font-display tracking-tight text-balance leading-[1.05]">Vyzkoušejte Pansofii <span className="text-primary">používáním.</span></h1>
-        <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">Nejdřív nechte Pansofii pochopit vaši roli, potřebu a přínos. Pak uvidíte konkrétní Experience, lidi kolem ní a doporučený další krok.</p>
+        <h1 className="text-4xl sm:text-6xl font-semibold font-display tracking-tight text-balance leading-[1.05]">Vyzkoušejte Pansofii <span className="text-primary">na konkrétním příkladu.</span></h1>
+        <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">Vyberte svou roli, cíl a problém. Na konci uvidíte modelovou zkušenost, lidi kolem ní, bezpečné hranice a nejbližší další krok.</p>
       </div>
 
       <div className="mt-10 max-w-5xl mx-auto">
@@ -199,7 +199,7 @@ export default function EntryJourney() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 text-sm">
               <div><p className="text-xs uppercase tracking-wide text-muted-foreground">Role</p><p className="mt-1 font-semibold">{role.label}</p></div>
               <div><p className="text-xs uppercase tracking-wide text-muted-foreground">Cíl</p><p className="mt-1 font-semibold">{goal?.[1]}</p></div>
-              <div><p className="text-xs uppercase tracking-wide text-muted-foreground">Experience</p><p className="mt-1 font-semibold">{problem.challenge}</p></div>
+              <div><p className="text-xs uppercase tracking-wide text-muted-foreground">Modelová zkušenost</p><p className="mt-1 font-semibold">{problem.challenge}</p></div>
             </div>
           </div>
 
@@ -216,7 +216,7 @@ export default function EntryJourney() {
 
           <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-4">
             <section className="rounded-[2rem] border border-primary/25 bg-primary/[0.035] p-6 sm:p-8">
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Váš doporučený další krok</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Doporučený další krok</p>
               <h3 className="mt-2 text-2xl sm:text-3xl font-semibold font-display">{nextStep.label}</h3>
               <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed">{nextStep.text}</p>
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -230,7 +230,7 @@ export default function EntryJourney() {
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wide text-primary">Soukromí ukázky</p>
                 <h3 className="mt-2 text-lg font-semibold font-heading">Nic neposíláme za vašimi zády.</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">Tato ukázka nic neodesílá ani neukládá na server. Výsledek vzniká jen z voleb v této stránce a není automatickým hodnocením člověka ani rozhodnutím o přijetí do pilotu.</p>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">Tato ukázka nic neodesílá ani neukládá na server. Výsledek vzniká jen z voleb na této stránce a není automatickým hodnocením člověka ani rozhodnutím o přijetí do pilotu.</p>
               </div>
             </aside>
           </div>

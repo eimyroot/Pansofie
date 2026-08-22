@@ -24,12 +24,12 @@ const ACTORS = [
     icon: GraduationCap,
     status: "Součást prvního pilotu",
     purpose: "Dělá skutečnou práci, učí se z ní a vytváří si vlastní doloženou cestu zkušeností.",
-    does: ["vybírá nebo přijímá smysluplnou Experience", "pracuje s týmem na konkrétním výstupu", "dokládá práci a reflektuje, co se naučil"],
+    does: ["vybírá nebo přijímá smysluplnou zkušenost", "pracuje s týmem na konkrétním výstupu", "dokládá práci a přemýšlí nad tím, co se naučil"],
     receives: ["reálnou zkušenost místo další abstraktní úlohy", "zpětnou vazbu k práci, ne k lidské hodnotě", "soukromý Experience Passport a jasný další krok"],
-    contributes: ["vlastní pohled, otázky a rozhodnutí", "týmovou práci a konkrétní výstup", "důkaz a vlastní reflexi"],
-    sees: ["svou Experience, týmový úkol a domluvené kroky", "vlastní důkazy, reflexi a ověřené záznamy", "zpětnou vazbu určenou k jeho práci"],
+    contributes: ["vlastní pohled, otázky a rozhodnutí", "týmovou práci a konkrétní výstup", "důkaz práce a vlastní reflexi"],
+    sees: ["svou zkušenost, týmový úkol a domluvené kroky", "vlastní důkazy, reflexi a ověřené záznamy", "zpětnou vazbu určenou k jeho práci"],
     notSees: ["žádné skryté skóre osobnosti nebo budoucí kariéry", "cizí soukromé reflexe", "neomezené soukromé kanály k dospělým"],
-    boundary: "Pansofie nepočítá lidskou hodnotu. Hodnotí se jen doložená práce v konkrétním kontextu a reflexe zůstává vlastnictvím člověka.",
+    boundary: "Pansofie nepočítá lidskou hodnotu. Posuzuje se jen doložená práce v konkrétní situaci a vlastní reflexe zůstává soukromým prostorem člověka.",
     missions: ["Zlepši svou školu", "Navrhni řešení místního problému", "Vytvoř něco užitečného pro druhé"],
     cta: { to: "/zapojit-se?role=learner", label: "Projít Pansofii jako mladý člověk" },
   },
@@ -40,12 +40,12 @@ const ACTORS = [
     icon: HeartHandshake,
     status: "Zapojení v prvním pilotu",
     purpose: "Přidává životní kontext a podporu, aniž by přebírala práci nebo soukromý prostor mladého člověka.",
-    does: ["přináší podnět z běžného života", "pomáhá otevřít kontakt nebo zdroj", "podporuje dokončení Experience bez řízení výsledku"],
+    does: ["přináší podnět z běžného života", "pomáhá otevřít užitečný kontakt nebo zdroj", "podporuje dokončení zkušenosti bez přebírání výsledku"],
     receives: ["srozumitelný kontext, co se právě děje", "bezpečnou a smysluplnou roli", "možnost dát zpětnou vazbu k fungování pilotu"],
     contributes: ["zkušenost z reálného života", "dobrovolný podnět, kontakt nebo zdroj", "podporu a zpětnou vazbu"],
-    sees: ["to, co je pro rodinu účelně sdílené", "stav a kontext zapojení", "veřejné nebo výslovně sdílené výstupy"],
-    notSees: ["soukromou reflexi automaticky", "skryté hodnocení dítěte", "víc dat, než vyžaduje konkrétní účel"],
-    boundary: "Rodina podporuje, ale nepřebírá Experience. Soukromá reflexe mladého člověka není automaticky rodinný report.",
+    sees: ["to, co je pro rodinu účelně sdílené", "stav a kontext svého zapojení", "veřejné nebo výslovně sdílené výstupy"],
+    notSees: ["soukromou reflexi automaticky", "skryté hodnocení dítěte", "víc údajů, než vyžaduje konkrétní účel"],
+    boundary: "Rodina podporuje, ale nepřebírá práci dítěte. Soukromá reflexe mladého člověka není automaticky rodinný report.",
     missions: ["Rodinný rozpočet v praxi", "Mezigenerační příběh a dovednost", "Zlepšení každodenního fungování doma"],
     cta: { to: "/zapojit-se?role=family", label: "Zjistit, jak může pomoci rodina" },
   },
@@ -54,14 +54,14 @@ const ACTORS = [
     label: "Škola",
     short: "Škola",
     icon: Building2,
-    status: "Digitální workflow je připravené",
-    purpose: "Drží bezpečný rámec, propojuje Experience s výukou a ověřuje, zda je postup použitelný v reálném školním provozu.",
-    does: ["vybírá vhodný rámec a skupinu", "vede Experience a sleduje jasné kroky", "ověřuje doložený výstup a provozní použitelnost"],
-    receives: ["jasný učitelský postup a návaznost na výuku", "přehled o průběhu bez jednoho skóre člověka", "podklady pro vyhodnocení pilotu"],
+    status: "Digitální postup je připravený",
+    purpose: "Drží bezpečný rámec, propojuje zkušenost s výukou a ověřuje, zda je celý postup použitelný v běžném školním provozu.",
+    does: ["vybírá vhodný rámec a skupinu", "vede zkušenost a sleduje jasné kroky", "ověřuje doloženou práci a použitelnost celého postupu"],
+    receives: ["jasný postup pro učitele a návaznost na výuku", "přehled o průběhu bez jednoho skóre člověka", "podklady pro vyhodnocení pilotu"],
     contributes: ["pedagogický rámec a bezpečný dohled", "skutečné školní potřeby", "ověření, co funguje a co učitele zatěžuje"],
-    sees: ["školní Experience, týmový postup a určené výstupy", "důkazy potřebné k ověření práce", "Partner feedback, adoption a outcome v povoleném rozsahu"],
-    notSees: ["právo přepisovat soukromou reflexi", "jedno souhrnné skóre člověka", "data bez vzdělávacího nebo bezpečnostního účelu"],
-    boundary: "Škola ověřuje práci a drží bezpečí. Pansofie z toho nevytváří univerzální profil dítěte ani predikci jeho budoucnosti.",
+    sees: ["školní zkušenost, týmový postup a určené výstupy", "důkazy potřebné k ověření práce", "zpětnou vazbu partnera, jeho rozhodnutí a následný výsledek v povoleném rozsahu"],
+    notSees: ["právo přepisovat soukromou reflexi", "jedno souhrnné skóre člověka", "údaje bez vzdělávacího nebo bezpečnostního účelu"],
+    boundary: "Škola ověřuje práci a drží bezpečí. Pansofie z toho nevytváří univerzální profil dítěte ani předpověď jeho budoucnosti.",
     missions: ["Zlepši svou školu", "Circular Challenge", "Projekt s místním partnerem"],
     cta: { to: "/pilot", label: "Prozkoumat školní pilot" },
   },
@@ -71,13 +71,13 @@ const ACTORS = [
     short: "Mentor",
     icon: UserRoundCheck,
     status: "Zapojení pod jasným dohledem",
-    purpose: "Přináší expertizu do konkrétní práce, ne neomezený osobní přístup k dítěti.",
+    purpose: "Přináší odbornou zkušenost do konkrétní práce, ne neomezený osobní přístup k dítěti.",
     does: ["klade odborné otázky", "dává zpětnou vazbu k výstupu", "pomáhá zpřesnit realistický další krok"],
-    receives: ["konkrétní zadání a jasnou roli", "smysluplné zapojení do skutečné práce", "omezený kontext nutný pro odbornou pomoc"],
+    receives: ["konkrétní zadání a jasnou roli", "smysluplné zapojení do skutečné práce", "jen takový kontext, který potřebuje pro odbornou pomoc"],
     contributes: ["know-how a praktickou zkušenost", "realistické standardy kvality", "časově ohraničenou zpětnou vazbu"],
     sees: ["zadání, výstup a kontext nutný pro mentoring", "informace výslovně určené pro jeho roli"],
-    notSees: ["soukromý profil dítěte", "neomezený soukromý chat", "data mimo účel konkrétní Experience"],
-    boundary: "Mentoring je role v konkrétní Experience. Není to otevřený soukromý kanál mezi dospělým a dítětem.",
+    notSees: ["soukromý profil dítěte", "neomezený soukromý chat", "údaje mimo účel konkrétní zkušenosti"],
+    boundary: "Mentor vstupuje do konkrétní zkušenosti s jasným účelem. Není to otevřený soukromý kanál mezi dospělým a dítětem.",
     missions: ["Odborná konzultace prototypu", "Kariérní realita konkrétní profese", "Technická zpětná vazba k řešení"],
     cta: { to: "/zapojit-se?role=mentor", label: "Zjistit roli mentora" },
   },
@@ -86,14 +86,14 @@ const ACTORS = [
     label: "Firma / organizace",
     short: "Partner",
     icon: BriefcaseBusiness,
-    status: "Challenge → Review → rozhodnutí",
-    purpose: "Přináší skutečný problém, zpětnou vazbu a možnost výsledek vyzkoušet — bez kupování výsledku nebo přístupu k dítěti.",
-    does: ["zadá ohraničenou Challenge", "reviewuje bezpečný Partner deliverable proti briefu", "volí NOT ADOPT / EXPLORE FURTHER / PILOT a případně reportuje Outcome"],
-    receives: ["konkrétní týmový výstup k reálnému problému", "transparentní revize místo slibu pozitivního výsledku", "možnost rozhodnout, zda má smysl další krok"],
+    status: "Výzva → zpětná vazba → rozhodnutí",
+    purpose: "Přináší skutečný problém, odborný kontext a možnost dobrý výsledek vyzkoušet — bez kupování výsledku nebo přístupu k dítěti.",
+    does: ["přinese jasně vymezenou reálnou výzvu", "posoudí výstup určený partnerovi podle původního zadání", "rozhodne, zda výsledek nepoužije, dál prozkoumá nebo vyzkouší v praxi"],
+    receives: ["konkrétní týmový výstup k reálnému problému", "transparentní zpětnou vazbu místo slibu pozitivního výsledku", "možnost samostatně rozhodnout, zda má smysl další krok"],
     contributes: ["reálnou výzvu a kontext", "čas odborníka a zpětnou vazbu", "případnou možnost pilotního použití"],
-    sees: ["Challenge brief a bounded Partner deliverable", "review/adoption/outcome informace určené Partnerovi", "to, co škola vědomě připravila pro Partner review"],
-    notSees: ["learner raw evidence", "soukromou reflexi nebo Passport", "automatické právo na osobní data nebo vlastnictví práce"],
-    boundary: "Partner hodnotí výstup proti zadání, nikdy lidskou hodnotu. PILOT je rozhodnutí o dalším kroku, ne důkaz Impactu.",
+    sees: ["zadání výzvy a výstup, který pro něj škola výslovně připravila", "zpětnou vazbu, rozhodnutí o dalším použití a následné výsledky určené pro partnera", "jen to, co škola vědomě zpřístupnila pro posouzení výstupu"],
+    notSees: ["neveřejné podklady a důkazy žáka", "soukromou reflexi ani Passport", "automatické právo na osobní údaje nebo vlastnictví práce"],
+    boundary: "Partner hodnotí výstup podle zadání, nikdy lidskou hodnotu. Rozhodnutí výsledek vyzkoušet není samo o sobě důkaz jeho dopadu.",
     missions: ["Circular Challenge", "Zlepšení reálného procesu", "Komunitní nebo environmentální zadání"],
     cta: { to: "/partneri", label: "Jak funguje partnerství" },
   },
@@ -102,20 +102,20 @@ const ACTORS = [
     label: "Obec / komunita",
     short: "Komunita",
     icon: Landmark,
-    status: "Zapojení podle konkrétní Experience",
-    purpose: "Přináší místní potřebu a prostředí, ve kterém může mít práce skutečného příjemce a další použití.",
-    does: ["pojmenuje konkrétní místní potřebu", "zpřístupní kontext a relevantní zdroje", "pomůže ověřit, zda je výstup použitelný"],
-    receives: ["pozornost k reálnému místnímu problému", "návrh nebo výstup s jasným vlastníkem", "možnost navázat pilotem nebo dalším ověřením"],
+    status: "Zapojení podle konkrétní zkušenosti",
+    purpose: "Přináší místní potřebu a prostředí, ve kterém může mít práce skutečného příjemce a smysluplné další použití.",
+    does: ["pojmenuje konkrétní místní potřebu", "zpřístupní potřebný kontext a relevantní zdroje", "pomůže ověřit, zda je výstup použitelný"],
+    receives: ["pozornost k reálnému místnímu problému", "návrh nebo výstup s jasným vlastníkem", "možnost navázat dalším ověřením nebo malým pilotem"],
     contributes: ["místní znalost a potřebu", "prostředí, kontakty nebo bezpečně vymezená data", "možnost výsledek vyzkoušet"],
     sees: ["výstup určený pro komunitní použití", "dohodnutý postup a výsledek ověření"],
-    notSees: ["soukromé dětské údaje", "automatický přístup k reflexi", "tvrzení o Impactu bez skutečné outcome evidence"],
+    notSees: ["soukromé dětské údaje", "automatický přístup k reflexi", "tvrzení o dopadu bez skutečného ověření toho, co se po použití změnilo"],
     boundary: "Veřejný přínos se dokládá postupně. Samotné dokončení projektu není automaticky důkaz společenského dopadu.",
     missions: ["Zlepši veřejné místo", "Najdi řešení lokální potřeby", "Propoj generace kolem konkrétního úkolu"],
     cta: { to: "/zapojit-se?role=community", label: "Přinést místní potřebu" },
   },
 ];
 
-const FLOW = ["Potřeba", "Experience", "Výstup", "Ověření", "Další rozhodnutí", "Outcome"];
+const FLOW = ["Potřeba", "Skutečná zkušenost", "Výstup", "Ověření", "Další rozhodnutí", "Co se stalo potom"];
 
 function BulletList({ items, icon: Icon = Check, muted = false }) {
   return (
@@ -139,9 +139,9 @@ export default function RoleEntry() {
     <section id="ekosystem" className="role-explorer-section py-20 sm:py-28 border-t border-border/60 scroll-mt-24">
       <div className="container-px max-w-7xl mx-auto">
         <SectionHeading
-          eyebrow="02 · KDO JE SOUČÁSTÍ EXPERIENCE"
-          title="Stejná Experience. Šest různých rolí. Každá přesně ví, proč tam je."
-          subtitle="Pansofie nestaví další sociální síť. Každá role má konkrétní práci, přínos, přístup k datům a bezpečnou hranici. Přepněte roli a uvidíte celý její vztah k Experience."
+          eyebrow="02 · KDO JE SOUČÁSTÍ JEDNÉ ZKUŠENOSTI"
+          title="Jedna zkušenost. Šest různých rolí. Každá má jasný důvod, proč je u ní."
+          subtitle="Pansofie nestaví další sociální síť. Každá role má konkrétní úkol, přínos, přístup jen k potřebným informacím a jasnou bezpečnou hranici. Přepněte roli a uvidíte, co to pro ni znamená."
           center
         />
 
@@ -170,11 +170,11 @@ export default function RoleEntry() {
           </div>
         </div>
 
-        <div data-role={selected.id} className="role-relationship-map mt-6" aria-label={`Vztah role ${selected.label} k Experience`}>
+        <div data-role={selected.id} className="role-relationship-map mt-6" aria-label={`Vztah role ${selected.label} ke zkušenosti`}>
           <div key={`${selected.id}-source`} className="role-map-node role-map-node--actor">
             <span className="role-icon h-11 w-11 rounded-2xl"><SelectedIcon size={20} /></span>
             <div>
-              <p className="role-map-kicker">Přináší do Experience</p>
+              <p className="role-map-kicker">Přináší do zkušenosti</p>
               <p className="role-map-title">{selected.short}</p>
               <p className="role-map-copy">{selected.contributes[0]}</p>
             </div>
@@ -194,7 +194,7 @@ export default function RoleEntry() {
           <div key={`${selected.id}-result`} className="role-map-node role-map-node--result">
             <span className="role-map-result-icon"><Check size={18} /></span>
             <div>
-              <p className="role-map-kicker">Získává z Experience</p>
+              <p className="role-map-kicker">Co z ní získává</p>
               <p className="role-map-title">Konkrétní hodnotu</p>
               <p className="role-map-copy">{selected.receives[0]}</p>
             </div>
@@ -214,7 +214,7 @@ export default function RoleEntry() {
                 <span className="role-icon h-14 w-14 rounded-2xl"><SelectedIcon size={25} /></span>
                 <span className="role-chip">{selected.status}</span>
               </div>
-              <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.16em] text-[hsl(var(--role-accent))]">Role v Experience</p>
+              <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.16em] text-[hsl(var(--role-accent))]">Role v této zkušenosti</p>
               <h3 className="mt-2 text-3xl sm:text-4xl font-semibold font-display tracking-tight">{selected.label}</h3>
               <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">{selected.purpose}</p>
 
@@ -255,7 +255,7 @@ export default function RoleEntry() {
               </div>
 
               <section className="mt-4 rounded-2xl border border-border/70 bg-background/65 p-5 sm:p-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Příklady Experience</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Příklady zkušeností</p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {selected.missions.map((mission) => <span key={mission} className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold">{mission}</span>)}
                 </div>
@@ -274,7 +274,7 @@ export default function RoleEntry() {
           </div>
         </article>
 
-        <div className="experience-lifecycle mt-6" aria-label="Životní cyklus Experience">
+        <div className="experience-lifecycle mt-6" aria-label="Průběh zkušenosti od potřeby k reálnému výsledku">
           {FLOW.map((item, index) => (
             <React.Fragment key={item}>
               <div className="experience-lifecycle-node">

@@ -8,46 +8,46 @@ const PAGES = {
   about: {
     eyebrow: "Stav produktu",
     icon: Info,
-    title: "Pansofie je funkční digitální produkt. Skutečnou hodnotu musí potvrdit reálný pilot.",
-    intro: "Pansofie staví učení kolem Experiences: skutečné potřeby, práce, důkazu, reflexe, ověření a dalšího kroku. Veřejně oddělujeme technickou připravenost od tvrzení, která mohou vzniknout až po skutečném školním provozu.",
+    title: "Pansofie funguje jako digitální produkt. Její skutečnou hodnotu ale musí potvrdit reálné používání.",
+    intro: "Pansofie staví učení kolem skutečných zkušeností: člověk řeší konkrétní potřebu, něco udělá, doloží svou práci, zamyslí se nad ní a projde ověřením. Otevřeně rozlišujeme mezi tím, co už technicky funguje, a tím, co může ukázat až pilot v reálné škole.",
     sections: [
-      ["FUNKČNÍ / TECHNICKY OVĚŘENÉ", "Veřejný Experience-first web, role-aware PANSOFIEDIT, školní Experience workflow a Partner Challenge → bounded output → Review → adoption decision → Outcome evidence jsou implementované a technicky ověřené. Role a přístupy jsou navržené tak, aby Partner nečetl learner raw evidence, soukromou reflexi ani Passport."],
-      ["TESTUJEME", "Srozumitelnost pro žáka, učitele a rodinu; reálnou učitelskou zátěž; kvalitu Partner feedbacku; provozní bezpečnost a to, zda Experience opravdu vede k použitelnému dalšímu kroku."],
-      ["JEŠTĚ NEPROBĚHLO", "Plnohodnotný reálný školní field pilot s vyhodnocením, důkaz pedagogického nebo dlouhodobého Impactu, prokázaná willingness-to-pay a dlouhodobé outcomes napříč více školami."],
-      ["DALŠÍ KROK", "Řízený školní pilot s jasnou metrikou, safeguardingem a privacy odpovědnostmi. Teprve data z tohoto provozu mají rozhodnout, co rozšiřovat, měnit nebo zastavit."],
+      ["CO UŽ FUNGUJE", "Veřejný web, interaktivní ukázka, školní postup od zadání po ověření i bezpečný proces spolupráce s partnerem jsou implementované a technicky otestované. Partner dostává jen výstup určený ke zpětné vazbě, ne soukromé podklady, reflexi nebo Passport žáka."],
+      ["CO POTŘEBUJEME OVĚŘIT", "Zda je postup srozumitelný pro žáky, učitele a rodiny, kolik práce znamená pro učitele, jak kvalitní je spolupráce s partnery a zda zkušenost vede k opravdu užitečnému dalšímu kroku."],
+      ["CO ZATÍM NEMÁME PROKÁZANÉ", "Nemáme za sebou vyhodnocený pilot v reálné škole, prokázaný pedagogický nebo dlouhodobý dopad, ověřenou ochotu škol či partnerů za službu platit ani dlouhodobé výsledky z více škol."],
+      ["CO NÁSLEDUJE", "První řízený školní pilot s jasnými cíli, odpovědnostmi za ochranu dětí a pravidly pro soukromí. Teprve výsledky z reálného provozu mají rozhodnout, co rozšiřovat, co upravit a co případně zastavit."],
     ],
   },
   privacy: {
     eyebrow: "Soukromí",
     icon: ShieldCheck,
-    title: "Soukromí podle účelu, ne podle toho, kdo je nejblíž.",
-    intro: "Pansofie používá privacy-by-default přístup: role sama o sobě neznamená přístup ke všemu. Soukromá reflexe, evidence, Passport a Partner interaction mají oddělené účely a oprávnění.",
+    title: "Každý má vidět jen to, co skutečně potřebuje pro svou roli.",
+    intro: "V Pansofii neplatí, že rodič, škola nebo partner automaticky vidí všechno. Soukromá reflexe, důkazy práce, Experience Passport i spolupráce s partnerem mají rozdílný účel a rozdílná oprávnění.",
     sections: [
-      ["Veřejná ukázka", "PANSOFIEDIT nic neodesílá ani neukládá na server a nesimuluje úspěšné odeslání zájmu. Veřejný produkt nepoužívá dětskou behaviorální reklamu ani neprodává uživatelská data."],
-      ["Pilotní data", "Pilot má sbírat pouze data potřebná pro roli, členství školy, běh Experience, důkaz, reflexi, review, Passport a předem definované vyhodnocení. Přístupy musí být účelově omezené."],
-      ["Co musí být doplněno před reálným pilotem", "Faktický právní provozovatel, controller/processor role pro konkrétní nasazení, veřejný privacy/data kontakt, retenční pravidla a proces exportu/smazání. Tyto údaje nesmí být nahrazené smyšlenými placeholdery."],
+      ["VEŘEJNÁ UKÁZKA", "PANSOFIEDIT nic neodesílá ani neukládá na server a nepředstírá, že odeslal přihlášku nebo kontakt. Veřejná část produktu nepoužívá behaviorální reklamu zaměřenou na děti ani model založený na prodeji uživatelských dat."],
+      ["DATA V PILOTU", "Pilot má sbírat jen údaje potřebné pro konkrétní roli, školní zapojení, průběh zkušenosti, důkaz práce, reflexi, ověření, Passport a předem dohodnuté vyhodnocení. Přístup k nim má být omezený podle skutečného účelu."],
+      ["CO MUSÍ BÝT DOŘEŠENO PŘED REÁLNÝM PILOTEM", "Musí být přesně uveden právní provozovatel, odpovědnosti za zpracování dat, veřejný kontakt pro soukromí a data, doba uchování údajů a postup pro jejich export nebo smazání. Tyto informace nebudeme nahrazovat smyšlenými údaji."],
     ],
   },
   safety: {
     eyebrow: "Bezpečnost dětí",
     icon: ShieldCheck,
-    title: "Bezpečnost není disclaimer. Je součást produktu.",
-    intro: "Pilot musí mít pojmenované odpovědné osoby, účelově omezené přístupy, dohled nad Partner interaction a jasný incident process. Dítě nesmí být cenou za hodnotu, kterou získává škola nebo Partner.",
+    title: "Bezpečnost dětí není poznámka pod čarou. Je součástí toho, jak Pansofie funguje.",
+    intro: "Před reálným pilotem musí být jasné, kdo za co odpovídá, kdo smí k jakým informacím a jak probíhá kontakt s dospělými mimo školu. Hodnota pro školu nebo partnera nikdy nesmí vznikat na úkor bezpečí dítěte.",
     sections: [
-      ["Child Promise", "Žádný prodej dat, behaviorální reklama dětem, human-worth score, emotion recognition, tajné profilování, AI diagnóza osobnosti ani nekontrolované soukromé kanály dospělý → dítě."],
-      ["Partner interaction", "Povoleny jsou školou řízené nebo moderované formy spolupráce. Partner nemá automatický přístup k identitě, soukromé reflexi, learner raw evidence nebo Passportu a nesmí podmiňovat účast marketingem."],
-      ["Před prvním reálným účtem", "Škola a Pansofie musí určit pilot lead, safeguarding kontakt, privacy/data kontakt, technical incident kontakt a Partner kontakt a ověřit proces incidentu, smazání a exportu."],
+      ["CO PANSOFIE NECHCE DĚLAT", "Žádný prodej dětských dat, behaviorální reklama dětem, skórování lidské hodnoty, automatické rozpoznávání emocí, tajné profilování, AI diagnóza osobnosti ani nekontrolovaný soukromý kontakt dospělého s dítětem."],
+      ["SPOLUPRÁCE S PARTNEREM", "Spolupráci vede nebo kontroluje škola. Partner nemá automatický přístup k identitě dítěte, soukromé reflexi, neveřejným podkladům ani Experience Passportu a nesmí podmiňovat vzdělávací účast marketingovým souhlasem."],
+      ["PŘED PRVNÍM REÁLNÝM ÚČTEM", "Škola a Pansofie musí určit odpovědnou osobu za pilot, ochranu dětí, soukromí a data, technické incidenty a komunikaci s partnerem. Současně musí být ověřený postup pro řešení incidentu, export a smazání dat."],
     ],
   },
   terms: {
     eyebrow: "Podmínky veřejného webu",
     icon: FileText,
-    title: "Veřejný web vysvětluje produkt a připravovaný pilot. Negarantuje výsledek.",
-    intro: "Tato verze slouží k transparentnímu vysvětlení Pansofie a přípravě prvního reálného školního ověření. Není důkazem pedagogického, obchodního nebo dlouhodobého Impactu.",
+    title: "Veřejný web vysvětluje Pansofii a připravovaný pilot. Neslibuje výsledek, který ještě nebyl ověřen.",
+    intro: "Tato verze webu slouží k transparentnímu vysvětlení produktu a přípravě prvního reálného školního ověření. Sama o sobě není důkazem pedagogického, obchodního ani dlouhodobého dopadu.",
     sections: [
-      ["Pilotní zapojení", "O zapojení školy, partnera nebo komunity rozhoduje konkrétní pilotní screening, kapacita, bezpečnost, účel a vzájemná hodnota. Průchod veřejnou ukázkou nezakládá nárok na účast a není uloženým leadem."],
-      ["Výstupy a IP", "Partnerství ani financování automaticky nepřevádí vlastnictví žákovského nebo týmového výstupu. Případné komerční užití potřebuje samostatně vyjasněná práva a souhlasy."],
-      ["Před reálnou aktivací", "Musí být doplněna právní identifikace provozovatele, veřejný kontakt, privacy/controller informace a konkrétní smluvní podmínky pro zapojené školy a partnery. Do té doby tyto údaje nevymýšlíme."],
+      ["ZAPOJENÍ DO PILOTU", "O zapojení školy, partnera nebo komunity rozhoduje konkrétní posouzení vhodnosti, kapacity, bezpečnosti, účelu a vzájemné hodnoty. Průchod veřejnou ukázkou nezakládá nárok na účast a nevytváří uloženou přihlášku."],
+      ["VÝSTUPY A PRÁVA", "Partnerství ani financování automaticky nepřevádí vlastnictví žákovského nebo týmového výstupu. Případné komerční využití musí mít zvlášť vyjasněná práva, pravidla a potřebné souhlasy."],
+      ["PŘED REÁLNÝM SPUŠTĚNÍM", "Musí být doplněna právní identifikace provozovatele, veřejný kontakt, informace o odpovědnosti za zpracování dat a konkrétní smluvní podmínky pro zapojené školy a partnery. Do té doby tyto údaje nevymýšlíme."],
     ],
   },
 };
@@ -76,7 +76,7 @@ export default function PublicInfoPage({ kind = "about" }) {
           </div>
 
           <div className="mt-10 rounded-3xl border border-primary/20 bg-primary/[0.035] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-            <div><p className="text-sm font-semibold">Chcete si princip projít z vlastní role?</p><p className="mt-1 text-sm text-muted-foreground">Vstup začíná rolí a účelem — ne otevřenou registrací ani falešným kontaktním formulářem.</p></div>
+            <div><p className="text-sm font-semibold">Chcete si princip projít z vlastní role?</p><p className="mt-1 text-sm text-muted-foreground">Začněte tím, kdo jste a co chcete řešit. Ukázka nic neodesílá a není skrytou registrací.</p></div>
             <Link to="/zapojit-se" className="shrink-0 inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 font-semibold text-primary-foreground">Vyzkoušet PANSOFIEDIT <ArrowRight size={17} /></Link>
           </div>
         </section>

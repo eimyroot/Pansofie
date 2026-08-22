@@ -20,11 +20,11 @@ export const CANONICAL_DOMAIN_VERSION = "1.0";
 export const PATHS = [
   {
     id: "ja-wellbeing",
-    name: "Já & wellbeing",
+    name: "Já & zdraví",
     color: "#10b981",
     icon: Heart,
-    desc: "Zdraví, identita, sebereflexe, odolnost a bezpečné návyky.",
-    develops: "Sebepoznání, péči o zdraví, odolnost a self-management.",
+    desc: "Zdraví, identita, sebereflexe, odolnost a návyky, které pomáhají dobře fungovat.",
+    develops: "Sebepoznání, péči o zdraví, odolnost a schopnost řídit vlastní návyky a energii.",
     areas: ["Zdraví", "Sebereflexe", "Odolnost", "Návyky"],
   },
   {
@@ -32,8 +32,8 @@ export const PATHS = [
     name: "Poznání & myšlení",
     color: "#3b82f6",
     icon: BookOpen,
-    desc: "Učení, kritické myšlení, informace, média a systémy.",
-    develops: "Učení se učit, kritické myšlení, informační a systémovou gramotnost.",
+    desc: "Učení, kritické myšlení, práce s informacemi, médii a souvislostmi.",
+    develops: "Schopnost učit se, ověřovat informace, přemýšlet kriticky a vidět souvislosti.",
     areas: ["Učení", "Kritické myšlení", "Informace", "Systémy"],
   },
   {
@@ -41,8 +41,8 @@ export const PATHS = [
     name: "Vztahy & spolupráce",
     color: "#f43f5e",
     icon: Users,
-    desc: "Empatie, komunikace, tým, konflikty a mezigenerační spolupráce.",
-    develops: "Empatii, komunikaci, spolupráci a práci s konfliktem.",
+    desc: "Empatie, komunikace, týmová práce, konflikty a spolupráce mezi generacemi.",
+    develops: "Empatii, komunikaci, spolupráci a schopnost řešit konflikty.",
     areas: ["Komunikace", "Empatie", "Tým", "Konflikty"],
   },
   {
@@ -50,8 +50,8 @@ export const PATHS = [
     name: "Tvorba & řešení problémů",
     color: "#8b5cf6",
     icon: Sparkles,
-    desc: "Tvořivost, badatelství, design, technologie, řemeslo a inovace.",
-    develops: "Tvorbu, experimentování, design a řešení reálných problémů.",
+    desc: "Tvořivost, zkoumání, design, technologie, řemeslo a hledání nových řešení.",
+    develops: "Schopnost tvořit, experimentovat, navrhovat a řešit skutečné problémy.",
     areas: ["Tvorba", "Design", "Technologie", "Experiment"],
   },
   {
@@ -59,8 +59,8 @@ export const PATHS = [
     name: "Samostatnost & podnikavost",
     color: "#06b6d4",
     icon: Compass,
-    desc: "Finance, práce, plánování, zdroje, iniciativa a projekty.",
-    develops: "Praktickou samostatnost, finanční gramotnost, plánování a podnikavost.",
+    desc: "Finance, práce, plánování, zdroje, iniciativa a vlastní projekty.",
+    develops: "Praktickou samostatnost, finanční gramotnost, plánování a schopnost převzít iniciativu.",
     areas: ["Finance", "Práce", "Plánování", "Podnikavost"],
   },
   {
@@ -68,8 +68,8 @@ export const PATHS = [
     name: "Občanství & přínos",
     color: "#6366f1",
     icon: Globe,
-    desc: "Služba, participace, komunita, demokracie a veřejná hodnota.",
-    develops: "Odpovědnou participaci, službu, spolupráci s komunitou a společenský přínos.",
+    desc: "Služba druhým, účast na veřejném životě, komunita, demokracie a odpovědnost.",
+    develops: "Odpovědnou účast na společném dění, službu, spolupráci s komunitou a schopnost přinášet veřejnou hodnotu.",
     areas: ["Komunita", "Participace", "Služba", "Odpovědnost"],
   },
   {
@@ -77,8 +77,8 @@ export const PATHS = [
     name: "Příroda & udržitelnost",
     color: "#16a34a",
     icon: Sprout,
-    desc: "Příroda, jídlo, klima, biodiverzita, cirkularita a regenerace.",
-    develops: "Systémové porozumění přírodě, zdrojům, udržitelnosti a dlouhodobým dopadům.",
+    desc: "Příroda, jídlo, klima, biodiverzita, cirkularita a práce se zdroji.",
+    develops: "Porozumění přírodě, zdrojům, udržitelnosti a dlouhodobým důsledkům našich rozhodnutí.",
     areas: ["Příroda", "Jídlo", "Cirkularita", "Biodiverzita"],
   },
 ];
@@ -96,11 +96,11 @@ export const LEGACY_PATHS = [
 ];
 
 export const LABS = [
-  { id: "life", name: "LIFE", color: "#7c3aed", icon: Briefcase, desc: "Zdraví, jídlo, finance, bezpečnost a každodenní život." },
-  { id: "maker", name: "MAKER", color: "#0891b2", icon: Wrench, desc: "Řemeslo, technologie, AI, opravy, výroba a prototypování." },
-  { id: "nature", name: "NATURE", color: "#16a34a", icon: Sprout, desc: "Příroda, půda, voda, jídlo, biodiverzita a cirkularita." },
-  { id: "community", name: "COMMUNITY", color: "#db2777", icon: HeartHandshake, desc: "Sousedství, senioři, kultura, služba a veřejný život." },
-  { id: "challenge", name: "CHALLENGE", color: "#ea580c", icon: Trophy, desc: "Sport, outdoor, expedice a týmové výzvy." },
+  { id: "life", name: "LIFE", color: "#7c3aed", icon: Briefcase, desc: "Každodenní život: zdraví, jídlo, finance, bezpečnost a praktické fungování." },
+  { id: "maker", name: "MAKER", color: "#0891b2", icon: Wrench, desc: "Tvoření a technika: řemeslo, technologie, AI, opravy, výroba a prototypování." },
+  { id: "nature", name: "NATURE", color: "#16a34a", icon: Sprout, desc: "Příroda a zdroje: půda, voda, jídlo, biodiverzita, cirkularita a udržitelnost." },
+  { id: "community", name: "COMMUNITY", color: "#db2777", icon: HeartHandshake, desc: "Život s druhými: sousedství, senioři, kultura, služba a veřejný prostor." },
+  { id: "challenge", name: "CHALLENGE", color: "#ea580c", icon: Trophy, desc: "Výzvy: sport, pobyt venku, expedice a týmové úkoly." },
 ];
 
 export const LEGACY_LABS = [
@@ -111,21 +111,21 @@ export const LEGACY_LABS = [
 ];
 
 export const PROGRAMS = [
-  { id: "school", name: "Pansofie School", desc: "Školní Experiences, učitelské nástroje, RVP mapping, Passport a impact reporting.", icon: BookOpen },
-  { id: "family", name: "Pansofie Family", desc: "Rodinné mise, společné Experiences a vedená reflexe.", icon: HeartHandshake },
-  { id: "community", name: "Pansofie Community", desc: "Obce, spolky, senioři, místní problémy a mezigenerační spolupráce.", icon: Users },
-  { id: "youth", name: "Pansofie Youth", desc: "Samostatnost, finance, práce, projekty, mentoring a občanská zkušenost pro 15+.", icon: Sparkles },
+  { id: "school", name: "Pansofie School", desc: "Školní zkušenosti, nástroje pro učitele, návaznost na RVP, Experience Passport a vyhodnocování výsledků.", icon: BookOpen },
+  { id: "family", name: "Pansofie Family", desc: "Rodinné mise, společné zkušenosti a vedená reflexe.", icon: HeartHandshake },
+  { id: "community", name: "Pansofie Community", desc: "Obce, spolky, senioři, místní potřeby a mezigenerační spolupráce.", icon: Users },
+  { id: "youth", name: "Pansofie Youth", desc: "Samostatnost, finance, práce, projekty, mentoring a občanská zkušenost pro mladé 15+.", icon: Sparkles },
 ];
 
 export const LEGACY_PROGRAMS = [
-  { id: "generations", name: "Generations", desc: "Historická programová větev; v V1.0 je mezigeneračnost principem Pansofie Community.", icon: Globe, legacy: true, canonicalTargets: ["community"] },
+  { id: "generations", name: "Generations", desc: "Historická programová větev; v současném modelu je mezigenerační spolupráce součástí Pansofie Community.", icon: Globe, legacy: true, canonicalTargets: ["community"] },
 ];
 
 export const PROCESS_STEPS = [
-  { title: "Objev", desc: "Najdi skutečný problém, potřebu nebo otázku.", detail: "PANSOFIE začíná reálným kontextem, ne sbíráním bodů." },
-  { title: "Udělej", desc: "Prozkoumej situaci, navrhni postup a jednej v realitě.", detail: "Digitální vrstva má vést ke skutečné činnosti s lidmi, věcmi a prostředím." },
-  { title: "Pochop", desc: "Dolož výsledek a reflektuj, co fungovalo, selhalo a proč.", detail: "Evidence a reflexe oddělují zkušenost od pouhého zážitku." },
-  { title: "Přispěj", desc: "Přenes zkušenost dál, vytvoř hodnotu a zvol další krok.", detail: "Výsledek se zapisuje do Experience Passportu a může navázat na další misi nebo projekt." },
+  { title: "Objev", desc: "Najdi skutečný problém, potřebu nebo otázku.", detail: "Pansofie začíná reálnou situací, ne sbíráním bodů." },
+  { title: "Udělej", desc: "Prozkoumej situaci, navrhni postup a něco skutečně udělej.", detail: "Digitální část má vést ven z obrazovky — k práci s lidmi, věcmi a skutečným prostředím." },
+  { title: "Pochop", desc: "Dolož, co vzniklo, a zamysli se nad tím, co fungovalo, co selhalo a proč.", detail: "Důkaz a reflexe pomáhají odlišit skutečnou zkušenost od pouhého zážitku." },
+  { title: "Přispěj", desc: "Použij zkušenost dál, vytvoř hodnotu pro druhé a zvol další krok.", detail: "Po ověření může zůstat záznam v Experience Passportu a zkušenost může navázat na další misi nebo projekt." },
 ];
 
 const canonicalPathById = new Map(PATHS.map((item) => [item.id, item]));

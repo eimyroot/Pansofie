@@ -5,41 +5,41 @@ import SectionHeading from "@/components/pansofie/SectionHeading";
 const STATES = [
   {
     key: "ready",
-    label: "FUNKČNÍ",
+    label: "UŽ FUNGUJE",
     icon: CheckCircle2,
     className: "status-success",
-    intro: "Co už existuje a prošlo technickým ověřením.",
+    intro: "Co už je postavené a prošlo technickými kontrolami.",
     items: [
-      "Veřejný Experience-first web a 60–90s PANSOFIEDIT ukázka",
-      "Školní digitální workflow pro Experience",
-      "Partner Challenge → bounded output → Review → adoption decision → Outcome evidence",
-      "Role, privacy a safety hranice oddělující soukromá data od partner výstupu",
+      "Veřejný web a krátká interaktivní ukázka PANSOFIEDIT",
+      "Digitální postup pro školní zkušenost od zadání po ověření",
+      "Postup pro partnerskou výzvu, bezpečný výstup, zpětnou vazbu a rozhodnutí o dalším použití",
+      "Oddělené role a pravidla přístupu, která chrání soukromé údaje před zbytečným sdílením",
     ],
   },
   {
     key: "testing",
-    label: "TESTUJEME",
+    label: "POTŘEBUJEME OVĚŘIT",
     icon: FlaskConical,
     className: "status-info",
-    intro: "Co musí potvrdit reálné používání, ne jen software.",
+    intro: "Co může ukázat až skutečné používání, ne samotný software.",
     items: [
-      "Srozumitelnost celého postupu pro žáka, učitele a rodinu",
-      "Reálnou učitelskou zátěž a provoz ve škole",
-      "Kvalitu Partner feedbacku a hodnotu Challenge workflow",
-      "Jak dobře Experience navazuje na další skutečný krok",
+      "Zda je celý postup srozumitelný žákům, učitelům a rodinám",
+      "Kolik práce navíc znamená pro učitele a jak zapadne do běžného školního dne",
+      "Zda zpětná vazba partnerů přináší žákům i škole skutečnou hodnotu",
+      "Zda zkušenost vede k užitečnému dalšímu kroku, ne jen k dokončení úkolu",
     ],
   },
   {
     key: "not-yet",
-    label: "JEŠTĚ NEPROBĚHLO",
+    label: "ZATÍM NEMÁME DŮKAZ",
     icon: CalendarClock,
     className: "status-waiting",
-    intro: "Co zatím nemáme právo vydávat za prokázaný výsledek.",
+    intro: "Co zatím nevydáváme za prokázaný výsledek.",
     items: [
-      "Plnohodnotný reálný školní field pilot s vyhodnocením",
-      "Důkaz pedagogického nebo dlouhodobého dopadu",
-      "Prokázaná willingness-to-pay partnerů nebo škol",
-      "Dlouhodobá outcome / impact evidence napříč více školami",
+      "Vyhodnocený pilot v reálné škole",
+      "Prokázaný pedagogický nebo dlouhodobý dopad",
+      "Ověřenou ochotu škol nebo partnerů za službu platit",
+      "Dlouhodobé výsledky potvrzené napříč více školami",
     ],
   },
   {
@@ -47,12 +47,12 @@ const STATES = [
     label: "DALŠÍ KROK",
     icon: Route,
     className: "status-neutral",
-    intro: "Co má smysl ověřit po technickém základu.",
+    intro: "Co má smysl ověřit jako první.",
     items: [
-      "První řízený školní pilot s jasnou metrikou a safeguardingem",
-      "Měření Experience progression, teacher load a Partner pipeline",
-      "Ověření, které typy Experiences přinášejí největší praktickou hodnotu",
-      "Rozšiřování partnerství až podle skutečných pilotních dat",
+      "Spustit první řízený školní pilot s jasnými cíli a pravidly ochrany dětí",
+      "Měřit průchod zkušeností, zátěž učitelů a fungování spolupráce s partnery",
+      "Zjistit, které typy zkušeností přinášejí největší praktickou hodnotu",
+      "Rozšiřovat partnerství až podle skutečných dat z pilotu",
     ],
   },
 ];
@@ -63,8 +63,8 @@ export default function PublicMaturity() {
       <div className="container-px max-w-7xl mx-auto">
         <SectionHeading
           eyebrow="04 · KDE PANSOFIE OPRAVDU JE"
-          title="Ukazujeme hotové věci i nejistoty. Bez marketingového přeskakování reality."
-          subtitle="Technicky funkční produkt není totéž co prokázaný dopad. Proto veřejně oddělujeme, co už funguje, co právě ověřujeme a co teprve musí ukázat reálný pilot."
+          title="Říkáme otevřeně, co už funguje — a co teprve musíme ověřit."
+          subtitle="Technicky hotový produkt ještě není důkaz, že dobře funguje ve škole. Proto oddělujeme to, co už umíme doložit, od otázek, na které musí odpovědět reálný provoz."
           center
         />
 

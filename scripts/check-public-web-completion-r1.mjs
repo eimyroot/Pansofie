@@ -29,7 +29,7 @@ const required = [
   [files.register, "Registrace je nyní pouze na pozvání"],
   [files.member, "PANSOFIE School"],
   [files.pilot, "Chci zapojit školu"],
-  [files.partner, "Navrhnout Challenge"],
+  [files.partner, "Přinést reálnou výzvu"],
 ];
 
 const forbidden = [
@@ -40,6 +40,7 @@ const forbidden = [
   [files.member, '"Projekty"'],
   [files.register, "supabase.auth.signUp"],
   [files.register, "signInWithOAuth"],
+  [files.partner, "Navrhnout Challenge"],
 ];
 
 const missing = required.filter(([content, token]) => !content.includes(token)).map(([, token]) => token);
