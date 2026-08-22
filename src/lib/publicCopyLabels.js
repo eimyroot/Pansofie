@@ -1,5 +1,6 @@
 const PUBLIC_LABELS = {
   Experience: "Zkušenost",
+  Passport: "Experience Passport",
   Transfer: "Přenos",
   Challenge: "Výzva",
   Review: "Zpětná vazba",
@@ -7,6 +8,7 @@ const PUBLIC_LABELS = {
   Impact: "Dlouhodobý dopad",
   Evidence: "Podklady",
   Implementace: "Postaveno",
+  Testování: "Ověřujeme",
 };
 
 export function publicLabel(value) {
