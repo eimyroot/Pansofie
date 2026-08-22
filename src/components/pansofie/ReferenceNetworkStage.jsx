@@ -119,7 +119,7 @@ function fallbackDetail(_key, label) {
   if (/impact/.test(lower)) return ["Dlouhodobější důkaz skutečné změny.", "Čas, kontext a ověřitelné podklady o tom, co se opravdu změnilo.", "Technická připravenost ani dokončená aktivita nejsou důkaz dlouhodobého dopadu."];
   if (/outcome/.test(lower)) return ["Informaci o tom, co následovalo po použití výsledku.", "Ověřitelné podklady z reálného provozu.", "To, co se stalo potom, se nesmí domýšlet bez důkazu."];
   if (/pilot/.test(lower)) return ["Kontrolované ověření v reálném provozu.", "Kontext, účastníky a konkrétní pravidla.", "Pilot není automaticky důkaz pedagogického nebo dlouhodobého dopadu."];
-  return ["Jasnou hodnotu z konkrétního vztahu v síti.", `Kontext a práci spojenou s částí „${visibleLabel}“.", "Každý přístup zůstává účelově omezený a vysvětlitelný."];
+  return ["Jasnou hodnotu z konkrétního vztahu v síti.", `Kontext a práci spojenou s částí „${visibleLabel}“.`, "Každý přístup zůstává účelově omezený a vysvětlitelný."];
 }
 
 function detailFor(networkKey, label) {
