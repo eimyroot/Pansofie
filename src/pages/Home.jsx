@@ -11,19 +11,19 @@ import { LABS, PATHS, PROCESS_STEPS, PROGRAMS } from "@/lib/pansofieData";
 const PROGRAM_STATE = {
   school: {
     label: "Připraveno k reálnému ověření",
-    detail: "Digitální školní cesta je implementovaná a technicky ověřená. Další důkaz musí přinést skutečný školní provoz.",
+    detail: "Digitální postup pro školu je hotový a technicky otestovaný. Teď potřebujeme zjistit, jak funguje v běžné škole.",
   },
   family: {
     label: "Připraveno pro pilotní zapojení",
-    detail: "Rodina může bezpečně přidat kontext a podnět. Soukromá reflexe mladého člověka zůstává oddělená.",
+    detail: "Rodina může přidat užitečný kontext nebo podnět, aniž by přebírala práci dítěte nebo jeho soukromou reflexi.",
   },
   community: {
-    label: "Zapojení podle Experience",
-    detail: "Obec, spolek nebo komunita mohou přinést místní potřebu, kontext a možnost výsledek vyzkoušet.",
+    label: "Zapojení podle konkrétní zkušenosti",
+    detail: "Obec, spolek nebo komunita mohou přinést místní potřebu, znalost prostředí a možnost dobrý výsledek skutečně vyzkoušet.",
   },
   youth: {
     label: "Rozvíjíme",
-    detail: "Program pro mladé 15+ zaměřený na samostatnost, práci, projekty a mentoring je další rozvojová vrstva.",
+    detail: "Připravovaná větev pro mladé 15+ má navazovat na samostatnost, práci, projekty, mentoring a zkušenosti z reálného světa.",
   },
 };
 
@@ -46,14 +46,14 @@ export default function Home() {
 
           <div className="container-px max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.02fr_0.98fr] gap-12 lg:gap-16 items-center">
             <div>
-              <span className="chip border border-primary/15 bg-card/70 text-primary mb-6 shadow-sm"><Sparkles size={14} /> Experience-first rozvoj v reálném světě</span>
+              <span className="chip border border-primary/15 bg-card/70 text-primary mb-6 shadow-sm"><Sparkles size={14} /> Učení, které pokračuje v reálném světě</span>
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold font-display tracking-tight text-balance leading-[1.04]">Poznej sebe.<br />Tvoř s druhými. <span className="text-primary">Zlepšuj svět.</span></h1>
-              <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed text-balance">Pansofie propojuje učení se skutečnou zkušeností. Mladý člověk řeší konkrétní potřebu, něco vytvoří, doloží svou práci, reflektuje ji a odnáší si ověřenou zkušenost — ne další skóre.</p>
-              <p className="mt-4 text-sm sm:text-base text-muted-foreground max-w-2xl leading-relaxed">Jedna Experience propojí žáka, školu, rodinu, odborníka a případně partnera nebo komunitu. Každý má přesnou roli, jiný přístup k informacím a jasnou bezpečnou hranici.</p>
+              <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed text-balance">Pansofie propojuje učení se skutečnou zkušeností. Mladý člověk řeší konkrétní problém, něco udělá nebo vytvoří, doloží svou práci, zamyslí se nad ní a zjistí, co může udělat dál.</p>
+              <p className="mt-4 text-sm sm:text-base text-muted-foreground max-w-2xl leading-relaxed">Takové zkušenosti říkáme v Pansofii <strong className="text-foreground font-semibold">Experience</strong>. Kolem jedné mohou spolupracovat žák, škola, rodina, odborník, partner nebo komunita. Každý má jinou roli a vidí jen informace, které pro ni potřebuje.</p>
 
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <Link to="/zapojit-se?mode=simulator" className="action-primary w-full sm:w-auto px-7 py-3.5">Vyzkoušet Pansofii za 60 sekund <ArrowRight size={18} /></Link>
-                <Link to="/jak-funguje" className="action-secondary w-full sm:w-auto px-7 py-3.5">Pochopit celý princip <ArrowRight size={17} /></Link>
+                <Link to="/jak-funguje" className="action-secondary w-full sm:w-auto px-7 py-3.5">Jak to funguje <ArrowRight size={17} /></Link>
               </div>
               <p className="mt-4 text-xs sm:text-sm text-muted-foreground">Interaktivní ukázka nic neodesílá ani neukládá na server.</p>
 
@@ -72,7 +72,7 @@ export default function Home() {
               <div className="surface-raised overflow-hidden rounded-[2rem] border border-primary/20 shadow-[0_28px_80px_-46px_rgba(23,97,73,0.55)]">
                 <div className="flex items-start justify-between gap-5 px-6 py-5 sm:px-8 sm:py-6 border-b border-border/70">
                   <div>
-                    <p className="eyebrow">Jedna Experience</p>
+                    <p className="eyebrow">Jedna skutečná zkušenost</p>
                     <h2 className="mt-2 text-2xl sm:text-3xl font-semibold font-display">Zlepši svou školu</h2>
                   </div>
                   <span className="status-pill status-neutral shrink-0">Ukázkový scénář</span>
@@ -84,7 +84,7 @@ export default function Home() {
                       <span className={`h-9 w-9 rounded-full flex items-center justify-center text-xs font-semibold ${index === HERO_FLOW.length - 1 ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}>{String(index + 1).padStart(2, "0")}</span>
                       <div>
                         <p className="font-semibold text-sm sm:text-base">{item}</p>
-                        <p className="mt-0.5 text-xs text-muted-foreground">{index === 0 ? "Začíná konkrétní potřebou." : index === HERO_FLOW.length - 1 ? "Zůstává soukromý záznam zkušenosti." : "Navazuje na předchozí krok."}</p>
+                        <p className="mt-0.5 text-xs text-muted-foreground">{index === 0 ? "Začíná konkrétní potřebou." : index === HERO_FLOW.length - 1 ? "Zůstává soukromý záznam ověřené zkušenosti." : "Navazuje na předchozí krok."}</p>
                       </div>
                       {index < HERO_FLOW.length - 1 ? <span className="text-xs font-semibold text-muted-foreground">→</span> : <CheckCircle2 size={18} className="text-primary" />}
                     </div>
@@ -93,7 +93,7 @@ export default function Home() {
 
                 <div className="m-4 sm:m-5 rounded-2xl bg-primary/[0.055] border border-primary/15 px-5 py-4 flex items-start gap-3">
                   <ShieldCheck size={19} className="text-primary shrink-0 mt-0.5" />
-                  <p className="text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground font-semibold">Aktivita ≠ výstup ≠ outcome ≠ impact.</strong> Pansofie drží tyto vrstvy oddělené a nepřeskakuje mezi nimi marketingovým tvrzením.</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed"><strong className="text-foreground font-semibold">Dokončená aktivita ještě není důkaz skutečného dopadu.</strong> Pansofie zvlášť sleduje, co člověk udělal, co vytvořil, zda se výsledek použil a co se potom opravdu změnilo.</p>
                 </div>
               </div>
             </div>
@@ -107,8 +107,8 @@ export default function Home() {
           <div className="container-px max-w-7xl mx-auto">
             <div className="max-w-3xl">
               <p className="eyebrow">03 · METODA PANSOFIE</p>
-              <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Jednoduchá logika. Důsledné oddělení práce, důkazu a reflexe.</h2>
-              <p className="mt-5 text-lg text-muted-foreground leading-relaxed">Metoda drží Experience srozumitelnou pro člověka a současně dost přesnou pro školu, rodinu i partnera.</p>
+              <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Jednoduchá logika: něco objevit, udělat, pochopit a posunout dál.</h2>
+              <p className="mt-5 text-lg text-muted-foreground leading-relaxed">Každá Experience má být srozumitelná člověku a zároveň dost přesná na to, aby škola dokázala odlišit skutečnou práci od pouhého dojmu.</p>
             </div>
             <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-4">
               {PROCESS_STEPS.map((step, index) => (
@@ -122,7 +122,7 @@ export default function Home() {
             </div>
             <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-border pt-6">
               <div>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Tematická prostředí Experiences</p>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Tematická prostředí pro zkušenosti</p>
                 <div className="mt-3 flex flex-wrap gap-2">{LABS.map((lab) => <span key={lab.id} className="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-semibold">{lab.name}</span>)}</div>
               </div>
               <Link to="/jak-funguje" className="action-quiet shrink-0 text-primary">Celý postup <ArrowRight size={16} /></Link>
@@ -135,9 +135,9 @@ export default function Home() {
         <section id="programy" className="py-20 sm:py-28 border-t border-border/60 scroll-mt-24">
           <div className="container-px max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.72fr_1.28fr] gap-10 lg:gap-16 items-start">
             <div>
-              <p className="eyebrow">05 · KDE SE EXPERIENCE ODEHRÁVAJÍ</p>
+              <p className="eyebrow">05 · KDE SE ZKUŠENOSTI ODEHRÁVAJÍ</p>
               <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Jedna metoda. Různé životní situace.</h2>
-              <p className="mt-5 text-muted-foreground leading-relaxed">Program není jiný produkt. Je to prostředí, ve kterém se stejná Experience logika použije na jinou potřebu a jinou skupinu lidí.</p>
+              <p className="mt-5 text-muted-foreground leading-relaxed">Jednotlivé programy nejsou oddělené produkty. Jsou to různá prostředí, ve kterých se stejný princip skutečné zkušenosti používá pro jiné potřeby a jiné skupiny lidí.</p>
             </div>
             <div className="divide-y divide-border border-y border-border bg-card">
               {PROGRAMS.map((program) => {
@@ -159,8 +159,8 @@ export default function Home() {
           <div className="container-px max-w-7xl mx-auto">
             <div className="max-w-2xl">
               <p className="eyebrow">06 · CO SE MŮŽE ROZVÍJET</p>
-              <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display tracking-tight">Sedm cest dává zkušenostem společný jazyk.</h2>
-              <p className="mt-3 text-sm sm:text-base text-muted-foreground">Cesty pomáhají pojmenovat směr rozvoje. Nejsou to skóre člověka ani žebříček jeho hodnoty.</p>
+              <h2 className="mt-2 text-2xl sm:text-4xl font-semibold font-display tracking-tight">Sedm cest pomáhá pojmenovat, v čem se člověk během zkušenosti posouvá.</h2>
+              <p className="mt-3 text-sm sm:text-base text-muted-foreground">Nejsou to body ani žebříček člověka. Jsou to oblasti, kterých se konkrétní zkušenost může dotknout.</p>
             </div>
             <div className="mt-8 flex flex-wrap gap-2.5">
               {PATHS.map((path) => {
@@ -178,12 +178,12 @@ export default function Home() {
                 <span className="h-12 w-12 rounded-2xl bg-background/10 flex items-center justify-center shrink-0"><ShieldCheck size={23} /></span>
                 <div className="max-w-4xl">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-background/60">07 · DŮVĚRA JE SOUČÁST PRODUKTU</p>
-                  <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Přínos není skóre člověka. Soukromí není dekorace.</h2>
+                  <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">Pansofie nehodnotí hodnotu člověka. A soukromí není dekorace.</h2>
                   <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3 text-sm sm:text-base text-background/75">
                     <p>Žádné hodnocení lidské hodnoty, osobnosti nebo budoucí kariéry.</p>
-                    <p>Žádný veřejný dětský profil ani otevřená dětská sociální síť.</p>
-                    <p>Partner nekupuje pozitivní výsledek ani přístup k soukromým datům dítěte.</p>
-                    <p>Rodina automaticky nevidí soukromou reflexi a mentor nemá neomezený soukromý kanál.</p>
+                    <p>Žádný veřejný dětský profil ani otevřená sociální síť dětí.</p>
+                    <p>Partner nekupuje pozitivní výsledek ani přístup k soukromým údajům dítěte.</p>
+                    <p>Rodina automaticky nevidí soukromou reflexi a mentor nemá neomezený soukromý kontakt.</p>
                   </div>
                   <div className="mt-7 flex flex-wrap gap-3">
                     <Link to="/bezpecnost" className="inline-flex items-center gap-2 text-background font-semibold text-sm">Bezpečnost dětí <ArrowRight size={16} /></Link>
@@ -198,13 +198,13 @@ export default function Home() {
         <section className="py-20 sm:py-28 border-t border-border/60 bg-card/35">
           <div className="container-px max-w-5xl mx-auto text-center">
             <p className="eyebrow">08 · TEĎ MUSÍ PŘIJÍT REALITA</p>
-            <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">První pilot má ověřit celý vztah, ne jen software.</h2>
-            <p className="mt-5 text-lg text-muted-foreground leading-relaxed text-balance max-w-3xl mx-auto">Žák má získat skutečnou zkušenost. Učitel zvládnutelný postup. Rodina bezpečnou roli. Partner nebo komunita reálný důvod se zapojit. Teprve potom lze mluvit o tom, co Pansofie skutečně přináší.</p>
+            <h2 className="mt-3 text-3xl sm:text-5xl font-semibold font-display tracking-tight text-balance">První pilot má ověřit celý způsob spolupráce, ne jen software.</h2>
+            <p className="mt-5 text-lg text-muted-foreground leading-relaxed text-balance max-w-3xl mx-auto">Žák má získat skutečnou zkušenost. Učitel zvládnutelný postup. Rodina bezpečnou roli. Partner nebo komunita reálný důvod se zapojit. Teprve potom můžeme poctivě říct, co Pansofie skutečně přináší.</p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link to="/zapojit-se?role=school" className="action-primary w-full sm:w-auto px-7 py-3.5">Chci projít školní cestu <ArrowRight size={18} /></Link>
               <Link to="/zapojit-se?role=partner" className="action-secondary w-full sm:w-auto">Jsem partner / organizace <ArrowRight size={15} /></Link>
             </div>
-            <p className="mt-5 text-sm text-muted-foreground">Tato veřejná verze zatím nesbírá kontaktní údaje. Další krok je transparentně role-aware, ne falešný formulář.</p>
+            <p className="mt-5 text-sm text-muted-foreground">Tato veřejná verze zatím nesbírá kontaktní údaje. Další krok se přizpůsobí zvolené roli; nejde o skrytý kontaktní formulář.</p>
           </div>
         </section>
       </main>
