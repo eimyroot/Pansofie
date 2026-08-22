@@ -49,7 +49,7 @@ test("scroll choreography changes section state and network focus", async ({ pag
 test("Living Experience Flow visibly advances and user can pause it", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
-  const flow = page.getByLabel("Interaktivní průběh jedné Experience");
+  const flow = page.getByLabel("Interaktivní průběh jedné zkušenosti");
   await flow.scrollIntoViewIfNeeded();
   await expect(flow).toHaveAttribute("data-auto-running", "true", { timeout: 4000 });
   const initial = await flow.locator('[aria-current="step"]').getAttribute("aria-label");
@@ -115,7 +115,7 @@ test("prefers-reduced-motion removes decorative R4/R5 motion and autoplay", asyn
   const page = await context.newPage();
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
   await expect(page.locator(".route-network-orbit--r4")).toHaveCount(0);
-  const flow = page.getByLabel("Interaktivní průběh jedné Experience");
+  const flow = page.getByLabel("Interaktivní průběh jedné zkušenosti");
   await flow.scrollIntoViewIfNeeded();
   await expect(flow).toHaveAttribute("data-auto-running", "false");
   const stage = page.locator('.reference-network-r5[data-network-key="home"]');
