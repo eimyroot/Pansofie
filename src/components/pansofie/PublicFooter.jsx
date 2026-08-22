@@ -8,9 +8,9 @@ const GROUPS = [
     links: [
       ["/jak-funguje", "Jak to funguje"],
       ["/pro-koho", "Pro koho"],
-      ["/pilot", "Pilot školy"],
+      ["/pilot", "Pro školy"],
       ["/partneri", "Pro partnery"],
-      ["/zapojit-se", "Přidejte se k síti"],
+      ["/zapojit-se", "Jak se zapojit"],
       ["/zapojit-se?mode=simulator", "Vyzkoušet PANSOFIEDIT"],
     ],
   },
@@ -25,13 +25,13 @@ const GROUPS = [
   {
     title: "O projektu",
     links: [
-      ["/o-projektu", "O Pansofii a stav produktu"],
+      ["/o-projektu", "O Pansofii a kde jsme dnes"],
       ["/login", "Přihlášení"],
     ],
   },
 ];
 
-const FOOTER_NETWORK = ["Experience", "Důkaz", "Ověření", "Důvěra", "Další krok"];
+const FOOTER_NETWORK = ["Zkušenost", "Důkaz", "Ověření", "Důvěra", "Další krok"];
 
 export default function PublicFooter() {
   return (
@@ -44,7 +44,7 @@ export default function PublicFooter() {
               Pansofie
             </Link>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">Poznej sebe. Tvoř s druhými. Zlepšuj svět.</p>
-            <p className="mt-3 text-xs text-muted-foreground leading-relaxed">Digitální produkt a řízené role jsou technicky ověřené. Reálný školní field pilot, pedagogický impact a dlouhodobé outcomes musí teprve potvrdit skutečný provoz.</p>
+            <p className="mt-3 text-xs text-muted-foreground leading-relaxed">Digitální část Pansofie je technicky připravená. Teprve pilot v reálné škole ukáže, jak je užitečná pro žáky a učitele a jaké výsledky přináší v běžném provozu.</p>
           </div>
 
           {GROUPS.map((group) => (
@@ -57,7 +57,7 @@ export default function PublicFooter() {
           ))}
         </div>
 
-        <div className="footer-network-thread" aria-label="Logika Pansofie od Experience k dalšímu kroku">
+        <div className="footer-network-thread" aria-label="Logika Pansofie od zkušenosti k dalšímu kroku">
           {FOOTER_NETWORK.map((item, index) => (
             <React.Fragment key={item}>
               {index > 0 && <span className="footer-network-edge" aria-hidden="true"><i /></span>}
@@ -67,7 +67,7 @@ export default function PublicFooter() {
         </div>
 
         <div className="mt-6 pt-6 border-t border-border/60 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-muted-foreground">
-          <p>Technická připravenost není důkaz dopadu. Pansofie veřejně odděluje implementaci, pilotní ověření, Outcome a Impact.</p>
+          <p>To, že něco technicky funguje, ještě neznamená, že to má prokázaný dopad. Proto oddělujeme vývoj produktu, ověření ve škole, skutečné výsledky a dlouhodobý přínos.</p>
           <p>© 2026 Pansofie</p>
         </div>
       </div>
