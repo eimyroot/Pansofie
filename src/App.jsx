@@ -13,6 +13,7 @@ import "@/living-motion-r4-extensions.css";
 import Home from "@/pages/Home";
 import JakFunguje from "@/pages/JakFunguje";
 import Roles from "@/pages/Roles";
+import PillarDetail from "@/pages/PillarDetail";
 import Pilot from "@/pages/Pilot";
 import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
@@ -90,6 +91,7 @@ export default function App() {
               <Route path="/" element={publicSurface(<Home />)} />
               <Route path="/jak-funguje" element={publicSurface(<JakFunguje />)} />
               <Route path="/pro-koho" element={publicSurface(<Roles />)} />
+              <Route path="/pro-koho/:pillar" element={publicSurface(<PillarDetail />)} />
               <Route path="/pilot" element={publicSurface(<Pilot />)} />
               <Route path="/partneri" element={publicSurface(<Partner />)} />
               <Route path="/program/:id" element={publicSurface(<ProgramDetail />)} />
