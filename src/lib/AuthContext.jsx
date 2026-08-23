@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
     const [profileResult, roleResult] = await Promise.all([
       supabase
         .from("profiles")
-        .select("id, full_name, location, bio")
+        .select("id, full_name, location, bio, network_role, offers_text, seeks_text, onboarding_completed_at")
         .eq("id", authUser.id)
         .maybeSingle(),
       supabase
@@ -52,12 +52,17 @@ export function AuthProvider({ children }) {
         "Člen Pansofie",
       location: profileRow?.location || "",
       intro: profileRow?.bio || "",
+      networkRole: profileRow?.network_role || "",
+      offersText: profileRow?.offers_text || "",
+      seeksText: profileRow?.seeks_text || "",
+      onboardingCompletedAt: profileRow?.onboarding_completed_at || null,
+      onboardingCompleted: Boolean(profileRow?.onboarding_completed_at),
       role: roleRow?.role === "admin" ? "Administrátor" : "Člen Pansofie",
       paths: emptyPaths(),
       interests: [],
       skills: [],
-      offers: [],
-      seeks: [],
+      offers: profileRow?.offers_text ? [profileRow.offers_text] : [],
+      seeks: profileRow?.seeks_text ? [profileRow.seeks_text] : [],
       availability: "",
       contactable: false,
       completedMissions: 0,
