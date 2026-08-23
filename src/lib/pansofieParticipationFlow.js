@@ -74,6 +74,13 @@ export async function uploadMaterialPhoto({ file, userId }) {
   return path;
 }
 
+export async function getMaterialPhotoUrl(path, expiresIn = 900) {
+  if (!path) return null;
+  const result = await supabase.storage.from("material-bridge").createSignedUrl(path, expiresIn);
+  const data = throwIfError(result, "Material photo URL failed");
+  return data?.signedUrl || null;
+}
+
 export async function createMaterialListing(payload) {
   const result = await supabase
     .from("material_bridge_listings")
@@ -101,7 +108,7 @@ export async function createMaterialListing(payload) {
 export async function listMaterialListings({ listingType = null, region = null } = {}) {
   let query = supabase
     .from("material_bridge_listings")
-    .select("id, listing_type, title, category, condition_status, quantity, description, region, locality, handoff_methods, personal_involvement, photo_path, status, created_at, organizations(id, name, organization_type)")
+    .select("id, owner_user_id, organization_id, listing_type, title, category, condition_status, quantity, description, region, locality, handoff_methods, personal_involvement, photo_path, status, created_at, organizations(id, name, organization_type)")
     .eq("status", "available")
     .order("created_at", { ascending: false });
   if (listingType) query = query.eq("listing_type", listingType);
@@ -113,7 +120,7 @@ export async function listMyMaterialListings(userId) {
   if (!userId) return [];
   const result = await supabase
     .from("material_bridge_listings")
-    .select("id, listing_type, title, category, condition_status, quantity, description, region, locality, handoff_methods, personal_involvement, photo_path, status, reserved_at, handed_over_at, impact_summary, created_at")
+    .select("id, owner_user_id, organization_id, listing_type, title, category, condition_status, quantity, description, region, locality, handoff_methods, personal_involvement, photo_path, status, reserved_at, handed_over_at, impact_summary, public_story_consent, created_at")
     .eq("owner_user_id", userId)
     .order("created_at", { ascending: false });
   return throwIfError(result, "My material listings load failed") || [];
