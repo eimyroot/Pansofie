@@ -15,6 +15,7 @@ import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
 import Join from "@/pages/Join";
 import About from "@/pages/About";
+import PansofieGo from "@/pages/PansofieGo";
 import PublicInfoPage from "@/pages/PublicInfoPage";
 import Login from "@/pages/Login";
 import AdminLogin from "@/pages/AdminLogin";
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="/pridejte-se" element={<Navigate to="/zapojit-se" replace />} />
             <Route path="/kontakt" element={<Navigate to="/zapojit-se" replace state={{ entryMode: "simulator" }} />} />
             <Route path="/o-projektu" element={publicSurface(<About />)} />
+            <Route path="/pansofiego" element={publicSurface(<PansofieGo />)} />
             <Route path="/soukromi" element={publicSurface(<PublicInfoPage kind="privacy" />)} />
             <Route path="/bezpecnost" element={publicSurface(<PublicInfoPage kind="safety" />)} />
             <Route path="/podminky" element={publicSurface(<PublicInfoPage kind="terms" />)} />

@@ -5,6 +5,7 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const paths = [
   "src/pages/Home.jsx",
   "src/pages/JakFunguje.jsx",
+  "src/pages/PansofieGo.jsx",
   "src/pages/Roles.jsx",
   "src/pages/Pilot.jsx",
   "src/pages/Partner.jsx",

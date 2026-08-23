@@ -9,6 +9,7 @@ fs.mkdirSync(EVIDENCE_DIR, { recursive: true });
 const JOURNEY = [
   ["home", "/", /Poznej sebe.*Tvoř s druhými.*Zlepšuj svět/i],
   ["how", "/jak-funguje", /Od skutečné potřeby k.*ověřené zkušenosti/i],
+  ["go", "/pansofiego", /Rozhoduj se v souvislostech.*Pak to ověř v realitě/i],
   ["roles", "/pro-koho", /Jedna skutečná zkušenost může propojit více lidí/i],
   ["pilot", "/pilot", /Ne další školní aplikace/i],
   ["partner", "/partneri", /Přineste skutečný problém/i],
@@ -110,4 +111,25 @@ test("R8 public network translates internal domain keys before display", async (
     await expect(ribbon.getByRole("button", { name: new RegExp(label, "i") })).toBeVisible();
   }
   await expect(page.locator('.reference-network-r5[data-network-key="partner"]')).toContainText("JAK SPOLU ČÁSTI SOUVISEJÍ");
+});
+
+test("PansofieGO R0 keeps scenario scoring bounded and reflection local", async ({ page }) => {
+  await page.goto(`${BASE_URL}/pansofiego`, { waitUntil: "networkidle" });
+
+  await page.getByRole("button", { name: /Jdu rozhodnout/i }).click();
+  await page.getByRole("button", { name: /B · Místní systém/i }).click();
+  await page.getByRole("button", { name: /Ukázat důsledky/i }).click();
+
+  await expect(page.getByText("Harmony scénáře")).toBeVisible();
+  await expect(page.getByText("75/100")).toBeVisible();
+  await expect(page.getByText(/Rovnováha této volby, ne hodnocení člověka/i)).toBeVisible();
+
+  await page.getByRole("button", { name: /Jdu reflektovat/i }).click();
+  const reflection = page.getByLabel("Moje pracovní reflexe");
+  await reflection.fill("V realitě bych ověřil, zda se problém vrací méně často.");
+  await expect(reflection).toHaveValue(/V realitě bych ověřil/);
+
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(page.getByText(/Rozhoduj se v souvislostech/i).first()).toBeVisible();
+  await expect(page.getByLabel("Moje pracovní reflexe")).toHaveCount(0);
 });
