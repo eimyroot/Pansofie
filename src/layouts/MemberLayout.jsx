@@ -1,15 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { BriefcaseBusiness, FolderOpen, GraduationCap, HeartHandshake, Inbox, Leaf, LogOut, UserRound } from "lucide-react";
+import { Boxes, BriefcaseBusiness, FolderOpen, GraduationCap, HeartHandshake, Inbox, LayoutDashboard, Leaf, LogOut, UserRound } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import { getMyFamilyAccessSummary } from "@/lib/pansofieFamilyFlow";
 import { listMyOrganizationMemberships } from "@/lib/pansofieExperienceFlow";
 
 const NAV_ITEMS = {
+  dashboard: { to: "/dashboard", label: "Nástěnka", mobile: "Nástěnka", icon: LayoutDashboard, role: null },
   school: { to: "/skola", label: "PANSOFIE School", mobile: "Škola", icon: GraduationCap, role: "school" },
   challenges: { to: "/skola/challenges", label: "Challenge Inbox", mobile: "Challenges", icon: Inbox, role: "school" },
   family: { to: "/rodina", label: "PANSOFIE Family", mobile: "Rodina", icon: HeartHandshake, role: "family" },
   partner: { to: "/partner-workspace", label: "PANSOFIE Partner", mobile: "Partner", icon: BriefcaseBusiness, role: "partner" },
+  material: { to: "/materialovy-most/workspace", label: "Materiálový most", mobile: "Materiál", icon: Boxes, role: null },
   passport: { to: "/portfolio", label: "Experience Passport", mobile: "Passport", icon: FolderOpen, role: "learner" },
   profile: { to: "/profil", label: "Profil", mobile: "Profil", icon: UserRound, role: null },
 };
@@ -45,11 +47,12 @@ export default function MemberLayout() {
   }, [user?.id]);
 
   const nav = useMemo(() => {
-    const items = [];
+    const items = [NAV_ITEMS.dashboard];
     if (access.school) items.push(NAV_ITEMS.school);
     if (access.schoolStaff) items.push(NAV_ITEMS.challenges);
     if (access.family) items.push(NAV_ITEMS.family);
     if (access.partner) items.push(NAV_ITEMS.partner);
+    if (access.schoolStaff || access.partner) items.push(NAV_ITEMS.material);
     if (access.learner) items.push(NAV_ITEMS.passport);
     items.push(NAV_ITEMS.profile);
     return items;
@@ -73,7 +76,7 @@ export default function MemberLayout() {
 
         <div className="mb-5 surface-subtle p-3.5">
           <p className="eyebrow">Governed pilot</p>
-          <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">Navigace se skládá podle skutečných membership/guardian oprávnění. Partner, School, Family a Passport nejsou jeden univerzální dashboard.</p>
+          <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">Nástěnka pouze shrnuje skutečné role a stavy. School, Partner, Family, Passport a Materiálový most zůstávají oddělené workflow s vlastními oprávněními.</p>
         </div>
 
         <nav className="flex flex-col gap-1.5" aria-label="Pilotní workspace">
