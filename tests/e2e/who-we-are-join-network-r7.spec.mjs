@@ -97,10 +97,16 @@ test("legacy contact keeps the truthful journey contract on the same target URL"
   await expect(page.locator("form")).toHaveCount(0);
 });
 
-test("public navigation exposes both project identity and participation", async ({ page }) => {
+test("public navigation exposes identity, participation and the live taste entry", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
   await expect(page.getByRole("link", { name: "O Pansofii", exact: true })).toHaveAttribute("href", "/o-projektu");
   await expect(page.getByRole("link", { name: "Přidejte se", exact: true })).toHaveAttribute("href", "/zapojit-se");
-  await expect(page.getByRole("link", { name: /Vyzkoušet 60 s/i })).toHaveAttribute("href", "/zapojit-se?mode=simulator");
+  await expect(page.getByRole("link", { name: /Vyzkoušet 60 s/i })).toHaveAttribute("href", "/pro-koho#ochutnejte");
+
+  await page.goto(`${BASE_URL}/pro-koho#ochutnejte`, { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { name: /Vyzkoušejte si pansofické uvažování/i })).toBeVisible();
+
+  await page.goto(`${BASE_URL}/zapojit-se?mode=simulator`, { waitUntil: "networkidle" });
+  await expect(page.getByText(/PANSOFIEDIT · 60–90 sekund/i)).toBeVisible();
 });
