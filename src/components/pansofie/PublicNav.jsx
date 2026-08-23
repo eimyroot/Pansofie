@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Leaf, Menu, X } from "lucide-react";
+import LanguageToggle from "@/components/pansofie/LanguageToggle";
 
 const links = [
   ["/jak-funguje", "Jak to funguje"],
@@ -48,7 +49,8 @@ export default function PublicNav() {
           })}
         </nav>
 
-        <div className="hidden sm:flex items-center gap-1">
+        <div className="hidden sm:flex items-center gap-2">
+          <LanguageToggle compact />
           <Link to="/login" className="action-quiet px-2.5">Přihlásit</Link>
           <Link to="/zapojit-se?mode=simulator" className="action-primary min-h-10 rounded-xl px-4 py-2">
             Vyzkoušet 60 s <ArrowRight size={15} />
@@ -62,6 +64,7 @@ export default function PublicNav() {
 
       {open && (
         <div id="public-mobile-menu" className="xl:hidden border-t border-border/60 bg-background px-5 py-4 flex flex-col gap-1 shadow-lg">
+          <div className="px-3 pb-3"><LanguageToggle /></div>
           {links.map(([to, label]) => {
             const active = matchesPath(pathname, to);
             return (
