@@ -10,6 +10,7 @@ import "@/editorial-identity-r12-contrast.css";
 import "@/roles-humanist-r13.css";
 import "@/roles-humanist-r13-typography.css";
 import "@/audience-detail-r14.css";
+import "@/participation-network-r14.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <App />
