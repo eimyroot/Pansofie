@@ -15,19 +15,25 @@ for (const viewport of [
   { label: "desktop", width: 1440, height: 1100, isMobile: false },
   { label: "mobile", width: 390, height: 844, isMobile: true },
 ]) {
-  test(`R14 Pro koho participation gateway is readable on ${viewport.label}`, async ({ browser }) => {
+  test(`R14 Pro koho show-don't-sell mini-mission is readable on ${viewport.label}`, async ({ browser }) => {
     const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, isMobile: viewport.isMobile, locale: "cs-CZ" });
     const page = await context.newPage();
     const response = await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
     expect(response?.status()).toBeLessThan(400);
     await expect(page.getByRole("heading", { name: "Pro koho je Pansofie?", exact: true })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Udělejte první krok k nápravě.", exact: true })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Chci Pansofii do školy", exact: true })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Chci rozvíjet svůj tým", exact: true })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Chci podpořit zelené projekty", exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Vyzkoušejte si pansofické uvažování dřív, než po vás budeme něco chtít.", exact: true })).toBeVisible();
+    await expect(page.getByRole("tab", { name: /Chci zažít výuku ve třídě/i })).toBeVisible();
+    await expect(page.getByRole("tab", { name: /Chci otestovat rozhodování ve firmě/i })).toBeVisible();
+    await expect(page.getByRole("tab", { name: /Chci vyzkoušet cirkulární propojení/i })).toBeVisible();
+
+    await page.getByRole("button", { name: /Zastavíme se a společně ověříme zdroj/i }).click();
+    await expect(page.getByText("DŮSLEDKY TÉTO VOLBY", { exact: true })).toBeVisible();
+    await expect(page.getByText(/oddělí emoci od důkazu/i)).toBeVisible();
+    await expect(page.getByText(/skóre osobnosti/i)).toBeVisible();
+
     const metrics = await overflow(page);
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
-    await page.screenshot({ path: path.join(EVIDENCE_DIR, `pro-koho-participation-${viewport.label}.png`), fullPage: true });
+    await page.screenshot({ path: path.join(EVIDENCE_DIR, `pro-koho-taste-${viewport.label}.png`), fullPage: true });
     await context.close();
   });
 }
@@ -67,15 +73,67 @@ test("R14 company intake has explicit English copy", async ({ page }) => {
   expect(await page.getAttribute("html", "lang")).toBe("en");
 });
 
-test("R14 Material Bridge public feed never fabricates example handovers", async ({ page }) => {
+test("R14 Material Bridge is explicitly open to everyone without fabricating live examples", async ({ page }) => {
   await page.goto(`${BASE_URL}/materialovy-most`, { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { name: "Materiálový most: dejte užitečným věcem druhý život.", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Jen příběhy podložené skutečným předáním.", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Užitečné věci mají najít dalšího člověka, který je dokáže využít.", exact: true })).toBeVisible();
+  for (const actor of ["Jednotlivec", "Rodina", "Škola", "Firma", "Spolek", "Obec", "Komunita"]) {
+    await expect(page.getByText(actor, { exact: true })).toBeVisible();
+  }
+  await expect(page.getByRole("link", { name: /Nabídnout nebo poptat materiál/i })).toBeVisible();
   await expect(page.getByText("Avast darovala 15 notebooků", { exact: false })).toHaveCount(0);
   await expect(page.getByText("Truhlářství Novák", { exact: false })).toHaveCount(0);
+  await expect(page.getByText("Reno s.r.o.", { exact: false })).toHaveCount(0);
   const metrics = await overflow(page);
   expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
   await page.screenshot({ path: path.join(EVIDENCE_DIR, "material-bridge-public-r14.png"), fullPage: true });
+});
+
+test("R14 public Material Bridge intake supports all actor types and stays moderated", async ({ page }) => {
+  await page.goto(`${BASE_URL}/materialovy-most/zapojit-se`, { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { name: "Máte něco užitečného — nebo něco smysluplně potřebujete?", exact: true })).toBeVisible();
+  const actorSelect = page.getByLabel("Kdo se zapojuje?").first();
+  for (const option of ["Jednotlivec", "Rodina", "Škola / pedagog", "Firma / organizace", "Spolek / nezisková organizace", "Obec / město", "Komunita / komunitní centrum"]) {
+    await expect(actorSelect.getByRole("option", { name: option })).toHaveCount(1);
+  }
+  await expect(page.getByText(/Nabídka se nezveřejní automaticky/i)).toBeVisible();
+  const metrics = await overflow(page);
+  expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
+  await page.screenshot({ path: path.join(EVIDENCE_DIR, "material-bridge-open-intake-r14.png"), fullPage: true });
+});
+
+for (const viewport of [
+  { label: "desktop", width: 1440, height: 1100, isMobile: false },
+  { label: "mobile", width: 390, height: 844, isMobile: true },
+]) {
+  test(`R14 Repair Library is filterable and overflow-safe on ${viewport.label}`, async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, isMobile: viewport.isMobile, locale: "cs-CZ" });
+    const page = await context.newPage();
+    await page.goto(`${BASE_URL}/knihovna`, { waitUntil: "networkidle" });
+    await expect(page.getByRole("heading", { name: "Neschovávejme metodu. Ukažme ji tam, kde si ji lidé mohou osahat.", exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Labyrint algoritmů/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Porada bez ega/i })).toBeVisible();
+    await page.getByRole("button", { name: "Tvoř s druhými", exact: true }).click();
+    await expect(page.getByRole("heading", { name: /Porada bez ega/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Etický kompas AI/i })).toHaveCount(0);
+    const metrics = await overflow(page);
+    expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
+    await page.screenshot({ path: path.join(EVIDENCE_DIR, `repair-library-${viewport.label}.png`), fullPage: true });
+    await context.close();
+  });
+}
+
+test("R14 English library is explicit and does not depend on Czech DOM projection", async ({ page }) => {
+  await page.goto(`${BASE_URL}/knihovna?lang=en`, { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { name: "Do not hide the method. Put it where people can try it.", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Algorithm Labyrinth/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Create with others", exact: true })).toBeVisible();
+  expect(await page.getAttribute("html", "lang")).toBe("en");
+});
+
+test("R14 onboarding is protected when no account is signed in", async ({ page }) => {
+  await page.goto(`${BASE_URL}/onboarding`, { waitUntil: "networkidle" });
+  await expect(page).toHaveURL(/\/login\?returnTo=/);
+  await expect(page.getByRole("heading", { name: "Vítejte zpět", exact: true })).toBeVisible();
 });
 
 test("R14 downloadable working materials are real static files", async ({ request }) => {
@@ -84,6 +142,8 @@ test("R14 downloadable working materials are real static files", async ({ reques
     "/materials/pansofie-stavitele-mostu-dialog.md",
     "/materials/pansofie-restart-pozornosti-team-guide.md",
     "/materials/pansofie-eticky-kompas-ai-checklist.md",
+    "/materials/pansofie-labyrint-algoritmu.md",
+    "/materials/pansofie-porada-bez-ega.md",
   ];
   for (const item of paths) {
     const response = await request.get(`${BASE_URL}${item}`);
