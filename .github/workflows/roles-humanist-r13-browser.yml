@@ -1,0 +1,75 @@
+name: Roles Humanist R13 Browser Proof
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "package.json"
+      - "scripts/check-roles-humanist-r13.mjs"
+      - "tests/e2e/roles-humanist-r13.spec.mjs"
+      - ".github/workflows/roles-humanist-r13-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: roles-humanist-r13-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PANSOFIE_LOCAL_URL: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Run R13 static contract
+        run: npm run check:roles-humanist-r13
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install chromium
+
+      - name: Start local Vite server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pansofie-roles-r13.log 2>&1 &
+          echo $! > /tmp/pansofie-roles-r13.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5173/ >/dev/null; then
+              echo "LOCAL_VITE=READY"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pansofie-roles-r13.log
+          exit 1
+
+      - name: Run R13 browser acceptance
+        run: npx playwright test tests/e2e/roles-humanist-r13.spec.mjs --reporter=line
+
+      - name: Upload R13 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pansofie-roles-humanist-r13-browser-evidence
+          path: |
+            browser-evidence/roles-humanist-r13/
+            test-results/
+            /tmp/pansofie-roles-r13.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Vite server
+        if: always()
+        run: |
+          if [ -f /tmp/pansofie-roles-r13.pid ]; then kill "$(cat /tmp/pansofie-roles-r13.pid)" || true; fi

@@ -7,6 +7,8 @@ import "@/public-visual-r9.css";
 import "@/bubble-readability-r11.css";
 import "@/editorial-identity-r12.css";
 import "@/editorial-identity-r12-contrast.css";
+import "@/roles-humanist-r13.css";
+import "@/roles-humanist-r13-typography.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <App />
