@@ -1,0 +1,328 @@
+/* PANSOFIE Public Visual Contrast R9
+ * Static presentation layer only.
+ * DO NOT add animation, keyframes or selectors for the motion/network visualizations here.
+ */
+
+:root {
+  --r9-canvas: #ebe7dc;
+  --r9-canvas-deep: #dcd5c8;
+  --r9-surface: #ffffff;
+  --r9-surface-soft: #f4f1e9;
+  --r9-surface-strong: #e4ded2;
+  --r9-ink: #14211b;
+  --r9-copy: #253a31;
+  --r9-muted: #465950;
+  --r9-line: #b8ae9f;
+  --r9-line-strong: #7f7466;
+  --r9-green: #0b5d49;
+  --r9-green-deep: #074435;
+  --r9-blue: #174d7a;
+  --r9-amber: #9b5b00;
+  --r9-coral: #a84232;
+  --r9-violet: #65449a;
+  --r9-footer: #17241e;
+  --r9-footer-copy: #bac5bf;
+}
+
+body {
+  background: var(--r9-canvas);
+  color: var(--r9-ink);
+}
+
+/* Public navigation: higher separation from content without changing motion UI. */
+body > #root > div > header.fixed {
+  background: rgba(255, 255, 255, 0.975) !important;
+  border-bottom-color: var(--r9-line) !important;
+  box-shadow: 0 12px 32px -24px rgba(20, 33, 27, 0.72);
+}
+
+body > #root > div > header.fixed .text-muted-foreground {
+  color: var(--r9-muted) !important;
+}
+
+body > #root > div > header.fixed a:not(.action-primary) {
+  color: var(--r9-copy);
+}
+
+body > #root > div > header.fixed a:not(.action-primary):hover,
+body > #root > div > header.fixed a[aria-current="page"] {
+  color: var(--r9-ink);
+}
+
+/* Core reading surface. */
+.public-network-content {
+  color: var(--r9-copy);
+}
+
+.public-network-content main {
+  background: var(--r9-canvas);
+}
+
+.public-network-content main > section {
+  --r9-section-accent: var(--r9-green);
+  border-color: var(--r9-line) !important;
+}
+
+.public-network-content main > section:nth-of-type(4n + 2) {
+  --r9-section-accent: var(--r9-blue);
+}
+
+.public-network-content main > section:nth-of-type(4n + 3) {
+  --r9-section-accent: var(--r9-amber);
+}
+
+.public-network-content main > section:nth-of-type(4n + 4) {
+  --r9-section-accent: var(--r9-coral);
+}
+
+.public-network-content main > section:first-child {
+  background-color: #fffdf8 !important;
+  border-bottom: 1px solid var(--r9-line) !important;
+}
+
+.public-network-content main > section:nth-of-type(even) {
+  background-color: var(--r9-surface) !important;
+  box-shadow:
+    inset 0 3px 0 color-mix(in srgb, var(--r9-section-accent) 58%, transparent),
+    inset 0 -1px 0 var(--r9-line);
+}
+
+.public-network-content main > section:nth-of-type(odd):not(:first-child) {
+  background-color: var(--r9-canvas) !important;
+  box-shadow:
+    inset 0 3px 0 color-mix(in srgb, var(--r9-section-accent) 58%, transparent),
+    inset 0 -1px 0 var(--r9-line);
+}
+
+.public-network-content h1,
+.public-network-content h2,
+.public-network-content h3,
+.public-network-content h4 {
+  color: var(--r9-ink);
+}
+
+.public-network-content h1 {
+  letter-spacing: -0.038em;
+}
+
+.public-network-content h2 {
+  letter-spacing: -0.03em;
+}
+
+.public-network-content p,
+.public-network-content li {
+  text-rendering: optimizeLegibility;
+}
+
+.public-network-content .text-muted-foreground {
+  color: var(--r9-muted) !important;
+}
+
+.public-network-content .eyebrow {
+  color: var(--r9-section-accent, var(--r9-green)) !important;
+  letter-spacing: 0.18em;
+  font-weight: 800;
+}
+
+.public-network-content .chip {
+  color: var(--r9-ink) !important;
+  background: var(--r9-surface) !important;
+  border-color: color-mix(in srgb, var(--r9-section-accent, var(--r9-green)) 45%, var(--r9-line)) !important;
+  box-shadow: 0 7px 18px -14px rgba(20, 33, 27, 0.72);
+}
+
+/* Surfaces: make information blocks visibly distinct. */
+.public-network-content .card-soft,
+.public-network-content .surface-raised {
+  background: var(--r9-surface) !important;
+  border-color: var(--r9-line) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.98) inset,
+    0 1px 2px rgba(20, 33, 27, 0.06),
+    0 20px 46px -29px rgba(20, 33, 27, 0.48);
+}
+
+.public-network-content .surface-panel {
+  background: color-mix(in srgb, var(--r9-section-accent, var(--r9-green)) 5%, #ffffff) !important;
+  border-color: color-mix(in srgb, var(--r9-section-accent, var(--r9-green)) 28%, var(--r9-line)) !important;
+}
+
+.public-network-content .surface-subtle {
+  background: color-mix(in srgb, var(--r9-section-accent, var(--r9-green)) 9%, #ffffff) !important;
+  border-color: color-mix(in srgb, var(--r9-section-accent, var(--r9-green)) 30%, var(--r9-line)) !important;
+}
+
+.public-network-content .next-action-card {
+  border-color: color-mix(in srgb, var(--r9-section-accent, var(--r9-green)) 52%, var(--r9-line)) !important;
+  background: color-mix(in srgb, var(--r9-section-accent, var(--r9-green)) 8%, #ffffff) !important;
+}
+
+.public-network-content .role-card {
+  background: var(--r9-surface) !important;
+  border-color: var(--r9-line) !important;
+  box-shadow: 0 12px 32px -27px rgba(20, 33, 27, 0.76);
+}
+
+.public-network-content .role-card:hover,
+.public-network-content .role-card[data-selected="true"] {
+  border-color: hsl(var(--role-accent) / 0.78) !important;
+  box-shadow: 0 19px 40px -27px hsl(var(--role-accent) / 0.86);
+}
+
+/* Actions: stronger affordance, clearer primary/secondary distinction. */
+.public-network-content .action-primary,
+body > #root > div > header.fixed .action-primary {
+  background: var(--r9-green) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--r9-green-deep);
+  box-shadow: 0 14px 30px -17px rgba(7, 68, 53, 0.9);
+}
+
+.public-network-content .action-primary:hover,
+body > #root > div > header.fixed .action-primary:hover {
+  background: var(--r9-green-deep) !important;
+  box-shadow: 0 18px 36px -17px rgba(7, 68, 53, 0.96);
+}
+
+.public-network-content .action-secondary {
+  background: var(--r9-surface) !important;
+  color: var(--r9-ink) !important;
+  border-color: var(--r9-line-strong) !important;
+  box-shadow: 0 8px 22px -18px rgba(20, 33, 27, 0.76);
+}
+
+.public-network-content .action-secondary:hover {
+  background: var(--r9-surface-strong) !important;
+  border-color: var(--r9-green) !important;
+}
+
+.public-network-content .action-quiet {
+  color: var(--r9-copy) !important;
+}
+
+.public-network-content .action-quiet:hover {
+  color: var(--r9-ink) !important;
+  background: var(--r9-surface-strong) !important;
+}
+
+/* Status and metadata are readable labels, not pale decoration. */
+.public-network-content .status-pill {
+  font-weight: 750;
+  background: var(--r9-surface) !important;
+  border-color: var(--r9-line-strong) !important;
+}
+
+.public-network-content .status-neutral {
+  color: #33443c !important;
+  background: #e2ddd3 !important;
+  border-color: #918779 !important;
+}
+
+.public-network-content .status-info {
+  color: var(--r9-blue) !important;
+  background: #e6f0f9 !important;
+  border-color: #86a9c9 !important;
+}
+
+.public-network-content .status-success,
+.public-network-content .status-progress {
+  color: var(--r9-green-deep) !important;
+  background: #dfeee8 !important;
+  border-color: #78aa98 !important;
+}
+
+.public-network-content .status-waiting {
+  color: #704000 !important;
+  background: #ffedc7 !important;
+  border-color: #c99a43 !important;
+}
+
+.public-network-content .status-danger {
+  color: #862f25 !important;
+  background: #f8e1dd !important;
+  border-color: #cc857c !important;
+}
+
+/* Inputs and interactive reading controls. */
+.public-network-content input,
+.public-network-content textarea,
+.public-network-content select {
+  color: var(--r9-ink);
+  background: var(--r9-surface) !important;
+  border-color: var(--r9-line-strong) !important;
+}
+
+.public-network-content input::placeholder,
+.public-network-content textarea::placeholder {
+  color: #5d7067;
+  opacity: 1;
+}
+
+.public-network-content input:focus,
+.public-network-content textarea:focus,
+.public-network-content select:focus {
+  border-color: var(--r9-green) !important;
+  box-shadow: 0 0 0 3px rgba(11, 93, 73, 0.14);
+}
+
+/* Tables and dense information. */
+.public-network-content table {
+  background: var(--r9-surface);
+  border-color: var(--r9-line) !important;
+}
+
+.public-network-content th {
+  color: var(--r9-ink);
+  background: var(--r9-surface-strong);
+}
+
+.public-network-content td,
+.public-network-content th {
+  border-color: var(--r9-line) !important;
+}
+
+/* Footer becomes a deliberate visual stop instead of another pale surface. */
+.public-network-content footer {
+  background: var(--r9-footer) !important;
+  color: #f5f1e6;
+  border-top-color: #33463d !important;
+}
+
+.public-network-content footer .text-muted-foreground {
+  color: var(--r9-footer-copy) !important;
+}
+
+.public-network-content footer a {
+  color: #f5f1e6;
+}
+
+.public-network-content footer a:hover {
+  color: #d7efe5 !important;
+}
+
+.public-network-content footer .border-border\/60 {
+  border-color: #3b4d45 !important;
+}
+
+/* Reading rhythm and mobile density. */
+@media (min-width: 768px) {
+  .public-network-content p.leading-relaxed,
+  .public-network-content li.leading-relaxed {
+    line-height: 1.72;
+  }
+}
+
+@media (max-width: 767px) {
+  .public-network-content main > section {
+    border-color: #a99f91 !important;
+  }
+
+  .public-network-content .surface-raised,
+  .public-network-content .card-soft {
+    box-shadow: 0 15px 32px -26px rgba(20, 33, 27, 0.68);
+  }
+
+  body > #root > div > header.fixed {
+    background: rgba(255, 255, 255, 0.99) !important;
+  }
+}
