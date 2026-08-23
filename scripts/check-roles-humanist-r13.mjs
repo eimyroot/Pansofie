@@ -29,7 +29,12 @@ const required = [
 ];
 
 const missing = required.filter(([content, marker]) => !content.includes(marker)).map(([, marker]) => marker);
-const forbiddenMotion = [/\banimation\s*:/i, /@keyframes/i, /\btransition\s*:/i, /\btransform\s*:/i];
+const forbiddenMotion = [
+  /(^|[;{\n]\s*)animation\s*:/im,
+  /@keyframes/i,
+  /(^|[;{\n]\s*)transition\s*:/im,
+  /(^|[;{\n]\s*)transform\s*:/im,
+];
 const motionViolations = forbiddenMotion.filter((pattern) => pattern.test(css)).map((pattern) => pattern.toString());
 
 if (missing.length || motionViolations.length) {
