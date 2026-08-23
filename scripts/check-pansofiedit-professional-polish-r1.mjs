@@ -3,9 +3,10 @@ import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-const [css, nav, home, roles, member, school, family, doc] = await Promise.all([
+const [css, nav, footer, home, roles, member, school, family, doc] = await Promise.all([
   read("src/index.css"),
   read("src/components/pansofie/PublicNav.jsx"),
+  read("src/components/pansofie/PublicFooter.jsx"),
   read("src/pages/Home.jsx"),
   read("src/components/pansofie/RoleEntry.jsx"),
   read("src/layouts/MemberLayout.jsx"),
@@ -48,8 +49,9 @@ for (const componentClass of [
 assert.ok(css.includes("prefers-reduced-motion"), "reduced-motion fallback missing");
 assert.ok(css.includes(":focus-visible"), "global visible focus treatment missing");
 
-assert.ok(nav.includes("Vyzkoušet 60 s"), "public nav must expose the simulator as the dominant product entry");
-assert.ok(nav.includes("/zapojit-se?mode=simulator"), "public nav simulator route missing");
+assert.ok(nav.includes("Vyzkoušet 60 s"), "public nav must expose the live taste as the dominant product entry");
+assert.ok(nav.includes("/pro-koho#ochutnejte"), "public nav live taste route missing");
+assert.ok(footer.includes("/zapojit-se?mode=simulator"), "PANSOFIEDIT simulator must remain explicitly reachable as a secondary route");
 assert.ok(nav.includes("/pro-koho"), "public role information architecture entry missing");
 assert.ok(home.includes("action-primary"), "homepage primary action hierarchy missing");
 assert.ok(home.includes("Učení, které pokračuje v reálném světě"), "homepage human-first positioning marker missing");
