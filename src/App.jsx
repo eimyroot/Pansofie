@@ -15,6 +15,8 @@ import JakFunguje from "@/pages/JakFunguje";
 import Roles from "@/pages/Roles";
 import PillarDetail from "@/pages/PillarDetail";
 import AudienceDetail from "@/pages/AudienceDetail";
+import ParticipationIntake from "@/pages/ParticipationIntake";
+import MaterialBridge from "@/pages/MaterialBridge";
 import Pilot from "@/pages/Pilot";
 import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
@@ -30,6 +32,7 @@ import ResetPassword from "@/pages/ResetPassword";
 import PageNotFound from "@/pages/PageNotFound";
 
 import MemberLayout from "@/layouts/MemberLayout";
+import RoleDashboard from "@/pages/RoleDashboard";
 import SchoolHub from "@/pages/SchoolHub";
 import SchoolRunDetail from "@/pages/SchoolRunDetail";
 import SchoolChallengeWorkspace from "@/pages/SchoolChallengeWorkspace";
@@ -96,6 +99,9 @@ export default function App() {
               <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail />)} />
               <Route path="/pro-koho/ekologie" element={publicSurface(<AudienceDetail />)} />
               <Route path="/pro-koho/:pillar" element={publicSurface(<PillarDetail />)} />
+              <Route path="/zapojit-se/skola" element={publicSurface(<ParticipationIntake />)} />
+              <Route path="/zapojit-se/firma" element={publicSurface(<ParticipationIntake />)} />
+              <Route path="/materialovy-most" element={publicSurface(<MaterialBridge />)} />
               <Route path="/pilot" element={publicSurface(<Pilot />)} />
               <Route path="/partneri" element={publicSurface(<Partner />)} />
               <Route path="/program/:id" element={publicSurface(<ProgramDetail />)} />
@@ -115,15 +121,16 @@ export default function App() {
               <Route path="/admin/login" element={authSurface(<AdminLogin />)} />
 
               <Route element={<RequireAuth><MemberLayout /></RequireAuth>}>
+                <Route path="/dashboard" element={<RoleDashboard />} />
                 <Route path="/skola" element={<SchoolHub />} />
                 <Route path="/skola/mise/:runId" element={<SchoolRunDetail />} />
                 <Route path="/skola/challenges" element={<SchoolChallengeWorkspace />} />
                 <Route path="/rodina" element={<FamilyHub />} />
                 <Route path="/partner-workspace" element={<PartnerWorkspace />} />
+                <Route path="/materialovy-most/workspace" element={<MaterialBridge workspace />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/profil" element={<Profile />} />
 
-                <Route path="/dashboard" element={<PilotRedirect />} />
                 <Route path="/mise" element={<PilotRedirect />} />
                 <Route path="/mise/:id" element={<PilotRedirect />} />
                 <Route path="/rozvoj" element={<PilotRedirect />} />
