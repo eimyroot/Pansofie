@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { AlertTriangle, CheckCircle2, FolderOpen, LockKeyhole } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
+import { useLanguage } from "@/lib/LanguageContext";
 import { listMyPortfolio } from "@/lib/pansofieExperienceFlow";
+import { loadMyExperienceFan } from "@/lib/pansofieExperienceFan";
+import ExperienceFan from "@/components/pansofie/ExperienceFan";
 
 export default function Portfolio() {
   const { user } = useAuth();
+  const { locale: rawLocale } = useLanguage();
+  const locale = rawLocale === "en" ? "en" : "cs";
   const [items, setItems] = useState([]);
+  const [fanRows, setFanRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [fanError, setFanError] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -15,15 +22,31 @@ export default function Portfolio() {
       if (!user?.id) return;
       setLoading(true);
       setError("");
-      try {
-        const rows = await listMyPortfolio(user.id);
-        if (active) setItems(rows);
-      } catch (err) {
-        if (active) setError(err.message || "Passport se nepodařilo načíst.");
-      } finally {
-        if (active) setLoading(false);
+      setFanError("");
+
+      const [portfolioResult, fanResult] = await Promise.allSettled([
+        listMyPortfolio(user.id),
+        loadMyExperienceFan(),
+      ]);
+
+      if (!active) return;
+
+      if (portfolioResult.status === "fulfilled") {
+        setItems(portfolioResult.value || []);
+      } else {
+        setError(portfolioResult.reason?.message || "Passport se nepodařilo načíst.");
       }
+
+      if (fanResult.status === "fulfilled") {
+        setFanRows(fanResult.value || []);
+      } else {
+        setFanRows([]);
+        setFanError(fanResult.reason?.message || "Vějíř zkušeností se nepodařilo načíst.");
+      }
+
+      setLoading(false);
     };
+
     load();
     return () => { active = false; };
   }, [user?.id]);
@@ -35,6 +58,19 @@ export default function Portfolio() {
         <h1 className="text-2xl sm:text-3xl font-semibold font-heading">Portfolio skutečných zkušeností</h1>
         <p className="text-muted-foreground mt-1.5 max-w-2xl">Nejde o skóre člověka. Každá položka vzniká z konkrétní mise, skutečné činnosti, důkazu, reflexe a ověření.</p>
       </div>
+
+      {fanError ? (
+        <div className="mb-8 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-4 text-sm flex items-start gap-3">
+          <AlertTriangle size={18} className="text-amber-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold">Vějíř zkušeností zatím není dostupný.</p>
+            <p className="text-muted-foreground mt-1">{fanError}</p>
+            <p className="text-muted-foreground mt-1">Neodhadujeme náhradní hodnoty. Vějíř se zobrazí až z reálně ověřené datové vrstvy R15.</p>
+          </div>
+        </div>
+      ) : fanRows.length > 0 ? (
+        <div className="mb-10"><ExperienceFan rows={fanRows} locale={locale} /></div>
+      ) : null}
 
       {error && (
         <div className="mb-6 rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm flex items-start gap-3">
