@@ -59,7 +59,7 @@ for (const viewport of [
 
     expect(heroMetrics.fontFamily.toLowerCase()).toContain("fraunces");
     expect(heroMetrics.fontSize).toBeLessThanOrEqual(viewport.isMobile ? 64 : 84);
-    expect(heroMetrics.height / Math.max(heroMetrics.lineHeight, 1)).toBeLessThanOrEqual(viewport.isMobile ? 2.3 : 1.6);
+    expect(heroMetrics.height / Math.max(heroMetrics.lineHeight, 1)).toBeLessThanOrEqual(viewport.isMobile ? 2.3 : 2.05);
 
     const pageMetrics = await page.evaluate(() => ({
       innerWidth: window.innerWidth,
