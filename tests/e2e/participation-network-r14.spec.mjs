@@ -15,21 +15,39 @@ for (const viewport of [
   { label: "desktop", width: 1440, height: 1100, isMobile: false },
   { label: "mobile", width: 390, height: 844, isMobile: true },
 ]) {
-  test(`R14 Pro koho show-don't-sell mini-mission is readable on ${viewport.label}`, async ({ browser }) => {
+  test(`R14 Pro koho full Pansofie Taste cycle works on ${viewport.label}`, async ({ browser }) => {
     const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, isMobile: viewport.isMobile, locale: "cs-CZ" });
     const page = await context.newPage();
-    const response = await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
+    const response = await page.goto(`${BASE_URL}/pro-koho#ochutnejte`, { waitUntil: "networkidle" });
     expect(response?.status()).toBeLessThan(400);
     await expect(page.getByRole("heading", { name: "Pro koho je Pansofie?", exact: true })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Vyzkoušejte si pansofické uvažování dřív, než po vás budeme něco chtít.", exact: true })).toBeVisible();
-    await expect(page.getByRole("tab", { name: /Chci zažít výuku ve třídě/i })).toBeVisible();
-    await expect(page.getByRole("tab", { name: /Chci otestovat rozhodování ve firmě/i })).toBeVisible();
-    await expect(page.getByRole("tab", { name: /Chci vyzkoušet cirkulární propojení/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Vyzkoušejte si celý cyklus Pansofie bez registrace.", exact: true })).toBeVisible();
+    await expect(page.getByText(/Žádné skóre osobnosti ani skrytá morální známka/i)).toBeVisible();
 
-    await page.getByRole("button", { name: /Zastavíme se a společně ověříme zdroj/i }).click();
-    await expect(page.getByText("DŮSLEDKY TÉTO VOLBY", { exact: true })).toBeVisible();
-    await expect(page.getByText(/oddělí emoci od důkazu/i)).toBeVisible();
-    await expect(page.getByText(/Žádné skóre osobnosti ani skrytá morální známka/i, { exact: false })).toBeVisible();
+    const schoolTab = page.getByRole("tab", { name: /Chci zažít situaci ve třídě/i });
+    await expect(schoolTab).toBeVisible();
+    await expect(page.getByRole("tab", { name: /Chci otestovat situaci ve firmě/i })).toBeVisible();
+    await expect(page.getByRole("tab", { name: /Chci zkusit cirkulární propojení/i })).toBeVisible();
+    await schoolTab.click();
+
+    await expect(page.getByText("Labyrint algoritmů 📲", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: /Možnost B: Otevřu laboratoř/i }).click();
+    await expect(page.getByText("Výstup vytvořil použitelný postup.", { exact: true })).toBeVisible();
+    await expect(page.getByText("MODELOVÝ DŮKAZ", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: /Použít tento modelový důkaz/i }).click();
+
+    await expect(page.getByRole("heading", { name: "Moje krátká reflexe", exact: true })).toBeVisible();
+    const reflection = page.getByRole("textbox");
+    await reflection.fill("Děti si odnesly postup, jak oddělit silnou emoci od ověřitelného důkazu.");
+    await page.getByRole("button", { name: /Potvrdit reflexi a zobrazit náhled stopy/i }).click();
+
+    await expect(page.getByText(/Pouze náhled\. V tomto veřejném demu neproběhlo skutečné ověření ani zápis do Passportu/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: "První doložená stopa v oblasti Kritický rozum", exact: true })).toBeVisible();
+    await expect(page.getByText(/1 doložená zkušenost · První doložená zkušenost/i)).toBeVisible();
+    await page.getByRole("button", { name: "Pokračovat", exact: true }).click();
+
+    await expect(page.getByRole("heading", { name: "Chcete takovou mapu reálných zkušeností budovat i vy?", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Chci se zapojit do pilotu/i })).toHaveAttribute("href", "/zapojit-se");
 
     const metrics = await overflow(page);
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
