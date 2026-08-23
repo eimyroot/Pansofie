@@ -14,6 +14,7 @@ import Home from "@/pages/Home";
 import JakFunguje from "@/pages/JakFunguje";
 import Roles from "@/pages/Roles";
 import PillarDetail from "@/pages/PillarDetail";
+import AudienceDetail from "@/pages/AudienceDetail";
 import Pilot from "@/pages/Pilot";
 import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
@@ -91,6 +92,9 @@ export default function App() {
               <Route path="/" element={publicSurface(<Home />)} />
               <Route path="/jak-funguje" element={publicSurface(<JakFunguje />)} />
               <Route path="/pro-koho" element={publicSurface(<Roles />)} />
+              <Route path="/pro-koho/skoly" element={publicSurface(<AudienceDetail />)} />
+              <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail />)} />
+              <Route path="/pro-koho/ekologie" element={publicSurface(<AudienceDetail />)} />
               <Route path="/pro-koho/:pillar" element={publicSurface(<PillarDetail />)} />
               <Route path="/pilot" element={publicSurface(<Pilot />)} />
               <Route path="/partneri" element={publicSurface(<Partner />)} />
@@ -119,7 +123,6 @@ export default function App() {
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/profil" element={<Profile />} />
 
-                {/* Prototype member surfaces stay in the repository but are fail-closed from the pilot UI. */}
                 <Route path="/dashboard" element={<PilotRedirect />} />
                 <Route path="/mise" element={<PilotRedirect />} />
                 <Route path="/mise/:id" element={<PilotRedirect />} />
