@@ -34,6 +34,7 @@ import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import PageNotFound from "@/pages/PageNotFound";
 import Onboarding from "@/pages/Onboarding";
+import WitnessVerification from "@/pages/WitnessVerification";
 
 import MemberLayout from "@/layouts/MemberLayout";
 import RoleDashboard from "@/pages/RoleDashboard";
@@ -126,6 +127,7 @@ export default function App() {
               <Route path="/reset-password" element={authSurface(<ResetPassword />)} />
               <Route path="/admin/login" element={authSurface(<AdminLogin />)} />
               <Route path="/onboarding" element={authSurface(<RequireAuth><Onboarding /></RequireAuth>)} />
+              <Route path="/potvrzeni-zkusenosti" element={authSurface(<WitnessVerification />)} />
 
               <Route element={<RequireAuth><MemberLayout /></RequireAuth>}>
                 <Route path="/dashboard" element={<RoleDashboard />} />

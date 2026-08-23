@@ -1,0 +1,78 @@
+name: Witness Verification R16 Browser Proof
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "supabase/functions/evidence-witness/**"
+      - "supabase/migrations/20260824014500_witness_verification_r16.sql"
+      - "supabase/config.toml"
+      - "scripts/check-witness-verification-r16.mjs"
+      - "tests/e2e/witness-verification-r16.spec.mjs"
+      - "package.json"
+      - ".github/workflows/witness-verification-r16-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: witness-verification-r16-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PANSOFIE_LOCAL_URL: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Run R16 static contract
+        run: npm run check:witness-verification-r16
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install chromium
+
+      - name: Start local Vite server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pansofie-r16.log 2>&1 &
+          echo $! > /tmp/pansofie-r16.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5173/ >/dev/null; then
+              echo "LOCAL_VITE=READY"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pansofie-r16.log
+          exit 1
+
+      - name: Run R16 browser acceptance
+        run: npx playwright test tests/e2e/witness-verification-r16.spec.mjs --reporter=line
+
+      - name: Upload R16 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pansofie-witness-verification-r16-browser-evidence
+          path: |
+            browser-evidence/witness-verification-r16/
+            test-results/
+            /tmp/pansofie-r16.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Vite server
+        if: always()
+        run: |
+          if [ -f /tmp/pansofie-r16.pid ]; then kill "$(cat /tmp/pansofie-r16.pid)" || true; fi
