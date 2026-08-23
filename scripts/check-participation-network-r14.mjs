@@ -79,9 +79,16 @@ const required = [
   [bridgeOpenIntake, "Materiálový most"],
   [bridgeOpenIntake, "Komunita / komunitní centrum"],
   [bridgeOpenIntake, "Nabídka se nezveřejní automaticky"],
-  [taste, "Vyzkoušejte si pansofické uvažování dřív, než po vás budeme něco chtít."],
+  [taste, "Vyzkoušejte si celý cyklus Pansofie bez registrace."],
+  [taste, "Akce → Výstup → Důkaz → Reflexe → Vizuální stopa."],
   [taste, "Žádné skóre osobnosti ani skrytá morální známka"],
-  [taste, "CONSEQUENCES OF THIS CHOICE"],
+  [taste, "Pouze náhled. V tomto veřejném demu neproběhlo skutečné ověření ani zápis do Passportu."],
+  [taste, "KROK 1 · AKCE"],
+  [taste, "KROK 2 · VÝSTUP"],
+  [taste, "KROK 3 · DŮKAZ"],
+  [taste, "KROK 4 · REFLEXE"],
+  [taste, "KROK 5 · NÁHLED VĚJÍŘE ZKUŠENOSTÍ"],
+  [taste, "KROK 6 · DALŠÍ SKUTEČNÝ KROK"],
   [library, "KNIHOVNA NÁPRAVY"],
   [library, "Labyrint algoritmů"],
   [library, "Porada bez ega"],
@@ -132,6 +139,8 @@ const forbiddenClaims = [
   "Avast darovala 15 notebooků",
   "Truhlářství Novák",
   "Reno s.r.o.",
+  "Mise byla úspěšně ověřena svědky sítě",
+  "Vytvořit bezplatný profil a vstoupit do sítě",
 ];
 const claimCorpus = [intake, dashboard, bridgeWorkspace, bridgeLanding, bridgeOpenIntake, audience, library, taste].join("\n");
 const claimViolations = forbiddenClaims.filter((phrase) => claimCorpus.includes(phrase));
