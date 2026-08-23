@@ -99,9 +99,9 @@ export default function App() {
               <Route path="/" element={publicSurface(<Home />)} />
               <Route path="/jak-funguje" element={publicSurface(<JakFunguje />)} />
               <Route path="/pro-koho" element={publicSurface(<Roles />)} />
-              <Route path="/pro-koho/skoly" element={publicSurface(<AudienceDetail />)} />
-              <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail />)} />
-              <Route path="/pro-koho/ekologie" element={publicSurface(<AudienceDetail />)} />
+              <Route path="/pro-koho/skoly" element={publicSurface(<AudienceDetail audience="skoly" />)} />
+              <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail audience="firmy" />)} />
+              <Route path="/pro-koho/ekologie" element={publicSurface(<AudienceDetail audience="ekologie" />)} />
               <Route path="/pro-koho/:pillar" element={publicSurface(<PillarDetail />)} />
               <Route path="/zapojit-se/:audience" element={publicSurface(<ParticipationIntake />)} />
               <Route path="/materialovy-most" element={publicSurface(<MaterialBridgeLanding />)} />
