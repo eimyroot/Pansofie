@@ -4,6 +4,8 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const roles = read("src/pages/Roles.jsx");
 const detail = read("src/pages/PillarDetail.jsx");
 const css = read("src/roles-humanist-r13.css");
+const typographyCss = read("src/roles-humanist-r13-typography.css");
+const guardedCss = `${css}\n${typographyCss}`;
 const app = read("src/App.jsx");
 const main = read("src/main.jsx");
 
@@ -23,9 +25,11 @@ const required = [
   [detail, "Digitální most"],
   [app, 'path="/pro-koho/:pillar"'],
   [main, 'import "@/roles-humanist-r13.css"'],
+  [main, 'import "@/roles-humanist-r13-typography.css"'],
   [css, 'font-family: "Fraunces"'],
   [css, ".r13-principles"],
   [css, ".r13-pillar-grid"],
+  [typographyCss, ".r13-roles-page h2"],
 ];
 
 const missing = required.filter(([content, marker]) => !content.includes(marker)).map(([, marker]) => marker);
@@ -35,7 +39,7 @@ const forbiddenMotion = [
   /(^|[;{\n]\s*)transition\s*:/im,
   /(^|[;{\n]\s*)transform\s*:/im,
 ];
-const motionViolations = forbiddenMotion.filter((pattern) => pattern.test(css)).map((pattern) => pattern.toString());
+const motionViolations = forbiddenMotion.filter((pattern) => pattern.test(guardedCss)).map((pattern) => pattern.toString());
 
 if (missing.length || motionViolations.length) {
   console.error("ROLES_HUMANIST_R13=FAIL");
