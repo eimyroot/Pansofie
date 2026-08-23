@@ -1,14 +1,21 @@
 import { supabase } from "@/api/supabaseClient";
 
 export async function getOnboardingState(userId) {
-  if (!userId) return null;
+  if (!userId) return { supported: false, data: null };
   const { data, error } = await supabase
     .from("profiles")
     .select("id, full_name, location, bio, network_role, offers_text, seeks_text, onboarding_completed_at")
     .eq("id", userId)
     .maybeSingle();
-  if (error) throw error;
-  return data || null;
+
+  if (error) {
+    // R14 may reach the frontend before its database migration is enabled in a
+    // particular staging environment. Existing authentication must keep working.
+    console.warn("PANSOFIE onboarding schema unavailable:", error.message);
+    return { supported: false, data: null };
+  }
+
+  return { supported: true, data: data || null };
 }
 
 export async function completeOnboarding({
