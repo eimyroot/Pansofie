@@ -15,7 +15,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const returnTo = safeReturnTo();
-  const destination = returnTo === "/" ? "/skola" : returnTo;
+  const destination = returnTo === "/" ? "/dashboard" : returnTo;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,11 +37,11 @@ export default function Login() {
     <AuthLayout
       icon={LogIn}
       title="Vítejte zpět"
-      subtitle="Přihlášení pro pozvané účastníky a tým prvního školního pilotu"
+      subtitle="Přihlášení pro pozvané účastníky školního pilotu a ověřené partnerské role"
       footer={<><span>Pilotní účty vznikají na pozvání. </span><Link to="/zapojit-se" className="text-primary font-medium hover:underline">Chci se zapojit</Link></>}
     >
       <div className="mb-6 rounded-2xl border border-primary/20 bg-primary/[0.04] p-4 text-sm text-muted-foreground leading-relaxed">
-        Veřejná registrace je před prvním pilotem v reálné škole vypnutá. Pokud jste už dostali pilotní účet, přihlaste se e-mailem a heslem.
+        Veřejná registrace zůstává během řízeného pilotu vypnutá. Pokud jste už dostali účet, přihlaste se e-mailem a heslem; po přihlášení se otevře nástěnka podle vašich skutečných rolí a oprávnění.
       </div>
 
       {error && <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
