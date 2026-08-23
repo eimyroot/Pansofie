@@ -105,7 +105,7 @@ test("public navigation exposes identity, participation and the live taste entry
   await expect(page.getByRole("link", { name: /Vyzkoušet 60 s/i })).toHaveAttribute("href", "/pro-koho#ochutnejte");
 
   await page.goto(`${BASE_URL}/pro-koho#ochutnejte`, { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { name: /Vyzkoušejte si pansofické uvažování/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Vyzkoušejte si celý cyklus Pansofie bez registrace/i })).toBeVisible();
 
   await page.goto(`${BASE_URL}/zapojit-se?mode=simulator`, { waitUntil: "networkidle" });
   await expect(page.getByText(/PANSOFIEDIT · 60–90 sekund/i)).toBeVisible();
