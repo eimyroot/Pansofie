@@ -92,6 +92,6 @@ revoke all on function public.pansofie_public_available_materials(text) from pub
 grant execute on function public.pansofie_public_available_materials(text) to anon, authenticated;
 
 comment on function public.pansofie_public_available_materials(text) is
-  'Public-safe projection of real AVAILABLE Material Bridge listings. Requires author consent plus trusted approval and exposes no owner user id, organization id, email or reservation identity.';
+  'Public-safe projection of real AVAILABLE Material Bridge listings. Requires author consent plus trusted approval. Exposes no owner user id, organization id, email or reservation identity.';
 
 commit;
