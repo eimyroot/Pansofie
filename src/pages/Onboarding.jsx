@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight, Compass, HeartHandshake, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import { useLanguage } from "@/lib/LanguageContext";
+import { safeReturnTo } from "@/lib/authReturnTo";
 import { completeOnboarding } from "@/lib/pansofieOnboardingFlow";
 
 const ROLES = {
@@ -89,6 +90,8 @@ export default function Onboarding() {
   const { locale } = useLanguage();
   const lang = locale === "en" ? "en" : "cs";
   const copy = COPY[lang];
+  const requestedDestination = safeReturnTo();
+  const destination = requestedDestination === "/" || requestedDestination.startsWith("/onboarding") ? "/dashboard" : requestedDestination;
   const firstName = useMemo(() => (profile?.name || user?.email?.split("@")[0] || (lang === "en" ? "Pansofie member" : "člene Pansofie")).split(" ")[0], [profile?.name, user?.email, lang]);
   const [form, setForm] = useState({
     fullName: profile?.name || "",
@@ -100,7 +103,7 @@ export default function Onboarding() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  const saveAndGo = async (destination, requireProfile) => {
+  const saveAndGo = async (target, requireProfile) => {
     if (!user?.id || busy) return;
     if (requireProfile && (!form.fullName.trim() || !form.location.trim() || !form.networkRole)) return;
     setBusy(true);
@@ -108,7 +111,7 @@ export default function Onboarding() {
     try {
       await completeOnboarding({ userId: user.id, ...form });
       await refreshUser();
-      navigate(destination, { replace: true });
+      navigate(target, { replace: true });
     } catch (err) {
       console.error(err);
       setError(copy.error);
@@ -148,7 +151,7 @@ export default function Onboarding() {
           {error && <div className="r14-onboarding-error" role="alert">{error}</div>}
           <p className="r14-onboarding-truth">{copy.truth}</p>
           <div className="r14-onboarding-actions">
-            <button type="button" disabled={busy || !form.fullName.trim() || !form.location.trim() || !form.networkRole} onClick={() => saveAndGo("/dashboard", true)} className="action-primary">{copy.complete} <ArrowRight size={17} /></button>
+            <button type="button" disabled={busy || !form.fullName.trim() || !form.location.trim() || !form.networkRole} onClick={() => saveAndGo(destination, true)} className="action-primary">{copy.complete} <ArrowRight size={17} /></button>
             <button type="button" disabled={busy} onClick={() => saveAndGo("/knihovna", false)} className="action-secondary">{copy.skip}</button>
           </div>
         </section>
