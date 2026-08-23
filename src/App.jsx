@@ -99,8 +99,7 @@ export default function App() {
               <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail />)} />
               <Route path="/pro-koho/ekologie" element={publicSurface(<AudienceDetail />)} />
               <Route path="/pro-koho/:pillar" element={publicSurface(<PillarDetail />)} />
-              <Route path="/zapojit-se/skola" element={publicSurface(<ParticipationIntake />)} />
-              <Route path="/zapojit-se/firma" element={publicSurface(<ParticipationIntake />)} />
+              <Route path="/zapojit-se/:audience" element={publicSurface(<ParticipationIntake />)} />
               <Route path="/materialovy-most" element={publicSurface(<MaterialBridge />)} />
               <Route path="/pilot" element={publicSurface(<Pilot />)} />
               <Route path="/partneri" element={publicSurface(<Partner />)} />
