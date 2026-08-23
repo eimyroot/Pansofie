@@ -19,6 +19,7 @@ import ParticipationIntake from "@/pages/ParticipationIntake";
 import MaterialBridge from "@/pages/MaterialBridge";
 import MaterialBridgeLanding from "@/pages/MaterialBridgeLanding";
 import MaterialBridgeOpenIntake from "@/pages/MaterialBridgeOpenIntake";
+import RepairLibrary from "@/pages/RepairLibrary";
 import Pilot from "@/pages/Pilot";
 import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
@@ -32,6 +33,7 @@ import Register from "@/pages/Register";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import PageNotFound from "@/pages/PageNotFound";
+import Onboarding from "@/pages/Onboarding";
 
 import MemberLayout from "@/layouts/MemberLayout";
 import RoleDashboard from "@/pages/RoleDashboard";
@@ -104,6 +106,8 @@ export default function App() {
               <Route path="/zapojit-se/:audience" element={publicSurface(<ParticipationIntake />)} />
               <Route path="/materialovy-most" element={publicSurface(<MaterialBridgeLanding />)} />
               <Route path="/materialovy-most/zapojit-se" element={publicSurface(<MaterialBridgeOpenIntake />)} />
+              <Route path="/knihovna" element={publicSurface(<RepairLibrary />)} />
+              <Route path="/katalog" element={<Navigate to="/knihovna" replace />} />
               <Route path="/pilot" element={publicSurface(<Pilot />)} />
               <Route path="/partneri" element={publicSurface(<Partner />)} />
               <Route path="/program/:id" element={publicSurface(<ProgramDetail />)} />
@@ -121,6 +125,7 @@ export default function App() {
               <Route path="/forgot-password" element={authSurface(<ForgotPassword />)} />
               <Route path="/reset-password" element={authSurface(<ResetPassword />)} />
               <Route path="/admin/login" element={authSurface(<AdminLogin />)} />
+              <Route path="/onboarding" element={authSurface(<RequireAuth><Onboarding /></RequireAuth>)} />
 
               <Route element={<RequireAuth><MemberLayout /></RequireAuth>}>
                 <Route path="/dashboard" element={<RoleDashboard />} />
