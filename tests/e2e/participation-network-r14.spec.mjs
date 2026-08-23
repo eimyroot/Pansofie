@@ -29,7 +29,7 @@ for (const viewport of [
     await page.getByRole("button", { name: /Zastavíme se a společně ověříme zdroj/i }).click();
     await expect(page.getByText("DŮSLEDKY TÉTO VOLBY", { exact: true })).toBeVisible();
     await expect(page.getByText(/oddělí emoci od důkazu/i)).toBeVisible();
-    await expect(page.getByText(/skóre osobnosti/i)).toBeVisible();
+    await expect(page.getByText(/Žádné skóre osobnosti ani skrytá morální známka/i, { exact: false })).toBeVisible();
 
     const metrics = await overflow(page);
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
