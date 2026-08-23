@@ -17,6 +17,7 @@ import PillarDetail from "@/pages/PillarDetail";
 import AudienceDetail from "@/pages/AudienceDetail";
 import ParticipationIntake from "@/pages/ParticipationIntake";
 import MaterialBridge from "@/pages/MaterialBridge";
+import MaterialBridgeLanding from "@/pages/MaterialBridgeLanding";
 import MaterialBridgeOpenIntake from "@/pages/MaterialBridgeOpenIntake";
 import Pilot from "@/pages/Pilot";
 import Partner from "@/pages/Partner";
@@ -101,7 +102,7 @@ export default function App() {
               <Route path="/pro-koho/ekologie" element={publicSurface(<AudienceDetail />)} />
               <Route path="/pro-koho/:pillar" element={publicSurface(<PillarDetail />)} />
               <Route path="/zapojit-se/:audience" element={publicSurface(<ParticipationIntake />)} />
-              <Route path="/materialovy-most" element={publicSurface(<MaterialBridge />)} />
+              <Route path="/materialovy-most" element={publicSurface(<MaterialBridgeLanding />)} />
               <Route path="/materialovy-most/zapojit-se" element={publicSurface(<MaterialBridgeOpenIntake />)} />
               <Route path="/pilot" element={publicSurface(<Pilot />)} />
               <Route path="/partneri" element={publicSurface(<Partner />)} />
