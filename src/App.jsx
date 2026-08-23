@@ -14,6 +14,12 @@ import Home from "@/pages/Home";
 import JakFunguje from "@/pages/JakFunguje";
 import Roles from "@/pages/Roles";
 import PillarDetail from "@/pages/PillarDetail";
+import AudienceDetail from "@/pages/AudienceDetail";
+import ParticipationIntake from "@/pages/ParticipationIntake";
+import MaterialBridge from "@/pages/MaterialBridge";
+import MaterialBridgeLanding from "@/pages/MaterialBridgeLanding";
+import MaterialBridgeOpenIntake from "@/pages/MaterialBridgeOpenIntake";
+import RepairLibrary from "@/pages/RepairLibrary";
 import Pilot from "@/pages/Pilot";
 import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
@@ -27,8 +33,10 @@ import Register from "@/pages/Register";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import PageNotFound from "@/pages/PageNotFound";
+import Onboarding from "@/pages/Onboarding";
 
 import MemberLayout from "@/layouts/MemberLayout";
+import RoleDashboard from "@/pages/RoleDashboard";
 import SchoolHub from "@/pages/SchoolHub";
 import SchoolRunDetail from "@/pages/SchoolRunDetail";
 import SchoolChallengeWorkspace from "@/pages/SchoolChallengeWorkspace";
@@ -91,7 +99,15 @@ export default function App() {
               <Route path="/" element={publicSurface(<Home />)} />
               <Route path="/jak-funguje" element={publicSurface(<JakFunguje />)} />
               <Route path="/pro-koho" element={publicSurface(<Roles />)} />
+              <Route path="/pro-koho/skoly" element={publicSurface(<AudienceDetail audience="skoly" />)} />
+              <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail audience="firmy" />)} />
+              <Route path="/pro-koho/ekologie" element={publicSurface(<AudienceDetail audience="ekologie" />)} />
               <Route path="/pro-koho/:pillar" element={publicSurface(<PillarDetail />)} />
+              <Route path="/zapojit-se/:audience" element={publicSurface(<ParticipationIntake />)} />
+              <Route path="/materialovy-most" element={publicSurface(<MaterialBridgeLanding />)} />
+              <Route path="/materialovy-most/zapojit-se" element={publicSurface(<MaterialBridgeOpenIntake />)} />
+              <Route path="/knihovna" element={publicSurface(<RepairLibrary />)} />
+              <Route path="/katalog" element={<Navigate to="/knihovna" replace />} />
               <Route path="/pilot" element={publicSurface(<Pilot />)} />
               <Route path="/partneri" element={publicSurface(<Partner />)} />
               <Route path="/program/:id" element={publicSurface(<ProgramDetail />)} />
@@ -109,18 +125,19 @@ export default function App() {
               <Route path="/forgot-password" element={authSurface(<ForgotPassword />)} />
               <Route path="/reset-password" element={authSurface(<ResetPassword />)} />
               <Route path="/admin/login" element={authSurface(<AdminLogin />)} />
+              <Route path="/onboarding" element={authSurface(<RequireAuth><Onboarding /></RequireAuth>)} />
 
               <Route element={<RequireAuth><MemberLayout /></RequireAuth>}>
+                <Route path="/dashboard" element={<RoleDashboard />} />
                 <Route path="/skola" element={<SchoolHub />} />
                 <Route path="/skola/mise/:runId" element={<SchoolRunDetail />} />
                 <Route path="/skola/challenges" element={<SchoolChallengeWorkspace />} />
                 <Route path="/rodina" element={<FamilyHub />} />
                 <Route path="/partner-workspace" element={<PartnerWorkspace />} />
+                <Route path="/materialovy-most/workspace" element={<MaterialBridge workspace />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/profil" element={<Profile />} />
 
-                {/* Prototype member surfaces stay in the repository but are fail-closed from the pilot UI. */}
-                <Route path="/dashboard" element={<PilotRedirect />} />
                 <Route path="/mise" element={<PilotRedirect />} />
                 <Route path="/mise/:id" element={<PilotRedirect />} />
                 <Route path="/rozvoj" element={<PilotRedirect />} />

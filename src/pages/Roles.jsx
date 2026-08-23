@@ -20,21 +20,9 @@ import { useLanguage } from "@/lib/LanguageContext";
 const COPY = {
   cs: {
     principles: [
-      {
-        number: "01",
-        title: "Všem",
-        text: "Internet a vzdělání musí být zdarma, bez bariér a dostupné i v nejchudších koutech světa.",
-      },
-      {
-        number: "02",
-        title: "Všemu",
-        text: "Technologie nesmí sloužit jen byznysu, ale musí pomáhat léčit nemoci, chránit přírodu a rozvíjet kulturu.",
-      },
-      {
-        number: "03",
-        title: "Všestranně",
-        text: "Digitální gramotnost bez morální gramotnosti je nebezpečná zbraň. Učit se musíme rozumu, jazyku i srdci zároveň.",
-      },
+      { number: "01", title: "Všem", text: "Internet a vzdělání musí být zdarma, bez bariér a dostupné i v nejchudších koutech světa." },
+      { number: "02", title: "Všemu", text: "Technologie nesmí sloužit jen byznysu, ale musí pomáhat léčit nemoci, chránit přírodu a rozvíjet kulturu." },
+      { number: "03", title: "Všestranně", text: "Digitální gramotnost bez morální gramotnosti je nebezpečná zbraň. Učit se musíme rozumu, jazyku i srdci zároveň." },
     ],
     heroEyebrow: "Pro koho je Pansofie",
     heroTitle: "Pro koho je Pansofie?",
@@ -86,21 +74,25 @@ const COPY = {
         icon: GraduationCap,
       },
       {
+        slug: "skoly",
         title: "Pro pedagogy a školy",
         text: "Pro ty, kteří hledají moderní inspiraci, jak učit zážitkovou formou, zdravě zapojit technologie a probouzet v mladých lidech zvídavost.",
         icon: School,
       },
       {
+        slug: "firmy",
         title: "Pro firmy a lídry",
         text: "Pro ty, kteří chtějí budovat etické a smysluplné podnikání, otevřenou kulturu a rozvíjet kritické myšlení svých týmů.",
         icon: BriefcaseBusiness,
       },
       {
+        slug: "ekologie",
         title: "Pro ochránce přírody a vizionáře",
         text: "Pro ty, kteří hledají cesty, jak pomocí dat, technologií a spolupráce chránit planetu a zlepšovat prostředí, ve kterém žijeme.",
         icon: Leaf,
       },
     ],
+    detail: "Zjistit víc",
     rolesEyebrow: "Konkrétní role",
     rolesTitle: "Každý může přinést něco jiného.",
     rolesLead: "Níže si můžete projít konkrétní roli v jedné skutečné zkušenosti — mladý člověk, rodina, škola, mentor, partner nebo komunita.",
@@ -109,21 +101,9 @@ const COPY = {
   },
   en: {
     principles: [
-      {
-        number: "01",
-        title: "For everyone",
-        text: "Internet access and education should be free of unnecessary barriers and available even in the poorest parts of the world.",
-      },
-      {
-        number: "02",
-        title: "For the whole of life",
-        text: "Technology must not serve business alone. It should also help heal disease, protect nature and develop culture.",
-      },
-      {
-        number: "03",
-        title: "In a whole-person way",
-        text: "Digital literacy without moral literacy can become dangerous. We need to educate reason, language and the heart together.",
-      },
+      { number: "01", title: "For everyone", text: "Internet access and education should be free of unnecessary barriers and available even in the poorest parts of the world." },
+      { number: "02", title: "For the whole of life", text: "Technology must not serve business alone. It should also help heal disease, protect nature and develop culture." },
+      { number: "03", title: "In a whole-person way", text: "Digital literacy without moral literacy can become dangerous. We need to educate reason, language and the heart together." },
     ],
     heroEyebrow: "Who Pansofie is for",
     heroTitle: "Who is Pansofie for?",
@@ -175,21 +155,25 @@ const COPY = {
         icon: GraduationCap,
       },
       {
+        slug: "skoly",
         title: "Educators and schools",
         text: "For those looking for experiential learning, healthy uses of technology and better ways to awaken curiosity in young people.",
         icon: School,
       },
       {
+        slug: "firmy",
         title: "Companies and leaders",
         text: "For those building ethical, meaningful organizations, open cultures and stronger critical thinking in their teams.",
         icon: BriefcaseBusiness,
       },
       {
+        slug: "ekologie",
         title: "Environmental stewards and visionaries",
         text: "For those exploring how data, technology and cooperation can protect the planet and improve the environments we share.",
         icon: Leaf,
       },
     ],
+    detail: "Learn more",
     rolesEyebrow: "Concrete roles",
     rolesTitle: "Everyone can contribute something different.",
     rolesLead: "Below you can explore a concrete role in one real Experience — young person, family, school, mentor, partner or community.",
@@ -197,6 +181,21 @@ const COPY = {
     ctaBody: "Choose a role, problem or field that matters to you. Pansofie should move from an idea to action, evidence, reflection and a meaningful next step.",
   },
 };
+
+function AudienceCard({ audience, detail }) {
+  const Icon = audience.icon;
+  const card = (
+    <article className="r13-audience-card">
+      <span><Icon size={23} /></span>
+      <h3>{audience.title}</h3>
+      <p>{audience.text}</p>
+      {audience.slug && <span className="r14-audience-more">{detail} <ArrowRight size={15} /></span>}
+    </article>
+  );
+
+  if (!audience.slug) return card;
+  return <Link to={`/pro-koho/${audience.slug}`} className="r14-audience-link">{card}</Link>;
+}
 
 export default function Roles() {
   const { locale } = useLanguage();
@@ -212,10 +211,7 @@ export default function Roles() {
               {copy.principles.map((principle) => (
                 <article key={principle.number} className="r13-principle">
                   <span>{principle.number}</span>
-                  <div>
-                    <strong>{principle.title}</strong>
-                    <p>{principle.text}</p>
-                  </div>
+                  <div><strong>{principle.title}</strong><p>{principle.text}</p></div>
                 </article>
               ))}
             </div>
@@ -231,7 +227,6 @@ export default function Roles() {
                   <Link to="/zapojit-se" className="action-secondary">{copy.join}</Link>
                 </div>
               </div>
-
               <aside className="r13-hero-mark" aria-hidden="true">
                 <div className="r13-mark-orbit r13-mark-orbit-a" />
                 <div className="r13-mark-orbit r13-mark-orbit-b" />
@@ -248,16 +243,12 @@ export default function Roles() {
               <h2>{copy.pillarsTitle}</h2>
               <p>{copy.pillarsLead}</p>
             </div>
-
             <div className="r13-pillar-grid">
               {copy.pillars.map((pillar) => {
                 const Icon = pillar.icon;
                 return (
                   <Link key={pillar.slug} to={`/pro-koho/${pillar.slug}`} className={`r13-pillar-card r13-pillar-card--${pillar.index}`}>
-                    <div className="r13-pillar-topline">
-                      <span className="r13-pillar-index">{pillar.index}</span>
-                      <span className="r13-pillar-icon"><Icon size={22} /></span>
-                    </div>
+                    <div className="r13-pillar-topline"><span className="r13-pillar-index">{pillar.index}</span><span className="r13-pillar-icon"><Icon size={22} /></span></div>
                     <p className="r13-pillar-label">{pillar.label}</p>
                     <h3>{pillar.title}</h3>
                     <blockquote>{pillar.quote}</blockquote>
@@ -271,23 +262,14 @@ export default function Roles() {
           </div>
         </section>
 
-        <section className="r13-audience-section">
+        <section id="cilove-skupiny" className="r13-audience-section scroll-mt-32">
           <div className="container-px max-w-7xl mx-auto py-16 sm:py-24">
             <div className="r13-section-heading r13-section-heading--compact">
               <span className="r13-kicker"><UsersRound size={15} /> {copy.audiencesEyebrow}</span>
               <h2>{copy.audiencesTitle}</h2>
             </div>
             <div className="r13-audience-grid">
-              {copy.audiences.map((audience) => {
-                const Icon = audience.icon;
-                return (
-                  <article key={audience.title} className="r13-audience-card">
-                    <span><Icon size={23} /></span>
-                    <h3>{audience.title}</h3>
-                    <p>{audience.text}</p>
-                  </article>
-                );
-              })}
+              {copy.audiences.map((audience) => <AudienceCard key={audience.title} audience={audience} detail={copy.detail} />)}
             </div>
           </div>
         </section>

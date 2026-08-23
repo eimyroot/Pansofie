@@ -1,0 +1,55 @@
+/* PANSOFIE R14 — open Material Bridge gateway. Static presentation only. */
+
+.r14-material-actor-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-top: 1.35rem;
+}
+
+.r14-material-actor-strip span {
+  border: 1px solid #aebbc9;
+  border-radius: 999px;
+  background: rgba(255,255,255,.78);
+  color: #25364a;
+  padding: .42rem .7rem;
+  font-size: .76rem;
+  font-weight: 850;
+}
+
+.r14-material-public-boundary {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  max-width: 760px !important;
+  margin-top: 1rem !important;
+  color: #526176 !important;
+  font-size: .8rem !important;
+  line-height: 1.55 !important;
+}
+
+.r14-material-public-boundary svg {
+  flex: 0 0 auto;
+  margin-top: .1rem;
+  color: #007c70;
+}
+
+.r14-material-feed-lead {
+  max-width: 760px;
+  margin: 1rem 0 1.5rem;
+  color: #526176;
+  line-height: 1.65;
+}
+
+.r14-material-open-intake .r14-intake-form fieldset > label:last-child {
+  margin-top: 1rem;
+}
+
+.r14-material-open-intake .r14-choice-card strong {
+  line-height: 1.45;
+}
+
+@media (max-width: 620px) {
+  .r14-material-actor-strip { gap: .35rem; }
+  .r14-material-actor-strip span { font-size: .7rem; }
+}

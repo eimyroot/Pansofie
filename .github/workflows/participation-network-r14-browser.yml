@@ -1,0 +1,81 @@
+name: Participation Network R14 Browser Proof
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "public/materials/**"
+      - "supabase/migrations/**"
+      - "docs/email/**"
+      - "package.json"
+      - "scripts/check-audience-details-r14.mjs"
+      - "scripts/check-participation-network-r14.mjs"
+      - "tests/e2e/participation-network-r14.spec.mjs"
+      - ".github/workflows/participation-network-r14-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: participation-network-r14-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PANSOFIE_LOCAL_URL: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Run R14 static contracts
+        run: |
+          npm run check:audience-details-r14
+          npm run check:participation-network-r14
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install chromium
+
+      - name: Start local Vite server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pansofie-r14.log 2>&1 &
+          echo $! > /tmp/pansofie-r14.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5173/ >/dev/null; then
+              echo "LOCAL_VITE=READY"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pansofie-r14.log
+          exit 1
+
+      - name: Run R14 browser acceptance
+        run: npx playwright test tests/e2e/participation-network-r14.spec.mjs --reporter=line
+
+      - name: Upload R14 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pansofie-participation-network-r14-browser-evidence
+          path: |
+            browser-evidence/participation-network-r14/
+            test-results/
+            /tmp/pansofie-r14.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Vite server
+        if: always()
+        run: |
+          if [ -f /tmp/pansofie-r14.pid ]; then kill "$(cat /tmp/pansofie-r14.pid)" || true; fi

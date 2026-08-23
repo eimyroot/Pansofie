@@ -2,16 +2,30 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Leaf, Menu, X } from "lucide-react";
 import LanguageToggle from "@/components/pansofie/LanguageToggle";
+import { useLanguage } from "@/lib/LanguageContext";
 
-const links = [
-  ["/jak-funguje", "Jak to funguje"],
-  ["/pansofiego", "PansofieGO"],
-  ["/pro-koho", "Pro koho"],
-  ["/pilot", "Pro školy"],
-  ["/partneri", "Pro partnery"],
-  ["/o-projektu", "O Pansofii"],
-  ["/zapojit-se", "Přidejte se"],
-];
+const LINKS = {
+  cs: [
+    ["/jak-funguje", "Jak to funguje"],
+    ["/pansofiego", "PansofieGO"],
+    ["/pro-koho", "Pro koho"],
+    ["/knihovna", "Knihovna"],
+    ["/pilot", "Pro školy"],
+    ["/partneri", "Pro partnery"],
+    ["/o-projektu", "O Pansofii"],
+    ["/zapojit-se", "Přidejte se"],
+  ],
+  en: [
+    ["/jak-funguje", "How it works"],
+    ["/pansofiego", "PansofieGO"],
+    ["/pro-koho", "For whom"],
+    ["/knihovna", "Library"],
+    ["/pilot", "For schools"],
+    ["/partneri", "For partners"],
+    ["/o-projektu", "About Pansofie"],
+    ["/zapojit-se", "Join us"],
+  ],
+};
 
 function matchesPath(pathname, to) {
   return pathname === to || pathname.startsWith(`${to}/`);
@@ -20,24 +34,27 @@ function matchesPath(pathname, to) {
 export default function PublicNav() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const { locale } = useLanguage();
+  const en = locale === "en";
+  const links = LINKS[en ? "en" : "cs"];
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/92 backdrop-blur-xl">
       <div className="container-px max-w-7xl mx-auto h-[74px] flex items-center justify-between gap-4">
-        <Link to="/" className="group flex items-center gap-2.5" aria-label="Pansofie — domů">
+        <Link to="/" className="group flex items-center gap-2.5" aria-label={en ? "Pansofie — home" : "Pansofie — domů"}>
           <span className="network-brand-node h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-sm transition-transform group-hover:-translate-y-0.5 motion-reduce:transition-none"><Leaf size={18} /></span>
           <span>
             <span className="block font-heading font-bold text-[17px] leading-none">Pansofie</span>
-            <span className="hidden md:block mt-1 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Skutečné zkušenosti. Ověřený rozvoj.</span>
+            <span className="hidden md:block mt-1 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">{en ? "Real experiences. Verified development." : "Skutečné zkušenosti. Ověřený rozvoj."}</span>
           </span>
         </Link>
 
-        <nav className="hidden xl:flex items-center gap-1 text-sm" aria-label="Veřejná navigace">
+        <nav className="hidden xl:flex items-center gap-1 text-sm" aria-label={en ? "Public navigation" : "Veřejná navigace"}>
           {links.map(([to, label]) => {
             const active = matchesPath(pathname, to);
             return (
               <Link
-                key={label}
+                key={to}
                 to={to}
                 data-active={active}
                 aria-current={active ? "page" : undefined}
@@ -51,13 +68,13 @@ export default function PublicNav() {
 
         <div className="hidden sm:flex items-center gap-2">
           <LanguageToggle compact />
-          <Link to="/login" className="action-quiet px-2.5">Přihlásit</Link>
-          <Link to="/zapojit-se?mode=simulator" className="action-primary min-h-10 rounded-xl px-4 py-2">
-            Vyzkoušet 60 s <ArrowRight size={15} />
+          <Link to="/login" className="action-quiet px-2.5">{en ? "Sign in" : "Přihlásit"}</Link>
+          <Link to="/pro-koho#ochutnejte" className="action-primary min-h-10 rounded-xl px-4 py-2">
+            {en ? "Try 60 sec" : "Vyzkoušet 60 s"} <ArrowRight size={15} />
           </Link>
         </div>
 
-        <button className="xl:hidden h-10 w-10 rounded-xl border border-border bg-card flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" onClick={() => setOpen((value) => !value)} aria-label={open ? "Zavřít menu" : "Otevřít menu"} aria-expanded={open} aria-controls="public-mobile-menu">
+        <button className="xl:hidden h-10 w-10 rounded-xl border border-border bg-card flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" onClick={() => setOpen((value) => !value)} aria-label={open ? (en ? "Close menu" : "Zavřít menu") : (en ? "Open menu" : "Otevřít menu")} aria-expanded={open} aria-controls="public-mobile-menu">
           {open ? <X size={19} /> : <Menu size={19} />}
         </button>
       </div>
@@ -69,7 +86,7 @@ export default function PublicNav() {
             const active = matchesPath(pathname, to);
             return (
               <Link
-                key={label}
+                key={to}
                 to={to}
                 data-active={active}
                 aria-current={active ? "page" : undefined}
@@ -80,8 +97,8 @@ export default function PublicNav() {
               </Link>
             );
           })}
-          <Link to="/login" className="rounded-xl px-3 py-2.5 text-sm" onClick={() => setOpen(false)}>Přihlásit</Link>
-          <Link to="/zapojit-se?mode=simulator" className="action-primary mt-2 w-full" onClick={() => setOpen(false)}>Vyzkoušet Pansofii za 60 sekund <ArrowRight size={16} /></Link>
+          <Link to="/login" className="rounded-xl px-3 py-2.5 text-sm" onClick={() => setOpen(false)}>{en ? "Sign in" : "Přihlásit"}</Link>
+          <Link to="/pro-koho#ochutnejte" className="action-primary mt-2 w-full" onClick={() => setOpen(false)}>{en ? "Try Pansofie in 60 seconds" : "Vyzkoušet Pansofii za 60 sekund"} <ArrowRight size={16} /></Link>
         </div>
       )}
     </header>

@@ -23,18 +23,29 @@ export function AuthProvider({ children }) {
 
     setUser(authUser);
 
-    const [profileResult, roleResult] = await Promise.all([
-      supabase
+    const extendedProfileQuery = await supabase
+      .from("profiles")
+      .select("id, full_name, location, bio, network_role, offers_text, seeks_text, onboarding_completed_at")
+      .eq("id", authUser.id)
+      .maybeSingle();
+
+    let profileResult = extendedProfileQuery;
+    let onboardingSupported = true;
+    if (extendedProfileQuery.error) {
+      onboardingSupported = false;
+      console.warn("PANSOFIE extended profile schema unavailable:", extendedProfileQuery.error.message);
+      profileResult = await supabase
         .from("profiles")
         .select("id, full_name, location, bio")
         .eq("id", authUser.id)
-        .maybeSingle(),
-      supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", authUser.id)
-        .maybeSingle(),
-    ]);
+        .maybeSingle();
+    }
+
+    const roleResult = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", authUser.id)
+      .maybeSingle();
 
     if (profileResult.error) console.error("PANSOFIE profile load failed:", profileResult.error.message);
     if (roleResult.error) console.error("PANSOFIE role load failed:", roleResult.error.message);
@@ -52,12 +63,19 @@ export function AuthProvider({ children }) {
         "Člen Pansofie",
       location: profileRow?.location || "",
       intro: profileRow?.bio || "",
+      networkRole: profileRow?.network_role || "",
+      offersText: profileRow?.offers_text || "",
+      seeksText: profileRow?.seeks_text || "",
+      onboardingSupported,
+      onboardingCompletedAt: profileRow?.onboarding_completed_at || null,
+      // If the R14 schema is not deployed yet, preserve existing login behavior.
+      onboardingCompleted: onboardingSupported ? Boolean(profileRow?.onboarding_completed_at) : true,
       role: roleRow?.role === "admin" ? "Administrátor" : "Člen Pansofie",
       paths: emptyPaths(),
       interests: [],
       skills: [],
-      offers: [],
-      seeks: [],
+      offers: profileRow?.offers_text ? [profileRow.offers_text] : [],
+      seeks: profileRow?.seeks_text ? [profileRow.seeks_text] : [],
       availability: "",
       contactable: false,
       completedMissions: 0,
