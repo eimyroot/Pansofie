@@ -1,212 +1,396 @@
-/* PANSOFIE R14 — show, don't sell mini-mission. Static presentation only. */
+/* PANSOFIE R14 — show, don't sell mini-mission. Static visual layer; no motion declarations. */
 
 .r14-taste {
-  --taste-ink: #101827;
-  --taste-copy: #334155;
-  --taste-line: #d8dee8;
-  --taste-paper: #f6f1e7;
-  --taste-card: #ffffff;
-  --taste-blue: #2457e6;
-  --taste-teal: #007c70;
-  --taste-orange: #d65a31;
-  --taste-violet: #7047c7;
-  border-top: 1px solid #d9cfbf;
-  background: radial-gradient(circle at 82% 15%, rgba(36, 87, 230, .12), transparent 27%), radial-gradient(circle at 12% 84%, rgba(0, 124, 112, .1), transparent 24%), var(--taste-paper);
-  color: var(--taste-ink);
+  --taste-bg: #090d16;
+  --taste-panel: #111827;
+  --taste-panel-2: #161f31;
+  --taste-line: rgba(255,255,255,.12);
+  --taste-copy: #cbd5e1;
+  --taste-muted: #8794a8;
+  --taste-violet: #a78bfa;
+  --taste-yellow: #f4e86b;
+  --taste-green: #55e0a3;
+  --taste-red: #fb7185;
+  border-top: 1px solid #1f2937;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(167,139,250,.14), transparent 26%),
+    radial-gradient(circle at 88% 82%, rgba(85,224,163,.09), transparent 24%),
+    var(--taste-bg);
+  color: #fff;
 }
 
 .r14-taste-heading {
-  max-width: 900px;
+  max-width: 760px;
+  margin: 0 auto 1.5rem;
+  text-align: center;
 }
 
 .r14-taste-kicker {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  color: var(--taste-blue);
-  font-size: .75rem;
+  color: var(--taste-violet);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+.r14-taste-heading h2 {
+  margin: .85rem auto 0;
+  max-width: 760px;
+  color: #fff;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+
+.r14-taste-heading > p {
+  max-width: 680px;
+  margin: 1rem auto 0;
+  color: #aeb9ca;
+  font-size: .96rem;
+  line-height: 1.65;
+}
+
+.r14-taste-shell {
+  width: min(100%, 460px);
+  margin: 0 auto;
+  border: 1px solid rgba(167,139,250,.28);
+  border-radius: 1.7rem;
+  background: linear-gradient(180deg, rgba(17,24,39,.98), rgba(9,13,22,.98));
+  box-shadow: 0 28px 80px -42px rgba(0,0,0,.95), 0 0 0 1px rgba(244,232,107,.03) inset;
+  overflow: hidden;
+}
+
+.r14-taste-progress {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: .35rem;
+  padding: 1rem 1rem .35rem;
+}
+
+.r14-taste-progress span {
+  display: grid;
+  place-items: center;
+  min-height: 26px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 999px;
+  background: #0d1422;
+  color: #667085;
+  font-size: .65rem;
+  font-weight: 900;
+}
+
+.r14-taste-progress span.is-active {
+  border-color: rgba(167,139,250,.55);
+  background: rgba(167,139,250,.12);
+  color: #ddd3ff;
+}
+
+.r14-taste-screen {
+  padding: 1.15rem 1.05rem 1.25rem;
+}
+
+.r14-screen-label {
+  color: var(--taste-yellow);
+  font-size: .66rem;
   font-weight: 900;
   letter-spacing: .12em;
 }
 
-.r14-taste-heading h2 {
-  margin: 1rem 0 0;
-  max-width: 920px;
-  color: var(--taste-ink);
+.r14-taste-screen > h3,
+.r14-reflection-title h3,
+.r14-trace-copy h3 {
+  margin: .65rem 0 0;
+  color: #fff;
   font-family: "Fraunces", Georgia, serif;
-  font-size: clamp(2.7rem, 6vw, 5.3rem);
-  font-weight: 650;
-  line-height: .99;
-  letter-spacing: -.05em;
-}
-
-.r14-taste-heading > p {
-  max-width: 780px;
-  margin: 1.25rem 0 0;
-  color: var(--taste-copy);
-  font-size: 1.04rem;
-  line-height: 1.7;
+  font-size: clamp(1.7rem, 7vw, 2.45rem);
+  line-height: 1.04;
+  letter-spacing: -.035em;
 }
 
 .r14-taste-tabs {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .7rem;
-  margin-top: 2rem;
+  margin-top: 1.15rem;
 }
 
 .r14-taste-tabs button {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: flex-start;
-  gap: .7rem;
-  min-height: 64px;
-  border: 1px solid #ccd5e2;
+  gap: .75rem;
+  width: 100%;
+  min-height: 70px;
+  border: 1px solid var(--taste-line);
   border-radius: 1rem;
-  background: rgba(255,255,255,.82);
-  color: #465569;
-  padding: .8rem 1rem;
+  background: #121a29;
+  color: #edf2f7;
+  padding: .9rem 1rem;
   text-align: left;
   font: inherit;
-  font-size: .88rem;
+}
+
+.r14-taste-tabs button:nth-child(1) svg:first-child { color: var(--taste-violet); }
+.r14-taste-tabs button:nth-child(2) svg:first-child { color: var(--taste-yellow); }
+.r14-taste-tabs button:nth-child(3) svg:first-child { color: var(--taste-green); }
+.r14-taste-tabs button span {
+  font-size: .9rem;
   font-weight: 820;
+  line-height: 1.35;
+}
+.r14-taste-tabs button svg:last-child { color: #68758a; }
+
+.r14-taste-mission-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  align-items: center;
+  margin-top: .8rem;
 }
 
-.r14-taste-tabs button.is-active {
-  border-color: #172238;
-  background: #172238;
-  color: #fff;
-}
-
-.r14-taste-stage {
-  display: grid;
-  grid-template-columns: .92fr 1.08fr;
-  gap: 1rem;
-  margin-top: 1rem;
-  border: 1px solid #ccd5e2;
-  border-radius: 1.65rem;
-  background: #fff;
-  padding: clamp(1.15rem, 3vw, 2rem);
-  box-shadow: 0 28px 70px -58px rgba(15,23,42,.7);
-}
-
-.r14-taste-situation {
-  border-radius: 1.2rem;
-  background: #f7f9fc;
-  padding: 1.35rem;
-}
-
-.r14-taste-situation > span {
-  color: var(--taste-blue);
-  font-size: .7rem;
+.r14-taste-mission-head strong {
+  border: 1px solid rgba(167,139,250,.3);
+  border-radius: 999px;
+  background: rgba(167,139,250,.1);
+  color: #d9ccff;
+  padding: .3rem .55rem;
+  font-size: .64rem;
   font-weight: 900;
-  letter-spacing: .11em;
+  letter-spacing: .08em;
 }
 
-.r14-taste-situation h3 {
-  margin: .65rem 0 0;
-  color: #111827;
-  font-family: "Fraunces", Georgia, serif;
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 1;
-  letter-spacing: -.04em;
+.r14-taste-mission-head span {
+  color: #fff;
+  font-size: 1.03rem;
+  font-weight: 850;
 }
 
-.r14-taste-situation p {
-  margin: 1rem 0 0;
-  color: #465569;
-  line-height: 1.65;
+.r14-taste-situation-copy {
+  margin: .95rem 0 0;
+  color: var(--taste-copy);
+  font-size: .93rem;
+  line-height: 1.62;
 }
 
 .r14-taste-choices {
   display: grid;
   gap: .75rem;
-  align-content: start;
+  margin-top: 1rem;
 }
 
 .r14-taste-choices button {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: .8rem;
-  align-items: start;
+  gap: .42rem;
   width: 100%;
-  border: 1px solid #d7dee8;
+  border: 1px solid var(--taste-line);
   border-radius: 1rem;
-  background: #fff;
-  color: #172033;
+  background: #121a29;
+  color: #fff;
   padding: 1rem;
   text-align: left;
   font: inherit;
 }
 
-.r14-taste-choices button > span {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: .8rem;
-  background: #edf2ff;
-  color: var(--taste-blue);
-  font-size: .72rem;
-  font-weight: 900;
-}
-
+.r14-taste-choices button:first-child { border-left: 3px solid #64748b; }
+.r14-taste-choices button:last-child { border-left: 3px solid var(--taste-violet); }
 .r14-taste-choices button strong {
-  padding-top: .35rem;
-  font-size: .95rem;
-  line-height: 1.4;
+  font-size: .94rem;
+  line-height: 1.35;
+}
+.r14-taste-choices button span {
+  color: #9eabba;
+  font-size: .78rem;
+  line-height: 1.5;
 }
 
-.r14-taste-choices button.is-selected {
-  border-color: #7687a0;
-  background: #f8fafc;
+.r14-feedback,
+.r14-evidence-card,
+.r14-preview-truth,
+.r14-trace-copy {
+  margin-top: 1rem;
+  border-radius: 1rem;
+  padding: 1rem;
 }
 
-.r14-taste-result,
-.r14-taste-prompt {
-  grid-column: 1 / -1;
-  border-radius: 1.1rem;
-  padding: 1rem 1.15rem;
+.r14-feedback {
+  border: 1px solid rgba(255,255,255,.12);
+  background: #111827;
 }
 
-.r14-taste-result {
-  border: 1px solid #a9d8cc;
-  background: #eefaf6;
+.r14-feedback.is-success {
+  border-color: rgba(85,224,163,.32);
+  background: rgba(85,224,163,.07);
 }
 
-.r14-taste-result > div:first-child {
+.r14-feedback.is-rethink {
+  border-color: rgba(251,113,133,.3);
+  background: rgba(251,113,133,.06);
+}
+
+.r14-feedback > div {
+  display: flex;
+  align-items: flex-start;
+  gap: .55rem;
+}
+.r14-feedback.is-success > div { color: var(--taste-green); }
+.r14-feedback.is-rethink > div { color: #fda4af; }
+.r14-feedback strong { color: inherit; font-size: .92rem; line-height: 1.4; }
+.r14-feedback p {
+  margin: .7rem 0 0;
+  color: var(--taste-copy);
+  font-size: .83rem;
+  line-height: 1.56;
+}
+
+.r14-evidence-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .8rem;
+  border: 1px solid rgba(244,232,107,.26);
+  background: rgba(244,232,107,.055);
+}
+.r14-evidence-card > svg { color: var(--taste-yellow); margin-top: .1rem; }
+.r14-evidence-card span {
+  display: block;
+  color: var(--taste-yellow);
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+.r14-evidence-card strong {
+  display: block;
+  margin-top: .28rem;
+  color: #fff;
+  font-size: .84rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.r14-evidence-card p {
+  margin: .55rem 0 0;
+  color: #9da9b9;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+.r14-taste-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  width: 100%;
+  margin-top: 1rem;
+  border: 1px solid rgba(167,139,250,.55);
+  border-radius: .95rem;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  min-height: 50px;
+  padding: .75rem 1rem;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 900;
+  letter-spacing: .01em;
+}
+.r14-taste-primary:disabled {
+  border-color: rgba(255,255,255,.08);
+  background: #202938;
+  color: #6f7b8f;
+  cursor: not-allowed;
+}
+
+.r14-reflection-title {
   display: flex;
   align-items: center;
-  gap: .55rem;
-  color: #087164;
-  font-size: .72rem;
-  font-weight: 900;
-  letter-spacing: .08em;
+  gap: .6rem;
+  margin-top: .8rem;
 }
+.r14-reflection-title svg { color: var(--taste-violet); }
+.r14-reflection-title h3 { margin: 0; font-size: 2rem; }
 
-.r14-taste-result > p {
-  max-width: 950px;
-  margin: .75rem 0 0;
-  color: #26443f;
-  line-height: 1.65;
+.r14-taste textarea {
+  width: 100%;
+  margin-top: 1rem;
+  resize: vertical;
+  border: 1px solid rgba(167,139,250,.28);
+  border-radius: 1rem;
+  background: #0c1320;
+  color: #fff;
+  padding: .95rem 1rem;
+  font: inherit;
+  font-size: .88rem;
+  line-height: 1.55;
+  outline: none;
 }
+.r14-taste textarea::placeholder { color: #64748b; }
+.r14-taste textarea:focus { border-color: var(--taste-violet); box-shadow: 0 0 0 3px rgba(167,139,250,.1); }
 
-.r14-taste-pillars {
+.r14-reflection-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: .45rem;
-  margin-top: .9rem;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-top: .45rem;
+  color: #7c899b;
+  font-size: .66rem;
+}
+.r14-reflection-meta em { font-style: normal; text-align: right; }
+
+.r14-taste-fan-screen {
+  background: radial-gradient(circle at 50% 36%, rgba(124,58,237,.14), transparent 34%);
 }
 
-.r14-taste-pillars span {
-  border: 1px solid #9fcec2;
-  border-radius: 999px;
-  background: #fff;
-  color: #0b675d;
-  padding: .32rem .58rem;
-  font-size: .67rem;
-  font-weight: 900;
-  letter-spacing: .06em;
+.r14-preview-truth {
+  display: flex;
+  gap: .55rem;
+  align-items: flex-start;
+  border: 1px solid rgba(244,232,107,.2);
+  background: rgba(244,232,107,.045);
+  color: #e9e19b;
+  font-size: .72rem;
+  line-height: 1.5;
+}
+.r14-preview-truth svg { flex: 0 0 auto; }
+
+.r14-fan-preview {
+  height: 285px;
+  margin-top: .55rem;
+}
+
+.r14-trace-copy {
+  border: 1px solid rgba(167,139,250,.22);
+  background: rgba(167,139,250,.055);
+}
+.r14-trace-copy h3 { margin-top: 0; font-size: 1.65rem; }
+.r14-trace-copy p {
+  margin: .65rem 0 0;
+  color: #aeb9ca;
+  font-size: .78rem;
+  line-height: 1.55;
+}
+.r14-trace-copy strong { color: #f3f4f6; }
+
+.r14-taste-gate > p {
+  margin: .9rem 0 0;
+  color: var(--taste-copy);
+  font-size: .88rem;
+  line-height: 1.6;
+}
+
+.r14-taste-actions {
+  display: grid;
+  gap: .6rem;
+  margin-top: 1rem;
+}
+.r14-taste-actions .action-primary,
+.r14-taste-actions .action-secondary {
+  width: 100%;
+  justify-content: center;
+}
+.r14-taste-actions .action-secondary {
+  border-color: rgba(85,224,163,.32);
+  color: #c6f7e0;
+  background: rgba(85,224,163,.055);
 }
 
 .r14-taste-reset {
@@ -216,81 +400,19 @@
   margin-top: 1rem;
   border: 0;
   background: transparent;
-  color: #0c6158;
+  color: #a9b4c5;
   padding: 0;
   font: inherit;
-  font-size: .8rem;
-  font-weight: 850;
-}
-
-.r14-taste-prompt {
-  border: 1px dashed #cbd5e1;
-  background: #fbfcfe;
-  color: #66758a;
-  font-size: .86rem;
-}
-
-.r14-taste-next {
-  display: grid;
-  grid-template-columns: minmax(0,1fr) auto;
-  align-items: end;
-  gap: 1.5rem;
-  margin-top: 1rem;
-  border: 1px solid #26334a;
-  border-radius: 1.5rem;
-  background: #151e30;
-  padding: clamp(1.3rem, 4vw, 2.2rem);
-}
-
-.r14-taste-next > div:first-child > span {
-  color: #8eb1ff;
-  font-size: .68rem;
-  font-weight: 900;
-  letter-spacing: .1em;
-}
-
-.r14-taste-next h3 {
-  max-width: 820px;
-  margin: .55rem 0 0;
-  color: #fff;
-  font-family: "Fraunces", Georgia, serif;
-  font-size: clamp(1.9rem, 3.7vw, 3.2rem);
-  line-height: 1.02;
-  letter-spacing: -.035em;
-}
-
-.r14-taste-next p {
-  max-width: 820px;
-  margin: .8rem 0 0;
-  color: #cbd5e1;
-  line-height: 1.6;
-}
-
-.r14-taste-actions {
-  display: grid;
-  gap: .55rem;
-  min-width: min(100%, 250px);
-}
-
-.r14-taste-next .action-secondary {
-  border-color: #53627c;
-  color: #eef4ff;
-}
-
-@media (max-width: 850px) {
-  .r14-taste-tabs,
-  .r14-taste-stage,
-  .r14-taste-next {
-    grid-template-columns: 1fr;
-  }
-  .r14-taste-tabs button { min-height: 58px; }
-  .r14-taste-actions { min-width: 0; }
+  font-size: .76rem;
+  font-weight: 800;
 }
 
 @media (max-width: 520px) {
-  .r14-taste-heading h2 { font-size: clamp(2.45rem, 12vw, 3.65rem); }
-  .r14-taste-tabs { gap: .5rem; }
-  .r14-taste-stage { border-radius: 1.25rem; padding: .9rem; }
-  .r14-taste-situation { padding: 1rem; }
-  .r14-taste-situation h3 { font-size: 2.15rem; }
+  .r14-taste-heading { text-align: left; }
+  .r14-taste-heading h2 { font-size: clamp(2.25rem, 12vw, 3.35rem); }
+  .r14-taste-heading > p { margin-left: 0; }
+  .r14-taste-shell { border-radius: 1.35rem; }
+  .r14-taste-progress { padding-inline: .8rem; }
+  .r14-taste-screen { padding: 1rem .85rem 1.1rem; }
+  .r14-fan-preview { height: 260px; }
 }
