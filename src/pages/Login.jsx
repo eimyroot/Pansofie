@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
 import { safeReturnTo } from "@/lib/authReturnTo";
+import { getOnboardingState } from "@/lib/pansofieOnboardingFlow";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -23,9 +24,15 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       if (signInError) throw signInError;
-      navigate(destination, { replace: true });
+
+      const onboarding = await getOnboardingState(data.user?.id);
+      if (onboarding.supported && !onboarding.data?.onboarding_completed_at) {
+        navigate(`/onboarding?returnTo=${encodeURIComponent(destination)}`, { replace: true });
+      } else {
+        navigate(destination, { replace: true });
+      }
     } catch (err) {
       setError(err.message || "Neplatný e-mail nebo heslo.");
     } finally {
@@ -41,7 +48,7 @@ export default function Login() {
       footer={<><span>Pilotní účty vznikají na pozvání. </span><Link to="/zapojit-se" className="text-primary font-medium hover:underline">Chci se zapojit</Link></>}
     >
       <div className="mb-6 rounded-2xl border border-primary/20 bg-primary/[0.04] p-4 text-sm text-muted-foreground leading-relaxed">
-        Veřejná registrace zůstává během řízeného pilotu vypnutá. Pokud jste už dostali účet, přihlaste se e-mailem a heslem; po přihlášení se otevře nástěnka podle vašich skutečných rolí a oprávnění.
+        Veřejná registrace zůstává během řízeného pilotu vypnutá. Pokud jste už dostali účet, přihlaste se e-mailem a heslem; nový účet při prvním vstupu projde krátkou nultou misí a potom se otevře nástěnka podle skutečných rolí a oprávnění.
       </div>
 
       {error && <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
