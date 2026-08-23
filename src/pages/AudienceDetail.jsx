@@ -161,9 +161,10 @@ const AUDIENCES = {
   },
 };
 
-export default function AudienceDetail() {
-  const { audience } = useParams();
+export default function AudienceDetail({ audience: audienceProp = null }) {
+  const { audience: routeAudience } = useParams();
   const { locale } = useLanguage();
+  const audience = audienceProp || routeAudience;
   const definition = AUDIENCES[audience];
 
   if (!definition) {
@@ -181,6 +182,7 @@ export default function AudienceDetail() {
 
   const copy = definition[locale] || definition.cs;
   const Icon = definition.icon;
+  const primaryTarget = audience === "skoly" ? "/zapojit-se/skola" : audience === "firmy" ? "/zapojit-se/firma" : "/materialovy-most";
 
   return (
     <div className={`min-h-screen r14-audience-detail r14-audience-detail--${definition.tone}`}>
@@ -254,7 +256,7 @@ export default function AudienceDetail() {
             <h2>{copy.cta}</h2>
             <p>{copy.ctaBody}</p>
             <div className="r14-cta-actions">
-              <Link to="/zapojit-se" className="action-primary">{copy.cta} <ArrowRight size={18} /></Link>
+              <Link to={primaryTarget} className="action-primary">{copy.cta} <ArrowRight size={18} /></Link>
               <Link to="/pro-koho" className="action-secondary">{locale === "en" ? "Explore other audiences" : "Prohlédnout další skupiny"}</Link>
             </div>
           </div>
