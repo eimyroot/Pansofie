@@ -11,7 +11,6 @@ const GROUPS = [
       ["/pro-koho", "Pro koho"],
       ["/pilot", "Pro školy"],
       ["/partneri", "Pro partnery"],
-      ["/materialovy-most", "Materiálový most"],
       ["/zapojit-se", "Jak se zapojit"],
       ["/zapojit-se?mode=simulator", "Vyzkoušet PANSOFIEDIT"],
     ],
