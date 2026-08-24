@@ -1,0 +1,79 @@
+name: Pansophic Classic R27 Browser Proof
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "src/main.jsx"
+      - "src/components/pansofie/PublicNav.jsx"
+      - "src/pansophic-classic-r27.css"
+      - "scripts/check-pansophic-classic-r27.mjs"
+      - "tests/e2e/pansophic-classic-r27.spec.mjs"
+      - "tests/e2e/pansophic-visual-r26.spec.mjs"
+      - "package.json"
+      - ".github/workflows/pansophic-classic-r27-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pansophic-classic-r27-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PANSOFIE_LOCAL_URL: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Run R27 static contract
+        run: npm run check:pansophic-classic-r27
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install chromium
+
+      - name: Start local Vite server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pansofie-r27.log 2>&1 &
+          echo $! > /tmp/pansofie-r27.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5173/ >/dev/null; then
+              echo "LOCAL_VITE=READY"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pansofie-r27.log
+          exit 1
+
+      - name: Run R27 browser acceptance
+        run: npx playwright test tests/e2e/pansophic-classic-r27.spec.mjs --reporter=line
+
+      - name: Upload R27 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pansofie-pansophic-classic-r27-browser-evidence
+          path: |
+            browser-evidence/pansophic-classic-r27/
+            test-results/
+            /tmp/pansofie-r27.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Vite server
+        if: always()
+        run: |
+          if [ -f /tmp/pansofie-r27.pid ]; then kill "$(cat /tmp/pansofie-r27.pid)" || true; fi

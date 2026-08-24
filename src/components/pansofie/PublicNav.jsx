@@ -40,7 +40,7 @@ export default function PublicNav() {
   const links = LINKS[en ? "en" : "cs"];
 
   return (
-    <header className="pansofie-public-header fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/92 backdrop-blur-xl">
+    <header data-nav-release="r27" className="pansofie-public-header fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/92 backdrop-blur-xl">
       <div className="pansofie-public-nav-row container-px max-w-7xl mx-auto flex items-center justify-between gap-4">
         <Link to="/" className="group flex items-center gap-2.5" aria-label={en ? "Pansofie — home" : "Pansofie — domů"}>
           <span className="network-brand-node h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-sm transition-transform group-hover:-translate-y-0.5 motion-reduce:transition-none"><Leaf size={18} /></span>

@@ -62,7 +62,7 @@ for (const viewport of [
       };
     });
 
-    expect(heroMetrics.fontFamily).toMatch(/Cormorant Garamond|Fraunces/i);
+    expect(heroMetrics.fontFamily).toMatch(/EB Garamond|Cormorant Garamond|Fraunces/i);
     expect(heroMetrics.fontSize).toBeLessThanOrEqual(viewport.isMobile ? 64 : 84);
     expect(heroMetrics.height / Math.max(heroMetrics.lineHeight, 1)).toBeLessThanOrEqual(viewport.isMobile ? 2.3 : 2.05);
 

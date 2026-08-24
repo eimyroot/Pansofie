@@ -14,6 +14,10 @@ async function assertNoOverflow(page) {
   expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
 }
 
+function expectPansophicDisplayFamily(fontFamily) {
+  expect(fontFamily.includes("Cormorant Garamond") || fontFamily.includes("EB Garamond")).toBe(true);
+}
+
 for (const scenario of [
   { label: "desktop", viewport: { width: 1366, height: 1000 } },
   { label: "mobile", viewport: { width: 390, height: 844 } },
@@ -36,7 +40,7 @@ for (const scenario of [
         fontSize: Number.parseFloat(style.fontSize),
       };
     });
-    expect(heroStyle.fontFamily).toContain("Cormorant Garamond");
+    expectPansophicDisplayFamily(heroStyle.fontFamily);
     expect(Number.parseFloat(heroStyle.stroke)).toBeGreaterThan(0);
     expect(heroStyle.textShadow).not.toBe("none");
     expect(heroStyle.fontSize).toBeLessThanOrEqual(scenario.label === "mobile" ? 44 : 61);
@@ -47,7 +51,7 @@ for (const scenario of [
       const style = getComputedStyle(node);
       return { color: style.color, shadow: style.textShadow, stroke: style.webkitTextStrokeWidth };
     });
-    expect(accentStyle.color).toContain("88, 225, 140");
+    expect(accentStyle.color).toContain("102, 227, 154");
     expect(accentStyle.shadow).not.toBe("none");
     expect(Number.parseFloat(accentStyle.stroke)).toBeGreaterThan(0);
 
@@ -64,7 +68,7 @@ for (const scenario of [
     const loginTitle = page.getByRole("heading", { level: 1, name: "Vítejte zpět" });
     await expect(loginTitle).toBeVisible();
     const loginStyle = await loginTitle.evaluate((node) => getComputedStyle(node).fontFamily);
-    expect(loginStyle).toContain("Cormorant Garamond");
+    expectPansophicDisplayFamily(loginStyle);
 
     const input = page.locator("input").first();
     await expect(input).toBeVisible();

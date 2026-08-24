@@ -31,7 +31,7 @@ test("R12 gives the public home a stronger editorial hierarchy", async ({ page }
     const s = getComputedStyle(el);
     return { fontFamily: s.fontFamily, fontWeight: s.fontWeight, color: s.color, fontSize: s.fontSize };
   });
-  expect(typography.fontFamily).toMatch(/Cormorant Garamond|Syne/);
+  expect(typography.fontFamily).toMatch(/EB Garamond|Cormorant Garamond|Syne/);
   expect(Number.parseInt(typography.fontWeight, 10)).toBeGreaterThanOrEqual(600);
   expect(Number.parseFloat(typography.fontSize)).toBeGreaterThanOrEqual(44);
   expect(isLightRgb(typography.color)).toBeTruthy();

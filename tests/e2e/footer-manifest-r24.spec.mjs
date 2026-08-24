@@ -32,6 +32,10 @@ function isDarkRgb(value) {
   return Math.max(r, g, b) < 48;
 }
 
+function usesCanonicalBodyFont(fontFamily) {
+  return /Plus Jakarta Sans|Source Sans 3/i.test(String(fontFamily || ""));
+}
+
 for (const scenario of [
   { label: "desktop", viewport: { width: 1440, height: 1000 } },
   { label: "mobile", viewport: { width: 390, height: 844 } },
@@ -81,7 +85,7 @@ for (const scenario of [
     expect(Math.round(metrics.headerHeight)).toBe(74);
     expect(Math.round(metrics.ribbonTop)).toBe(74);
     expect(isDarkRgb(metrics.footerBackground)).toBeTruthy();
-    expect(metrics.footerFontFamily).toContain("Plus Jakarta Sans");
+    expect(usesCanonicalBodyFont(metrics.footerFontFamily)).toBeTruthy();
     expect(metrics.maxFooterFontSize).toBeLessThanOrEqual(18);
 
     await page.screenshot({ path: path.join(EVIDENCE_DIR, `footer-${scenario.label}.png`), fullPage: true });
