@@ -33,9 +33,14 @@ for (const viewport of [
 
     const h1 = page.getByRole("heading", { name: "Pro koho je Pansofie?", exact: true });
     await expect(h1).toBeVisible();
-    await expect(page.getByText("Internet a vzdělání musí být zdarma", { exact: false })).toBeVisible();
-    await expect(page.getByText("Technologie nesmí sloužit jen byznysu", { exact: false })).toBeVisible();
-    await expect(page.getByText("Digitální gramotnost bez morální gramotnosti", { exact: false })).toBeVisible();
+
+    // R17 intentionally repeats these principles in the persistent header.
+    // R13 continues to verify the original manifesto inside the page itself.
+    const pageManifest = page.locator('[aria-label="Principy Pansofie"]');
+    await expect(pageManifest).toHaveCount(1);
+    await expect(pageManifest.getByText("Internet a vzdělání musí být zdarma", { exact: false })).toBeVisible();
+    await expect(pageManifest.getByText("Technologie nesmí sloužit jen byznysu", { exact: false })).toBeVisible();
+    await expect(pageManifest.getByText("Digitální gramotnost bez morální gramotnosti", { exact: false })).toBeVisible();
 
     for (const label of ["POZNAT SEBE", "TVOŘIT S DRUHÝMI", "ZLEPŠOVAT SVĚT"]) {
       await expect(page.getByText(label, { exact: true })).toBeVisible();

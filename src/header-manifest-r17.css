@@ -1,0 +1,125 @@
+/* PANSOFIE R17 — public header manifesto.
+   Additive visual layer only. Existing motion files remain untouched. */
+
+.pansofie-public-header {
+  height: 118px;
+}
+
+.pansofie-header-manifest {
+  height: 44px;
+  border-bottom: 1px solid hsl(var(--border) / 0.58);
+  background:
+    linear-gradient(90deg, hsl(var(--role-learner) / 0.045), transparent 28%, hsl(var(--role-partner) / 0.045) 58%, hsl(var(--status-success) / 0.045)),
+    hsl(var(--background) / 0.96);
+  overflow: hidden;
+}
+
+.pansofie-header-manifest__rail {
+  width: min(100%, 1440px);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pansofie-header-manifest__rail::-webkit-scrollbar { display: none; }
+
+.pansofie-header-manifest__item {
+  flex: 1 0 360px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: hsl(var(--muted-foreground));
+  font-size: 10.5px;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+}
+
+.pansofie-header-manifest__item strong {
+  flex: 0 0 auto;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pansofie-header-manifest__item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pansofie-header-manifest__item[data-principle="omnes"] strong { color: hsl(var(--role-learner)); }
+.pansofie-header-manifest__item[data-principle="omnia"] strong { color: hsl(var(--role-partner)); }
+.pansofie-header-manifest__item[data-principle="omnino"] strong { color: hsl(var(--status-success)); }
+
+.pansofie-header-manifest__item::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  flex: 0 0 auto;
+  background: currentColor;
+  opacity: 0.42;
+}
+
+.pansofie-public-header .pansofie-public-nav-row {
+  height: 74px;
+}
+
+/* Existing route ribbon is kept intact and simply starts below the new strip. */
+body.pansofie-network-live .route-network-ribbon {
+  top: 118px;
+}
+
+body.pansofie-network-live .network-scroll-rail {
+  top: 176px;
+}
+
+body.pansofie-network-live .route-network-orbit {
+  top: 136px;
+}
+
+/* Public pages already reserve space for the old 74px header + 42px ribbon.
+   This additive offset accounts only for the new 44px manifesto strip. */
+.pansofie-public-header + main {
+  padding-top: 44px;
+}
+
+@media (max-width: 767px) {
+  .pansofie-header-manifest__rail {
+    padding-inline: 14px;
+    gap: 10px;
+    scroll-snap-type: x proximity;
+  }
+
+  .pansofie-header-manifest__item {
+    flex-basis: min(88vw, 520px);
+    scroll-snap-align: start;
+    font-size: 10px;
+  }
+
+  .pansofie-header-manifest__item span {
+    text-overflow: clip;
+  }
+}
+
+@media (min-width: 1280px) {
+  .pansofie-header-manifest__item {
+    flex-basis: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pansofie-header-manifest__rail {
+    scroll-behavior: auto;
+  }
+}
