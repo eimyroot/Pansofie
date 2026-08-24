@@ -143,14 +143,24 @@ const COPY = {
 
 const STEP_ICONS = [Target, Wrench, Camera, PenLine, Eye];
 
-const DEMO_FAN_ROWS = [
-  { axis_code: "digital_attention", pillar_code: "know_self", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "Ukázková práce s digitální pozorností" },
-  { axis_code: "critical_reason", pillar_code: "know_self", depth: 2, experience_count: 2, evidence_count: 2, context_count: 1, latest_title: "Ověření původu a kontextu informace" },
-  { axis_code: "respectful_dialogue", pillar_code: "create_with_others", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "Reflexe společného dialogu" },
-  { axis_code: "cooperation", pillar_code: "create_with_others", depth: 0, experience_count: 0, evidence_count: 0, context_count: 0, latest_title: null },
-  { axis_code: "circular_action", pillar_code: "improve_world", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "Druhý život funkční věci" },
-  { axis_code: "local_impact", pillar_code: "improve_world", depth: 0, experience_count: 0, evidence_count: 0, context_count: 0, latest_title: null },
-];
+const DEMO_FAN_ROWS = {
+  cs: [
+    { axis_code: "digital_attention", pillar_code: "know_self", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "Ukázková práce s digitální pozorností" },
+    { axis_code: "critical_reason", pillar_code: "know_self", depth: 2, experience_count: 2, evidence_count: 2, context_count: 1, latest_title: "Ověření původu a kontextu informace" },
+    { axis_code: "respectful_dialogue", pillar_code: "create_with_others", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "Reflexe společného dialogu" },
+    { axis_code: "cooperation", pillar_code: "create_with_others", depth: 0, experience_count: 0, evidence_count: 0, context_count: 0, latest_title: null },
+    { axis_code: "circular_action", pillar_code: "improve_world", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "Druhý život funkční věci" },
+    { axis_code: "local_impact", pillar_code: "improve_world", depth: 0, experience_count: 0, evidence_count: 0, context_count: 0, latest_title: null },
+  ],
+  en: [
+    { axis_code: "digital_attention", pillar_code: "know_self", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "Illustrative work with digital attention" },
+    { axis_code: "critical_reason", pillar_code: "know_self", depth: 2, experience_count: 2, evidence_count: 2, context_count: 1, latest_title: "Checking the origin and context of information" },
+    { axis_code: "respectful_dialogue", pillar_code: "create_with_others", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "Reflection on a shared dialogue" },
+    { axis_code: "cooperation", pillar_code: "create_with_others", depth: 0, experience_count: 0, evidence_count: 0, context_count: 0, latest_title: null },
+    { axis_code: "circular_action", pillar_code: "improve_world", depth: 1, experience_count: 1, evidence_count: 1, context_count: 1, latest_title: "A second life for a functional object" },
+    { axis_code: "local_impact", pillar_code: "improve_world", depth: 0, experience_count: 0, evidence_count: 0, context_count: 0, latest_title: null },
+  ],
+};
 
 export default function JakFunguje() {
   const { locale: rawLocale } = useLanguage();
@@ -251,7 +261,7 @@ export default function JakFunguje() {
                 <Sparkles size={15} className="text-amber-600 shrink-0 mt-0.5" />
                 <span>{t.fanDemo}</span>
               </div>
-              <ExperienceFan rows={DEMO_FAN_ROWS} locale={locale} />
+              <ExperienceFan rows={DEMO_FAN_ROWS[locale]} locale={locale} />
             </div>
           </div>
         </section>
