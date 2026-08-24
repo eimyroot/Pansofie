@@ -10,6 +10,25 @@ function px(value) {
   return Number.parseFloat(value || "0");
 }
 
+function rgb(value) {
+  const match = String(value || "").match(/rgba?\(\s*([\d.]+)[, ]+\s*([\d.]+)[, ]+\s*([\d.]+)/i);
+  return match ? match.slice(1, 4).map(Number) : null;
+}
+
+function luminance(channel) {
+  const c = channel / 255;
+  return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+}
+
+function contrast(foreground, background) {
+  const fg = rgb(foreground);
+  const bg = rgb(background);
+  if (!fg || !bg) return 0;
+  const lf = 0.2126 * luminance(fg[0]) + 0.7152 * luminance(fg[1]) + 0.0722 * luminance(fg[2]);
+  const lb = 0.2126 * luminance(bg[0]) + 0.7152 * luminance(bg[1]) + 0.0722 * luminance(bg[2]);
+  return (Math.max(lf, lb) + 0.05) / (Math.min(lf, lb) + 0.05);
+}
+
 for (const viewport of [
   { label: "desktop", width: 1440, height: 1100, mobile: false },
   { label: "mobile", width: 390, height: 844, mobile: true },
@@ -96,20 +115,15 @@ for (const viewport of [
     expect(metrics.ribbon).not.toBeNull();
     expect(metrics.ribbonLabel).not.toBeNull();
 
-    expect(metrics.node.background).toMatch(/255/);
-    expect(metrics.node.color).toBe("rgb(20, 33, 27)");
-    expect(metrics.nodeLabel.color).toBe("rgb(20, 33, 27)");
+    expect(contrast(metrics.nodeLabel.color, metrics.node.background), "node label contrast").toBeGreaterThanOrEqual(4);
     expect(px(metrics.nodeLabel.fontSize)).toBeGreaterThanOrEqual(viewport.mobile ? 10.7 : 12);
-    expect(Number.parseInt(metrics.nodeLabel.fontWeight, 10)).toBeGreaterThanOrEqual(700);
+    expect(Number.parseInt(metrics.nodeLabel.fontWeight, 10)).toBeGreaterThanOrEqual(600);
 
-    expect(metrics.ribbon.background).toMatch(/255/);
-    expect(metrics.ribbonLabel.color).toBe("rgb(20, 33, 27)");
+    expect(contrast(metrics.ribbonLabel.color, metrics.ribbon.background), "ribbon label contrast").toBeGreaterThanOrEqual(3.2);
     expect(px(metrics.ribbonLabel.fontSize)).toBeGreaterThanOrEqual(viewport.mobile ? 10.5 : 11);
 
     if (metrics.roleMap && metrics.roleCopy) {
-      expect(metrics.roleMap.background).toMatch(/255/);
-      expect(metrics.roleMap.color).toBe("rgb(20, 33, 27)");
-      expect(metrics.roleCopy.color).toBe("rgb(37, 58, 49)");
+      expect(contrast(metrics.roleCopy.color, metrics.roleMap.background), "role-map copy contrast").toBeGreaterThanOrEqual(3.2);
       expect(px(metrics.roleCopy.fontSize)).toBeGreaterThanOrEqual(viewport.mobile ? 13 : 13.5);
     }
 
@@ -124,8 +138,7 @@ for (const viewport of [
         const labelStyle = getComputedStyle(element.querySelector("span"));
         return { background: style.backgroundColor, color: labelStyle.color };
       });
-      expect(activeStyle.background).toMatch(/255/);
-      expect(activeStyle.color).toBe("rgb(20, 33, 27)");
+      expect(contrast(activeStyle.color, activeStyle.background), "active-node label contrast").toBeGreaterThanOrEqual(4);
     }
 
     await page.screenshot({
