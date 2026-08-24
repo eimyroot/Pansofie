@@ -1,0 +1,79 @@
+name: Pansophic Visual R26 Browser Proof
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "src/main.jsx"
+      - "src/pansophic-visual-system-r26.css"
+      - "src/pansophic-typography-r26.css"
+      - "src/pansophic-closure-r26.css"
+      - "scripts/check-pansophic-visual-r26.mjs"
+      - "tests/e2e/pansophic-visual-r26.spec.mjs"
+      - "package.json"
+      - ".github/workflows/pansophic-visual-r26-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pansophic-visual-r26-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PANSOFIE_LOCAL_URL: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Run R26 static contract
+        run: npm run check:pansophic-visual-r26
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install chromium
+
+      - name: Start local Vite server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pansofie-r26.log 2>&1 &
+          echo $! > /tmp/pansofie-r26.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5173/ >/dev/null; then
+              echo "LOCAL_VITE=READY"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pansofie-r26.log
+          exit 1
+
+      - name: Run R26 browser acceptance
+        run: npx playwright test tests/e2e/pansophic-visual-r26.spec.mjs --reporter=line
+
+      - name: Upload R26 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pansofie-r26-browser-evidence
+          path: |
+            browser-evidence/pansophic-visual-r26/
+            test-results/
+            /tmp/pansofie-r26.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Vite server
+        if: always()
+        run: |
+          if [ -f /tmp/pansofie-r26.pid ]; then kill "$(cat /tmp/pansofie-r26.pid)" || true; fi

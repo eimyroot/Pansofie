@@ -17,6 +17,9 @@ import "@/material-bridge-open-r14.css";
 import "@/show-dont-sell-r14.css";
 import "@/onboarding-library-r14.css";
 import "@/public-typography-density-r22.css";
+import "@/pansophic-visual-system-r26.css";
+import "@/pansophic-typography-r26.css";
+import "@/pansophic-closure-r26.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <App />
