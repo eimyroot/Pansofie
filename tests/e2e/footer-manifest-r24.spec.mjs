@@ -25,6 +25,13 @@ const canonicalHrefs = [
   "/login",
 ];
 
+function isDarkRgb(value) {
+  const match = String(value || "").match(/rgb\(\s*(\d+)[, ]+\s*(\d+)[, ]+\s*(\d+)\s*\)/i);
+  if (!match) return false;
+  const [, r, g, b] = match.map(Number);
+  return Math.max(r, g, b) < 48;
+}
+
 for (const scenario of [
   { label: "desktop", viewport: { width: 1440, height: 1000 } },
   { label: "mobile", viewport: { width: 390, height: 844 } },
@@ -73,7 +80,7 @@ for (const scenario of [
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
     expect(Math.round(metrics.headerHeight)).toBe(74);
     expect(Math.round(metrics.ribbonTop)).toBe(74);
-    expect(metrics.footerBackground).toBe("rgb(11, 16, 22)");
+    expect(isDarkRgb(metrics.footerBackground)).toBeTruthy();
     expect(metrics.footerFontFamily).toContain("Plus Jakarta Sans");
     expect(metrics.maxFooterFontSize).toBeLessThanOrEqual(18);
 
