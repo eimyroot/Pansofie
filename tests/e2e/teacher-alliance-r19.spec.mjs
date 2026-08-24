@@ -244,9 +244,10 @@ for (const scenario of [
     await expect(alliance.getByText("Bez bodů, pořadí a skrytého hodnocení dětí.")).toBeVisible();
 
     const metrics = alliance.getByLabel("Faktický stav školy");
-    await expect(metrics.getByText("12", { exact: true })).toBeVisible();
-    await expect(metrics.getByText("2", { exact: true })).toBeVisible();
-    await expect(metrics.getByText("4", { exact: true })).toBeVisible();
+    await expect(metrics.getByRole("article").filter({ hasText: "ověřených Experiences" }).getByRole("strong")).toHaveText("12");
+    await expect(metrics.getByRole("article").filter({ hasText: "čeká na lidské review" }).getByRole("strong")).toHaveText("2");
+    await expect(metrics.getByRole("article").filter({ hasText: "aktivních školních běhů" }).getByRole("strong")).toHaveText("4");
+    await expect(metrics.getByRole("article").filter({ hasText: "žáků dostupných pro pilot" }).getByRole("strong")).toHaveText("2");
 
     await expect(alliance.getByRole("heading", { name: "Žádosti o stvrzení zkušeností" })).toBeVisible();
     await expect(alliance.getByText("Kyber Bára")).toBeVisible();
