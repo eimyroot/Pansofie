@@ -27,6 +27,13 @@ footer[data-footer-release="r24"] {
   color: rgb(203 213 225);
 }
 
+/* R9 deliberately used !important for the historic green footer stop.
+   R24 is the explicit successor, so only the versioned footer overrides it. */
+.public-network-content footer[data-footer-release="r24"] {
+  background: #0b1016 !important;
+  border-top-color: rgb(30 41 59) !important;
+}
+
 .pansofie-footer-manifest {
   position: relative;
   overflow: hidden;
