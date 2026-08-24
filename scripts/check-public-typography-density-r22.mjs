@@ -8,9 +8,9 @@ const required = [
   [main, 'import "@/public-typography-density-r22.css"'],
   [css, "--public-type-hero"],
   [css, "--public-type-display"],
-  [css, '[class*="text-7xl"]'],
-  [css, '[class*="text-6xl"]'],
-  [css, '[class*="text-5xl"]'],
+  [css, ".public-network-content h1"],
+  [css, ".public-network-content h2"],
+  [css, ".r13-roles-page main > section.r13-roles-hero h1"],
   [css, ".r13-roles-page h2"],
   [css, 'p[class*="text-xl"]'],
 ];
