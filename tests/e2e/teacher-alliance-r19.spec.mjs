@@ -250,9 +250,10 @@ for (const scenario of [
     await expect(metrics.getByRole("article").filter({ hasText: "žáků dostupných pro pilot" }).getByRole("strong")).toHaveText("2");
 
     await expect(alliance.getByRole("heading", { name: "Žádosti o stvrzení zkušeností" })).toBeVisible();
-    await expect(alliance.getByText("Kyber Bára")).toBeVisible();
-    await expect(alliance.getByText("Labyrint algoritmů", { exact: true })).toBeVisible();
-    const reviewLink = alliance.getByRole("link", { name: /Posoudit důkaz a reflexi/ });
+    const reviewCard = alliance.locator(".r19-review-card").filter({ hasText: "Kyber Bára" });
+    await expect(reviewCard).toBeVisible();
+    await expect(reviewCard.getByText("Labyrint algoritmů", { exact: true })).toBeVisible();
+    const reviewLink = reviewCard.getByRole("link", { name: /Posoudit důkaz a reflexi/ });
     await expect(reviewLink).toHaveAttribute("href", "/skola/mise/run-submitted");
     await expect(alliance.getByRole("button", { name: /stvrdit/i })).toHaveCount(0);
 
