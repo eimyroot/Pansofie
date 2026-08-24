@@ -1,0 +1,77 @@
+name: Partner Alliance R25 Browser Proof
+
+on:
+  pull_request:
+    paths:
+      - "src/components/pansofie/PartnerAllianceDashboard.jsx"
+      - "src/pages/PartnerWorkspace.jsx"
+      - "src/lib/pansofiePartnerFlow.js"
+      - "scripts/check-partner-alliance-r25.mjs"
+      - "tests/e2e/partner-alliance-r25.spec.mjs"
+      - "package.json"
+      - ".github/workflows/partner-alliance-r25-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: partner-alliance-r25-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PANSOFIE_LOCAL_URL: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Run R25 static contract
+        run: npm run check:partner-alliance-r25
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install chromium
+
+      - name: Start local Vite server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pansofie-r25.log 2>&1 &
+          echo $! > /tmp/pansofie-r25.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5173/ >/dev/null; then
+              echo "LOCAL_VITE=READY"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pansofie-r25.log
+          exit 1
+
+      - name: Run R25 browser acceptance
+        run: npx playwright test tests/e2e/partner-alliance-r25.spec.mjs --reporter=line
+
+      - name: Upload R25 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pansofie-partner-alliance-r25-browser-evidence
+          path: |
+            browser-evidence/partner-alliance-r25/
+            test-results/
+            /tmp/pansofie-r25.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Vite server
+        if: always()
+        run: |
+          if [ -f /tmp/pansofie-r25.pid ]; then kill "$(cat /tmp/pansofie-r25.pid)" || true; fi

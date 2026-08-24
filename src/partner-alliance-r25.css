@@ -1,0 +1,9 @@
+/* R25 Partner Alliance dashboard layout guard.
+ * The dashboard is the first section inside the member main and therefore
+ * inherits the global ambient first-section pseudo-elements. Clip those
+ * decorative lights locally so they cannot widen the document canvas.
+ */
+[data-company-dashboard="r25"] {
+  position: relative;
+  overflow: clip;
+}
