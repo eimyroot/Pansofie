@@ -113,14 +113,14 @@ select,
 /* Mobile keeps the editorial character without returning to billboard sizing. */
 @media (max-width: 767px) {
   .public-network-content h1 {
-    font-size: clamp(2.75rem, 12.8vw, 3.55rem) !important;
-    line-height: 0.96 !important;
-    letter-spacing: -0.024em !important;
+    font-size: clamp(2.35rem, 10.5vw, 2.75rem) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.022em !important;
   }
 
   .public-network-content h2 {
-    font-size: clamp(2rem, 9.2vw, 2.55rem) !important;
-    line-height: 1 !important;
+    font-size: clamp(1.85rem, 8.2vw, 2.25rem) !important;
+    line-height: 1.02 !important;
   }
 
   .public-network-content h1,
