@@ -107,6 +107,7 @@ async function teacherContext(browser, viewport) {
       "access-control-allow-origin": "*",
       "access-control-allow-headers": "authorization, apikey, content-type, x-client-info, prefer, accept-profile, content-profile, range",
       "access-control-allow-methods": "GET,POST,PATCH,HEAD,OPTIONS",
+      "access-control-expose-headers": "Content-Range",
     };
 
     if (request.method() === "OPTIONS") {
