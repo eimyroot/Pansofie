@@ -23,22 +23,36 @@ export function AuthProvider({ children }) {
 
     setUser(authUser);
 
-    const extendedProfileQuery = await supabase
+    const r18ProfileQuery = await supabase
       .from("profiles")
-      .select("id, full_name, location, bio, network_role, offers_text, seeks_text, onboarding_completed_at")
+      .select("id, full_name, location, bio, network_role, offers_text, seeks_text, onboarding_completed_at, onboarding_track, terms_accepted_at, terms_accepted_version, dialogue_code_accepted_at, dialogue_code_accepted_version")
       .eq("id", authUser.id)
       .maybeSingle();
 
-    let profileResult = extendedProfileQuery;
+    let profileResult = r18ProfileQuery;
     let onboardingSupported = true;
-    if (extendedProfileQuery.error) {
-      onboardingSupported = false;
-      console.warn("PANSOFIE extended profile schema unavailable:", extendedProfileQuery.error.message);
-      profileResult = await supabase
+    let adultOnboardingSupported = true;
+
+    if (r18ProfileQuery.error) {
+      adultOnboardingSupported = false;
+      console.warn("PANSOFIE R18 profile schema unavailable:", r18ProfileQuery.error.message);
+
+      const r14ProfileQuery = await supabase
         .from("profiles")
-        .select("id, full_name, location, bio")
+        .select("id, full_name, location, bio, network_role, offers_text, seeks_text, onboarding_completed_at")
         .eq("id", authUser.id)
         .maybeSingle();
+
+      profileResult = r14ProfileQuery;
+      if (r14ProfileQuery.error) {
+        onboardingSupported = false;
+        console.warn("PANSOFIE extended profile schema unavailable:", r14ProfileQuery.error.message);
+        profileResult = await supabase
+          .from("profiles")
+          .select("id, full_name, location, bio")
+          .eq("id", authUser.id)
+          .maybeSingle();
+      }
     }
 
     const roleResult = await supabase
@@ -64,12 +78,17 @@ export function AuthProvider({ children }) {
       location: profileRow?.location || "",
       intro: profileRow?.bio || "",
       networkRole: profileRow?.network_role || "",
+      onboardingTrack: profileRow?.onboarding_track || "",
       offersText: profileRow?.offers_text || "",
       seeksText: profileRow?.seeks_text || "",
       onboardingSupported,
+      adultOnboardingSupported,
       onboardingCompletedAt: profileRow?.onboarding_completed_at || null,
-      // If the R14 schema is not deployed yet, preserve existing login behavior.
       onboardingCompleted: onboardingSupported ? Boolean(profileRow?.onboarding_completed_at) : true,
+      termsAcceptedAt: profileRow?.terms_accepted_at || null,
+      termsAcceptedVersion: profileRow?.terms_accepted_version || null,
+      dialogueCodeAcceptedAt: profileRow?.dialogue_code_accepted_at || null,
+      dialogueCodeAcceptedVersion: profileRow?.dialogue_code_accepted_version || null,
       role: roleRow?.role === "admin" ? "Administrátor" : "Člen Pansofie",
       paths: emptyPaths(),
       interests: [],
@@ -106,8 +125,6 @@ export function AuthProvider({ children }) {
       setSession(nextSession || null);
       setIsLoadingAuth(true);
 
-      // Run database reads after the auth callback returns; this avoids nesting
-      // additional Supabase calls inside the auth-state lock.
       setTimeout(async () => {
         if (!active) return;
         await loadUserData(nextSession?.user || null);
