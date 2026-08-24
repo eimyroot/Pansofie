@@ -121,6 +121,8 @@ export default function App() {
               <Route path="/bezpecnost" element={publicSurface(<PublicInfoPage kind="safety" />)} />
               <Route path="/podminky" element={publicSurface(<PublicInfoPage kind="terms" />)} />
 
+              <Route path="/prihlaseni" element={<Navigate to="/login" replace />} />
+              <Route path="/registrace" element={<Navigate to="/register" replace />} />
               <Route path="/login" element={authSurface(<Login />)} />
               <Route path="/register" element={authSurface(<Register />)} />
               <Route path="/forgot-password" element={authSurface(<ForgotPassword />)} />
