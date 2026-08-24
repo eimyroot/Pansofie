@@ -22,6 +22,11 @@ body.pansofie-network-live .route-network-orbit {
   top: 92px;
 }
 
+footer[data-footer-release="r24"] {
+  background-color: #0b1016;
+  color: rgb(203 213 225);
+}
+
 .pansofie-footer-manifest {
   position: relative;
   overflow: hidden;
