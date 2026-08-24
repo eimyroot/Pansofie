@@ -20,6 +20,12 @@ const vercel = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
 if (!Array.isArray(vercel.rewrites) || !vercel.rewrites.some((r) => r.source === '/(.*)' && r.destination === '/index.html')) {
   throw new Error('Vercel SPA rewrite invariant missing');
 }
+if (vercel.git?.deploymentEnabled !== true) {
+  throw new Error('Vercel Git deployments must remain explicitly enabled');
+}
+if (vercel.github?.autoAlias !== true) {
+  throw new Error('Vercel GitHub auto alias must remain enabled for main production publication');
+}
 
 const deployment = fs.readFileSync('DEPLOYMENT.md', 'utf8');
 for (const token of [
