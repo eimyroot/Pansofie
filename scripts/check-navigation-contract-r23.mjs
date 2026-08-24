@@ -6,6 +6,7 @@ const login = read("src/pages/Login.jsx");
 const register = read("src/pages/Register.jsx");
 const go = read("src/pages/PansofieGo.jsx");
 const material = read("src/pages/MaterialBridge.jsx");
+const materialLanding = read("src/pages/MaterialBridgeLanding.jsx");
 const witness = read("src/pages/WitnessVerification.jsx");
 const contract = read("docs/canonical/PANSOFIE_NAVIGATION_CONTRACT_V1.0.md");
 
@@ -13,12 +14,15 @@ const required = [
   [app, 'path="/prihlaseni" element={<Navigate to="/login" replace />}'],
   [app, 'path="/registrace" element={<Navigate to="/register" replace />}'],
   [app, 'path="/dashboard"'],
+  [app, 'path="/materialovy-most" element={publicSurface(<MaterialBridgeLanding />)}'],
   [app, 'path="/materialovy-most/workspace"'],
   [app, 'path="/potvrzeni-zkusenosti"'],
   [login, "Pilotní účty vznikají na pozvání."],
   [register, "Registrace je nyní pouze na pozvání"],
   [go, "PansofieGO · experimentální vrstva"],
   [go, "nic se neukládá"],
+  [materialLanding, "Veřejná podání nejdřív procházejí moderací."],
+  [materialLanding, "AVAILABLE → RESERVED → HANDED OVER"],
   [material, 'available: "AVAILABLE"'],
   [material, 'reserved: "RESERVED"'],
   [material, 'handed_over: "HANDED OVER"'],
