@@ -7,6 +7,7 @@ on:
       - "src/main.jsx"
       - "src/pansophic-visual-system-r26.css"
       - "src/pansophic-typography-r26.css"
+      - "src/pansophic-closure-r26.css"
       - "scripts/check-pansophic-visual-r26.mjs"
       - "tests/e2e/pansophic-visual-r26.spec.mjs"
       - "package.json"
