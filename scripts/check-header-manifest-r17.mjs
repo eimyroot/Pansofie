@@ -9,6 +9,7 @@ const assert = (condition, message) => {
 };
 
 const nav = read("src/components/pansofie/PublicNav.jsx");
+const footer = read("src/components/pansofie/PublicFooter.jsx");
 const css = read("src/header-manifest-r17.css");
 
 for (const text of [
@@ -16,18 +17,22 @@ for (const text of [
   "Technologie nesmí sloužit jen byznysu, ale musí pomáhat léčit nemoci, chránit přírodu a rozvíjet kulturu.",
   "Digitální gramotnost bez morální gramotnosti je nebezpečná zbraň. Učit se musíme rozumu, jazyku i srdci zároveň.",
 ]) {
-  assert(nav.includes(text), `missing exact manifesto sentence: ${text}`);
+  assert(footer.includes(text), `missing exact manifesto sentence in footer: ${text}`);
+  assert(!nav.includes(text), `manifesto sentence must not remain in compact header: ${text}`);
 }
 
 for (const marker of ["Všem", "Všemu", "Všestranně", "For all", "For the whole", "In every way"]) {
-  assert(nav.includes(marker), `missing bilingual manifesto label: ${marker}`);
+  assert(footer.includes(marker), `missing bilingual manifesto label: ${marker}`);
 }
 
-assert(nav.includes('data-principle={item.key}'), "semantic manifesto principle marker missing");
-assert(nav.includes('role="region"'), "manifesto must expose an accessible region");
-assert(nav.includes('import "@/header-manifest-r17.css"'), "R17 stylesheet import missing");
+assert(footer.includes('data-principle={item.key}'), "semantic manifesto principle marker missing");
+assert(footer.includes('role="region"'), "manifesto must expose an accessible region");
+assert(footer.includes('data-footer-release="r24"'), "R24 footer release marker missing");
+assert(!nav.includes("pansofie-header-manifest"), "manifesto strip must be removed from public header");
+assert(nav.includes('import "@/header-manifest-r17.css"'), "shared R17/R24 stylesheet import missing");
+assert(css.includes(".pansofie-footer-manifest"), "footer manifesto visual layer missing");
 assert(css.includes("body.pansofie-network-live .route-network-ribbon"), "route ribbon offset override missing");
-assert(css.includes(".pansofie-public-header + main"), "public content offset missing");
-assert(!nav.includes("Komenský by") && !nav.includes("Comenius would"), "manifesto must not be presented as a speculative Comenius quote");
+assert(css.includes("top: 74px"), "compact 74px header/ribbon geometry missing");
+assert(!footer.includes("Komenský by") && !footer.includes("Comenius would"), "manifesto must not be presented as a speculative Comenius quote");
 
 console.log("HEADER_MANIFEST_R17=PASS");
