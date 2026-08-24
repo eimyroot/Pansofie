@@ -11,11 +11,14 @@ const must = (condition, message) => {
 const main = read("src/main.jsx");
 const material = read("src/pansophic-visual-system-r26.css");
 const type = read("src/pansophic-typography-r26.css");
+const closure = read("src/pansophic-closure-r26.css");
 const html = read("index.html");
 
 must(main.includes('import "@/pansophic-visual-system-r26.css";'), "R26 material layer must be imported");
 must(main.includes('import "@/pansophic-typography-r26.css";'), "R26 typography layer must be imported");
+must(main.includes('import "@/pansophic-closure-r26.css";'), "R26 legacy-specificity closure must be imported");
 must(main.indexOf("pansophic-typography-r26.css") > main.indexOf("pansophic-visual-system-r26.css"), "typography/contrast must load after material layer");
+must(main.indexOf("pansophic-closure-r26.css") > main.indexOf("pansophic-typography-r26.css"), "specificity closure must load last");
 
 must(html.includes("Cormorant+Garamond"), "Cormorant Garamond must be loaded for the Pansofie display voice");
 must(html.includes("Plus+Jakarta+Sans"), "Plus Jakarta Sans must remain the UI/body family");
@@ -32,7 +35,14 @@ must(type.includes("-webkit-text-stroke"), "light text edge must be present on d
 must(type.includes("text-shadow"), "dark-field heading glow must be present");
 must(type.includes("#58e18c"), "emerald pansophic accent must be explicitly legible");
 must(type.includes("Plus Jakarta Sans"), "UI controls must keep the sans-serif family");
-must(!type.includes("@keyframes"), "R26 typography must not introduce motion keyframes");
-must(!material.includes("@keyframes"), "R26 material layer must not replace canonical motion keyframes");
+
+must(closure.includes('font-family: "Cormorant Garamond"'), "closure must defeat legacy Syne specificity");
+must(closure.includes("body .public-network-content .surface-raised"), "closure must supersede legacy white public cards");
+must(closure.includes("body .public-network-content .action-primary"), "closure must supersede legacy cobalt CTAs");
+must(closure.includes("#58e18c"), "closure must keep the emerald hero accent visible");
+
+for (const [name, css] of [["material", material], ["typography", type], ["closure", closure]]) {
+  must(!css.includes("@keyframes"), `R26 ${name} layer must not replace canonical motion keyframes`);
+}
 
 console.log("PANSOPHIC_VISUAL_R26=PASS");
