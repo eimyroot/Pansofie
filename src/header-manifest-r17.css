@@ -1,125 +1,117 @@
-/* PANSOFIE R17 — public header manifesto.
-   Additive visual layer only. Existing motion files remain untouched. */
+/* PANSOFIE R17 principle manifesto, relocated to the public footer in R24.
+   Existing living-motion source files remain untouched. */
 
 .pansofie-public-header {
-  height: 118px;
-}
-
-.pansofie-header-manifest {
-  height: 44px;
-  border-bottom: 1px solid hsl(var(--border) / 0.58);
-  background:
-    linear-gradient(90deg, hsl(var(--role-learner) / 0.045), transparent 28%, hsl(var(--role-partner) / 0.045) 58%, hsl(var(--status-success) / 0.045)),
-    hsl(var(--background) / 0.96);
-  overflow: hidden;
-}
-
-.pansofie-header-manifest__rail {
-  width: min(100%, 1440px);
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-.pansofie-header-manifest__rail::-webkit-scrollbar { display: none; }
-
-.pansofie-header-manifest__item {
-  flex: 1 0 360px;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  color: hsl(var(--muted-foreground));
-  font-size: 10.5px;
-  line-height: 1.25;
-  letter-spacing: -0.005em;
-}
-
-.pansofie-header-manifest__item strong {
-  flex: 0 0 auto;
-  font-size: 10px;
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.pansofie-header-manifest__item span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pansofie-header-manifest__item[data-principle="omnes"] strong { color: hsl(var(--role-learner)); }
-.pansofie-header-manifest__item[data-principle="omnia"] strong { color: hsl(var(--role-partner)); }
-.pansofie-header-manifest__item[data-principle="omnino"] strong { color: hsl(var(--status-success)); }
-
-.pansofie-header-manifest__item::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  flex: 0 0 auto;
-  background: currentColor;
-  opacity: 0.42;
+  height: 74px;
 }
 
 .pansofie-public-header .pansofie-public-nav-row {
   height: 74px;
 }
 
-/* Existing route ribbon is kept intact and simply starts below the new strip. */
+/* R24 restores the original compact public header geometry. */
 body.pansofie-network-live .route-network-ribbon {
-  top: 118px;
+  top: 74px;
 }
 
 body.pansofie-network-live .network-scroll-rail {
-  top: 176px;
+  top: 132px;
 }
 
 body.pansofie-network-live .route-network-orbit {
-  top: 136px;
+  top: 92px;
 }
 
-/* Public pages already reserve space for the old 74px header + 42px ribbon.
-   This additive offset accounts only for the new 44px manifesto strip. */
-.pansofie-public-header + main {
-  padding-top: 44px;
+.pansofie-footer-manifest {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(168, 85, 247, 0.11), transparent 30%),
+    radial-gradient(circle at 52% 10%, rgba(245, 158, 11, 0.08), transparent 30%),
+    radial-gradient(circle at 88% 10%, rgba(16, 185, 129, 0.09), transparent 30%),
+    rgba(15, 23, 42, 0.52);
 }
 
-@media (max-width: 767px) {
-  .pansofie-header-manifest__rail {
-    padding-inline: 14px;
-    gap: 10px;
-    scroll-snap-type: x proximity;
-  }
-
-  .pansofie-header-manifest__item {
-    flex-basis: min(88vw, 520px);
-    scroll-snap-align: start;
-    font-size: 10px;
-  }
-
-  .pansofie-header-manifest__item span {
-    text-overflow: clip;
-  }
+.pansofie-footer-manifest::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.025), transparent);
 }
 
-@media (min-width: 1280px) {
-  .pansofie-header-manifest__item {
-    flex-basis: 0;
+.pansofie-footer-manifest__rail {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding: 18px clamp(20px, 4vw, 48px);
+}
+
+.pansofie-footer-manifest__item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 9px;
+  margin: 0;
+  color: rgb(148 163 184);
+  font-size: 11px;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+}
+
+.pansofie-footer-manifest__item strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font-size: 10px;
+  line-height: 1.6;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pansofie-footer-manifest__item strong::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 14px currentColor;
+}
+
+.pansofie-footer-manifest__item[data-principle="omnes"] strong {
+  color: rgb(192 132 252);
+}
+
+.pansofie-footer-manifest__item[data-principle="omnia"] strong {
+  color: rgb(251 191 36);
+}
+
+.pansofie-footer-manifest__item[data-principle="omnino"] strong {
+  color: rgb(52 211 153);
+}
+
+.pansofie-footer-manifest__item span {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .pansofie-footer-manifest__rail {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding-block: 18px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pansofie-header-manifest__rail {
-    scroll-behavior: auto;
+  .pansofie-footer-manifest::after {
+    display: none;
   }
 }
