@@ -7,9 +7,9 @@ const EVIDENCE_DIR = path.resolve("browser-evidence/header-manifest-r17");
 fs.mkdirSync(EVIDENCE_DIR, { recursive: true });
 
 const exactCz = [
-  ["Všem", "Internet a vzdělání musí být zdarma, bez bariér a dostupné i v nejchudších koutech světa."],
-  ["Všemu", "Technologie nesmí sloužit jen byznysu, ale musí pomáhat léčit nemoci, chránit přírodu a rozvíjet kulturu."],
-  ["Všestranně", "Digitální gramotnost bez morální gramotnosti je nebezpečná zbraň. Učit se musíme rozumu, jazyku i srdci zároveň."],
+  ["omnes", "Všem", "Internet a vzdělání musí být zdarma, bez bariér a dostupné i v nejchudších koutech světa."],
+  ["omnia", "Všemu", "Technologie nesmí sloužit jen byznysu, ale musí pomáhat léčit nemoci, chránit přírodu a rozvíjet kulturu."],
+  ["omnino", "Všestranně", "Digitální gramotnost bez morální gramotnosti je nebezpečná zbraň. Učit se musíme rozumu, jazyku i srdci zároveň."],
 ];
 
 for (const viewport of [
@@ -24,9 +24,10 @@ for (const viewport of [
     const region = page.getByRole("region", { name: "Principy Pansofie: všem, všemu, všestranně" });
     await expect(region).toBeVisible();
 
-    for (const [label, text] of exactCz) {
-      const item = region.locator(".pansofie-header-manifest__item", { hasText: label });
+    for (const [key, label, text] of exactCz) {
+      const item = region.locator(`.pansofie-header-manifest__item[data-principle="${key}"]`);
       await expect(item).toHaveCount(1);
+      await expect(item.locator("strong")).toHaveText(label);
       await expect(item).toContainText(text);
       await item.scrollIntoViewIfNeeded();
     }
@@ -51,9 +52,9 @@ test("R17 manifesto has explicit English copy", async ({ page }) => {
   await page.goto(`${BASE_URL}/pro-koho?lang=en`, { waitUntil: "networkidle" });
   const region = page.getByRole("region", { name: "Pansofie principles: for all, for the whole, in every way" });
   await expect(region).toBeVisible();
-  await expect(region.getByText("For all", { exact: true })).toBeAttached();
-  await expect(region.getByText("For the whole", { exact: true })).toBeAttached();
-  await expect(region.getByText("In every way", { exact: true })).toBeAttached();
+  await expect(region.locator('[data-principle="omnes"] strong')).toHaveText("For all");
+  await expect(region.locator('[data-principle="omnia"] strong')).toHaveText("For the whole");
+  await expect(region.locator('[data-principle="omnino"] strong')).toHaveText("In every way");
   await expect(region).toContainText("Digital literacy without moral literacy is a dangerous weapon.");
   expect(await page.getAttribute("html", "lang")).toBe("en");
 });
