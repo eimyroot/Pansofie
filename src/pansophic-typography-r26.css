@@ -56,9 +56,10 @@ h2,
   text-shadow: 0 0 14px rgba(255, 255, 255, 0.09);
 }
 
+/* R24 density contract: the footer remains compact even with the new serif. */
 [data-footer-release="r24"] .font-heading.text-base {
   color: #fbfaf6 !important;
-  font-size: 1.38rem !important;
+  font-size: 1.125rem !important;
   letter-spacing: -0.012em !important;
   text-transform: none;
 }
