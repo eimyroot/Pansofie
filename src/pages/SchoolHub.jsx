@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import PilotOperationsPanel from "@/components/pansofie/PilotOperationsPanel";
+import TeacherAllianceDashboard from "@/components/pansofie/TeacherAllianceDashboard";
 import {
   assignSchoolMission,
   listMyOrganizationMemberships,
@@ -19,6 +20,10 @@ import {
   listPublishedMissions,
   listTeacherSchoolRuns,
 } from "@/lib/pansofieExperienceFlow";
+import {
+  getTeacherAllianceSummary,
+  listTeacherCompletedSchoolRuns,
+} from "@/lib/pansofieTeacherAllianceFlow";
 
 const STATUS_LABEL = {
   assigned: "Přiřazeno",
@@ -49,6 +54,8 @@ export default function SchoolHub() {
   const [missions, setMissions] = useState([]);
   const [learners, setLearners] = useState([]);
   const [teacherRuns, setTeacherRuns] = useState([]);
+  const [allianceSummaryByOrg, setAllianceSummaryByOrg] = useState({});
+  const [completedRunsByOrg, setCompletedRunsByOrg] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionMessage, setActionMessage] = useState("");
@@ -84,18 +91,38 @@ export default function SchoolHub() {
           listOrganizationLearners(orgIds),
           listTeacherSchoolRuns(orgIds),
         ]);
+
+        const allianceRows = await Promise.all(
+          orgIds.map(async (organizationId) => {
+            const [summary, completedRuns] = await Promise.all([
+              getTeacherAllianceSummary(organizationId),
+              listTeacherCompletedSchoolRuns(organizationId, 6),
+            ]);
+            return { organizationId, summary, completedRuns };
+          })
+        );
+
         setMissions(missionRows);
         setLearners(learnerRows);
         setTeacherRuns(queueRows);
-        setForm((current) => ({
-          organizationId: current.organizationId || orgIds[0] || "",
-          learnerId: current.learnerId || learnerRows.find((row) => row.organization_id === (current.organizationId || orgIds[0]))?.user_id || "",
-          missionId: current.missionId || missionRows[0]?.id || "",
-        }));
+        setAllianceSummaryByOrg(Object.fromEntries(allianceRows.map((row) => [row.organizationId, row.summary])));
+        setCompletedRunsByOrg(Object.fromEntries(allianceRows.map((row) => [row.organizationId, row.completedRuns])));
+        setForm((current) => {
+          const organizationId = orgIds.includes(current.organizationId) ? current.organizationId : orgIds[0] || "";
+          return {
+            organizationId,
+            learnerId: learnerRows.some((row) => row.organization_id === organizationId && row.user_id === current.learnerId)
+              ? current.learnerId
+              : learnerRows.find((row) => row.organization_id === organizationId)?.user_id || "",
+            missionId: missionRows.some((mission) => mission.id === current.missionId) ? current.missionId : missionRows[0]?.id || "",
+          };
+        });
       } else {
         setMissions([]);
         setLearners([]);
         setTeacherRuns([]);
+        setAllianceSummaryByOrg({});
+        setCompletedRunsByOrg({});
       }
     } catch (err) {
       setError(err.message || "Školní datovou vrstvu se nepodařilo načíst.");
@@ -106,9 +133,12 @@ export default function SchoolHub() {
 
   useEffect(() => { reload(); }, [reload]);
 
-  const selectedOrgLearners = learners.filter((row) => row.organization_id === form.organizationId);
+  const selectedOrganizationId = form.organizationId || teacherMemberships[0]?.organization_id || "";
+  const selectedOrgLearners = learners.filter((row) => row.organization_id === selectedOrganizationId);
   const waitingReview = teacherRuns.filter((run) => run.status === "submitted");
   const learnerNextRun = myRuns.find((run) => ["assigned", "in_progress"].includes(run.status));
+  const selectedOrgTeacherRuns = teacherRuns.filter((run) => run.organization_id === selectedOrganizationId);
+  const selectedOrgReviewRuns = selectedOrgTeacherRuns.filter((run) => run.status === "submitted");
 
   const nextAction = useMemo(() => {
     if (waitingReview.length > 0) {
@@ -195,6 +225,21 @@ export default function SchoolHub() {
             {nextAction.to.startsWith("#") ? <a href={nextAction.to} className="action-primary">{nextAction.label} <ArrowRight size={17} /></a> : <Link to={nextAction.to} className="action-primary">{nextAction.label} <ArrowRight size={17} /></Link>}
           </div>
         </section>
+      )}
+
+      {teacherMemberships.length > 0 && !loading && (
+        <TeacherAllianceDashboard
+          teacherMemberships={teacherMemberships}
+          selectedOrganizationId={selectedOrganizationId}
+          onOrganizationChange={handleOrgChange}
+          metrics={allianceSummaryByOrg[selectedOrganizationId] || null}
+          learners={learners}
+          reviewRuns={selectedOrgReviewRuns}
+          activeRuns={selectedOrgTeacherRuns}
+          completedRuns={completedRunsByOrg[selectedOrganizationId] || []}
+          missions={missions}
+          learnerNames={learnerName}
+        />
       )}
 
       <section className="mb-12">
