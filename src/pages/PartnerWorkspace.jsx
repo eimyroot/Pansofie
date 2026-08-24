@@ -2,6 +2,7 @@ import React from "react";
 import PartnerAllianceDashboard from "@/components/pansofie/PartnerAllianceDashboard";
 import PartnerHub from "@/pages/PartnerHub";
 import PartnerReviewPanel from "@/components/pansofie/PartnerReviewPanel";
+import "@/partner-alliance-r25.css";
 
 export default function PartnerWorkspace() {
   return (
