@@ -14,6 +14,8 @@ const bridgeWorkspace = read("src/pages/MaterialBridge.jsx");
 const bridgeLanding = read("src/pages/MaterialBridgeLanding.jsx");
 const bridgeOpenIntake = read("src/pages/MaterialBridgeOpenIntake.jsx");
 const onboarding = read("src/pages/Onboarding.jsx");
+const legacyOnboarding = read("src/components/pansofie/LegacyOnboardingR14.jsx");
+const onboardingCorpus = `${onboarding}\n${legacyOnboarding}`;
 const library = read("src/pages/RepairLibrary.jsx");
 const flow = read("src/lib/pansofieParticipationFlow.js");
 const openFlow = read("src/lib/pansofieMaterialIntakeFlow.js");
@@ -93,9 +95,9 @@ const required = [
   [library, "Labyrint algoritmů"],
   [library, "Porada bez ega"],
   [library, "listPublicAvailableMaterials"],
-  [onboarding, "Nultá mise: Otevřete brány"],
-  [onboarding, "offersText"],
-  [onboarding, "seeksText"],
+  [onboardingCorpus, "Nultá mise: Otevřete brány"],
+  [onboardingCorpus, "offersText"],
+  [onboardingCorpus, "seeksText"],
   [flow, 'from("audience_intakes")'],
   [flow, 'from("material_bridge_listings")'],
   [flow, 'rpc("pansofie_reserve_material_listing"'],

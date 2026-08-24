@@ -44,3 +44,35 @@ export async function completeOnboarding({
   if (error) throw error;
   return data;
 }
+
+export async function completeAdultOnboarding({
+  fullName,
+  location,
+  onboardingTrack,
+  offersText,
+  seeksText,
+}) {
+  if (!fullName?.trim()) throw new Error("FULL_NAME_REQUIRED");
+  if (!location?.trim()) throw new Error("LOCATION_REQUIRED");
+  if (!onboardingTrack) throw new Error("ONBOARDING_TRACK_REQUIRED");
+
+  const { data, error } = await supabase.rpc("pansofie_complete_adult_onboarding", {
+    p_full_name: fullName.trim(),
+    p_location: location.trim(),
+    p_track: onboardingTrack,
+    p_offers_text: offersText?.trim() || null,
+    p_seeks_text: seeksText?.trim() || null,
+  });
+
+  if (error) {
+    const normalized = String(error.message || "").toLowerCase();
+    if (normalized.includes("pansofie_complete_adult_onboarding") || normalized.includes("function") || error.code === "PGRST202") {
+      const unavailable = new Error("R18_BACKEND_UNAVAILABLE");
+      unavailable.cause = error;
+      throw unavailable;
+    }
+    throw error;
+  }
+
+  return Array.isArray(data) ? data[0] || null : data;
+}
