@@ -15,10 +15,11 @@ test("R23 Czech auth aliases resolve to governed canonical routes", async ({ pag
 
 test("R23 Material Bridge public entry does not pretend anonymous listing creation", async ({ page }) => {
   await page.goto(`${BASE_URL}/materialovy-most`, { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { name: /Materiálový most/ }).first()).toBeVisible();
-  const workspaceEntry = page.getByRole("link", { name: /Vstoupit do Materiálového mostu/ }).first();
+  await expect(page.getByRole("heading", { name: "Užitečné věci mají najít dalšího člověka, který je dokáže využít." })).toBeVisible();
+  const workspaceEntry = page.getByRole("link", { name: "Mám pilotní účet" });
   await expect(workspaceEntry).toHaveAttribute("href", "/login?returnTo=/materialovy-most/workspace");
-  await expect(page.getByText("Stav se mění z AVAILABLE na RESERVED a teprve po skutečném předání na HANDED OVER.")).toBeVisible();
+  await expect(page.getByText("Veřejná podání nejdřív procházejí moderací. Nikdy se automaticky nezveřejní, nerezervují ani nespárují.")).toBeVisible();
+  await expect(page.getByText("Ověřený člen může skutečnou položku provést stavy AVAILABLE → RESERVED → HANDED OVER.")).toBeVisible();
 });
 
 test("R23 PansofieGO remains a bounded decision lab, not a GPS school finder", async ({ page }) => {
