@@ -3,10 +3,11 @@ import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-const [css, nav, footer, home, roles, member, school, family, doc] = await Promise.all([
+const [css, nav, footer, joinNetwork, home, roles, member, school, family, doc] = await Promise.all([
   read("src/index.css"),
   read("src/components/pansofie/PublicNav.jsx"),
   read("src/components/pansofie/PublicFooter.jsx"),
+  read("src/components/pansofie/JoinNetwork.jsx"),
   read("src/pages/Home.jsx"),
   read("src/components/pansofie/RoleEntry.jsx"),
   read("src/layouts/MemberLayout.jsx"),
@@ -51,7 +52,9 @@ assert.ok(css.includes(":focus-visible"), "global visible focus treatment missin
 
 assert.ok(nav.includes("Vyzkoušet 60 s"), "public nav must expose the live taste as the dominant product entry");
 assert.ok(nav.includes("/pro-koho#ochutnejte"), "public nav live taste route missing");
-assert.ok(footer.includes("/zapojit-se?mode=simulator"), "PANSOFIEDIT simulator must remain explicitly reachable as a secondary route");
+assert.ok(joinNetwork.includes("/zapojit-se?mode=simulator"), "PANSOFIEDIT simulator must remain explicitly reachable as a secondary route from the Join surface");
+assert.ok(joinNetwork.includes("Vyzkoušet PANSOFIEDIT"), "secondary simulator action label missing from Join surface");
+assert.ok(!footer.includes("/zapojit-se?mode=simulator"), "legacy simulator must not compete with canonical footer navigation");
 assert.ok(nav.includes("/pro-koho"), "public role information architecture entry missing");
 assert.ok(home.includes("action-primary"), "homepage primary action hierarchy missing");
 assert.ok(home.includes("Učení, které pokračuje v reálném světě"), "homepage human-first positioning marker missing");
