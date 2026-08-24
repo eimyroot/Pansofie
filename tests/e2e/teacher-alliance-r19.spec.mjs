@@ -260,7 +260,7 @@ for (const scenario of [
     await expect(alliance.getByRole("heading", { name: "Co už škola skutečně dokončila" })).toBeVisible();
     await expect(alliance.getByText("Digitální most", { exact: true })).toBeVisible();
     await expect(alliance.getByRole("heading", { name: "Vyvolat společnou týmovou Experience" })).toBeVisible();
-    await expect(alliance.getByText("Stavitelé mostů", { exact: true })).toBeVisible();
+    await expect(alliance.getByRole("link", { name: "Stavitelé mostů", exact: true })).toBeVisible();
     await expect(alliance.getByText(/Veřejný univerzální „kmenový kód“ zde záměrně nevystavujeme/)).toBeVisible();
 
     const allianceTitlePx = await alliance.getByRole("heading", { name: "ZŠ Pansofie Test" }).evaluate((node) => Number.parseFloat(getComputedStyle(node).fontSize));
