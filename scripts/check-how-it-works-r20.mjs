@@ -12,7 +12,7 @@ const page = read("src/pages/JakFunguje.jsx");
 const fan = read("src/components/pansofie/ExperienceFan.jsx");
 
 for (const marker of [
-  "Pět kroků pansofického cyklu",
+  "PĚT KROKŮ PANSOFICKÉHO CYKLU",
   "Skutečná mise",
   "Akce a výstup",
   "Doložení důkazu",
