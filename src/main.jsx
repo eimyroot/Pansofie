@@ -16,6 +16,7 @@ import "@/pansofie-taste-r14.css";
 import "@/material-bridge-open-r14.css";
 import "@/show-dont-sell-r14.css";
 import "@/onboarding-library-r14.css";
+import "@/public-typography-density-r22.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <App />
