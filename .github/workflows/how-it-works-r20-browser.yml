@@ -1,0 +1,76 @@
+name: How It Works R20 Browser Proof
+
+on:
+  pull_request:
+    paths:
+      - "src/pages/JakFunguje.jsx"
+      - "src/components/pansofie/ExperienceFan.jsx"
+      - "scripts/check-how-it-works-r20.mjs"
+      - "tests/e2e/how-it-works-r20.spec.mjs"
+      - "package.json"
+      - ".github/workflows/how-it-works-r20-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: how-it-works-r20-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PANSOFIE_LOCAL_URL: http://127.0.0.1:5173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Run R20 static contract
+        run: npm run check:how-it-works-r20
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install chromium
+
+      - name: Start local Vite server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pansofie-r20.log 2>&1 &
+          echo $! > /tmp/pansofie-r20.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5173/ >/dev/null; then
+              echo "LOCAL_VITE=READY"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pansofie-r20.log
+          exit 1
+
+      - name: Run R20 browser acceptance
+        run: npx playwright test tests/e2e/how-it-works-r20.spec.mjs --reporter=line
+
+      - name: Upload R20 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pansofie-how-it-works-r20-browser-evidence
+          path: |
+            browser-evidence/how-it-works-r20/
+            test-results/
+            /tmp/pansofie-r20.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Vite server
+        if: always()
+        run: |
+          if [ -f /tmp/pansofie-r20.pid ]; then kill "$(cat /tmp/pansofie-r20.pid)" || true; fi
