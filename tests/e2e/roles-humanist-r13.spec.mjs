@@ -36,7 +36,8 @@ for (const viewport of [
 
     // R17 intentionally repeats these principles in the persistent header.
     // R13 continues to verify the original manifesto inside the page itself.
-    const pageManifest = page.getByRole("region", { name: "Principy Pansofie", exact: true });
+    const pageManifest = page.locator('[aria-label="Principy Pansofie"]');
+    await expect(pageManifest).toHaveCount(1);
     await expect(pageManifest.getByText("Internet a vzdělání musí být zdarma", { exact: false })).toBeVisible();
     await expect(pageManifest.getByText("Technologie nesmí sloužit jen byznysu", { exact: false })).toBeVisible();
     await expect(pageManifest.getByText("Digitální gramotnost bez morální gramotnosti", { exact: false })).toBeVisible();
