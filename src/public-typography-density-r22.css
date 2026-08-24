@@ -4,47 +4,40 @@
  */
 
 .public-network-shell {
-  --public-type-hero: clamp(2.2rem, 4.5vw, 3.75rem);
+  --public-type-hero: clamp(2.75rem, 4.5vw, 3.75rem);
   --public-type-display: clamp(1.9rem, 3.25vw, 2.8rem);
-  --public-type-section: clamp(1.7rem, 2.7vw, 2.45rem);
 }
 
-/* Cap Tailwind display utilities used across the public surface. The selectors
- * intentionally look at the full class token string so responsive variants
- * such as sm:text-6xl and lg:text-7xl are capped as well. */
-.public-network-shell main :is(h1, h2)[class*="text-7xl"] {
+/* R12 intentionally promoted all public H1/H2 into a poster scale. R22 closes
+ * that era at the semantic heading level so pages cannot silently grow back to
+ * 6rem+ merely because another Tailwind responsive utility is present. */
+.public-network-shell .public-network-content h1 {
   font-size: var(--public-type-hero) !important;
   line-height: 1.045 !important;
   letter-spacing: -0.035em !important;
 }
 
-.public-network-shell main :is(h1, h2)[class*="text-6xl"] {
-  font-size: var(--public-type-hero) !important;
-  line-height: 1.05 !important;
-  letter-spacing: -0.032em !important;
-}
-
-.public-network-shell main :is(h1, h2)[class*="text-5xl"] {
+.public-network-shell .public-network-content h2 {
   font-size: var(--public-type-display) !important;
   line-height: 1.08 !important;
   letter-spacing: -0.026em !important;
 }
 
-.public-network-shell main :is(h1, h2)[class*="text-4xl"] {
-  font-size: var(--public-type-section) !important;
-  line-height: 1.1 !important;
-  letter-spacing: -0.022em !important;
+/* R13 has deliberately stronger route-specific selectors, so override those
+ * explicitly while preserving its Fraunces identity. */
+.public-network-shell .public-network-content .r13-roles-page main > section.r13-roles-hero h1 {
+  font-size: var(--public-type-hero) !important;
+  line-height: 1.045 !important;
+  letter-spacing: -0.035em !important;
 }
 
-/* R13 had a deliberate billboard-sized /pro-koho heading treatment. R22 keeps
- * its Fraunces identity but brings it back into the common public scale. */
 .public-network-shell .public-network-content .r13-roles-page h2 {
   font-size: var(--public-type-display) !important;
   line-height: 1.08 !important;
   letter-spacing: -0.03em !important;
 }
 
-/* Lead copy should support the hierarchy rather than visually compete with it. */
+/* Lead copy supports hierarchy instead of competing with it. */
 .public-network-shell main p[class*="text-xl"] {
   font-size: clamp(1rem, 1.25vw, 1.125rem) !important;
   line-height: 1.7 !important;
@@ -52,13 +45,9 @@
 
 @media (max-width: 639px) {
   .public-network-shell {
-    --public-type-hero: clamp(2rem, 10vw, 2.7rem);
+    /* R12's historical browser contract still requires a clearly dominant
+     * 44px page title; keep that floor but remove the old 5–6rem behavior. */
+    --public-type-hero: 2.75rem;
     --public-type-display: clamp(1.7rem, 8.2vw, 2.2rem);
-    --public-type-section: clamp(1.55rem, 7vw, 1.95rem);
-  }
-
-  .public-network-shell main :is(h1, h2)[class*="text-7xl"],
-  .public-network-shell main :is(h1, h2)[class*="text-6xl"] {
-    line-height: 1.06 !important;
   }
 }
