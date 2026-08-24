@@ -21,7 +21,6 @@ const required = [
   [files.app, 'path="/bezpecnost"'],
   [files.app, 'path="/podminky"'],
   [files.nav, 'to="/pro-koho#ochutnejte"'],
-  [files.footer, '"/zapojit-se?mode=simulator"'],
   [files.footer, '"/zapojit-se"'],
   [files.footer, '"/bezpecnost"'],
   [files.footer, '"/soukromi"'],
@@ -42,6 +41,7 @@ const forbidden = [
   [files.register, "supabase.auth.signUp"],
   [files.register, "signInWithOAuth"],
   [files.partner, "Navrhnout Challenge"],
+  [files.footer, '"/zapojit-se?mode=simulator"'],
 ];
 
 const missing = required.filter(([content, token]) => !content.includes(token)).map(([, token]) => token);

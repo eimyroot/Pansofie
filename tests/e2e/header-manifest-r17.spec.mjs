@@ -16,7 +16,7 @@ for (const viewport of [
   { label: "desktop", width: 1440, height: 1000, isMobile: false },
   { label: "mobile", width: 390, height: 844, isMobile: true },
 ]) {
-  test(`R17 manifesto header is readable and bounded on ${viewport.label}`, async ({ browser }) => {
+  test(`R17 manifesto is readable in the R24 footer and header stays compact on ${viewport.label}`, async ({ browser }) => {
     const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, isMobile: viewport.isMobile, locale: "cs-CZ" });
     const page = await context.newPage();
     await page.goto(`${BASE_URL}/pro-koho`, { waitUntil: "networkidle" });
@@ -25,12 +25,13 @@ for (const viewport of [
     await expect(region).toBeVisible();
 
     for (const [key, label, text] of exactCz) {
-      const item = region.locator(`.pansofie-header-manifest__item[data-principle="${key}"]`);
+      const item = region.locator(`.pansofie-footer-manifest__item[data-principle="${key}"]`);
       await expect(item).toHaveCount(1);
       await expect(item.locator("strong")).toHaveText(label);
       await expect(item).toContainText(text);
-      await item.scrollIntoViewIfNeeded();
     }
+
+    await expect(page.locator(".pansofie-public-header .pansofie-header-manifest")).toHaveCount(0);
 
     const metrics = await page.evaluate(() => ({
       innerWidth: window.innerWidth,
@@ -40,15 +41,16 @@ for (const viewport of [
     }));
 
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
-    expect(Math.round(metrics.headerHeight || 0)).toBe(118);
-    expect(Math.round(metrics.ribbonTop || 0)).toBe(118);
+    expect(Math.round(metrics.headerHeight || 0)).toBe(74);
+    expect(Math.round(metrics.ribbonTop || 0)).toBe(74);
 
-    await page.screenshot({ path: path.join(EVIDENCE_DIR, `manifest-${viewport.label}.png`), fullPage: false });
+    await region.scrollIntoViewIfNeeded();
+    await page.screenshot({ path: path.join(EVIDENCE_DIR, `manifest-footer-${viewport.label}.png`), fullPage: true });
     await context.close();
   });
 }
 
-test("R17 manifesto has explicit English copy", async ({ page }) => {
+test("R17 manifesto keeps explicit English copy after relocation", async ({ page }) => {
   await page.goto(`${BASE_URL}/pro-koho?lang=en`, { waitUntil: "networkidle" });
   const region = page.getByRole("region", { name: "Pansofie principles: for all, for the whole, in every way" });
   await expect(region).toBeVisible();
