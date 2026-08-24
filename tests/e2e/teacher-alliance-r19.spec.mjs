@@ -176,18 +176,25 @@ async function teacherContext(browser, viewport) {
       return;
     }
 
-    if (url.pathname === "/rest/v1/mission_runs" && request.method() === "HEAD") {
-      const query = url.search;
-      let count = 0;
-      if (query.includes("status=eq.completed") && query.includes("team_id=not.is.null")) count = 5;
-      else if (query.includes("status=eq.completed")) count = 12;
-      else if (query.includes("status=eq.submitted")) count = 2;
-      else if (query.includes("status=in.%28assigned%2Cin_progress%29") || query.includes("status=in.(assigned%2Cin_progress)") || query.includes("status=in.(assigned,in_progress)")) count = 4;
-      await route.fulfill({ status: 200, headers: { ...headers, "content-range": `0-0/${count}` }, body: "" });
-      return;
-    }
-
     if (url.pathname === "/rest/v1/mission_runs") {
+      const select = url.searchParams.get("select");
+      const status = url.searchParams.get("status");
+      const teamId = url.searchParams.get("team_id");
+
+      if (select === "id" && status) {
+        let count = 0;
+        if (status === "eq.completed" && teamId === "not.is.null") count = 5;
+        else if (status === "eq.completed") count = 12;
+        else if (status === "eq.submitted") count = 2;
+        else if (status.includes("assigned") && status.includes("in_progress")) count = 4;
+        await route.fulfill({
+          status: 200,
+          headers: { ...headers, "content-range": `0-${count ? count - 1 : 0}/${count}` },
+          body: request.method() === "HEAD" ? "" : "[]",
+        });
+        return;
+      }
+
       const query = url.search;
       if (query.includes("status=eq.completed")) {
         await route.fulfill({ status: 200, headers, body: JSON.stringify([completedRun]) });
