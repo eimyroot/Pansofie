@@ -135,5 +135,5 @@ test("R10 language switch persists and preserves shareable locale during navigat
   expect(navigated.pathname).toBe("/jak-funguje");
   expect(navigated.searchParams.get("lang")).toBe("en");
   expect(await page.locator("html").getAttribute("lang")).toBe("en");
-  await expect(page.getByRole("heading", { name: /From a real need to a verified experience/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /From a real action to a verified experience/i })).toBeVisible();
 });
