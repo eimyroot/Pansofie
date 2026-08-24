@@ -39,7 +39,7 @@ for (const scenario of [
     expect(heroStyle.fontFamily).toContain("Cormorant Garamond");
     expect(Number.parseFloat(heroStyle.stroke)).toBeGreaterThan(0);
     expect(heroStyle.textShadow).not.toBe("none");
-    expect(heroStyle.fontSize).toBeLessThanOrEqual(scenario.label === "mobile" ? 57 : 61);
+    expect(heroStyle.fontSize).toBeLessThanOrEqual(scenario.label === "mobile" ? 44 : 61);
 
     const accent = hero.locator(".text-primary").first();
     await expect(accent).toContainText("Zlepšuj svět");
