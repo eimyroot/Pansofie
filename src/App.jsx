@@ -25,6 +25,9 @@ import Partner from "@/pages/Partner";
 import ProgramDetail from "@/pages/ProgramDetail";
 import Join from "@/pages/Join";
 import AboutR12 from "@/pages/AboutR12";
+import Vision from "@/pages/Vision";
+import Vseveda from "@/pages/Vseveda";
+import VisionPillarPlaceholder from "@/pages/VisionPillarPlaceholder";
 import PansofieGo from "@/pages/PansofieGo";
 import PublicInfoPage from "@/pages/PublicInfoPage";
 import Login from "@/pages/Login";
@@ -99,6 +102,10 @@ export default function App() {
             <Routes>
               <Route path="/" element={publicSurface(<Home />)} />
               <Route path="/jak-funguje" element={publicSurface(<JakFunguje />)} />
+              <Route path="/vize" element={publicSurface(<Vision />)} />
+              <Route path="/vize/vseveda" element={publicSurface(<Vseveda />)} />
+              <Route path="/vize/vsevychova" element={publicSurface(<VisionPillarPlaceholder pillar="vsevychova" />)} />
+              <Route path="/vize/vsenaprava" element={publicSurface(<VisionPillarPlaceholder pillar="vsenaprava" />)} />
               <Route path="/pro-koho" element={publicSurface(<Roles />)} />
               <Route path="/pro-koho/skoly" element={publicSurface(<AudienceDetail audience="skoly" />)} />
               <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail audience="firmy" />)} />
