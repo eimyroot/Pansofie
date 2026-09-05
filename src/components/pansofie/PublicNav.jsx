@@ -8,6 +8,7 @@ import "@/header-manifest-r17.css";
 const LINKS = {
   cs: [
     ["/jak-funguje", "Jak to funguje"],
+    ["/vize", "Vize"],
     ["/pansofiego", "PansofieGO"],
     ["/pro-koho", "Pro koho"],
     ["/knihovna", "Knihovna"],
@@ -18,6 +19,7 @@ const LINKS = {
   ],
   en: [
     ["/jak-funguje", "How it works"],
+    ["/vize", "Vision"],
     ["/pansofiego", "PansofieGO"],
     ["/pro-koho", "For whom"],
     ["/knihovna", "Library"],
