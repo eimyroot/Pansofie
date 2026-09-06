@@ -75,6 +75,10 @@ export default function Home() {
               <Link to="/zapojit-se" className="modern-primary">Připojit se <ArrowRight size={17}/></Link>
               <Link to="/o-projektu" className="modern-secondary">Objevit Pansofii <ArrowRight size={17}/></Link>
             </div>
+            <div className="modern-simulator-entry">
+              <Link to="/zapojit-se?mode=simulator">Vyzkoušet Pansofii za 60 sekund</Link>
+              <small>Interaktivní ukázka nic neodesílá ani neukládá na server.</small>
+            </div>
             <div className="modern-impact"><Leaf size={27}/><span>MALÉ KROKY<br/>VELKÝ DOPAD</span></div>
           </div>
 
