@@ -12,6 +12,7 @@ import "@/living-motion-r4-extensions.css";
 import "@/pansofie-young.css";
 
 import Home from "@/pages/Home";
+import { ClassicHow, ClassicLibrary } from "@/pages/ClassicPublicPage";
 import YoungHome from "@/pages/YoungHome";
 import JakFunguje from "@/pages/JakFunguje";
 import Roles from "@/pages/Roles";
@@ -81,7 +82,7 @@ export default function App() {
   return <QueryClientProvider client={queryClientInstance}><AuthProvider><LanguageProvider><BrowserRouter><LocaleUrlSync /><Routes>
     <Route path="/" element={publicSurface(<Home />)} />
     <Route path="/young" element={<YoungHome />} />
-    <Route path="/jak-funguje" element={publicSurface(<JakFunguje />)} />
+    <Route path="/jak-funguje" element={<ClassicHow />} />
     <Route path="/pro-koho" element={publicSurface(<Roles />)} />
     <Route path="/pro-koho/skoly" element={publicSurface(<AudienceDetail audience="skoly" />)} />
     <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail audience="firmy" />)} />
@@ -90,7 +91,7 @@ export default function App() {
     <Route path="/zapojit-se/:audience" element={publicSurface(<ParticipationIntake />)} />
     <Route path="/materialovy-most" element={publicSurface(<MaterialBridgeLanding />)} />
     <Route path="/materialovy-most/zapojit-se" element={publicSurface(<MaterialBridgeOpenIntake />)} />
-    <Route path="/knihovna" element={publicSurface(<RepairLibrary />)} />
+    <Route path="/knihovna" element={<ClassicLibrary />} />
     <Route path="/katalog" element={<Navigate to="/knihovna" replace />} />
     <Route path="/pilot" element={publicSurface(<Pilot />)} />
     <Route path="/partneri" element={publicSurface(<Partner />)} />
