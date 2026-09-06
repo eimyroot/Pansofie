@@ -2,3 +2,4 @@
 
 .young-simulator-note{display:flex;flex-direction:column;gap:3px;margin-top:14px!important;color:#6b7568!important;font-size:12px!important;line-height:1.35!important}.young-simulator-note a{width:max-content;color:#315f35!important;font-weight:800;text-decoration:underline;text-underline-offset:4px}.young-simulator-note span{display:block}
 .public-network-shell:has(.young-classic)>.route-network-ribbon,.public-network-shell:has(.young-classic)>.network-motion-sweep,.public-network-shell:has(.young-classic)>.network-cursor-glow{display:none!important}.public-network-content:has(.young-classic),.public-network-shell:has(.young-classic){background:#f5eee2!important}.public-network-content:has(.young-classic) .young-classic{background:#f5eee2!important}
+.young-home-safety-sections{display:none!important}
