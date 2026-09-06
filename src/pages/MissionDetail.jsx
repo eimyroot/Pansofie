@@ -1,9 +1,41 @@
 import React from "react";
-import { Link,useParams } from "react-router-dom";
-import { ArrowLeft,Clock,BarChart3,Camera,FileText,Play,Users } from "lucide-react";
-import { getMission,PROJECTS,MEMBERS } from "@/lib/pansofieData";
-import PathBadge from "@/components/pansofie/PathBadge";
-import LabBadge from "@/components/pansofie/LabBadge";
-import ProjectCard from "@/components/pansofie/ProjectCard";
-import MemberCard from "@/components/pansofie/MemberCard";
-export default function MissionDetail(){const{id}=useParams();const mission=getMission(id)||getMission("m1");const relatedProjects=PROJECTS.filter((p)=>p.currentMissions?.includes(mission.id));const relatedMembers=MEMBERS.filter((m)=>m.paths.some((p)=>mission.paths.includes(p))).slice(0,3);return <div className="px-5 sm:px-8 lg:px-12 py-8 max-w-5xl mx-auto"><Link to="/dashboard" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8"><ArrowLeft size={16}/>Zpět na dashboard</Link><div className="flex flex-wrap items-center gap-2 mb-4"><LabBadge labId={mission.lab} solid/>{mission.paths.map((p)=><PathBadge key={p} pathId={p}/>)}</div><h1 className="text-3xl sm:text-4xl font-semibold font-display tracking-tight">{mission.name}</h1><div className="flex flex-wrap items-center gap-5 mt-5 text-sm text-muted-foreground"><span className="inline-flex items-center gap-1.5"><BarChart3 size={16}/>{mission.difficulty}</span><span className="inline-flex items-center gap-1.5"><Clock size={16}/>{mission.time}</span></div><div className="card-soft p-6 mt-8 bg-primary/[0.03] border-primary/20"><h2 className="text-sm font-semibold text-primary mb-2">Proč tato mise</h2><p>{mission.why}</p></div><section className="mt-10"><h2 className="text-xl font-semibold font-heading mb-3">Konkrétní úkol</h2><p className="text-muted-foreground leading-relaxed text-lg">{mission.task}</p></section><section className="mt-10"><h2 className="text-xl font-semibold font-heading mb-4">Kroky</h2><div className="flex flex-col gap-3">{mission.steps.map((step,i)=><div key={i} className="card-soft p-5 flex items-start gap-4"><span className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm shrink-0">{i+1}</span><p className="pt-1">{step}</p></div>)}</div></section><div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10"><div className="card-soft p-6"><div className="flex items-center gap-2 mb-2"><Camera size={18} className="text-primary"/><h3 className="font-semibold font-heading">Důkaz výsledku</h3></div><p className="text-sm text-muted-foreground">{mission.proof}</p></div><div className="card-soft p-6"><div className="flex items-center gap-2 mb-2"><FileText size={18} className="text-primary"/><h3 className="font-semibold font-heading">Reflexe</h3></div><p className="text-sm text-muted-foreground">{mission.reflection}</p></div></div><div className="card-soft p-6 mt-6 text-center"><span className="font-semibold">činnost → výsledek → důkaz → reflexe → zkušenost → profil</span></div><div className="mt-8 flex flex-col sm:flex-row gap-3"><button className="flex-1 px-6 py-4 bg-primary text-primary-foreground rounded-2xl font-semibold inline-flex items-center justify-center gap-2"><Play size={18}/>Zahájit misi</button><button className="px-6 py-4 bg-card border border-border rounded-2xl font-semibold">Uložit na později</button></div>{relatedProjects.length>0&&<section className="mt-14"><h2 className="text-xl font-semibold font-heading mb-4">Projekty s touto misí</h2><div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{relatedProjects.map((p)=><ProjectCard key={p.id} project={p}/>)}</div></section>}{relatedMembers.length>0&&<section className="mt-10"><div className="flex items-center gap-2 mb-4"><Users size={18} className="text-primary"/><h2 className="text-xl font-semibold font-heading">Lidi s podobnými cestami</h2></div><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{relatedMembers.map((m)=><MemberCard key={m.id} member={m}/>)}</div></section>}</div>}
+import { ArrowLeft, Check, Heart, Sparkles } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
+import { MISSIONS } from "../lib/missions";
+import { usePansofie } from "../state/PansofieContext";
+import { useLanguage } from "../state/LanguageContext";
+
+const EN = {
+  "mission-digitalni-kuryr":{
+    title:"Digital helper",
+    heading:"A possible opportunity to help an older person or neighbour with everyday digital skills.",
+    description:"If this speaks to you, you might help someone nearby with a phone, an online service or digital safety. There is no expected return — sometimes the meeting itself is valuable to both people.",
+    tips:["First ask whether they want help and what they actually need.","Explain calmly and leave the other person space.","If you want, you can save a short memory later — it is optional."],
+  },
+  "mission-uzavreny-kruh":{
+    title:"Material for a school idea",
+    heading:"An opportunity to use surplus material in a real school project.",
+    description:"If suitable material appears, you can arrange a handover and try using it instead of buying something new.",
+    tips:["Check that the material is safe for the intended use.","Let students decide what they could create from it.","A simple confirmation that the handover happened is enough."],
+  },
+  "mission-firemni-prebytek":{
+    title:"A second life for material",
+    heading:"An opportunity to pass clean production surplus to a place where it can still be useful.",
+    description:"Describe the material, quantity and handover conditions. Pansofie can show relevant school or community needs — without promising that a match will always happen.",
+    tips:["Describe material and quantity as precisely as useful.","Add important safety limits.","Further cooperation may grow naturally, but it is not a condition of handover."],
+  },
+};
+
+export default function MissionDetail(){
+  const {id}=useParams(); const raw=MISSIONS[id]||MISSIONS["mission-digitalni-kuryr"];
+  const {state,acceptMission,completeMission}=usePansofie();
+  const {isEnglish}=useLanguage();
+  const item=isEnglish?{...raw,...EN[raw.id]}:raw;
+  const rec=state.missions?.[raw.id]; const interested=Boolean(rec); const done=rec?.status==="completed";
+  return <div className="ak-page"><section className="p-mission-detail r8-opportunity-detail r9-opportunity-detail">
+    <Link className="p-back" to="/vize"><ArrowLeft size={11}/> {isEnglish?"Back to inspiration":"Zpět na inspiraci"}</Link>
+    <div className="p-mission-detail__hero"><div><span className="r8-eyebrow">{isEnglish?"A possibility to act":"Podnět k akci"}</span><h1>{item.title}</h1><p>{item.heading}</p><div className="r8-opportunity-state"><span className={interested?"is-active":""}><Heart size={12}/> {isEnglish?"I'm interested":"Zajímá mě"}</span><span className={done?"is-active":""}><Check size={12}/> {isEnglish?"Happened":"Proběhlo"}</span></div></div></div>
+    <div className="p-mission-copy"><h2>{isEnglish?"What it is about":"O co jde"}</h2><p>{item.description}</p><h2>{isEnglish?"If useful, these may help":"Pokud se vám hodí, může pomoct"}</h2><ul>{item.tips.map(t=><li key={t}>{t}</li>)}</ul><p className="r8-voluntary"><Sparkles size={13}/> {isEnglish?"None of this is a mandatory checklist. Adapt the idea to yourself.":"Nic z toho není povinný checklist. Upravte si podnět podle sebe."}</p></div>
+    {!interested?<button className="p-btn p-btn--green p-mission-detail__cta" onClick={()=>acceptMission(raw)}>{isEnglish?"I'm interested":"Tohle mě zajímá"}</button>:!done?<button className="p-btn p-btn--green p-mission-detail__cta" onClick={()=>completeMission(raw)}>{isEnglish?"Yes, it happened":"Ano, proběhlo to"}</button>:<div className="p-btn p-btn--outline p-mission-detail__cta">✓ {isEnglish?"Saved as happened":"Uloženo jako proběhlé"}</div>}
+  </section></div>
+}

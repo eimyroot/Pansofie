@@ -1,6 +1,0 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Users } from "lucide-react";
-import LabBadge from "@/components/pansofie/LabBadge";
-import PathBadge from "@/components/pansofie/PathBadge";
-export default function ProjectCard({project}){return <Link to={`/projekt/${project.id}`} className="card-soft p-5 group block transition-all duration-300 hover:-translate-y-1"><div className="flex items-center justify-between gap-3 mb-4"><LabBadge labId={project.lab}/><span className="chip bg-primary/10 text-primary">{project.status}</span></div><h3 className="font-semibold font-heading text-lg leading-snug">{project.name}</h3><p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-3">{project.goal}</p><div className="flex flex-wrap gap-1.5 mt-4">{project.paths.map((p)=><PathBadge key={p} pathId={p} size="xs" showName={false}/>)}</div><div className="mt-5 flex items-center gap-4 text-xs text-muted-foreground"><span className="inline-flex items-center gap-1"><MapPin size={13}/>{project.location}</span><span className="inline-flex items-center gap-1"><Users size={13}/>{project.members}</span><ArrowRight size={15} className="text-primary ml-auto transition-transform group-hover:translate-x-1"/></div></Link>}

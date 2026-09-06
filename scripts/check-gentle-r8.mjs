@@ -1,0 +1,14 @@
+import fs from "node:fs";
+const read=p=>fs.readFileSync(p,"utf8"); const fail=m=>{console.error(`PANSOFIE_GENTLE_R8=FAIL: ${m}`);process.exit(1)};
+const home=read("src/pages/Home.jsx"),how=read("src/pages/HowItWorks.jsx"),vision=read("src/pages/Vision.jsx"),roles=read("src/pages/RoleHub.jsx"),profile=read("src/pages/Profile.jsx"),growth=read("src/pages/PersonalGrowth.jsx"),detail=read("src/pages/MissionDetail.jsx"),app=read("src/App.jsx"),css=read("src/index.css");
+for(const m of ["Můžu někomu pomoct","Chci něco změnit","Mám něco navíc","Mám nápad","Jen se chci rozhlédnout"])if(!home.includes(m))fail(`home missing ${m}`);
+for(const m of ["Bez povinnosti","Reciprocita není dluh","dobrovolné"])if(!how.toLowerCase().includes(m.toLowerCase()))fail(`how missing ${m}`);
+for(const m of ["Poznávat svět v souvislostech","Růst a učit se celý život","Zlepšovat svět kolem sebe"])if(!vision.includes(m))fail(`vision missing ${m}`);
+if(!roles.includes("Je v pořádku jen se dívat"))fail("roles browse-first copy missing");
+if(!profile.includes("Bez známek a pořadí"))fail("profile anti-score missing");
+if(!growth.includes("Není podmínkou kontaktu"))fail("gentle reciprocity missing");
+if(!detail.includes("Tohle mě zajímá")||!detail.includes("Ano, proběhlo to"))fail("light opportunity flow missing");
+if(!app.includes('path="/jak-to-funguje"')||!app.includes('path="/knihovna"'))fail("routes missing");
+for(const bad of ["zkušenostních bodů","Přijmout misi","Potvrdit dokončení mise"])if(profile.includes(bad)||detail.includes(bad))fail(`pressure UX remains: ${bad}`);
+for(const token of ["R8 GENTLE PARTICIPATION",".r8-flow-section",".p-r8-entry-grid",".r8-footer"])if(!css.includes(token))fail(`css missing ${token}`);
+console.log("PANSOFIE_GENTLE_R8=PASS");

@@ -1,86 +1,126 @@
-# PANSOFIE
+# Pansofie + Pansofie Young
 
-> Poznej sebe. Tvoř s druhými. Zlepšuj svět.
+Kohezní React/Vite produkt se dvěma vstupy nad společným local-first jádrem.
 
-PANSOFIE is a system of lifelong development through real-world experiences that connects school, family and community so that a person can discover, act, document, reflect, transfer learning and contribute.
-
-## Canonical product baseline
-
-The governed product Source of Truth is in [`docs/canonical/`](docs/canonical/README.md).
-
-Canonical product loop:
-
-```text
-ČLOVĚK → MISE → SKUTEČNÁ ZKUŠENOST → DŮKAZ → REFLEXE → PORTFOLIO → SPOLUPRÁCE → DOPAD
-```
-
-Technology supports the method; it does not define the method. Older product concepts are historical/exploratory when they conflict with the canonical V1.0 baseline unless explicitly promoted through a governed decision.
+- Pansofie: dospělý fotografický editorial vzhled, cream/sage paleta, město + příroda.
+- Pansofie Young: samostatný ilustrativní/akvarelový svět se stromem, věkovými větvemi a misemi bez hodnocení člověka.
+- Sdílené jádro: Jak to funguje, Pro koho, Koloběh, Knihovna, Vize, Digitální kompost, Lidé & mentoring, Mapa koloběhu, Školy & organizace, profil, CS/EN, accessibility a bezpečnostní texty.
 
 ## Stack
 
-- React + React Router
-- Vite
-- Tailwind CSS
-- Supabase Auth + PostgreSQL/RLS
-- TanStack Query
-- Recharts
-- Lucide React
+- React 19
+- Vite 8
+- Tailwind CSS 4
+- React Router
+- Leaflet + React Leaflet
+- OpenStreetMap
+- localStorage jako dočasný prototypový datastore
 
-## Local development
+## Routy
+
+- `/`
+- `/jak-to-funguje`
+- `/pro-koho`
+- `/knihovna`
+- `/vize`
+- `/osobni-rust`
+- `/digitalni-kompost`
+- `/mapa-kolobehu`
+- `/instituce`
+- `/profil`
+- `/young`
+- `/young/mise`
+- `/kontakt`
+- `/soukromi`
+- `/podminky`
+- `/cookies`
+- `/pravidla-komunity`
+- `/pristupnost`
+- `/bezpecnost`
+
+## R2 metabolism features
+
+- globální CS/EN přepínač s persistencí
+- A / A+ / A++ s persistencí
+- skutečný `navigator.geolocation` pouze po kliknutí uživatele
+- Haversine vzdálenost a řazení materiálů od nejbližšího
+- sdílená datová vrstva mezi kompostem, mapou, institucemi a profilem
+- automatické párování školních potřeb a firemních přebytků
+- normalizace diakritiky + synonymní skupiny místo přesného `keyword === value`
+- bohatší DEMO firemní banka
+- všechny simulované firmy jsou explicitně označené DEMO
+
+## Truth model
+
+- Demo data jsou označená `DEMO`.
+- Uživatelská data se ukládají pouze do `localStorage`.
+- Geolokace se nepersistuje; existuje jen v paměti stránky.
+- Profil nepředstírá reálný dopad ani historii.
+- Přesné domácí adresy se na mapě nepoužívají.
+- Demo firmy nejsou prezentovány jako ověření partneři.
+- Backend/Supabase je další samostatná fáze.
+
+## Start
 
 ```bash
-cp .env.example .env.local
 npm install
+npm run check
 npm run dev
 ```
 
-Set these public browser variables in `.env.local`:
 
-```bash
-VITE_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
-VITE_SUPABASE_ANON_KEY=YOUR_PUBLIC_ANON_KEY
-```
+## Current product rules
 
-Never commit the Supabase service-role key or other server secrets.
+- žádná povinná protislužba, veřejné body člověka ani žebříčky
+- žádné automatické ESG/CSR/CO2 tvrzení
+- demo organizace jsou označené `DEMO` a nejsou prezentované jako ověření partneři
+- právní a bezpečnostní texty jsou označené `LEGAL CANDIDATE`, dokud není doplněná identita provozovatele a konkrétní zpracovatelé
+- Young UX nepracuje s přesnou polohou dítěte a nenabízí přímý kontakt dítěte s neznámým dospělým
+- kontaktní formulář je v prototypu local-only a netvrdí, že odesílá e-mail
 
-## Authentication
 
-Member login:
+## R4 digital compost game
 
-```text
-/login
-```
+- hravé karty surovin
+- virtuální „trakař“ jako oddělený UI inventory state
+- reálný sousedský radar přes `navigator.geolocation`
+- Haversine distance + radius slider 2–50 km
+- explicitní rezervace oddělená od pouhého výběru
+- součet pouze skutečně uvedené hmotnosti z textu `kg`
+- bez vymyšlených dopadových metrik
+- explicitní uzavření lokálního předání zůstává samostatná akce
 
-Admin login:
 
-```text
-/admin/login
-```
+## R5 vision & missions
 
-Member routes are protected by an authenticated Supabase session. Admin routes additionally require `user_roles.role = 'admin'`.
+- `/vize` jako filozoficko-praktický manifest
+- tři pilíře: Pansofia / Pampaedia / Panorthosia
+- interaktivní role-based mise pro mládež, školy a firmy
+- přijetí a dokončení mise se ukládá local-first
+- dokončená mise se propíše do lokálního ledgeru a profilu
+- žádné falešné certifikáty ani marketingové garance
+- CS/EN navigace zahrnuje Vizi
 
-Apply the SQL migration in `supabase/migrations/20260808130500_auth_profiles_roles.sql` before using authentication.
 
-To promote a trusted account to administrator, use a trusted SQL/admin environment after that user has registered:
+## R6 mockup 1:1 UI
 
-```sql
-insert into public.user_roles (user_id, role)
-values ('USER_UUID', 'admin')
-on conflict (user_id) do update set role = excluded.role;
-```
+- redesign celého shellu podle schváleného 1536×1024 mockupu
+- přesná cream/olive/terracotta paleta (`#F2EBE0`, `#FCF8F0`, `#3B6633`, `#CF6C3F`)
+- kompaktní desktop navigace + mobilní spodní dock
+- homepage: fotografický editorial hero, směr zapojení a pilíře
+- Vize: 3 pilíře + 3 obrazové mise
+- Kompost: filtrovací lišta, 5sloupcový grid, add card, trakař
+- Mapa: full-canvas Leaflet + levý filtr + pravé nabídky
+- Profil: levý profil, centrální strom, pravé mise, spodní metriky
+- detail mise: batoh, 3krokový progress, popis, tipy, potvrzení
+- Osobní růst, Role hub a Instituce sjednoceny do stejného design systému
+- ilustrace jsou lokální výřezy ze schváleného mockupu; funkční UI není bitmapový screenshot
+- truth model, local-first stav, geolokace, OSM a matching zůstávají aktivní
 
-Do not expose an admin-role write operation to normal browser clients.
-
-## Build
-
-```bash
-npm run build
-```
-
-## Deployment
-
-`render.yaml` defines the static frontend deployment and expects `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to be configured in the hosting environment.
-
-## Product-data status
-
-The current mission, project, event and network catalog in `src/lib/pansofieData.js` is prototype/sample content. Authenticated identity is no longer taken from the sample user: dashboard, development view and profile use the real signed-in account.
+## R8 gentle participation
+- opportunity, not obligation
+- browse-first entry
+- no mandatory proof/reflection UX
+- no personal rating
+- light confirmation: “Ano, proběhlo to”
+- new How it works + Library surfaces
