@@ -23,9 +23,9 @@ function runtimeErrors(page) {
 }
 
 const PUBLIC_ROUTES = [
-  ["/", /Poznej sebe/],
+  ["/", /Lepší svět/],
   ["/pilot", /Tři skutečné zkušenosti/],
-  ["/jak-funguje", /Od skutečné potřeby k/],
+  ["/jak-funguje", /Od skutečného činu k/],
   ["/partneri", /Přineste skutečný problém/],
   ["/program/school", /Pansofie School/],
   ["/program/family", /Pansofie Family/],
@@ -50,12 +50,12 @@ test("homepage communicates current Experience-first truthfully", async ({ page,
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(`${BASE_URL}/`, { waitUntil: "networkidle" });
 
-  await expect(page.getByText("Experience-first ekosystém", { exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Poznej sebe.*Tvoř s druhými.*Zlepšuj svět/i })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Jedna Experience uprostřed/ })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Přínos není skóre člověka." })).toBeVisible();
+  await expect(page.getByText("LEPŠÍ SOUVISLOSTI", { exact: false })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Lepší svět.*začíná tady.*Společně/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Tři pilíře Pansofie/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Co se může cestou rozvíjet/ })).toBeVisible();
   await expect(page.getByRole("link", { name: /Vyzkoušet Pansofii za 60 sekund/i }).first()).toHaveAttribute("href", "/zapojit-se?mode=simulator");
-  await expect(page.getByRole("link", { name: /Jak Pansofie funguje/i }).first()).toHaveAttribute("href", "/jak-funguje");
+  await expect(page.getByRole("link", { name: /Objevit Pansofii/i }).first()).toHaveAttribute("href", "/o-projektu");
   await expect(page.getByText(/Bounded runtime na stagingu/i)).toHaveCount(0);
   await expect(page.getByText(/STAGING VERIFIED/i)).toHaveCount(0);
 
@@ -88,8 +88,8 @@ test("pilot truthfully distinguishes digital readiness from real field verificat
   expect(response).not.toBeNull();
   expect(response.status()).toBeLessThan(400);
   await expect(page.getByText("PANSOFIE SCHOOL · PŘIPRAVENO K PRVNÍMU OVĚŘENÍ VE ŠKOLE")).toBeVisible();
-  await expect(page.getByText(/Digitální školní cesta je funkční a otestovaná/)).toBeVisible();
-  await expect(page.getByText(/Reálný field pilot ve škole ještě neproběhl/)).toBeVisible();
+  await expect(page.getByText(/Digitální cesta je připravená/)).toBeVisible();
+  await expect(page.getByText(/reálné ověření je další krok/)).toBeVisible();
   await expect(page.getByText("Zlepši svou školu", { exact: true })).toBeVisible();
   await expect(page.getByText("Digitální most", { exact: true })).toBeVisible();
   await expect(page.getByText("Circular Challenge", { exact: true })).toBeVisible();
@@ -106,7 +106,7 @@ test("pilot account CTA preserves governed returnTo=/skola through login", async
   await cta.click();
 
   await expect(page).toHaveURL((url) => url.pathname === "/login" && url.searchParams.get("returnTo") === "/skola");
-  await expect(page.getByRole("heading", { name: "Vítej zpět" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Vítejte zpět" })).toBeVisible();
   await expect(page.getByLabel("E-mail")).toBeVisible();
   await expect(page.getByLabel("Heslo")).toBeVisible();
 
@@ -120,7 +120,7 @@ test("unauthenticated /skola is fail-closed and redirects to login", async ({ br
 
   await page.goto(`${BASE_URL}/skola`, { waitUntil: "networkidle" });
   await expect(page).toHaveURL((url) => url.pathname === "/login" && url.searchParams.get("returnTo") === "/skola");
-  await expect(page.getByRole("heading", { name: "Vítej zpět" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Vítejte zpět" })).toBeVisible();
 
   expect(errors, `runtime errors in auth redirect:\n${errors.join("\n")}`).toEqual([]);
   await context.close();
