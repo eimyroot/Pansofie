@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Leaf, Search } from "lucide-react";
+import ExperienceStory from "@/components/pansofie/ExperienceStory";
+import RoleEntry from "@/components/pansofie/RoleEntry";
+import PublicMaturity from "@/components/pansofie/PublicMaturity";
 import "@/pansofie-modern.css";
 
 const ACTIONS = [
@@ -67,10 +70,14 @@ export default function Home() {
           <div className="modern-copy">
             <span className="modern-eyebrow">LEPŠÍ SOUVISLOSTI<br/>PRO REÁLNÝ SVĚT</span>
             <h1 id="modern-hero-title">Lepší svět<br/>začíná tady.<br/>Společně.</h1>
-            <p>Propojujeme lidi, znalosti a konkrétní činy pro živoucí, moudrou a udržitelnou budoucnost.</p>
+            <p>Propojujeme lidi, znalosti a konkrétní činy pro živoucí, moudrou a udržitelnou budoucnost. Pansofie propojuje učení se skutečnou zkušeností.</p>
             <div className="modern-cta-row">
               <Link to="/zapojit-se" className="modern-primary">Připojit se <ArrowRight size={17}/></Link>
               <Link to="/o-projektu" className="modern-secondary">Objevit Pansofii <ArrowRight size={17}/></Link>
+            </div>
+            <div className="modern-simulator-entry">
+              <Link to="/zapojit-se?mode=simulator">Vyzkoušet Pansofii za 60 sekund</Link>
+              <small>Interaktivní ukázka nic neodesílá ani neukládá na server.</small>
             </div>
             <div className="modern-impact"><Leaf size={27}/><span>MALÉ KROKY<br/>VELKÝ DOPAD</span></div>
           </div>
@@ -97,7 +104,12 @@ export default function Home() {
 
           <div id="rozvoj" className="modern-growth"><h3>Co se může cestou rozvíjet</h3><p>Nejsou to body, známky ani žebříček člověka. Jsou to oblasti, kterých se dobrovolná zkušenost může přirozeně dotknout.</p><div className="modern-chips">{GROWTH.map(x=><span className="modern-chip" key={x}>{x}</span>)}</div></div>
           <div className="modern-notice"><strong>Pansofie nic nepřikazuje.</strong><br/><span style={{fontFamily:"Source Sans 3, sans-serif",fontSize:14}}>Ukazuje možnosti. Můžete se jen rozhlédnout, nechat se inspirovat — a zapojit se teprve ve chvíli, kdy sami budete chtít.</span></div>
+          <div className="modern-notice" aria-label="Důvěra a dopad"><strong>Dokončená aktivita ještě není důkaz skutečného dopadu.</strong><br/><span style={{fontFamily:"Source Sans 3, sans-serif",fontSize:14}}>Pansofie nehodnotí hodnotu člověka. Rozlišuje mezi tím, co člověk udělal, co vzniklo a co se skutečně změnilo.</span></div>
         </section>
+
+        <ExperienceStory />
+        <RoleEntry />
+        <PublicMaturity />
       </main>
       <ModernFooter />
     </div>
