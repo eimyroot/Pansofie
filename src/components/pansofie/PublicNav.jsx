@@ -9,6 +9,7 @@ const LINKS = {
   cs: [
     ["/jak-funguje", "Jak to funguje"],
     ["/pansofiego", "PansofieGO"],
+    ["/vize", "Vize"],
     ["/pro-koho", "Pro koho"],
     ["/knihovna", "Knihovna"],
     ["/pilot", "Pro školy"],
@@ -19,6 +20,7 @@ const LINKS = {
   en: [
     ["/jak-funguje", "How it works"],
     ["/pansofiego", "PansofieGO"],
+    ["/vize", "Vision"],
     ["/pro-koho", "For whom"],
     ["/knihovna", "Library"],
     ["/pilot", "For schools"],
