@@ -56,8 +56,8 @@ assert.ok(joinNetwork.includes("/zapojit-se?mode=simulator"), "PANSOFIEDIT simul
 assert.ok(joinNetwork.includes("Vyzkoušet PANSOFIEDIT"), "secondary simulator action label missing from Join surface");
 assert.ok(!footer.includes("/zapojit-se?mode=simulator"), "legacy simulator must not compete with canonical footer navigation");
 assert.ok(nav.includes("/pro-koho"), "public role information architecture entry missing");
-assert.ok(home.includes("action-primary"), "homepage primary action hierarchy missing");
-assert.ok(home.includes("Učení, které pokračuje v reálném světě"), "homepage human-first positioning marker missing");
+assert.ok(home.includes("modern-primary"), "modern homepage primary action hierarchy missing");
+assert.ok(home.includes("LEPŠÍ SOUVISLOSTI"), "modern homepage editorial positioning marker missing");
 assert.ok(home.includes("<PublicMaturity />"), "homepage maturity/truth surface missing");
 
 for (const role of ["learner", "school", "family", "partner", "community", "mentor"]) {
