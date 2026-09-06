@@ -4,6 +4,7 @@ import { ArrowRight, Leaf, Search } from "lucide-react";
 import ExperienceStory from "@/components/pansofie/ExperienceStory";
 import RoleEntry from "@/components/pansofie/RoleEntry";
 import PublicMaturity from "@/components/pansofie/PublicMaturity";
+import LanguageToggle from "@/components/pansofie/LanguageToggle";
 import "@/pansofie-modern.css";
 
 const ACTIONS = [
@@ -33,6 +34,7 @@ function ModernHeader() {
         <Link to="/">Domů</Link><Link to="/o-projektu">O Pansofii</Link><Link to="/zapojit-se">Akce</Link><Link to="/pro-koho">Komunita</Link><Link to="/knihovna">Zdroje</Link><Link to="/materialovy-most">Kompost</Link><Link to="/kontakt">Kontakt</Link>
       </nav>
       <div className="modern-header-actions">
+        <LanguageToggle compact />
         <Search size={20} aria-hidden="true" />
         <Link className="modern-login" to="/login">Přihlásit se</Link>
         <Link className="modern-join" to="/zapojit-se">Připojit se</Link>

@@ -101,8 +101,8 @@ test("public navigation exposes identity, participation and the live taste entry
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
   await expect(page.getByRole("link", { name: "O Pansofii", exact: true })).toHaveAttribute("href", "/o-projektu");
-  await expect(page.getByRole("link", { name: "Přidejte se", exact: true })).toHaveAttribute("href", "/zapojit-se");
-  await expect(page.getByRole("link", { name: /Vyzkoušet 60 s/i })).toHaveAttribute("href", "/pro-koho#ochutnejte");
+  await expect(page.getByRole("banner").getByRole("link", { name: "Připojit se", exact: true })).toHaveAttribute("href", "/zapojit-se");
+  await expect(page.getByRole("link", { name: /Vyzkoušet Pansofii za 60 sekund/i }).first()).toHaveAttribute("href", "/zapojit-se?mode=simulator");
 
   await page.goto(`${BASE_URL}/pro-koho#ochutnejte`, { waitUntil: "networkidle" });
   await expect(page.getByRole("heading", { name: /Vyzkoušejte si celý cyklus Pansofie bez registrace/i })).toBeVisible();

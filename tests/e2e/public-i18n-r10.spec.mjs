@@ -104,7 +104,7 @@ for (const viewport of [
 
     await page.goto(englishUrl("/"), { waitUntil: "networkidle" });
     await page.waitForTimeout(80);
-    await expect(page.getByRole("heading", { name: /Know yourself.*Create with others.*Improve the world/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /A better world.*starts here.*Together/i })).toBeVisible();
     await page.screenshot({ path: path.join(EVIDENCE_DIR, `home-en-${viewport.label}.png`), fullPage: true });
 
     await context.close();
@@ -114,14 +114,14 @@ for (const viewport of [
 test("R10 language switch persists and preserves shareable locale during navigation", async ({ page }) => {
   await page.goto(`${BASE_URL}/?lang=en`, { waitUntil: "networkidle" });
   await page.waitForTimeout(80);
-  await expect(page.getByRole("heading", { name: /Know yourself.*Improve the world/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /A better world.*starts here.*Together/i })).toBeVisible();
 
   const languageGroup = page.getByRole("group", { name: "Website language" });
   await expect(languageGroup.getByRole("button", { name: "EN", exact: true })).toHaveAttribute("aria-pressed", "true");
 
   await languageGroup.getByRole("button", { name: "CZ", exact: true }).click();
   await page.waitForTimeout(80);
-  await expect(page.getByRole("heading", { name: /Poznej sebe.*Zlepšuj svět/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Lepší svět.*začíná tady.*Společně/i })).toBeVisible();
   expect(new URL(page.url()).searchParams.has("lang")).toBe(false);
   expect(await page.evaluate(() => localStorage.getItem("pansofie.locale"))).toBe("cs");
   expect(await page.locator("html").getAttribute("lang")).toBe("cs");

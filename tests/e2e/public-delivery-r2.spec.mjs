@@ -52,10 +52,10 @@ for (const [name, route] of ROUTES) {
 
 test("homepage has one coherent public narrative", async ({ page }) => {
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { name: /Poznej sebe.*Tvoř s druhými.*Zlepšuj svět/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Lepší svět.*začíná tady.*Společně/i })).toBeVisible();
   await expect(page.getByText(/01 · JAK VYPADÁ JEDNA SKUTEČNÁ ZKUŠENOST/i)).toBeVisible();
   await expect(page.getByText(/02 · KDO JE SOUČÁSTÍ JEDNÉ ZKUŠENOSTI/i)).toBeVisible();
-  await expect(page.getByText(/03 · METODA PANSOFIE/i)).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Tři pilíře Pansofie/i })).toBeVisible();
   await expect(page.getByText(/04 · KDE PANSOFIE OPRAVDU JE/i)).toBeVisible();
   await expect(page.getByRole("heading", { name: /Říkáme otevřeně, co už funguje/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /Vyzkoušet Pansofii za 60 sekund/i }).first()).toHaveAttribute("href", "/zapojit-se?mode=simulator");
