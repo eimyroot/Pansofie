@@ -35,7 +35,7 @@ const pillars = [
 
 export default function Vision() {
   return (
-    <main className="vision-page">
+    <main className="vision-page" data-vision-release="r28">
       <section className="vision-hero vision-shell">
         <div>
           <p className="vision-eyebrow">VIZE PANSOFIE</p>
