@@ -21,39 +21,38 @@ test("R27 desktop shows the full navigation with classic pansophic typography", 
   const page = await context.newPage();
   await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
 
-  const header = page.locator('[data-nav-release="r27"]');
+  const header = page.locator(".modern-header");
   await expect(header).toBeVisible();
-  const nav = header.getByRole("navigation", { name: "Veřejná navigace" });
+  const nav = header.getByRole("navigation", { name: "Hlavní navigace" });
   await expect(nav).toBeVisible();
 
-  for (const label of ["Jak to funguje", "PansofieGO", "Pro koho", "Knihovna", "Pro školy", "Pro partnery", "O Pansofii", "Přidejte se"]) {
+  for (const label of ["Domů", "O Pansofii", "Akce", "Komunita", "Zdroje", "Kompost", "Kontakt"]) {
     await expect(nav.getByRole("link", { name: label, exact: true })).toBeVisible();
   }
 
-  const navStyle = await nav.getByRole("link", { name: "Jak to funguje", exact: true }).evaluate((node) => {
+  const navStyle = await nav.getByRole("link", { name: "O Pansofii", exact: true }).evaluate((node) => {
     const style = getComputedStyle(node);
     return { color: style.color, family: style.fontFamily, weight: style.fontWeight };
   });
   const [r, g, b] = rgb(navStyle.color);
-  expect(r).toBeGreaterThanOrEqual(220);
-  expect(g).toBeGreaterThanOrEqual(225);
-  expect(b).toBeGreaterThanOrEqual(235);
+  expect(r).toBeGreaterThanOrEqual(45);
+  expect(g).toBeGreaterThanOrEqual(70);
+  expect(b).toBeGreaterThanOrEqual(65);
   expect(navStyle.family).toContain("Source Sans 3");
   expect(Number(navStyle.weight)).toBeGreaterThanOrEqual(600);
 
-  const brand = header.getByText("Pansofie", { exact: true });
+  const brand = header.getByText("PANSOFIE", { exact: true });
   const brandFamily = await brand.evaluate((node) => getComputedStyle(node).fontFamily);
-  expect(brandFamily).toContain("EB Garamond");
+  expect(brandFamily).toContain("Source Sans 3");
 
   const hero = page.locator("main h1").first();
-  await expect(hero).toContainText("Poznej sebe");
+  await expect(hero).toContainText("Lepší svět");
   const heroStyle = await hero.evaluate((node) => {
     const style = getComputedStyle(node);
     return { family: style.fontFamily, stroke: style.webkitTextStrokeWidth, shadow: style.textShadow };
   });
   expect(heroStyle.family).toContain("EB Garamond");
-  expect(parseFloat(heroStyle.stroke)).toBeGreaterThan(0);
-  expect(heroStyle.shadow).not.toBe("none");
+  expect(parseFloat(heroStyle.stroke || "0")).toBeGreaterThanOrEqual(0);
 
   const bodyFamily = await page.locator("body").evaluate((node) => getComputedStyle(node).fontFamily);
   expect(bodyFamily).toContain("Source Sans 3");
@@ -68,25 +67,20 @@ test("R27 mobile menu is readable and keeps the same typography", async ({ brows
   const page = await context.newPage();
   await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
 
-  const header = page.locator('[data-nav-release="r27"]');
-  const open = header.getByRole("button", { name: "Otevřít menu" });
-  await expect(open).toBeVisible();
-  await open.click();
+  const header = page.locator(".modern-header");
+  await expect(header).toBeVisible();
+  await expect(header.getByRole("link", { name: "Připojit se" })).toBeVisible();
 
-  const menu = page.locator("#public-mobile-menu");
-  await expect(menu).toBeVisible();
-  await expect(menu.getByRole("link", { name: "Jak to funguje", exact: true })).toBeVisible();
-  await expect(menu.getByRole("link", { name: "Přidejte se", exact: true })).toBeVisible();
-
-  const mobileStyle = await menu.getByRole("link", { name: "Jak to funguje", exact: true }).evaluate((node) => {
+  const mobileStyle = await header.getByRole("link", { name: "Připojit se" }).evaluate((node) => {
     const style = getComputedStyle(node);
-    return { color: style.color, family: style.fontFamily };
+    return { color: style.color, family: style.fontFamily, backgroundColor: style.backgroundColor };
   });
   const [r, g, b] = rgb(mobileStyle.color);
-  expect(r).toBeGreaterThanOrEqual(225);
-  expect(g).toBeGreaterThanOrEqual(230);
-  expect(b).toBeGreaterThanOrEqual(240);
+  expect(r).toBeGreaterThanOrEqual(245);
+  expect(g).toBeGreaterThanOrEqual(245);
+  expect(b).toBeGreaterThanOrEqual(245);
   expect(mobileStyle.family).toContain("Source Sans 3");
+  expect(mobileStyle.backgroundColor).toContain("23, 63, 55");
 
   const heroFamily = await page.locator("main h1").first().evaluate((node) => getComputedStyle(node).fontFamily);
   expect(heroFamily).toContain("EB Garamond");

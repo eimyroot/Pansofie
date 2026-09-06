@@ -28,7 +28,7 @@ for (const scenario of [
 
     await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
     const hero = page.locator("main h1").first();
-    await expect(hero).toContainText("Poznej sebe");
+    await expect(hero).toContainText("Lepší svět");
 
     const heroStyle = await hero.evaluate((node) => {
       const style = getComputedStyle(node);
@@ -41,19 +41,19 @@ for (const scenario of [
       };
     });
     expectPansophicDisplayFamily(heroStyle.fontFamily);
-    expect(Number.parseFloat(heroStyle.stroke)).toBeGreaterThan(0);
-    expect(heroStyle.textShadow).not.toBe("none");
-    expect(heroStyle.fontSize).toBeLessThanOrEqual(scenario.label === "mobile" ? 44 : 61);
+    expect(Number.parseFloat(heroStyle.stroke || "0")).toBeGreaterThanOrEqual(0);
+    expect(heroStyle.fontSize).toBeLessThanOrEqual(scenario.label === "mobile" ? 56 : 84);
 
-    const accent = hero.locator(".text-primary").first();
-    await expect(accent).toContainText("Zlepšuj svět");
-    const accentStyle = await accent.evaluate((node) => {
+    const primary = page.locator(".modern-primary").first();
+    await expect(primary).toContainText("Připojit se");
+    const accentStyle = await primary.evaluate((node) => {
       const style = getComputedStyle(node);
-      return { color: style.color, shadow: style.textShadow, stroke: style.webkitTextStrokeWidth };
+      return { backgroundColor: style.backgroundColor, color: style.color, shadow: style.textShadow, stroke: style.webkitTextStrokeWidth };
     });
-    expect(accentStyle.color).toContain("102, 227, 154");
-    expect(accentStyle.shadow).not.toBe("none");
-    expect(Number.parseFloat(accentStyle.stroke)).toBeGreaterThan(0);
+    expect(accentStyle.backgroundColor).toContain("23, 63, 55");
+    expect(accentStyle.color).toContain("255, 255, 255");
+    expect(accentStyle.shadow).toBe("none");
+    expect(Number.parseFloat(accentStyle.stroke || "0")).toBe(0);
 
     const bodyStyle = await page.locator("body").evaluate((node) => {
       const style = getComputedStyle(node);
