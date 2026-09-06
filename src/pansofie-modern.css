@@ -12,6 +12,7 @@
 .public-network-content:has(.modern-home) .modern-home main>section{border-top:0!important}
 .public-network-content:has(.modern-home) .modern-home main>section::before,.public-network-content:has(.modern-home) .modern-home main>section::after{display:none!important;content:none!important}
 .public-network-content:has(.modern-home) .modern-hero{background:#fbfaf6!important;color:#173f37!important}
+.public-network-content:has(.modern-home) .modern-home :is(h1,h2,h3,p,li,span,article,section){opacity:1!important;filter:none!important;transform:none!important}
 .public-network-content .modern-home .modern-copy h1{color:#173f37!important;text-shadow:none!important;-webkit-text-stroke:0 transparent!important;-webkit-text-stroke-width:0!important;font-family:"Source Sans 3",system-ui,sans-serif!important}
 .modern-photo img{filter:saturate(.95) contrast(1.02)}
 .modern-safety-sections{display:none!important}
