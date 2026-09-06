@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, Compass, FlaskConical, HandHeart, Palette, ShieldCheck } from "lucide-react";
+import { ArrowRight, BookOpen, Compass, Eye, FlaskConical, HandHeart, Leaf, Lightbulb, Palette, Recycle, ShieldCheck, Sprout, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ART } from "../lib/artkit";
 import { useLanguage } from "../state/LanguageContext";
@@ -17,9 +17,71 @@ const BRANCHES = {
   ],
 };
 
+const YOUNG_COPY = {
+  cs: {
+    eyebrow: "Živý prostor pro mladé objevitele",
+    titleA: "Pansofie Young.",
+    titleB: "Místo, kde zvědavost roste dál.",
+    lead: "Objevuj, zkoušej, tvoř a pomáhej měnit svět kolem sebe. Young je bezpečná brána do Pansofie pro děti a mladé — s vlastními misemi, větvemi a stromem rozvoje bez hodnocení člověka.",
+    primary: "Vybrat si misi",
+    secondary: "Prozkoumat větve",
+    cardsTitle: "Co chceš dnes dát do pohybu?",
+    cardsLead: "Vyber si směr, který tě dnes volá. Bez povinnosti. Bez srovnávání.",
+    choices: [
+      ["Můžu někomu pomoct", "Najdu malý bezpečný krok, kde můžu být užitečný.", ART.help, Users],
+      ["Chci něco změnit", "Objevím nápady a projekty, které dávají smysl.", ART.change, Sprout],
+      ["Mám něco navíc", "Sdílím věc, čas nebo dovednost přes dospělého či organizaci.", ART.surplus, Recycle],
+      ["Mám nápad", "Uložím myšlenku, kterou můžu rozvinout s ostatními.", ART.idea, Lightbulb],
+      ["Jen se chci rozhlédnout", "Podívám se, co se děje kolem mě — bez závazku.", ART.explore, Compass],
+    ],
+    pillarsTitle: "Tři kořeny Pansofie",
+    pillarsLead: "Stejná vize jako v hlavní Pansofii, převedená do jazyka mladých.",
+    pillars: [
+      ["Vševěda", "Poznávat svět v souvislostech.", ART.pansofia, ["Objevovat", "Ptát se", "Propojovat"]],
+      ["Vševýchova", "Růst a učit se po svém tempu.", ART.pampaedia, ["Zkoušet", "Tvořit", "Učit se spolu"]],
+      ["Všenáprava", "Pomáhat světu kolem sebe malými kroky.", ART.panorthosia, ["Pomáhat", "Pečovat", "Měnit okolí"]],
+    ],
+    floating: [
+      ["Vševěda", "Pozorovat svět v souvislostech.", Eye],
+      ["Vševýchova", "Růst bez závodu a známkování.", BookOpen],
+      ["Všenáprava", "Zlepšovat svět kolem sebe.", Leaf],
+    ],
+  },
+  en: {
+    eyebrow: "A living space for young explorers",
+    titleA: "Pansofie Young.",
+    titleB: "A place where curiosity keeps growing.",
+    lead: "Discover, try, create and help change the world around you. Young is a safe gateway into Pansofie for children and young people — with missions, branches and a growth tree without rating a person.",
+    primary: "Choose a mission",
+    secondary: "Explore branches",
+    cardsTitle: "What do you want to set in motion today?",
+    cardsLead: "Choose the direction that calls you today. No obligation. No ranking.",
+    choices: [
+      ["I can help someone", "Find a small safe step where you can be useful.", ART.help, Users],
+      ["I want to change something", "Discover ideas and projects that feel meaningful.", ART.change, Sprout],
+      ["I have something extra", "Share a thing, time or skill through an adult or organisation.", ART.surplus, Recycle],
+      ["I have an idea", "Save a thought you can develop with others.", ART.idea, Lightbulb],
+      ["I just want to look around", "See what is happening around you — without commitment.", ART.explore, Compass],
+    ],
+    pillarsTitle: "Three roots of Pansofie",
+    pillarsLead: "The same vision as main Pansofie, translated for young people.",
+    pillars: [
+      ["Universal knowledge", "See the world in context.", ART.pansofia, ["Discover", "Ask", "Connect"]],
+      ["Lifelong education", "Grow and learn at your own pace.", ART.pampaedia, ["Try", "Create", "Learn together"]],
+      ["Improvement", "Help the world around you through small steps.", ART.panorthosia, ["Help", "Care", "Improve"]],
+    ],
+    floating: [
+      ["Universal knowledge", "Observe the world in context.", Eye],
+      ["Lifelong education", "Grow without races or grades.", BookOpen],
+      ["Improvement", "Improve the world around you.", Leaf],
+    ],
+  },
+};
+
 export default function Young() {
   const { isEnglish } = useLanguage();
   const branches = BRANCHES[isEnglish ? "en" : "cs"];
+  const copy = YOUNG_COPY[isEnglish ? "en" : "cs"];
   return <div className="young-world">
     <nav className="young-nav" aria-label={isEnglish ? "Pansofie Young navigation" : "Navigace Pansofie Young"}>
       <Link to="/young" className="young-logo">PANSOFIE <span>YOUNG</span></Link>
@@ -27,9 +89,26 @@ export default function Young() {
       <Link to="/" className="young-exit">{isEnglish ? "Main Pansofie ↗" : "Hlavní Pansofie ↗"}</Link>
     </nav>
 
-    <section className="young-hero">
-      <div className="young-hero__copy"><p className="young-kicker">PANSOFIE YOUNG</p><h1>{isEnglish ? "Your curiosity can grow in every direction." : "Tvoje zvědavost může růst všemi směry."}</h1><p>{isEnglish ? "Discover what interests you. Try small missions, create with others and help change the world around you. You do not have to prove anything." : "Objevuj, co tě zajímá. Zkoušej malé mise, tvoř s ostatními a pomáhej měnit svět kolem sebe. Nemusíš nic dokazovat."}</p><div className="young-actions"><Link className="p-btn p-btn--green" to="/young/mise">{isEnglish ? "Choose a mission" : "Vybrat si misi"}<ArrowRight size={16}/></Link><a className="p-btn p-btn--outline" href="#branches">{isEnglish ? "Explore branches" : "Prozkoumat větve"}</a></div></div>
-      <img src={ART.heroTree} alt={isEnglish ? "Watercolour tree with many paths" : "Akvarelový strom s mnoha cestami"}/>
+    <section className="young-hero young-hero--vision">
+      <div className="young-hero__copy"><p className="young-kicker">{copy.eyebrow}</p><h1><span>{copy.titleA}</span><em>{copy.titleB}</em></h1><p>{copy.lead}</p><div className="young-actions"><Link className="p-btn p-btn--green" to="/young/mise">{copy.primary}<ArrowRight size={16}/></Link><a className="p-btn p-btn--outline" href="#branches">{copy.secondary}</a></div></div>
+      <figure className="young-tree-stage">
+        <img src={ART.heroTree} alt={isEnglish ? "Watercolour Pansofie Young tree with many discovery branches" : "Akvarelový strom Pansofie Young s větvemi objevování"}/>
+        {copy.floating.map(([title,text,Icon], index)=><figcaption className={`young-float young-float--${index+1}`} key={title}><Icon size={25}/><span><strong>{title}</strong><small>{text}</small></span></figcaption>)}
+      </figure>
+    </section>
+
+    <section className="young-choice-board" aria-labelledby="young-choice-title">
+      <div className="young-choice-board__head"><h2 id="young-choice-title">{copy.cardsTitle}</h2><p>{copy.cardsLead}</p></div>
+      <div className="young-choice-grid">
+        {copy.choices.map(([title,text,img,Icon])=><Link to="/young/mise" className="young-choice-card" key={title}><img src={img} alt=""/><span><Icon size={16}/><strong>{title}</strong><small>{text}</small></span><ArrowRight size={16}/></Link>)}
+      </div>
+    </section>
+
+    <section className="young-pillar-board" aria-labelledby="young-pillars-title">
+      <div className="young-choice-board__head"><h2 id="young-pillars-title">{copy.pillarsTitle}</h2><p>{copy.pillarsLead}</p></div>
+      <div className="young-pillar-grid">
+        {copy.pillars.map(([title,text,img,items])=><article key={title}><img src={img} alt=""/><div><h3>{title}</h3><p>{text}</p><ul>{items.map(item=><li key={item}>{item}</li>)}</ul></div></article>)}
+      </div>
     </section>
 
     <section id="principles" className="young-principles" aria-labelledby="young-principles-title">
