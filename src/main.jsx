@@ -21,6 +21,7 @@ import "@/pansophic-visual-system-r26.css";
 import "@/pansophic-typography-r26.css";
 import "@/pansophic-closure-r26.css";
 import "@/pansophic-classic-r27.css";
+import "@/pansofie-modern.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <App />
