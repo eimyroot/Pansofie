@@ -5,19 +5,20 @@ import ExperienceStory from "@/components/pansofie/ExperienceStory";
 import RoleEntry from "@/components/pansofie/RoleEntry";
 import PublicMaturity from "@/components/pansofie/PublicMaturity";
 import LanguageToggle from "@/components/pansofie/LanguageToggle";
+import "@/pansofie-modern.css";
 
 const ACTIONS = [
-  ["Můžu někomu pomoct", "Najdu příležitosti, kde mohu být užitečný.", "/zapojit-se?intent=help", "/pansofie-modern/06_community_collaboration_change.png"],
-  ["Můžu něco změnit", "Zapojím se do konkrétních řešení.", "/zapojit-se?intent=change", "/pansofie-modern/07_people_create_change.png"],
-  ["Mám přebytek", "Dám věcem druhý život a propojím se s lidmi.", "/materialovy-most", "/pansofie-modern/08_idea_plan_action_impact.png"],
-  ["Mám nápad", "Proměním myšlenku ve skutečný projekt.", "/zapojit-se?intent=idea", "/pansofie-modern/01_better_world_together.png"],
-  ["Můžu prozkoumat", "Objevím nová místa, komunity a inspiraci.", "/knihovna", "/pansofie-modern/12_explore.png"],
+  ["Můžu někomu pomoct", "Najdu příležitosti, kde mohu být užitečný.", "/zapojit-se?intent=help"],
+  ["Chci něco změnit", "Objevím nápady a projekty, které dávají smysl.", "/zapojit-se?intent=change"],
+  ["Mám něco navíc", "Sdílím věci a materiál, které mohou ještě posloužit.", "/materialovy-most"],
+  ["Mám nápad", "Přidám myšlenku nebo projekt, který může inspirovat ostatní.", "/zapojit-se?intent=idea"],
+  ["Jen se chci rozhlédnout", "Prozkoumám, co se děje kolem mě. Bez závazku.", "/knihovna"],
 ];
 
 const PILLARS = [
-  ["TŘI PILÍŘE", "Pansofie", "Vidět celek. Propojovat.", "/pansofie-modern/07_sustainable_city.png"],
-  ["CELEK, VZDĚLÁNÍ, NÁPRAVA", "Pampaedia", "Učit se celý život.", "/pansofie-modern/09_learning.png"],
-  ["MOUDRÁ ZMĚNA", "Panorthosia", "Jednat moudře.", "/pansofie-modern/15_sustainable_living.png"],
+  ["01 · PANSOFIA", "Vševěda", "Pansofia", "Rozumět sobě, lidem a světu kolem nás. Objevovat, rozumět souvislostem a propojovat."],
+  ["02 · PAMPAEDIA", "Vševýchova", "Pampaedia", "Růst celý život — a jeden od druhého. Sdílet znalosti, rozvíjet se a učit se navzájem."],
+  ["03 · PANORTHOSIA", "Všenáprava", "Panorthosia", "Když něco může být lepší, můžeme s tím něco udělat. Pomáhat, tvořit změnu a pečovat o svět."],
 ];
 
 const GROWTH = ["Já & zdraví", "Poznání & myšlení", "Vztahy & spolupráce", "Tvorba & řešení problémů", "Samostatnost & podnikavost", "Občanství & přínos", "Příroda & udržitelnost"];
@@ -84,7 +85,7 @@ export default function Home() {
           </div>
 
           <div className="modern-photo">
-            <img src="/pansofie-modern/hero-city-nature-people.png" alt="Lidé, příroda a město propojené v moderní Pansofii." />
+            <img src="https://images.unsplash.com/photo-1779805329201-70a9132ba96e?auto=format&fit=crop&fm=jpg&q=82&w=2400" alt="Lidé odpočívají a setkávají se v zeleném městském prostoru se siluetou města v pozadí." />
           </div>
 
           <aside className="modern-rail" aria-label="Život v souvislostech">
@@ -97,11 +98,11 @@ export default function Home() {
         <section className="modern-sections">
           <h2 className="modern-section-title">Co byste dnes chtěli dát do pohybu?</h2>
           <p className="modern-section-lead">Vyberte si směr, který vás dnes volá. Bez závazků. Podle vás.</p>
-          <div className="modern-actions">{ACTIONS.map(([title,text,to,image],i)=><Link className="modern-action-card" to={to} key={title}><img src={image} alt="" loading="lazy" /><span className="modern-card-icon">{String(i+1).padStart(2,"0")}</span><div><h3>{title}</h3><p>{text}</p></div><b>→</b></Link>)}</div>
+          <div className="modern-actions">{ACTIONS.map(([title,text,to],i)=><Link className="modern-action-card" to={to} key={title}><span>{String(i+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p><b>→</b></Link>)}</div>
 
-          <div className="modern-pillar-header"><span>TŘI PILÍŘE</span><p>CELEK, VZDĚLÁNÍ, NÁPRAVA</p></div>
-          <div className="modern-pillars">{PILLARS.map(([kicker,title,text,image])=><article className="modern-pillar" key={title}><img src={image} alt="" loading="lazy" /><span className="modern-card-icon">{title === "Pansofie" ? "♧" : title === "Pampaedia" ? "□" : "◒"}</span><strong>{kicker}</strong><h3>{title}</h3><p>{text}</p><b>→</b></article>)}</div>
-          <blockquote className="modern-quote">„Moudřejší společnost nevzniká náhodou.<br/>Vzniká lidmi, kteří se spojí.“<span>PANSOFIE</span></blockquote>
+          <h2 className="modern-section-title" style={{marginTop:72}}>Tři pilíře Pansofie</h2>
+          <p className="modern-section-lead">Komenského myšlenky přeložené do dnešního života.</p>
+          <div className="modern-pillars">{PILLARS.map(([n,title,latin,text])=><article className="modern-pillar" key={title}><strong>{n}</strong><h3>{title}</h3><em>{latin}</em><p>{text}</p></article>)}</div>
 
           <div id="rozvoj" className="modern-growth"><h3>Co se může cestou rozvíjet</h3><p>Nejsou to body, známky ani žebříček člověka. Jsou to oblasti, kterých se dobrovolná zkušenost může přirozeně dotknout.</p><div className="modern-chips">{GROWTH.map(x=><span className="modern-chip" key={x}>{x}</span>)}</div></div>
           <div className="modern-notice"><strong>Pansofie nic nepřikazuje.</strong><br/><span style={{fontFamily:"Source Sans 3, sans-serif",fontSize:14}}>Ukazuje možnosti. Můžete se jen rozhlédnout, nechat se inspirovat — a zapojit se teprve ve chvíli, kdy sami budete chtít.</span></div>
