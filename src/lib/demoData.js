@@ -1,0 +1,168 @@
+export const MENTORS = [
+  {
+    id: "mentor-josef",
+    category: "craft",
+    title: "Základy truhlářství a práce se dřevem",
+    mentor: "pan Josef",
+    give: "Práce s dlátem, hoblování a základní spoje dřeva.",
+    take: "Pomoc s nastavením chytrého telefonu.",
+    needTag: "tech-help",
+    lat: 50.082,
+    lon: 14.435,
+  },
+  {
+    id: "mentor-libuse",
+    category: "garden",
+    title: "Roubování ovocných stromů",
+    mentor: "paní Libuše",
+    give: "Jarní řez a roubování jabloní v praxi.",
+    take: "Odvoz větví do komunitního kompostu.",
+    needTag: "transport",
+    lat: 50.055,
+    lon: 14.401,
+  },
+  {
+    id: "mentor-martin",
+    category: "tech",
+    title: "Základy Pythonu a algoritmického myšlení",
+    mentor: "Martin",
+    give: "Úvod do Pythonu a práce s jednoduchými algoritmy.",
+    take: "Přebytky zeleniny nebo ovoce.",
+    needTag: "produce",
+    lat: 50.091,
+    lon: 14.312,
+  },
+  {
+    id: "mentor-marie",
+    category: "history",
+    title: "Paměť místa a příběhy sousedství",
+    mentor: "paní Marie",
+    give: "Lokální historie a příběhy pamětníků.",
+    take: "Doprovod na pochůzku nebo společnost při cestě.",
+    needTag: "companionship",
+    lat: 50.070,
+    lon: 14.455,
+  },
+];
+
+export const LOCALITIES = {
+  holesovice: { label: "Praha 7 · Holešovice", lat: 50.103, lon: 14.443 },
+  zizkov: { label: "Praha 3 · Žižkov", lat: 50.083, lon: 14.455 },
+  karlin: { label: "Praha 8 · Karlín", lat: 50.092, lon: 14.455 },
+  dejvice: { label: "Praha 6 · Dejvice", lat: 50.101, lon: 14.395 },
+  vinohrady: { label: "Praha 2 · Vinohrady", lat: 50.075, lon: 14.437 },
+  nusle: { label: "Praha 4 · Nusle", lat: 50.060, lon: 14.440 },
+};
+
+export const DEMO_MATERIALS = [
+  {
+    id: "demo-company-wood",
+    demo: true,
+    ownerType: "company",
+    company: "Truhlářství a interiéry Novák · DEMO",
+    type: "offer",
+    title: "Odřezky masivního dubu a smrku + jemné piliny",
+    category: "wood",
+    quantity: "cca 50 kg",
+    localityKey: "holesovice",
+    description: "Ukázková firemní nabídka pro školní dílny nebo jako suchá složka do kompostéru.",
+    useCase: "Řezbářství, malé konstrukce, mulč a suchá složka kompostu.",
+    tags: ["dřevo", "drevo", "prkna", "odřezky", "piliny", "dilna", "dílna"],
+    status: "available",
+  },
+  {
+    id: "demo-company-cardboard",
+    demo: true,
+    ownerType: "company",
+    company: "Tiskárna PrintEco · DEMO",
+    type: "offer",
+    title: "Čisté nebarvené kartonové proklady a tubusy",
+    category: "paper",
+    quantity: "2 palety",
+    localityKey: "karlin",
+    description: "Ukázková nabídka čistého kartonu pro kreativní projekty nebo zahradní použití.",
+    useCase: "Modely, makety, uhlíkatá vrstva do záhonů a kompostu.",
+    tags: ["karton", "krabice", "papir", "papír", "tubusy", "proklady"],
+    status: "available",
+  },
+  {
+    id: "demo-company-textile",
+    demo: true,
+    ownerType: "company",
+    company: "Textilní ateliér Nitka · DEMO",
+    type: "offer",
+    title: "Zbytky 100% bavlněných látek a odstřižky přízí",
+    category: "textile",
+    quantity: "3 velké krabice",
+    localityKey: "vinohrady",
+    description: "Ukázková nabídka pro výuku ručních prací.",
+    useCase: "Textilní hračky, sáčky, záplaty, výtvarné a řemeslné projekty.",
+    tags: ["textil", "latka", "látka", "bavlna", "prize", "příze", "site", "šití"],
+    status: "available",
+  },
+  {
+    id: "demo-company-pallets",
+    demo: true,
+    ownerType: "company",
+    company: "Logistické centrum CargoSped · DEMO",
+    type: "offer",
+    title: "Pevné přepravní dřevěné palety",
+    category: "wood",
+    quantity: "15 kusů",
+    localityKey: "dejvice",
+    description: "Ukázková nabídka palet pro školní a komunitní projekty.",
+    useCase: "Kompostovací sila, vyvýšené záhony nebo venkovní sezení.",
+    tags: ["paleta", "palety", "europaleta", "drevo", "dřevo", "zahon", "záhon", "komposter", "kompostér"],
+    status: "available",
+  },
+  {
+    id: "demo-community-compost", demo: true, ownerType: "community", type: "offer", title: "Kompost", category: "organic", quantity: "5 kg", localityKey: "zizkov", description: "Vyzrálý zahradní kompost · DEMO.", tags: ["kompost","zemina","organika"], status: "available",
+  },
+  {
+    id: "demo-community-leaves", demo: true, ownerType: "community", type: "offer", title: "Listí", category: "organic", quantity: "2 pytle", localityKey: "vinohrady", description: "Suché listí pro hnědou složku kompostu · DEMO.", tags: ["listí","organika"], status: "available",
+  },
+  {
+    id: "demo-community-bricks", demo: true, ownerType: "community", type: "offer", title: "Staré cihly", category: "other", quantity: "50 ks", localityKey: "nusle", description: "Použitelné staré cihly pro zahradní projekt · DEMO.", tags: ["cihly","stavba"], status: "available",
+  },
+  {
+    id: "demo-community-hay", demo: true, ownerType: "community", type: "offer", title: "Seno", category: "organic", quantity: "balení", localityKey: "dejvice", description: "Suché seno pro zahradní využití · DEMO.", tags: ["seno","organika"], status: "available",
+  },
+  {
+    id: "demo-community-tools", demo: true, ownerType: "community", type: "offer", title: "Zahradní nářadí", category: "other", quantity: "různé", localityKey: "holesovice", description: "Sada použitého zahradního nářadí · DEMO.", tags: ["nářadí","zahrada"], status: "available",
+  },
+]
+
+export const DEMO_SCHOOL_PROJECTS = [
+  {
+    id: "school-demo-1",
+    demo: true,
+    school: "ZŠ Lipová · DEMO",
+    project: "Školní hmyzí hotel a bylinková spirála",
+    need: "Hledáme odřezky prken, dřevěné palety, karton, rákos a další čistý konstrukční materiál.",
+    benefit: "Ukázkově: žáci připraví popis toho, co z materiálu vzniklo, bez povinného marketingového souhlasu.",
+  },
+  {
+    id: "school-demo-2",
+    demo: true,
+    school: "EkoKlub Koloběh · DEMO",
+    project: "Vyvýšené záhony a komunitní kompostér",
+    need: "Potřebujeme palety, karton, kompost a čisté piliny.",
+    benefit: "Ukázkově: sdílení postupu a zkušeností s další školou.",
+  },
+]
+
+export const CATEGORY_LABELS = {
+  all: "Všechny znalosti",
+  craft: "Řemeslo",
+  garden: "Zahrada",
+  tech: "Technologie",
+  history: "Historie a paměť",
+};
+
+export const CAPABILITY_LABELS = {
+  any: "Bez preference",
+  "tech-help": "Technická pomoc",
+  transport: "Odvoz / doprava",
+  produce: "Přebytky ze zahrady",
+  companionship: "Doprovod / společnost",
+};

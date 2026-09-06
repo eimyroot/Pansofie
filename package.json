@@ -1,0 +1,36 @@
+{
+  "name": "pansofie-1-0",
+  "version": "1.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check:contract": "node scripts/check.mjs",
+    "check": "npm run check:contract && npm run check:living-r8 && npm run check:stability-r9 && npm run check:artkit-v1 && npm run build",
+    "check:visual-story-r3": "node scripts/check-visual-story-r3.mjs",
+    "check:compost-game-r4": "node scripts/check-compost-game-r4.mjs",
+    "check:vision-r5": "node scripts/check-vision-r5.mjs",
+    "check:mockup-r6": "node scripts/check-mockup-r6.mjs",
+    "check:fullscale-r7": "node scripts/check-fullscale-r7.mjs",
+    "check:gentle-r8": "node scripts/check-gentle-r8.mjs",
+    "check:living-r8": "node scripts/check-living-r8.mjs",
+    "check:stability-r9": "node scripts/check-stability-r9.mjs",
+    "check:artkit-v1": "node scripts/check-artkit-v1.mjs"
+  },
+  "dependencies": {
+    "leaflet": "1.9.4",
+    "lucide-react": "1.34.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-leaflet": "5.0.0",
+    "react-router-dom": "7.18.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@vitejs/plugin-react": "6.1.0",
+    "tailwindcss": "4.3.3",
+    "vite": "8.2.2"
+  }
+}
