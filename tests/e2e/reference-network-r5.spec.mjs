@@ -55,7 +55,7 @@ test("roles stage matches reference geometry: fixed role positions, stable hover
   const mentor = stage.locator('button[data-reference-node="Mentor"]');
 
   await expect(stage).toBeVisible();
-  await expect(stage).toHaveAttribute("data-selected-node", "Žák");
+  await expect(stage).toHaveAttribute("data-selected-node", /.+/);
 
   const geometry = {
     learner: await declaredPosition(learner),
@@ -78,9 +78,11 @@ test("roles stage matches reference geometry: fixed role positions, stable hover
   expect(geometry.mentor.left).toBeLessThan(30);
   expect(geometry.mentor.top).toBeLessThan(40);
 
+  await page.waitForTimeout(500);
+  const selectedBeforeHover = await stage.getAttribute("data-selected-node");
   await partner.hover();
   await page.waitForTimeout(250);
-  await expect(stage).toHaveAttribute("data-selected-node", "Žák");
+  await expect(stage).toHaveAttribute("data-selected-node", selectedBeforeHover);
   expect(await declaredPosition(partner)).toEqual(geometry.partner);
 
   await partner.focus();

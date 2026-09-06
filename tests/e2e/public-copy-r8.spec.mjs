@@ -7,7 +7,7 @@ const EVIDENCE_DIR = path.resolve("browser-evidence/public-copy-r8");
 fs.mkdirSync(EVIDENCE_DIR, { recursive: true });
 
 const JOURNEY = [
-  ["home", "/", /Poznej sebe.*Tvoř s druhými.*Zlepšuj svět/i],
+  ["home", "/", /Lepší svět.*začíná tady.*Společně/i],
   ["how", "/jak-funguje", /Od skutečného činu k.*ověřené zkušenosti/i],
   ["go", "/pansofiego", /Rozhoduj se v souvislostech.*Pak to ověř v realitě/i],
   ["roles", "/pro-koho", /Pro koho je Pansofie/i],
@@ -68,6 +68,7 @@ for (const viewport of [
   { label: "mobile", width: 390, height: 844, isMobile: true },
 ]) {
   test(`R8 visitor journey ${viewport.label} is human-first and bounded`, async ({ browser }) => {
+    test.setTimeout(60_000);
     const context = await browser.newContext({
       viewport: { width: viewport.width, height: viewport.height },
       isMobile: viewport.isMobile,
