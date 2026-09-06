@@ -9,6 +9,7 @@ import PublicNetworkShell from "@/components/pansofie/PublicNetworkShell";
 import PublicLocaleBoundary from "@/components/pansofie/PublicLocaleBoundary";
 import LanguageToggle from "@/components/pansofie/LanguageToggle";
 import "@/living-motion-r4-extensions.css";
+import "@/pansofie-modern.css";
 import "@/pansofie-young.css";
 
 import Home from "@/pages/Home";
