@@ -1,4 +1,0 @@
-import React from "react";
-export default function GoogleIcon({ className = "h-4 w-4" }) {
-  return <svg className={className} viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.35 12.24c0-.7-.06-1.2-.2-1.72H12v3.13h5.37a4.63 4.63 0 0 1-1.99 2.96v2.45h3.2c1.87-1.72 2.77-4.25 2.77-6.82Z"/><path fill="currentColor" opacity=".75" d="M12 21.5c2.67 0 4.9-.88 6.54-2.4l-3.2-2.48c-.89.6-2.03.96-3.34.96-2.58 0-4.77-1.74-5.55-4.08H3.14v2.56A9.88 9.88 0 0 0 12 21.5Z"/><path fill="currentColor" opacity=".55" d="M6.45 13.5A5.94 5.94 0 0 1 6.14 12c0-.52.1-1.03.3-1.5V7.94H3.15A9.45 9.45 0 0 0 2.5 12c0 1.46.35 2.84.64 4.06l3.31-2.56Z"/><path fill="currentColor" opacity=".9" d="M12 6.42c1.45 0 2.76.5 3.78 1.47l2.83-2.82C16.9 3.47 14.67 2.5 12 2.5a9.88 9.88 0 0 0-8.86 5.44l3.31 2.56C7.23 8.16 9.42 6.42 12 6.42Z"/></svg>;
-}

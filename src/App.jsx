@@ -1,123 +1,50 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClientInstance } from "@/lib/query-client";
-import { AuthProvider } from "@/lib/AuthContext";
-import { LanguageProvider, useLanguage } from "@/lib/LanguageContext";
-import { RequireAdmin, RequireAuth } from "@/components/auth/RouteGuards";
-import PublicNetworkShell from "@/components/pansofie/PublicNetworkShell";
-import PublicLocaleBoundary from "@/components/pansofie/PublicLocaleBoundary";
-import LanguageToggle from "@/components/pansofie/LanguageToggle";
-import "@/living-motion-r4-extensions.css";
-import "@/pansofie-young.css";
-
-import Home from "@/pages/Home";
-import { ClassicHow, ClassicLibrary } from "@/pages/ClassicPublicPage";
-import YoungHome from "@/pages/YoungHome";
-import JakFunguje from "@/pages/JakFunguje";
-import Roles from "@/pages/Roles";
-import PillarDetail from "@/pages/PillarDetail";
-import AudienceDetail from "@/pages/AudienceDetail";
-import ParticipationIntake from "@/pages/ParticipationIntake";
-import MaterialBridge from "@/pages/MaterialBridge";
-import MaterialBridgeLanding from "@/pages/MaterialBridgeLanding";
-import MaterialBridgeOpenIntake from "@/pages/MaterialBridgeOpenIntake";
-import RepairLibrary from "@/pages/RepairLibrary";
-import Pilot from "@/pages/Pilot";
-import Partner from "@/pages/Partner";
-import ProgramDetail from "@/pages/ProgramDetail";
-import Join from "@/pages/Join";
-import AboutR12 from "@/pages/AboutR12";
-import PansofieGo from "@/pages/PansofieGo";
-import PublicInfoPage from "@/pages/PublicInfoPage";
-import Login from "@/pages/Login";
-import AdminLogin from "@/pages/AdminLogin";
-import Register from "@/pages/Register";
-import ForgotPassword from "@/pages/ForgotPassword";
-import ResetPassword from "@/pages/ResetPassword";
-import PageNotFound from "@/pages/PageNotFound";
-import Onboarding from "@/pages/Onboarding";
-import WitnessVerification from "@/pages/WitnessVerification";
-
-import MemberLayout from "@/layouts/MemberLayout";
-import RoleDashboard from "@/pages/RoleDashboard";
-import SchoolHub from "@/pages/SchoolHub";
-import SchoolRunDetail from "@/pages/SchoolRunDetail";
-import SchoolChallengeWorkspace from "@/pages/SchoolChallengeWorkspace";
-import FamilyHub from "@/pages/FamilyHub";
-import PartnerWorkspace from "@/pages/PartnerWorkspace";
-import Portfolio from "@/pages/Portfolio";
-import Profile from "@/pages/Profile";
-
-import AdminLayout from "@/layouts/AdminLayout";
-import AdminReporting from "@/pages/AdminReporting";
-import AdminPrograms from "@/pages/AdminPrograms";
-import AdminMissions from "@/pages/AdminMissions";
-import AdminPartnerChallenges from "@/pages/AdminPartnerChallenges";
-import AdminUsers from "@/pages/AdminUsers";
-import AdminTeams from "@/pages/AdminTeams";
-import AdminProjects from "@/pages/AdminProjects";
-import AdminOrganizations from "@/pages/AdminOrganizations";
-import AdminModeration from "@/pages/AdminModeration";
-import AdminSecurity from "@/pages/AdminSecurity";
-
-const PilotRedirect = () => <Navigate to="/skola" replace />;
-const publicSurface = (element) => <PublicLocaleBoundary><PublicNetworkShell>{element}</PublicNetworkShell></PublicLocaleBoundary>;
-const authSurface = (element) => <PublicLocaleBoundary><div className="relative min-h-screen"><div className="fixed right-4 top-4 z-[70]"><LanguageToggle /></div>{element}</div></PublicLocaleBoundary>;
-
-function LocaleUrlSync() {
-  const location = useLocation();
-  const { locale } = useLanguage();
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    const before = `${url.pathname}${url.search}${url.hash}`;
-    if (locale === "en") url.searchParams.set("lang", "en"); else url.searchParams.delete("lang");
-    const after = `${url.pathname}${url.search}${url.hash}`;
-    if (after !== before) window.history.replaceState(window.history.state, "", after);
-  }, [locale, location.pathname, location.search, location.hash]);
-  return null;
-}
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import HowItWorks from "./pages/HowItWorks";
+import Library from "./pages/Library";
+import PersonalGrowth from "./pages/PersonalGrowth";
+import Compost from "./pages/Compost";
+import CycleMap from "./pages/CycleMap";
+import RoleHub from "./pages/RoleHub";
+import Institutions from "./pages/Institutions";
+import Profile from "./pages/Profile";
+import Vision from "./pages/Vision";
+import MissionDetail from "./pages/MissionDetail";
+import NotFound from "./pages/NotFound";
+import Young from "./pages/Young";
+import YoungMissions from "./pages/YoungMissions";
+import LegalPage from "./pages/LegalPage";
+import Contact from "./pages/Contact";
 
 export default function App() {
-  return <QueryClientProvider client={queryClientInstance}><AuthProvider><LanguageProvider><BrowserRouter><LocaleUrlSync /><Routes>
-    <Route path="/" element={publicSurface(<Home />)} />
-    <Route path="/young" element={<YoungHome />} />
-    <Route path="/jak-funguje" element={<ClassicHow />} />
-    <Route path="/pro-koho" element={publicSurface(<Roles />)} />
-    <Route path="/pro-koho/skoly" element={publicSurface(<AudienceDetail audience="skoly" />)} />
-    <Route path="/pro-koho/firmy" element={publicSurface(<AudienceDetail audience="firmy" />)} />
-    <Route path="/pro-koho/ekologie" element={publicSurface(<AudienceDetail audience="ekologie" />)} />
-    <Route path="/pro-koho/:pillar" element={publicSurface(<PillarDetail />)} />
-    <Route path="/zapojit-se/:audience" element={publicSurface(<ParticipationIntake />)} />
-    <Route path="/materialovy-most" element={publicSurface(<MaterialBridgeLanding />)} />
-    <Route path="/materialovy-most/zapojit-se" element={publicSurface(<MaterialBridgeOpenIntake />)} />
-    <Route path="/knihovna" element={<ClassicLibrary />} />
-    <Route path="/katalog" element={<Navigate to="/knihovna" replace />} />
-    <Route path="/pilot" element={publicSurface(<Pilot />)} />
-    <Route path="/partneri" element={publicSurface(<Partner />)} />
-    <Route path="/program/:id" element={publicSurface(<ProgramDetail />)} />
-    <Route path="/zapojit-se" element={publicSurface(<Join />)} />
-    <Route path="/pridejte-se" element={<Navigate to="/zapojit-se" replace />} />
-    <Route path="/kontakt" element={<Navigate to="/zapojit-se" replace state={{ entryMode: "simulator" }} />} />
-    <Route path="/o-projektu" element={publicSurface(<AboutR12 />)} />
-    <Route path="/pansofiego" element={publicSurface(<PansofieGo />)} />
-    <Route path="/soukromi" element={publicSurface(<PublicInfoPage kind="privacy" />)} />
-    <Route path="/bezpecnost" element={publicSurface(<PublicInfoPage kind="safety" />)} />
-    <Route path="/podminky" element={publicSurface(<PublicInfoPage kind="terms" />)} />
-    <Route path="/prihlaseni" element={<Navigate to="/login" replace />} />
-    <Route path="/registrace" element={<Navigate to="/register" replace />} />
-    <Route path="/login" element={authSurface(<Login />)} />
-    <Route path="/register" element={authSurface(<Register />)} />
-    <Route path="/forgot-password" element={authSurface(<ForgotPassword />)} />
-    <Route path="/reset-password" element={authSurface(<ResetPassword />)} />
-    <Route path="/admin/login" element={authSurface(<AdminLogin />)} />
-    <Route path="/onboarding" element={authSurface(<RequireAuth><Onboarding /></RequireAuth>)} />
-    <Route path="/potvrzeni-zkusenosti" element={authSurface(<WitnessVerification />)} />
-    <Route element={<RequireAuth><MemberLayout /></RequireAuth>}>
-      <Route path="/dashboard" element={<RoleDashboard />} /><Route path="/skola" element={<SchoolHub />} /><Route path="/skola/mise/:runId" element={<SchoolRunDetail />} /><Route path="/skola/challenges" element={<SchoolChallengeWorkspace />} /><Route path="/rodina" element={<FamilyHub />} /><Route path="/partner-workspace" element={<PartnerWorkspace />} /><Route path="/materialovy-most/workspace" element={<MaterialBridge workspace />} /><Route path="/portfolio" element={<Portfolio />} /><Route path="/profil" element={<Profile />} />
-      <Route path="/mise" element={<PilotRedirect />} /><Route path="/mise/:id" element={<PilotRedirect />} /><Route path="/rozvoj" element={<PilotRedirect />} /><Route path="/projekty" element={<PilotRedirect />} /><Route path="/projekt/:id" element={<PilotRedirect />} /><Route path="/sit" element={<PilotRedirect />} /><Route path="/udalosti" element={<PilotRedirect />} /><Route path="/zpravy" element={<PilotRedirect />} />
-    </Route>
-    <Route path="/admin" element={<RequireAdmin><AdminLayout /></RequireAdmin>}><Route index element={<AdminReporting />} /><Route path="programy" element={<AdminPrograms />} /><Route path="mise" element={<AdminMissions />} /><Route path="challenges" element={<AdminPartnerChallenges />} /><Route path="uzivatele" element={<AdminUsers />} /><Route path="tymy" element={<AdminTeams />} /><Route path="projekty" element={<AdminProjects />} /><Route path="organizace" element={<AdminOrganizations />} /><Route path="moderace" element={<AdminModeration />} /><Route path="bezpecnost" element={<AdminSecurity />} /></Route>
-    <Route path="*" element={publicSurface(<PageNotFound />)} />
-  </Routes></BrowserRouter></LanguageProvider></AuthProvider></QueryClientProvider>;
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/jak-to-funguje" element={<HowItWorks />} />
+        <Route path="/pro-koho" element={<RoleHub />} />
+        <Route path="/knihovna" element={<Library />} />
+        <Route path="/vize" element={<Vision />} />
+        <Route path="/osobni-rust" element={<PersonalGrowth />} />
+        <Route path="/digitalni-kompost" element={<Compost />} />
+        <Route path="/mapa-kolobehu" element={<CycleMap />} />
+        <Route path="/kdo-jsem" element={<Navigate to="/pro-koho" replace />} />
+        <Route path="/instituce" element={<Institutions />} />
+        <Route path="/profil" element={<Profile />} />
+        <Route path="/mise/:id" element={<MissionDetail />} />
+        <Route path="/young" element={<Young />} />
+        <Route path="/young/mise" element={<YoungMissions />} />
+        <Route path="/soukromi" element={<LegalPage type="privacy" />} />
+        <Route path="/podminky" element={<LegalPage type="terms" />} />
+        <Route path="/cookies" element={<LegalPage type="cookies" />} />
+        <Route path="/pravidla-komunity" element={<LegalPage type="community" />} />
+        <Route path="/pristupnost" element={<LegalPage type="accessibility" />} />
+        <Route path="/bezpecnost" element={<LegalPage type="safety" />} />
+        <Route path="/kontakt" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  );
 }

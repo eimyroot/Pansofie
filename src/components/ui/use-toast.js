@@ -1,1 +1,0 @@
-export function toast({title,description}){if(typeof window!=="undefined"){window.dispatchEvent(new CustomEvent("pansofie:toast",{detail:{title,description}}));if(import.meta.env.DEV) console.info([title,description].filter(Boolean).join(" — "));}}

@@ -1,0 +1,75 @@
+{
+  "name": "Pansofie Art Kit v1",
+  "assets": [
+    {
+      "file": "action-change.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "05614b2ff409a97a178ca447fc09b7a288e8ed596e76d4aaf1239ddd2e7b20ec",
+      "transparent_ratio": 0.7272
+    },
+    {
+      "file": "action-explore.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "4b480a644d61cc3f734dc75c2ca01753d252ab63b4fffeb26872926d6a8ab9fe",
+      "transparent_ratio": 0.587
+    },
+    {
+      "file": "action-help.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "aa7a04be9f29667c528c6e8901709e1f77416dd00af09502d3e54aef238582ac",
+      "transparent_ratio": 0.545
+    },
+    {
+      "file": "action-idea.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "fc6d4ea7e7067fcfb4dbab543b862ddfe1ec40c98de83f2a09e0e9670e06b5f3",
+      "transparent_ratio": 0.6875
+    },
+    {
+      "file": "action-surplus.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "0a60072a0178467bf44a25822b1a529a77762ccf562f6b21cca4e9acb126350d",
+      "transparent_ratio": 0.4148
+    },
+    {
+      "file": "compost.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "55fa9847b6d1af4bede500d6817ce27b84fbed1957a8b34edc0ec1a363e3b85d",
+      "transparent_ratio": 0.4376
+    },
+    {
+      "file": "hero-tree.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "44d599ad5db3c747205ae093fe3d74f5f84ca3f96e1b99c26b0cef9019b40598",
+      "transparent_ratio": 0.332
+    },
+    {
+      "file": "pillar-pampaedia.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "8ecb6a20ed68a43b694dd48eb2de7650b967ffab0431df78bb0d53a6083716d6",
+      "transparent_ratio": 0.4694
+    },
+    {
+      "file": "pillar-panorthosia.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "facdac4749f148f2ee3c517d2c826c0505da6e5f1e0c09fa9e9e755b98fe1910",
+      "transparent_ratio": 0.545
+    },
+    {
+      "file": "pillar-pansofia.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "2fa1cbbf398296331e01bdfcb8a14d7b0e8097d2b136c71f226d7d3b8d49178a",
+      "transparent_ratio": 0.3634
+    }
+  ]
+}
