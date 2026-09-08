@@ -39,3 +39,20 @@ test("the migration keeps impact dimensions separate and does not add a public r
   }
   assert.doesNotMatch(sql, /leaderboard|reputation_score|public_xp/i);
 });
+
+test("canonical curriculum content is read-only to ordinary authenticated users", () => {
+  assert.match(sql, /grant select on public\.skills to authenticated/i);
+  assert.match(sql, /grant select on public\.mission_definitions to authenticated/i);
+  assert.doesNotMatch(sql, /grant select, insert, update on public\.(skills|mission_definitions)/i);
+});
+
+test("organization-scoped writes require an active membership", () => {
+  assert.match(sql, /public\.organization_memberships/);
+  assert.match(sql, /om\.status = 'active'/);
+});
+
+test("self attestations must be backed by evidence from the mission skill mapping", () => {
+  assert.match(sql, /join public\.mission_participations p/);
+  assert.match(sql, /join public\.mission_skills ms/);
+  assert.match(sql, /ms\.skill_id = skill_id/);
+});
