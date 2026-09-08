@@ -1,155 +1,160 @@
 import React from "react";
-import { ArrowRight, Leaf, Search, Sprout } from "lucide-react";
+import {
+  ArrowRight,
+  Binoculars,
+  BookOpen,
+  Lightbulb,
+  Recycle,
+  Sprout,
+  TreePine,
+  UsersRound,
+} from "lucide-react";
 import { Link } from "react-router-dom";
-import DevelopmentPaths from "../components/DevelopmentPaths";
 import { useLanguage } from "../state/LanguageContext";
 
 const COPY = {
   cs: {
-    eyebrow: "Lepší souvislosti pro reálný svět",
-    title1: "Lepší svět",
-    title2: "začíná tady.",
-    title3: "Společně.",
-    lead: "Propojujeme lidi, znalosti a konkrétní činy pro živoucí, moudrou a udržitelnou budoucnost.",
-    join: "Přidejte se k nám",
-    how: "Podívejte se, jak to funguje",
-    sideTitle: "Život v souvislostech",
-    sideLead: "Pansofie je otevřená platforma pro všechny, kdo chtějí rozumět světu a aktivně ho zlepšovat.",
-    sideWords: ["Lidé", "Příroda", "Města", "Vědění", "Možnosti"],
-    tags: [
-      ["Vševěda", "Porozumět světu v souvislostech."],
-      ["Vševýchova", "Růst a učit se po celý život."],
-      ["Všenáprava", "Zlepšovat svět kolem sebe."],
+    eyebrow: "VĚTŠÍ SOUVISLOSTI PRO REÁLNÝ SVĚT",
+    title: <>Lepší svět<br/>začíná tady.<br/><span>Společně.</span></>,
+    lead: "Propojujeme lidi, znalosti a konkrétní činy pro život, který dává smysl — dnes i zítra.",
+    join: "PŘIPOJIT SE",
+    discover: "OBJEVIT PANSOFII",
+    context: ["LIDÉ", "PŘÍRODA", "MĚSTA", "VĚDĚNÍ", "MOŽNOSTI"],
+    impact: "MALÉ KROKY · VELKÝ DOPAD",
+    actionsLabel: "Co můžete dát do pohybu",
+    actions: [
+      ["Můžu někomu pomoct", "Najdu příležitosti, kde mohu být užitečný.", "/osobni-rust"],
+      ["Můžu něco změnit", "Zapojím se do konkrétních řešení.", "/knihovna"],
+      ["Mám přebytek", "Dám věcem druhý život a propojím se s lidmi.", "/digitalni-kompost"],
+      ["Mám nápad", "Proměním myšlenku ve skutečný projekt.", "/knihovna"],
+      ["Můžu prozkoumat", "Objevím nová místa, komunity a inspiraci.", "/mapa-kolobehu"],
     ],
-    moveTitle: "Co byste dnes chtěli dát do pohybu?",
-    moveLead: "Vyberte si směr, který vás dnes volá. Bez závazků. Podle vás.",
-    choices: [
-      ["Můžu někomu pomoct", "Najdu příležitosti, kde mohu být užitečný."],
-      ["Chci něco změnit", "Objevím nápady a projekty, které dávají smysl."],
-      ["Mám něco navíc", "Sdílím věci a materiál, které mohou ještě někomu posloužit."],
-      ["Mám nápad", "Přidám myšlenku nebo projekt, který může inspirovat ostatní."],
-      ["Jen se chci rozhlédnout", "Prozkoumám, co se děje kolem mě. Bez závazku."],
-    ],
-    pillarsTitle: "Tři pilíře Pansofie",
-    pillarsLead: "Komenského myšlenky přeložené do dnešního života.",
+    pillarsEyebrow: "TŘI PILÍŘE",
+    pillarsSub: "CELEK, VZDĚLÁNÍ, NÁPRAVA",
     pillars: [
-      ["Vševěda", "Pansofia", "Rozumět sobě, lidem a světu kolem nás.", ["Objevovat", "Rozumět souvislostem", "Propojovat"]],
-      ["Vševýchova", "Pampaedia", "Růst celý život — a jeden od druhého.", ["Sdílet znalosti", "Rozvíjet se", "Učit se navzájem"]],
-      ["Všenáprava", "Panorthosia", "Když něco může být lepší, můžeme s tím něco udělat.", ["Pomáhat", "Tvořit změnu", "Pečovat o svět"]],
+      ["PANSOFIE", "Vidět celek. Propojovat.", "/vize#pan-sophia"],
+      ["PAMPAEDIA", "Učit se celý život.", "/vize#pampaedia"],
+      ["PANORTHOSIA", "Jednat moudře.", "/vize#panorthosia"],
     ],
-    more: "Zjistit více",
-    noteTitle: "Pansofie nic nepřikazuje.",
-    note: "Ukazuje možnosti. Můžete se jen rozhlédnout, nechat se inspirovat — a zapojit se teprve ve chvíli, kdy sami budete chtít.",
+    quote: "„Moudřejší společnost nevzniká náhodou. Vzniká lidmi, kteří se spojují.“",
+    quoteBy: "PANSOFIE",
   },
   en: {
-    eyebrow: "Better connections for the real world",
-    title1: "A better world",
-    title2: "starts here.",
-    title3: "Together.",
-    lead: "We connect people, knowledge and concrete action for a living, wise and sustainable future.",
-    join: "Find my way in",
-    how: "See how it works",
-    sideTitle: "Life in context",
-    sideLead: "Pansofie is an open platform for everyone who wants to understand the world and actively improve it.",
-    sideWords: ["People", "Nature", "Cities", "Knowledge", "Possibilities"],
-    tags: [
-      ["Universal knowledge", "Understand the world in context."],
-      ["Lifelong education", "Keep growing and learning throughout life."],
-      ["Improvement", "Make the world around us a little better."],
+    eyebrow: "WIDER CONNECTIONS FOR THE REAL WORLD",
+    title: <>A better world<br/>starts here.<br/><span>Together.</span></>,
+    lead: "We connect people, knowledge and concrete action for a life that makes sense — today and tomorrow.",
+    join: "JOIN IN",
+    discover: "DISCOVER PANSOFIE",
+    context: ["PEOPLE", "NATURE", "CITIES", "KNOWLEDGE", "POSSIBILITIES"],
+    impact: "SMALL STEPS · BIG IMPACT",
+    actionsLabel: "What you can set in motion",
+    actions: [
+      ["I can help someone", "Find opportunities where I can be useful.", "/osobni-rust"],
+      ["I can change something", "Join concrete ideas and solutions.", "/knihovna"],
+      ["I have something extra", "Give things a second life and connect with people.", "/digitalni-kompost"],
+      ["I have an idea", "Turn a thought into a real project.", "/knihovna"],
+      ["I can explore", "Discover places, communities and inspiration.", "/mapa-kolobehu"],
     ],
-    moveTitle: "What would you like to set in motion today?",
-    moveLead: "Choose what feels meaningful today. No obligation. On your terms.",
-    choices: [
-      ["I can help someone", "Find a small opportunity where my time or skill can be useful."],
-      ["I want to change something", "Explore ideas and projects that feel worth doing."],
-      ["I have something extra", "Share a thing or material that can still be useful to someone else."],
-      ["I have an idea", "Add a thought or project that might inspire other people."],
-      ["I just want to look around", "Explore what is happening around me. No commitment."],
-    ],
-    pillarsTitle: "Three pillars of Pansofie",
-    pillarsLead: "Comenius' ideas translated into contemporary life.",
+    pillarsEyebrow: "THREE PILLARS",
+    pillarsSub: "WHOLE, EDUCATION, IMPROVEMENT",
     pillars: [
-      ["Universal knowledge", "Pansofia", "Understand ourselves, other people and the world in context.", ["Discover", "Understand connections", "Connect"]],
-      ["Lifelong education", "Pampaedia", "Grow throughout life — and learn from one another.", ["Share knowledge", "Develop", "Learn mutually"]],
-      ["Improvement", "Panorthosia", "When something can be better, we can choose to do something about it.", ["Help", "Create change", "Care for the world"]],
+      ["PANSOFIA", "See the whole. Connect.", "/vize#pan-sophia"],
+      ["PAMPAEDIA", "Learn throughout life.", "/vize#pampaedia"],
+      ["PANORTHOSIA", "Act wisely.", "/vize#panorthosia"],
     ],
-    more: "Learn more",
-    noteTitle: "Pansofie does not command.",
-    note: "It shows possibilities. You can simply look around, take inspiration and join only when you genuinely want to.",
+    quote: "“A wiser society does not happen by accident. It grows through people who connect.”",
+    quoteBy: "PANSOFIE",
   },
 };
 
-const choiceMeta = [
-  { to: "/osobni-rust", tone: "green" },
-  { to: "/knihovna", tone: "sage" },
-  { to: "/digitalni-kompost", tone: "earth" },
-  { to: "/knihovna", tone: "sun" },
-  { to: "/mapa-kolobehu", tone: "mist" },
-];
-const pillarMeta = [
-  { to: "/vize#pan-sophia" },
-  { to: "/vize#pampaedia" },
-  { to: "/vize#panorthosia" },
-];
+const ACTIONS = [UsersRound, Sprout, Recycle, Lightbulb, Binoculars];
+const PILLARS = [TreePine, BookOpen, Sprout];
 
 export default function Home() {
   const { locale } = useLanguage();
   const c = COPY[locale] || COPY.cs;
 
-  return <div className="ak-home">
-    <section className="ak-hero">
-      <div className="ak-hero__copy">
-        <span className="ak-eyebrow">{c.eyebrow}</span>
-        <h1><span>{c.title1}</span><em>{c.title2}</em><em>{c.title3}</em></h1>
-        <p>{c.lead}</p>
-        <div className="ak-actions">
-          <Link className="ak-btn ak-btn--primary" to="/pro-koho">{c.join} <Leaf size={17}/></Link>
-          <Link className="ak-btn ak-btn--ghost" to="/jak-to-funguje">{c.how} <ArrowRight size={17}/></Link>
+  return (
+    <div className="final-home">
+      <section className="final-hero" aria-labelledby="home-title">
+        <img
+          className="final-hero__image"
+          src="/assets/adult-hero-rooftop.png"
+          alt=""
+          aria-hidden="true"
+        />
+        <div className="final-hero__wash" aria-hidden="true" />
+
+        <div className="final-hero__copy">
+          <p className="final-kicker">{c.eyebrow}</p>
+          <h1 id="home-title">{c.title}</h1>
+          <p className="final-hero__lead">{c.lead}</p>
+          <div className="final-hero__actions">
+            <Link className="final-button final-button--primary" to="/pro-koho">
+              {c.join}<ArrowRight size={16}/>
+            </Link>
+            <Link className="final-button final-button--ghost" to="/jak-to-funguje">
+              {c.discover}
+            </Link>
+          </div>
+          <div className="final-impact"><Sprout size={18}/><span>{c.impact}</span></div>
         </div>
-      </div>
-      <figure className="adult-hero-photo" aria-label={locale==="en"?"Urban garden, city and people in conversation":"Městská zahrada, město a lidé v rozhovoru"}>
-        <img src="/assets/adult-hero-rooftop.png" alt=""/>
-      </figure>
-      <aside className="adult-hero-panel" aria-label={c.sideTitle}>
-        <h2>{c.sideTitle}</h2>
-        <p>{c.sideLead}</p>
-        <div className="adult-context-mark" aria-hidden="true"><span/><span/><span/></div>
-        <ul>{c.sideWords.map((word)=><li key={word}>{word}</li>)}</ul>
-      </aside>
-      <div className="adult-hero-search" aria-hidden="true">
-        <Search size={22}/>
-      </div>
-    </section>
 
-    <section className="ak-movement">
-      <header className="ak-section-title"><div><h2>{c.moveTitle}</h2><p>{c.moveLead}</p></div></header>
-      <div className="ak-movement__grid">
-        {c.choices.map(([title, text], i) => {
-          const meta = choiceMeta[i];
-          return <Link to={meta.to} className={`ak-choice ak-choice--${meta.tone}`} key={title}>
-            <span className="adult-choice-index" aria-hidden="true">{String(i+1).padStart(2,"0")}</span>
-            <div className="ak-choice__copy"><h3>{title}</h3><p>{text}</p></div>
-            <span className="ak-arrow"><ArrowRight size={17}/></span>
-          </Link>;
-        })}
-      </div>
-    </section>
+        <aside className="final-hero__context" aria-label={locale === "en" ? "Pansofie context" : "Souvislosti Pansofie"}>
+          {c.context.map((item) => <span key={item}>{item}</span>)}
+          <i aria-hidden="true" />
+        </aside>
+      </section>
 
-    <section className="ak-pillars">
-      <header className="ak-section-title ak-section-title--compact"><div><h2>{c.pillarsTitle}</h2><p>{c.pillarsLead}</p></div></header>
-      <div className="ak-pillars__grid">
-        {c.pillars.map(([name, latin, modern, bullets], i) => {
-          const meta = pillarMeta[i];
-          return <article className={`ak-pillar ak-pillar--${i+1}`} key={latin}>
-            <span className="adult-pillar-index" aria-hidden="true">0{i+1}</span>
-            <div className="ak-pillar__copy"><span>{i+1}.</span><h3>{name}<small>{latin}</small></h3><p>{modern}</p><ul>{bullets.map((x)=><li key={x}>{x}</li>)}</ul><Link to={meta.to}>{c.more} <ArrowRight size={13}/></Link></div>
-          </article>;
-        })}
-      </div>
-    </section>
+      <section className="final-actions" aria-labelledby="final-actions-title">
+        <h2 id="final-actions-title" className="sr-only">{c.actionsLabel}</h2>
+        <div className="final-actions__grid">
+          {c.actions.map(([title, text, to], index) => {
+            const Icon = ACTIONS[index];
+            return (
+              <Link className="final-action-card" to={to} key={title}>
+                <div className={`final-action-card__media final-action-card__media--${index + 1}`} aria-hidden="true" />
+                <span className="final-card-icon" aria-hidden="true"><Icon size={24}/></span>
+                <div className="final-action-card__body">
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                  <span className="final-round-arrow" aria-hidden="true"><ArrowRight size={16}/></span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
-    <DevelopmentPaths compact />
+      <section className="final-pillars" aria-labelledby="final-pillars-title">
+        <header className="final-pillars__head">
+          <h2 id="final-pillars-title">{c.pillarsEyebrow}</h2>
+          <p>{c.pillarsSub}</p>
+        </header>
 
-    <section className="ak-note"><Sprout size={22}/><div><strong>{c.noteTitle}</strong><span>{c.note}</span></div></section>
-  </div>;
+        <div className="final-pillars__layout">
+          <div className="final-pillars__grid">
+            {c.pillars.map(([title, text, to], index) => {
+              const Icon = PILLARS[index];
+              return (
+                <Link className="final-pillar-card" to={to} key={title}>
+                  <div className={`final-pillar-card__media final-pillar-card__media--${index + 1}`} aria-hidden="true" />
+                  <span className="final-card-icon final-card-icon--pillar" aria-hidden="true"><Icon size={24}/></span>
+                  <div className="final-pillar-card__body">
+                    <div><h3>{title}</h3><p>{text}</p></div>
+                    <span className="final-round-arrow" aria-hidden="true"><ArrowRight size={16}/></span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          <blockquote className="final-quote">
+            <p>{c.quote}</p>
+            <footer><span aria-hidden="true" />{c.quoteBy}</footer>
+          </blockquote>
+        </div>
+      </section>
+    </div>
+  );
 }
