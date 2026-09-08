@@ -11,7 +11,7 @@ export async function completeOnboarding(formData) {
   const dateOfBirth = String(formData.get("date_of_birth") ?? "") || null;
   if (intent === "young" && !dateOfBirth) redirect("/onboarding?error=Pro%20Pansofii%20Young%20je%20nutné%20datum%20narození.");
   const { error } = await supabase.rpc("complete_onboarding", {
-    requested_space_type: intent === "young" ? "personal" : intent,
+    requested_space_type: intent,
     requested_space_name: String(formData.get("space_name") ?? "").trim() || null,
     requested_display_name: String(formData.get("display_name") ?? "").trim(),
     requested_date_of_birth: dateOfBirth,

@@ -13,13 +13,13 @@ export function ageOn(dateOfBirth, today = new Date()) {
   return age;
 }
 
-export function resolveExperience({ dateOfBirth, spaceType }, today = new Date()) {
+export function resolveExperience({ dateOfBirth, accountContext, organizationType }, today = new Date()) {
   const age = ageOn(dateOfBirth, today);
   if (age !== null && age >= 6 && age <= 13) return "young_kids";
   if (age !== null && age >= 14 && age <= 20) return "young_teens";
-  if (spaceType === "family") return "adult_family";
-  if (spaceType === "school") return "adult_school";
-  if (spaceType === "company") return "adult_company";
+  if (accountContext === "family") return "adult_family";
+  if (accountContext === "school" || organizationType === "school") return "adult_school";
+  if (accountContext === "company" || organizationType === "company") return "adult_company";
   return "adult_personal";
 }
 
