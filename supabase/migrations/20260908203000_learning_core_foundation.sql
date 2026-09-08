@@ -185,42 +185,27 @@ begin
   end if;
 
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'skills' and policyname = 'skills_authenticated_read') then
-    create policy skills_authenticated_read on public.skills for select to authenticated using (status = 'active' or created_by = (select auth.uid()));
+    create policy skills_authenticated_read on public.skills for select to authenticated using (status = 'active');
   end if;
-  if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'skills' and policyname = 'skills_creator_insert') then
-    create policy skills_creator_insert on public.skills for insert to authenticated with check (created_by = (select auth.uid()));
-  end if;
-  if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'skills' and policyname = 'skills_creator_update') then
-    create policy skills_creator_update on public.skills for update to authenticated using (created_by = (select auth.uid())) with check (created_by = (select auth.uid()));
-  end if;
-
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'mission_definitions' and policyname = 'mission_definitions_authenticated_read') then
-    create policy mission_definitions_authenticated_read on public.mission_definitions for select to authenticated using (status = 'active' or created_by = (select auth.uid()));
+    create policy mission_definitions_authenticated_read on public.mission_definitions for select to authenticated using (status = 'active');
   end if;
-  if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'mission_definitions' and policyname = 'mission_definitions_creator_insert') then
-    create policy mission_definitions_creator_insert on public.mission_definitions for insert to authenticated with check (created_by = (select auth.uid()));
-  end if;
-  if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'mission_definitions' and policyname = 'mission_definitions_creator_update') then
-    create policy mission_definitions_creator_update on public.mission_definitions for update to authenticated using (created_by = (select auth.uid())) with check (created_by = (select auth.uid()));
-  end if;
-
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'mission_skills' and policyname = 'mission_skills_authenticated_read') then
-    create policy mission_skills_authenticated_read on public.mission_skills for select to authenticated using (true);
-  end if;
-  if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'mission_skills' and policyname = 'mission_skills_creator_write') then
-    create policy mission_skills_creator_write on public.mission_skills for all to authenticated
-      using (exists (select 1 from public.mission_definitions m where m.id = mission_id and m.created_by = (select auth.uid())))
-      with check (exists (select 1 from public.mission_definitions m where m.id = mission_id and m.created_by = (select auth.uid())));
+    create policy mission_skills_authenticated_read on public.mission_skills for select to authenticated
+      using (
+        exists (select 1 from public.mission_definitions m where m.id = mission_id and m.status = 'active')
+        and exists (select 1 from public.skills s where s.id = skill_id and s.status = 'active')
+      );
   end if;
 
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'mission_participations' and policyname = 'mission_participations_owner_read') then
     create policy mission_participations_owner_read on public.mission_participations for select to authenticated using (user_id = (select auth.uid()));
   end if;
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'mission_participations' and policyname = 'mission_participations_owner_insert') then
-    create policy mission_participations_owner_insert on public.mission_participations for insert to authenticated with check (user_id = (select auth.uid()));
+    create policy mission_participations_owner_insert on public.mission_participations for insert to authenticated with check (user_id = (select auth.uid()) and (organization_id is null or exists (select 1 from public.organization_memberships om where om.organization_id = organization_id and om.user_id = (select auth.uid()) and om.status = 'active')));
   end if;
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'mission_participations' and policyname = 'mission_participations_owner_update') then
-    create policy mission_participations_owner_update on public.mission_participations for update to authenticated using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+    create policy mission_participations_owner_update on public.mission_participations for update to authenticated using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()) and (organization_id is null or exists (select 1 from public.organization_memberships om where om.organization_id = organization_id and om.user_id = (select auth.uid()) and om.status = 'active')));
   end if;
 
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'evidence_items' and policyname = 'evidence_items_owner_read') then
@@ -241,7 +226,18 @@ begin
   end if;
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'skill_attestations' and policyname = 'skill_attestations_self_insert') then
     create policy skill_attestations_self_insert on public.skill_attestations for insert to authenticated
-      with check (user_id = (select auth.uid()) and attested_by = (select auth.uid()) and attestation_type = 'self');
+      with check (
+        user_id = (select auth.uid())
+        and attested_by = (select auth.uid())
+        and attestation_type = 'self'
+        and exists (
+          select 1
+          from public.evidence_items e
+          join public.mission_participations p on p.id = e.participation_id
+          join public.mission_skills ms on ms.mission_id = p.mission_id and ms.skill_id = skill_id
+          where e.id = evidence_id and p.user_id = (select auth.uid())
+        )
+      );
   end if;
 
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'impact_observations' and policyname = 'impact_observations_owner_read') then
@@ -249,17 +245,23 @@ begin
   end if;
   if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'impact_observations' and policyname = 'impact_observations_owner_insert') then
     create policy impact_observations_owner_insert on public.impact_observations for insert to authenticated
-      with check (user_id = (select auth.uid()) and recorded_by = (select auth.uid()));
+      with check (
+        user_id = (select auth.uid())
+        and recorded_by = (select auth.uid())
+        and (organization_id is null or exists (select 1 from public.organization_memberships om where om.organization_id = organization_id and om.user_id = (select auth.uid()) and om.status = 'active'))
+        and (evidence_id is null or exists (select 1 from public.evidence_items e where e.id = evidence_id and e.submitted_by = (select auth.uid())))
+      );
   end if;
 end
 $$;
 
 grant select on public.learning_domains to authenticated;
-grant select, insert, update on public.skills to authenticated;
-grant select, insert, update on public.mission_definitions to authenticated;
-grant select, insert, update, delete on public.mission_skills to authenticated;
+grant select on public.skills to authenticated;
+grant select on public.mission_definitions to authenticated;
+grant select on public.mission_skills to authenticated;
 grant select, insert, update on public.mission_participations to authenticated;
-grant select, insert, update on public.evidence_items to authenticated;
+grant select, insert on public.evidence_items to authenticated;
+grant update (text_content, storage_path, external_url, metadata, visibility) on public.evidence_items to authenticated;
 grant select, insert on public.skill_attestations to authenticated;
 grant select, insert on public.impact_observations to authenticated;
 grant select on public.user_skill_portfolio to authenticated;
