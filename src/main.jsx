@@ -7,6 +7,7 @@ import "./r8-living.css";
 import "./r9-stability.css";
 import "./artkit-v1.css";
 import "./product.css";
+import "./home-final.css";
 import App from "./App";
 import { PansofieProvider } from "./state/PansofieContext";
 import { LanguageProvider } from "./state/LanguageContext";
