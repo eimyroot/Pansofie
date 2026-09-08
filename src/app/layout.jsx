@@ -7,6 +7,7 @@ import "../product.css";
 import "../home-final.css";
 import "../home-final-assets.css";
 import "./experience.css";
+import "./young-experience-final.css";
 
 export const metadata = { title: "Pansofie", description: "Pansofie a Pansofie Young" };
 
