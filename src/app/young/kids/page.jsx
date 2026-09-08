@@ -1,74 +1,104 @@
 import Link from "next/link";
 
-const pillars = [
-  ["🔗", "Větší souvislosti", "Všechno má svůj důvod a souvisí s něčím dalším."],
-  ["🌟", "Lepší budoucnost", "Společně tvoříme svět, ve kterém chceme žít."],
-  ["🧠", "Zvídavé mysli", "Ptát se, hledat odpovědi a nikdy nepřestat objevovat."],
-  ["🤝", "Skvělá komunita", "Společně se učíme a podporujeme se navzájem."],
-];
-
 const topics = [
-  ["🌿", "Příroda", "Zvířata, planeta, klima, lesy a všechno živé."],
-  ["🌌", "Vesmír", "Hvězdy, planety, vesmírné záhady a velké otázky."],
-  ["🌍", "Lidé a svět", "Historie, společnost, kultury, vztahy a to, co nás spojuje."],
-  ["🎨", "Nápady a tvoření", "Pokusy, kreslení, projekty a tvoje vlastní nápady."],
+  ["/art/pansofie-v1/pillar-panorthosia.webp", "Příroda", "Zvířata, planeta, klima, lesy a všechno živé.", "kids-topic--green"],
+  ["/art/pansofie-v1/hero-tree.webp", "Vesmír", "Hvězdy, planety, vesmírné záhady a velké otázky.", "kids-topic--blue"],
+  ["/art/pansofie-v1/action-help.webp", "Lidé a svět", "Historie, společnost, různé kultury, vztahy a co nás spojuje.", "kids-topic--yellow"],
+  ["/art/pansofie-v1/action-idea.webp", "Nápady a tvoření", "Pokusy, kreslení, projekty a tvoje vlastní nápady.", "kids-topic--pink"],
 ];
 
 const activities = [
-  ["🧩", "Kvíz týdne", "Otestuj své znalosti a objev něco nového.", "Spustit kvíz"],
-  ["🎮", "Mini hra", "Hraj, objevuj a uč se hrou.", "Hrát hru"],
-  ["🔬", "Pokus doma", "Jednoduché pokusy, které zvládneš s dospělým i doma.", "Zkusit pokus"],
-  ["❓", "Otázka dne", "Jedna zajímavá otázka, nad kterou můžeme přemýšlet spolu.", "Podívat se"],
+  ["🧩", "Kvíz týdne", "Otestuj své znalosti a dozvíš se něco nového!", "Spustit kvíz", "kids-play--mint"],
+  ["🎮", "Mini hra", "Hraj, objevuj a uč se hrou.", "Hrát hru", "kids-play--blue"],
+  ["🔬", "Pokus doma", "Jednoduché pokusy, které zvládneš i doma.", "Zkus to", "kids-play--yellow"],
+  ["❓", "Otázka dne", "Zajímavá otázka, na kterou hledáme odpovědi společně.", "Podívat se", "kids-play--pink"],
 ];
 
 const articles = [
-  ["🌧️", "Proč prší?", "Objev, jak funguje koloběh vody a proč je déšť důležitý."],
-  ["🌐", "Jak funguje internet?", "Od zprávy k druhému konci světa — jednoduché vysvětlení."],
-  ["⚖️", "Proč lidé potřebují pravidla?", "Od rodiny až po státy — zjisti, k čemu pravidla slouží."],
+  ["/art/pansofie-v1/compost.webp", "PŘÍRODA KOLEM NÁS", "Proč prší?", "Objev, jak funguje koloběh vody a proč je déšť důležitý."],
+  ["/art/pansofie-v1/action-explore.webp", "TECHNOLOGIE V NAŠEM ŽIVOTĚ", "Jak funguje internet?", "Od zprávy k druhému konci světa – jednoduché vysvětlení."],
+  ["/art/pansofie-v1/pillar-pansofia.webp", "LIDÉ A SPOLEČNOST", "Proč lidé potřebují pravidla?", "Od rodiny až po státy – zjisti, proč jsou pravidla důležitá."],
+];
+
+const benefits = [
+  ["🌿", "Větší souvislosti"],
+  ["❤", "Lepší budoucnost"],
+  ["💡", "Zvídavé mysli"],
+  ["👥", "Skvělá komunita"],
 ];
 
 export default function Page() {
   return (
-    <div className="young-experience young-kids-home">
-      <section className="young-xp-hero">
-        <div>
-          <span className="young-xp-kicker">PANSOFIE YOUNG · 6–13</span>
-          <h2>Objevuj svět v souvislostech.</h2>
-          <p>Vše kolem nás souvisí — příroda, lidé, nápady i tvůj každodenní život. Pojď zkoumat, tvořit a ptát se bezpečným tempem.</p>
-          <div className="young-xp-actions">
-            <Link className="young-xp-btn young-xp-btn--primary" href="#objevuj">Prozkoumat</Link>
-            <Link className="young-xp-btn young-xp-btn--secondary" href="#vyzkousej">Zkus kvíz</Link>
+    <div className="kids-page">
+      <section className="kids-hero">
+        <div className="kids-hero-copy">
+          <p className="kids-eyebrow">PANSOFIE YOUNG · 6–13</p>
+          <h1>Objevuj svět<br/>v souvislostech.</h1>
+          <p className="kids-lead">Vše kolem nás souvisí – příroda, lidé, nápady i tvůj každodenní život. Pojď to objevovat spolu s námi!</p>
+          <div className="kids-hero-actions">
+            <Link href="#objevuj" className="kids-btn kids-btn--green">⌕&nbsp; Prozkoumat <span>→</span></Link>
+            <Link href="#vyzkousej" className="kids-btn kids-btn--light">🎮&nbsp; Zkus kvíz</Link>
+          </div>
+          <div className="kids-benefits">
+            {benefits.map(([icon,label]) => <div key={label}><strong>{icon}</strong><span>{label}</span></div>)}
           </div>
         </div>
-        <div className="young-xp-visual" aria-label="Ilustrační prostor pro Young 6 až 13">🌍<strong>OBJEVUJ</strong><span>6–13</span></div>
-      </section>
-
-      <section className="young-xp-grid young-xp-grid--4" aria-label="Co je na Young důležité">
-        {pillars.map(([icon, title, text]) => <article className="young-xp-card young-xp-card--soft" key={title}><span className="young-xp-icon">{icon}</span><h3>{title}</h3><p>{text}</p></article>)}
-      </section>
-
-      <section id="objevuj" className="young-xp-section">
-        <div className="young-xp-section-head"><span className="young-xp-kicker">CO TU NAJDEŠ?</span><h2>Vyber si, co tě dnes zajímá.</h2><p>Začni tam, kde máš chuť. Nemusíš postupovat podle pořadí.</p></div>
-        <div className="young-xp-grid young-xp-grid--4">
-          {topics.map(([icon, title, text]) => <article className="young-xp-card" key={title}><span className="young-xp-icon">{icon}</span><h3>{title}</h3><p>{text}</p></article>)}
+        <div className="kids-hero-art">
+          <img src="/art/pansofie-v1/hero-tree.webp" alt="Ilustrovaný svět Pansofie Young plný objevování" />
+          <span className="kids-doodle kids-doodle--one">ZVĚDAVOST<br/>MĚNÍ SVĚT ♡</span>
+          <span className="kids-doodle kids-doodle--two">STEJNĚ RŮZNÍ.<br/>STEJNĚ ZVĚDAVÍ.</span>
         </div>
       </section>
 
-      <section id="vyzkousej" className="young-xp-section young-xp-section--surface">
-        <div className="young-xp-section-head"><span className="young-xp-kicker">VYZKOUŠEJ SI</span><h2>Zábava, která tě něco naučí.</h2><p>Kvízy, hry, pokusy a otázky. Bez známek a bez závodu.</p></div>
-        <div className="young-xp-grid young-xp-grid--4">
-          {activities.map(([icon, title, text, cta]) => <article className="young-xp-card" key={title}><span className="young-xp-icon">{icon}</span><h3>{title}</h3><p>{text}</p><Link className="young-xp-text-link" href="/young">{cta} →</Link></article>)}
+      <section id="objevuj" className="kids-section">
+        <header className="kids-section-head">
+          <div><p className="kids-eyebrow">OBJEVUJ</p><h2>Co tu najdeš?</h2></div>
+          <Link href="/young" className="kids-more">Objevuj všechna témata <span>→</span></Link>
+        </header>
+        <div className="kids-topic-grid">
+          {topics.map(([image,title,text,tone]) => (
+            <article className={`kids-topic-card ${tone}`} key={title}>
+              <img src={image} alt="" />
+              <div><h3>{title}</h3><p>{text}</p><Link href="/young" aria-label={`Otevřít téma ${title}`}>→</Link></div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="young-xp-section">
-        <div className="young-xp-section-head"><span className="young-xp-kicker">DALŠÍ OBJEVY</span><h2>Čti jen tolik, kolik tě baví.</h2></div>
-        <div className="young-xp-grid young-xp-grid--3">
-          {articles.map(([icon, title, text]) => <article className="young-xp-article" key={title}><div className="young-xp-article-image">{icon}</div><div><h3>{title}</h3><p>{text}</p><Link className="young-xp-text-link" href="/young">Číst dál →</Link></div></article>)}
+      <section id="vyzkousej" className="kids-section kids-section--play">
+        <header className="kids-section-head">
+          <div><p className="kids-eyebrow">HRAJ SI A ZKOUŠEJ</p><h2>Vyzkoušej si!</h2></div>
+          <p className="kids-side-note">Zábava, která tě něco naučí ☺</p>
+        </header>
+        <div className="kids-play-grid">
+          {activities.map(([icon,title,text,cta,tone]) => (
+            <article className={`kids-play-card ${tone}`} key={title}>
+              <span className="kids-play-icon">{icon}</span><h3>{title}</h3><p>{text}</p><Link href="/young">{cta} <span>→</span></Link>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="young-xp-banner"><span>🌍</span><div><h2>Lepší svět tvoříme spolu.</h2><p>Sdílej nápady, otázky a bezpečné projekty s lidmi, kterým důvěřuješ.</p></div><Link className="young-xp-btn young-xp-btn--primary" href="/young">Prozkoumat Young</Link></section>
+      <section id="tvor" className="kids-section">
+        <header className="kids-section-head">
+          <div><p className="kids-eyebrow">ČTI · PTEJ SE · TVOŘ</p><h2>Téma týdne</h2></div>
+          <Link href="/young" className="kids-more">Prozkoumej další články <span>→</span></Link>
+        </header>
+        <div className="kids-article-grid">
+          {articles.map(([image,tag,title,text]) => (
+            <article className="kids-article-card" key={title}>
+              <div className="kids-article-media"><img src={image} alt=""/><span>{tag}</span></div>
+              <div className="kids-article-copy"><h3>{title}</h3><p>{text}</p><Link href="/young" aria-label={`Číst ${title}`}>→</Link></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="komunita" className="kids-community">
+        <div className="kids-community-image"><img src="/art/pansofie-v1/action-help.webp" alt="Mladí lidé spolupracují a objevují"/></div>
+        <div className="kids-community-copy"><p className="kids-eyebrow">LEPŠÍ SVĚT TVOŘÍME SPOLU</p><h2>Ptej se. Objevuj. Tvoř.</h2><p>Přidej se ke komunitě zvídavých dětí a sdílej své nápady, otázky a bezpečné projekty.</p><Link className="kids-btn kids-btn--green" href="/young">Přidej se do klubu <span>→</span></Link></div>
+        <div className="kids-community-notes"><span>🌐 Noví přátelé</span><span>♡ Zajímavé diskuze</span><span>✦ Tvoje nápady mají cenu</span></div>
+      </section>
     </div>
   );
 }
