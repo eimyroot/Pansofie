@@ -1,7 +1,7 @@
 import fs from "node:fs";
 const read=(p)=>fs.readFileSync(p,"utf8");
 const fail=(m)=>{console.error(`PANSOFIE_MOCKUP_R6=FAIL: ${m}`);process.exit(1)};
-const css=read("src/index.css"),home=read("src/pages/Home.jsx"),vision=read("src/pages/Vision.jsx"),compost=read("src/pages/Compost.jsx"),map=read("src/pages/CycleMap.jsx"),profile=read("src/pages/Profile.jsx"),mission=read("src/pages/MissionDetail.jsx"),nav=read("src/components/Nav.jsx"),layout=read("src/components/Layout.jsx");
+const css=read("src/index.css"),home=read("src/legacy-pages/Home.jsx"),vision=read("src/legacy-pages/Vision.jsx"),compost=read("src/legacy-pages/Compost.jsx"),map=read("src/legacy-pages/CycleMap.jsx"),profile=read("src/legacy-pages/Profile.jsx"),mission=read("src/legacy-pages/MissionDetail.jsx"),nav=read("src/components/Nav.jsx"),layout=read("src/components/Layout.jsx");
 for(const token of ["--p-bg: #f2ebe0","--p-paper: #fcf8f0","--p-green: #3b6633","--p-terracotta: #cf6c3f",".p-material-grid",".p-map-overlay",".p-profile-layout",".p-mission-detail",".p-mobile-dock"]) if(!css.includes(token)) fail(`design token missing ${token}`);
 for(const [file,markers] of [
   [home,["Co byste dnes","Pro koho je Pansofie?","home-tree.png"]],

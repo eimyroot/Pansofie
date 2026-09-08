@@ -1,22 +1,22 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import HowItWorks from "./pages/HowItWorks";
-import Library from "./pages/Library";
-import PersonalGrowth from "./pages/PersonalGrowth";
-import Compost from "./pages/Compost";
-import CycleMap from "./pages/CycleMap";
-import RoleHub from "./pages/RoleHub";
-import Institutions from "./pages/Institutions";
-import Profile from "./pages/Profile";
-import Vision from "./pages/Vision";
-import MissionDetail from "./pages/MissionDetail";
-import NotFound from "./pages/NotFound";
-import Young from "./pages/Young";
-import YoungMissions from "./pages/YoungMissions";
-import LegalPage from "./pages/LegalPage";
-import Contact from "./pages/Contact";
+import Home from "./legacy-pages/Home";
+import HowItWorks from "./legacy-pages/HowItWorks";
+import Library from "./legacy-pages/Library";
+import PersonalGrowth from "./legacy-pages/PersonalGrowth";
+import Compost from "./legacy-pages/Compost";
+import CycleMap from "./legacy-pages/CycleMap";
+import RoleHub from "./legacy-pages/RoleHub";
+import Institutions from "./legacy-pages/Institutions";
+import Profile from "./legacy-pages/Profile";
+import Vision from "./legacy-pages/Vision";
+import MissionDetail from "./legacy-pages/MissionDetail";
+import NotFound from "./legacy-pages/NotFound";
+import Young from "./legacy-pages/Young";
+import YoungMissions from "./legacy-pages/YoungMissions";
+import LegalPage from "./legacy-pages/LegalPage";
+import Contact from "./legacy-pages/Contact";
 
 export default function App() {
   return (

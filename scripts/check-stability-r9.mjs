@@ -3,16 +3,16 @@ const read=(p)=>fs.readFileSync(p,"utf8");
 const fail=(m)=>{console.error(`PANSOFIE_STABILITY_R9=FAIL: ${m}`);process.exit(1)};
 
 const main=read("src/main.jsx");
-const home=read("src/pages/Home.jsx");
-const vision=read("src/pages/Vision.jsx");
+const home=read("src/legacy-pages/Home.jsx");
+const vision=read("src/legacy-pages/Vision.jsx");
 const footer=read("src/components/Footer.jsx");
 const nav=read("src/components/Nav.jsx");
 const dev=read("src/components/DevelopmentPaths.jsx");
 const css=read("src/r9-stability.css");
 const uiFiles=[
-  "src/pages/Home.jsx","src/pages/HowItWorks.jsx","src/pages/RoleHub.jsx","src/pages/Library.jsx",
-  "src/pages/Vision.jsx","src/pages/PersonalGrowth.jsx","src/pages/Compost.jsx","src/pages/CycleMap.jsx",
-  "src/pages/Institutions.jsx","src/pages/Profile.jsx","src/pages/MissionDetail.jsx","src/pages/NotFound.jsx",
+  "src/legacy-pages/Home.jsx","src/legacy-pages/HowItWorks.jsx","src/legacy-pages/RoleHub.jsx","src/legacy-pages/Library.jsx",
+  "src/legacy-pages/Vision.jsx","src/legacy-pages/PersonalGrowth.jsx","src/legacy-pages/Compost.jsx","src/legacy-pages/CycleMap.jsx",
+  "src/legacy-pages/Institutions.jsx","src/legacy-pages/Profile.jsx","src/legacy-pages/MissionDetail.jsx","src/legacy-pages/NotFound.jsx",
   "src/components/Nav.jsx","src/components/Footer.jsx","src/components/MobileBottomNav.jsx"
 ];
 
@@ -35,5 +35,5 @@ for(const asset of [
 
 if(home.includes('/assets/r8/hero-tree.png')) fail("home still uses baked-text hero");
 if(vision.includes('/assets/r8/pillar-panorthosia.png')) fail("vision still uses baked-text pillar asset");
-if(read("src/pages/Profile.jsx").includes("profile-tree-r8.png")) fail("profile still uses baked-label tree asset");
+if(read("src/legacy-pages/Profile.jsx").includes("profile-tree-r8.png")) fail("profile still uses baked-label tree asset");
 console.log("PANSOFIE_STABILITY_R9=PASS");

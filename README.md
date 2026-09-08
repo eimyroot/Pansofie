@@ -1,6 +1,6 @@
 # Pansofie + Pansofie Young
 
-Kohezní React/Vite produkt se dvěma vstupy nad společným local-first jádrem.
+Kohezní Next.js produkt se šesti přihlášenými UX režimy nad společným jádrem. Původní veřejný React prototyp zůstává dostupný na stávajících routách.
 
 - Pansofie: dospělý fotografický editorial vzhled, cream/sage paleta, město + příroda.
 - Pansofie Young: samostatný ilustrativní/akvarelový svět se stromem, věkovými větvemi a misemi bez hodnocení člověka.
@@ -9,12 +9,33 @@ Kohezní React/Vite produkt se dvěma vstupy nad společným local-first jádrem
 ## Stack
 
 - React 19
-- Vite 8
+- Next.js 16 App Router
+- Supabase Auth/Postgres/RLS přes `@supabase/ssr`
 - Tailwind CSS 4
-- React Router
+- React Router pouze v kompatibilní veřejné vrstvě původního prototypu
 - Leaflet + React Leaflet
 - OpenStreetMap
-- localStorage jako dočasný prototypový datastore
+- localStorage jako dočasný datastore veřejného prototypu; přihlášený kontext používá Supabase
+
+## Přihlášené UX režimy
+
+- `/app/personal` — `adult_personal`
+- `/app/family` — `adult_family`
+- `/app/school` — `adult_school`
+- `/app/company` — `adult_company`
+- `/young/kids` — `young_kids` (6–13)
+- `/young/teens` — `young_teens` (14–20)
+
+Po přihlášení vede `/app` přes serverový resolver na správnou routu. UX režim není oprávnění: přístup k datům určují `memberships`, role a RLS politiky. Vazby dítě–průvodce jsou v `guardian_links`.
+
+## Supabase setup
+
+1. Zkopírujte `.env.example` do `.env.local` a doplňte Project URL, publishable key a veřejnou URL aplikace.
+2. Aplikujte migraci `supabase/migrations/20260908164632_user_experience_architecture.sql` v cílovém Supabase projektu.
+3. Nastavte Auth Site URL a povolenou redirect URL na `<origin>/auth/callback`.
+4. Spusťte `npm install`, `npm run check` a `npm run dev`.
+
+Migrace vytváří nové tabulky a typy. Před aplikací do existující databáze zkontrolujte kolize názvů a vytvořte databázovou zálohu.
 
 ## Routy
 

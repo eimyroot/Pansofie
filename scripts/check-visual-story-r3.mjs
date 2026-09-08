@@ -6,7 +6,7 @@ const fail = (message) => {
   process.exit(1);
 };
 
-const home = read("src/pages/Home.jsx");
+const home = read("src/legacy-pages/Home.jsx");
 const trainer = read("src/components/CycleTrainer.jsx");
 const css = read("src/index.css");
 const nav = read("src/components/Nav.jsx");

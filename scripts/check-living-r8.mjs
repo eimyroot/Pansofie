@@ -1,7 +1,7 @@
 import fs from "node:fs";
 const read=(p)=>fs.readFileSync(p,"utf8");
 const fail=(m)=>{console.error(`PANSOFIE_LIVING_R8=FAIL: ${m}`);process.exit(1)};
-const app=read("src/App.jsx"), home=read("src/pages/Home.jsx"), how=read("src/pages/HowItWorks.jsx"), roles=read("src/pages/RoleHub.jsx"), library=read("src/pages/Library.jsx"), vision=read("src/pages/Vision.jsx"), profile=read("src/pages/Profile.jsx"), growth=read("src/pages/PersonalGrowth.jsx"), mission=read("src/pages/MissionDetail.jsx"), nav=read("src/components/Nav.jsx"), css=read("src/r8-living.css"), main=read("src/main.jsx");
+const app=read("src/App.jsx"), home=read("src/legacy-pages/Home.jsx"), how=read("src/legacy-pages/HowItWorks.jsx"), roles=read("src/legacy-pages/RoleHub.jsx"), library=read("src/legacy-pages/Library.jsx"), vision=read("src/legacy-pages/Vision.jsx"), profile=read("src/legacy-pages/Profile.jsx"), growth=read("src/legacy-pages/PersonalGrowth.jsx"), mission=read("src/legacy-pages/MissionDetail.jsx"), nav=read("src/components/Nav.jsx"), css=read("src/r8-living.css"), main=read("src/main.jsx");
 for(const route of ['path="/jak-to-funguje"','path="/pro-koho"','path="/knihovna"']) if(!app.includes(route)) fail(`missing route ${route}`);
 // R15 adult homepage keeps the original voluntary-entry concept but translates it into the approved photographic editorial IA.
 for(const marker of ["Lepší svět","Můžu někomu pomoct","Můžu prozkoumat","PANSOFIE","PAMPAEDIA","PANORTHOSIA"]) if(!home.includes(marker)) fail(`home marker missing ${marker}`);

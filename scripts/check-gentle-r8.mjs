@@ -1,6 +1,6 @@
 import fs from "node:fs";
 const read=p=>fs.readFileSync(p,"utf8"); const fail=m=>{console.error(`PANSOFIE_GENTLE_R8=FAIL: ${m}`);process.exit(1)};
-const home=read("src/pages/Home.jsx"),how=read("src/pages/HowItWorks.jsx"),vision=read("src/pages/Vision.jsx"),roles=read("src/pages/RoleHub.jsx"),profile=read("src/pages/Profile.jsx"),growth=read("src/pages/PersonalGrowth.jsx"),detail=read("src/pages/MissionDetail.jsx"),app=read("src/App.jsx"),css=read("src/index.css");
+const home=read("src/legacy-pages/Home.jsx"),how=read("src/legacy-pages/HowItWorks.jsx"),vision=read("src/legacy-pages/Vision.jsx"),roles=read("src/legacy-pages/RoleHub.jsx"),profile=read("src/legacy-pages/Profile.jsx"),growth=read("src/legacy-pages/PersonalGrowth.jsx"),detail=read("src/legacy-pages/MissionDetail.jsx"),app=read("src/App.jsx"),css=read("src/index.css");
 for(const m of ["Můžu někomu pomoct","Chci něco změnit","Mám něco navíc","Mám nápad","Jen se chci rozhlédnout"])if(!home.includes(m))fail(`home missing ${m}`);
 for(const m of ["Bez povinnosti","Reciprocita není dluh","dobrovolné"])if(!how.toLowerCase().includes(m.toLowerCase()))fail(`how missing ${m}`);
 for(const m of ["Poznávat svět v souvislostech","Růst a učit se celý život","Zlepšovat svět kolem sebe"])if(!vision.includes(m))fail(`vision missing ${m}`);

@@ -10,15 +10,15 @@ for(const name of required){
   if(!fs.existsSync(p)) throw new Error(`Missing Art Kit asset: ${name}`);
   if(name.endsWith('.webp') && fs.statSync(p).size < 50000) throw new Error(`Suspiciously small Art Kit asset: ${name}`);
 }
-const home=fs.readFileSync(path.join(root,"src/pages/Home.jsx"),"utf8");
-const young=fs.readFileSync(path.join(root,"src/pages/Young.jsx"),"utf8");
+const home=fs.readFileSync(path.join(root,"src/legacy-pages/Home.jsx"),"utf8");
+const young=fs.readFileSync(path.join(root,"src/legacy-pages/Young.jsx"),"utf8");
 const main=fs.readFileSync(path.join(root,"src/main.jsx"),"utf8");
 const css=fs.readFileSync(path.join(root,"src/artkit-v1.css"),"utf8");
 if(!home.includes("final-hero__image") || !home.includes("adult-hero-rooftop.png")) throw new Error("Homepage missing final adult photographic hero");
 if(!home.includes("final-action-card") || !home.includes("final-pillar-card")) throw new Error("Homepage missing final adult editorial cards");
 if(!young.includes("ART.heroTree")) throw new Error("Young gateway missing Art Kit tree");
 for(const file of ["Home.jsx","Vision.jsx","RoleHub.jsx","Library.jsx","PersonalGrowth.jsx","Compost.jsx","Institutions.jsx","Profile.jsx","MissionDetail.jsx"]){
-  const src=fs.readFileSync(path.join(root,"src/pages",file),"utf8");
+  const src=fs.readFileSync(path.join(root,"src/legacy-pages",file),"utf8");
   if(src.includes("ART.") || src.includes("/art/pansofie-v1")) throw new Error(`Adult route still uses illustrated Art Kit: ${file}`);
 }
 if(!main.includes('artkit-v1.css')) throw new Error('Art Kit CSS is not imported');
@@ -26,12 +26,12 @@ if(!main.includes('home-final.css')) throw new Error('Final adult homepage CSS i
 if(!css.includes('.ak-hero')||!css.includes('.ak-choice')||!css.includes('.ak-pillar')) throw new Error('Art Kit layout CSS incomplete');
 const activeFiles=["Home.jsx","Young.jsx","YoungMissions.jsx","LegalPage.jsx","Contact.jsx","Vision.jsx","RoleHub.jsx","Library.jsx","PersonalGrowth.jsx","Compost.jsx","Institutions.jsx","Profile.jsx","MissionDetail.jsx"];
 for(const file of activeFiles){
-  const src=fs.readFileSync(path.join(root,"src/pages",file),"utf8");
+  const src=fs.readFileSync(path.join(root,"src/legacy-pages",file),"utf8");
   if(/\/assets\/r9\/(?:action|pillar|hero)-.*clean/.test(src)) throw new Error(`${file} still references legacy clean crop`);
 }
 
 const legacyScan=[
-  path.join(root,"src/pages"),
+  path.join(root,"src/legacy-pages"),
   path.join(root,"src/components"),
   path.join(root,"src/lib"),
   path.join(root,"src/r8-living.css")

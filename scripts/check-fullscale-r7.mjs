@@ -1,7 +1,7 @@
 import fs from "node:fs";
 const read = (p) => fs.readFileSync(p,"utf8");
 const fail = (m) => { console.error(`PANSOFIE_FULLSCALE_R7=FAIL: ${m}`); process.exit(1); };
-const css=read("src/index.css"), inst=read("src/pages/Institutions.jsx"), ctx=read("src/state/PansofieContext.jsx");
+const css=read("src/index.css"), inst=read("src/legacy-pages/Institutions.jsx"), ctx=read("src/state/PansofieContext.jsx");
 for (const marker of [
   ".p-home-hero { min-height: 505px",
   ".p-home-hero h1 { max-width: 450px; font-size: clamp(50px",

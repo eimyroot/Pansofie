@@ -6,7 +6,7 @@ const fail = (message) => {
   process.exit(1);
 };
 
-const compost = read("src/pages/Compost.jsx");
+const compost = read("src/legacy-pages/Compost.jsx");
 const pkg = JSON.parse(read("package.json"));
 
 for (const marker of [

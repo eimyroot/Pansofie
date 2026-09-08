@@ -7,10 +7,10 @@ const fail = (message) => {
 };
 
 const app = read("src/App.jsx");
-const vision = read("src/pages/Vision.jsx");
+const vision = read("src/legacy-pages/Vision.jsx");
 const nav = read("src/components/Nav.jsx");
 const context = read("src/state/PansofieContext.jsx");
-const profile = read("src/pages/Profile.jsx");
+const profile = read("src/legacy-pages/Profile.jsx");
 
 for (const marker of [
   'path="/vize"',
