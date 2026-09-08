@@ -1,0 +1,36 @@
+/* R15 asset bindings. Uses the photographic files already tracked in the repository so the homepage never depends on missing/generated URLs. */
+.final-action-card__media,
+.final-pillar-card__media{
+  background-color:#e8ece8;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+}
+.final-action-card__media--1{
+  background-image:linear-gradient(rgba(19,47,36,.03),rgba(19,47,36,.03)),url("/assets/adult-hero-rooftop.png");
+  background-position:62% 58%;
+}
+.final-action-card__media--2{
+  background-image:linear-gradient(rgba(19,47,36,.02),rgba(19,47,36,.02)),url("/assets/mockup/mat-compost.jpg");
+}
+.final-action-card__media--3{
+  background-image:linear-gradient(rgba(19,47,36,.02),rgba(19,47,36,.02)),url("/assets/mockup/mat-pallets.jpg");
+}
+.final-action-card__media--4{
+  background-image:linear-gradient(rgba(19,47,36,.08),rgba(19,47,36,.02)),url("/assets/adult-hero-rooftop.png");
+  background-position:42% 42%;
+}
+.final-action-card__media--5{
+  background-image:linear-gradient(rgba(19,47,36,.04),rgba(19,47,36,.04)),url("/assets/adult-hero-rooftop.png");
+  background-position:84% 50%;
+}
+.final-pillar-card__media--1{
+  background-image:linear-gradient(rgba(19,47,36,.03),rgba(19,47,36,.03)),url("/assets/adult-hero-rooftop.png");
+  background-position:54% 52%;
+}
+.final-pillar-card__media--2{
+  background-image:linear-gradient(rgba(19,47,36,.03),rgba(19,47,36,.03)),url("/assets/mockup/mat-tools.jpg");
+}
+.final-pillar-card__media--3{
+  background-image:linear-gradient(rgba(19,47,36,.03),rgba(19,47,36,.03)),url("/assets/mockup/mat-compost.jpg");
+}
