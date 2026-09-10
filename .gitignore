@@ -9,5 +9,4 @@ dist/
 supabase/.temp/
 supabase/.branches/
 coverage/
-.env*
 .vercel
