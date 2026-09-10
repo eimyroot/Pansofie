@@ -7,6 +7,6 @@ dist/
 .vite/
 .next/
 supabase/.temp/
+supabase/.branches/
 coverage/
-.env*
 .vercel

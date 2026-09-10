@@ -26,16 +26,32 @@ Kohezní Next.js produkt se šesti přihlášenými UX režimy nad společným j
 - `/young/kids` — `young_kids` (6–13)
 - `/young/teens` — `young_teens` (14–20)
 
-Po přihlášení vede `/app` přes serverový resolver na správnou routu. UX režim není oprávnění: přístup k datům určují `memberships`, role a RLS politiky. Vazby dítě–průvodce jsou v `guardian_links`.
+Po přihlášení vede `/app` přes serverový resolver na správnou routu. UX režim není oprávnění: přístup k datům určují `organization_memberships`, role a RLS politiky. Vazby dítě–průvodce jsou v `guardian_relationships`.
 
 ## Supabase setup
 
-1. Zkopírujte `.env.example` do `.env.local` a doplňte Project URL, publishable key a veřejnou URL aplikace.
-2. Aplikujte migraci `supabase/migrations/20260908164632_user_experience_architecture.sql` v cílovém Supabase projektu.
-3. Nastavte Auth Site URL a povolenou redirect URL na `<origin>/auth/callback`.
-4. Spusťte `npm install`, `npm run check` a `npm run dev`.
+### Bezplatné lokální ověření
 
-Migrace vytváří nové tabulky a typy. Před aplikací do existující databáze zkontrolujte kolize názvů a vytvořte databázovou zálohu.
+Pro vývoj a testování nepoužívejte placenou Supabase branch. Repo obsahuje lokální `supabase/config.toml`, migrace a pgTAP RLS testy.
+
+1. Nainstalujte Docker nebo jiný Docker-kompatibilní runtime.
+2. Nainstalujte Supabase CLI nebo použijte projektový `npx` příkaz.
+3. Spusťte `supabase start`.
+4. Spusťte `supabase db reset` a ověřte, že se celý migrační řetězec přehraje od čisté databáze.
+5. Spusťte `supabase test db --local`.
+6. Spusťte `supabase db lint --local --level warning --fail-on error`.
+7. Pro lokální aplikaci zkopírujte `.env.example` do `.env.local` a dosaďte lokální publishable key z výstupu `supabase status`.
+8. Spusťte `npm install`, `npm run check` a `npm run dev`.
+
+Stejné databázové kontroly běží v `.github/workflows/supabase-local.yml` na standardním GitHub-hosted runneru bez přístupu k produkčnímu Supabase projektu.
+
+### Produkční Supabase
+
+Kanonický projekt PANSOFIE je oddělený od lokálního testovacího prostředí. Produkční schéma se nemá resetovat ani používat jako experimentální větev.
+
+Před jakýmkoli produkčním `db push` musí projít lokální migrace, pgTAP/RLS testy, databázový lint, generování typů a review skutečného SQL diffu. Na produkci nikdy nepoužívejte `supabase db reset --linked` ani testovací seed data.
+
+Aktuální živý backend je historicky bohatší než čistý migrační řetězec v této větvi, proto se kandidátní migrace nesmí nasadit naslepo bez ověření kompatibility s živým schématem a migrační historií.
 
 ## Routy
 
@@ -74,12 +90,12 @@ Migrace vytváří nové tabulky a typy. Před aplikací do existující databá
 ## Truth model
 
 - Demo data jsou označená `DEMO`.
-- Uživatelská data se ukládají pouze do `localStorage`.
+- Veřejný prototyp zůstává local-first; přihlášený kontext používá Supabase.
 - Geolokace se nepersistuje; existuje jen v paměti stránky.
 - Profil nepředstírá reálný dopad ani historii.
 - Přesné domácí adresy se na mapě nepoužívají.
 - Demo firmy nejsou prezentovány jako ověření partneři.
-- Backend/Supabase je další samostatná fáze.
+- Produkční Supabase je oddělený od lokálního testovacího prostředí a změny se do něj nepřenášejí bez promotion gate.
 
 ## Start
 
@@ -89,7 +105,6 @@ npm run check
 npm run dev
 ```
 
-
 ## Current product rules
 
 - žádná povinná protislužba, veřejné body člověka ani žebříčky
@@ -98,7 +113,6 @@ npm run dev
 - právní a bezpečnostní texty jsou označené `LEGAL CANDIDATE`, dokud není doplněná identita provozovatele a konkrétní zpracovatelé
 - Young UX nepracuje s přesnou polohou dítěte a nenabízí přímý kontakt dítěte s neznámým dospělým
 - kontaktní formulář je v prototypu local-only a netvrdí, že odesílá e-mail
-
 
 ## R4 digital compost game
 
@@ -111,7 +125,6 @@ npm run dev
 - bez vymyšlených dopadových metrik
 - explicitní uzavření lokálního předání zůstává samostatná akce
 
-
 ## R5 vision & missions
 
 - `/vize` jako filozoficko-praktický manifest
@@ -121,7 +134,6 @@ npm run dev
 - dokončená mise se propíše do lokálního ledgeru a profilu
 - žádné falešné certifikáty ani marketingové garance
 - CS/EN navigace zahrnuje Vizi
-
 
 ## R6 mockup 1:1 UI
 
@@ -139,6 +151,7 @@ npm run dev
 - truth model, local-first stav, geolokace, OSM a matching zůstávají aktivní
 
 ## R8 gentle participation
+
 - opportunity, not obligation
 - browse-first entry
 - no mandatory proof/reflection UX
