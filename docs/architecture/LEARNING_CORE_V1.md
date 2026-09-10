@@ -2,52 +2,98 @@
 
 ## Purpose
 
-This candidate adds the minimum canonical learning data layer needed to evolve the existing PANSOFIE product from `user → experience → mission → completed` toward `user → context → mission → evidence → skill → portfolio → impact`.
+This candidate extends the verified canonical PANSOFIE backend from:
 
-It is intentionally additive. It does not replace the existing `profiles`, `organizations`, `organization_memberships` or `guardian_relationships` model and does not create a competing `spaces`/`memberships` hierarchy.
+`identity → mission → run → evidence → experience → portfolio`
 
-## Pre-state
+into:
 
-The current application already has Supabase authentication, onboarding, six experience routes, organization memberships and an age/context resolver. The public legacy prototype still contains local-first mission state. The live Supabase database was not available for verification when this candidate was prepared, so this migration must not be promoted until it is applied and tested on a non-production database that matches the target schema.
+`identity → context → mission → evidence → skill → portfolio → multidimensional impact`.
 
-## Canonical entities introduced
+It is intentionally additive. It does not replace `profiles`, `organizations`, `organization_memberships`, `guardian_relationships`, `missions`, `mission_runs`, `experience_evidence`, `experiences` or `portfolio_items` and does not create a competing membership, mission, execution, evidence or portfolio hierarchy.
+
+## Verified canonical backend
+
+The live PANSOFIE Supabase project was inspected read-only on 2026-09-10. The canonical execution chain already exists and is RLS-protected:
+
+- `missions`: canonical mission catalog.
+- `mission_runs`: participant-specific execution state.
+- `experience_evidence`: evidence owned by the participant.
+- `experience_reflections`: private reflection layer.
+- `experiences`: completed documented experiences.
+- `portfolio_items`: the existing Experience Passport projection.
+
+The repository had lost the earliest canonical migration files even though they remain recorded in the live Supabase migration ledger. The candidate restores the exact first auth and canonical-experience migration statements for zero-cost local reset/reproduction. It does not copy production data.
+
+## Learning Core entities introduced
 
 - `learning_domains`: the 16 PANSOFIE development areas.
 - `skills`: reusable capabilities attached to one learning domain.
-- `mission_definitions`: reusable missions using LEARN → PLAY → DO → CREATE → SHARE → REFLECT.
-- `mission_skills`: explicit mapping from missions to skills.
-- `mission_participations`: a user's concrete attempt at a mission, optionally inside an existing organization context.
-- `evidence_items`: private-by-default evidence attached to a mission participation.
-- `skill_attestations`: evidence-backed statements that a user demonstrated a skill at a defined level.
-- `user_skill_portfolio`: a derived, security-invoker view of the user's evidence-backed portfolio.
-- `impact_observations`: individual impact measurements across eight independent dimensions.
+- `mission_learning_cycles`: one-to-one pedagogical metadata for an existing `missions` row, using LEARN → PLAY → DO → CREATE → SHARE → REFLECT.
+- `mission_skills`: mapping from an existing canonical mission to reusable skills.
+- `skill_attestations`: evidence-backed statements tied to canonical `experience_evidence`.
+- `user_skill_evidence_summary`: security-invoker summary view over the user's own skill attestations.
+- `impact_observations`: separate observations across eight independent impact dimensions.
+
+The candidate deliberately does **not** create `mission_definitions`, `mission_participations`, `evidence_items` or a second portfolio subsystem.
 
 ## Product rules preserved
 
-1. No public human rating, reputation score or leaderboard is introduced.
-2. Mission suitability uses `development_level_*`, `difficulty`, `content_rating` and `supervision_requirement`; fixed age remains an experience/UI concern rather than the learning taxonomy.
-3. Evidence is private by default.
-4. Guardian/teacher/mentor attestations exist in the data model, but client-side write access is not enabled yet. Those flows require a verified live schema and explicit authorization logic using the existing relationships/membership model.
-5. Organization-level impact is structurally possible but is not client-readable in V1; aggregation/privacy rules must be defined before exposing it.
+1. No public human rating, reputation score, XP rank or leaderboard is introduced.
+2. New mission suitability metadata uses `development_level_*`, `difficulty`, `content_rating` and `supervision_requirement`.
+3. Historical `missions.age_min` / `age_max` columns remain untouched for backward compatibility, but the Learning Core does not add or depend on new fixed-age gates.
+4. Evidence remains in the existing governed `experience_evidence` model.
+5. V1 ordinary clients may create only self-attestations backed by evidence they own from their own run and only for a skill mapped to that run's mission.
+6. Guardian/teacher/mentor/system attestations remain modelled but have no ordinary client write grant in V1.
+7. Organization-scoped impact writes require an active existing `organization_memberships` row.
+8. Organization-level impact may be recorded by governed server/admin flows, but ordinary client read exposure is not introduced in V1.
 
 ## Green Hope and Urban Family Farm
 
-Both are represented initially as mission `program` values (`green_hope`, `urban_family_farm`) so they can reuse the same mission/skill/evidence/impact engine. Dedicated farm production, inventory, cost, sales or marketplace tables are intentionally deferred until real pilot requirements justify them.
+They remain program identifiers on the shared canonical mission engine (`missions.program_id`) rather than separate applications or separate mission databases. The application validator recognises `pansofie`, `pansofiego`, `green_hope` and `urban_family_farm` for new Learning Core content.
 
-## Family Team
+Dedicated farm production, inventory, cost, sales or marketplace tables stay deferred until real pilot requirements justify them.
 
-V1 reuses the existing organization/membership architecture. It does not create a second family membership system. A dedicated family-team context marker can be added only after the live `organizations` schema and current organization type constraints are verified.
+## Family and school contexts
+
+Family, school and company experiences reuse the existing identity and organization architecture. A family onboarding context currently maps to an organization row of type `community`, because the verified live `organizations.organization_type` constraint contains `school`, `municipality`, `ngo`, `community` and `company`, not a separate `family` type.
+
+A child remains an individual identity. Guardian access is governed through `guardian_relationships` plus purpose-specific authorization rather than a shared family login.
+
+## Zero-cost verification
+
+Paid Supabase Branching is not required. The candidate includes:
+
+- `supabase/config.toml` for local Supabase;
+- restored canonical auth/experience baseline migrations from the live migration ledger;
+- pgTAP database tests under `supabase/tests/database`;
+- a GitHub Actions local-Supabase workflow that requires no production Supabase credentials;
+- `.env.example` for local application wiring.
+
+Expected local gate:
+
+```bash
+supabase start
+supabase db reset
+supabase test db --local
+supabase db lint --local --level warning --fail-on error
+supabase gen types typescript --local
+npm run check
+```
+
+Never run `supabase db reset --linked` against production.
 
 ## Promotion gate
 
 This candidate becomes CANONICAL only after all of the following are true:
 
-- target Supabase schema is readable and backed up;
-- migration applies cleanly on a non-production copy/branch;
+- the final migration set is reviewed against the verified live schema and migration ledger;
+- zero-cost local `db reset` succeeds;
+- pgTAP RLS tests pass for adult, child, unrelated user and active organization member;
+- database lint passes;
 - generated Supabase types are reviewed;
-- RLS behavior is tested for an adult user, child user, unrelated user and organization member;
-- existing onboarding and all six experience routes still work;
-- CI/test/build checks pass;
-- rollback is confirmed as restoring the pre-migration database snapshot rather than destructive ad-hoc down SQL.
+- signup, onboarding and all six authenticated experience routes still work;
+- full repository tests and production Next build pass on the final head;
+- production backup/rollback is confirmed before any remote DDL.
 
 Until then the state is CANDIDATE, not deployed production state.
