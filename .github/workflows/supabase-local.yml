@@ -1,0 +1,48 @@
+name: Supabase Local Database
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "supabase/**"
+      - "tests/**"
+      - ".github/workflows/supabase-local.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  database:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start local Supabase
+        run: supabase start
+
+      - name: Rebuild from migrations
+        run: supabase db reset
+
+      - name: Run database tests
+        run: supabase test db --local
+
+      - name: Lint database
+        run: supabase db lint --local --level warning --fail-on error
+
+      - name: Verify local type generation
+        run: |
+          supabase gen types typescript --local > /tmp/database.types.ts
+          test -s /tmp/database.types.ts
+
+      - name: Stop local Supabase
+        if: always()
+        run: supabase stop --no-backup
