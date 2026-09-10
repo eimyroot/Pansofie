@@ -1,62 +1,70 @@
 begin;
 
--- Minimal canonical identity/organization foundation.
--- This migration intentionally contains only the tables required by the
--- existing onboarding/user-context architecture. Product-specific learning
--- data is introduced by later migrations.
+-- Canonical identity/organization foundation for zero-cost local resets.
+-- The table shapes below are aligned with the verified live PANSOFIE schema.
+-- Existing production tables are never replaced because every create is
+-- guarded by IF NOT EXISTS.
 
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
+  location text,
+  bio text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
 create table if not exists public.organizations (
   id uuid primary key default gen_random_uuid(),
-  slug text not null unique check (slug ~ '^[a-z0-9][a-z0-9-]*$'),
-  name text not null check (char_length(trim(name)) between 1 and 160),
+  slug text not null unique,
+  name text not null,
   organization_type text not null
-    check (organization_type in ('family', 'community', 'school', 'company')),
+    check (organization_type in ('school', 'municipality', 'ngo', 'community', 'company')),
   country_code text not null default 'CZ'
-    check (country_code ~ '^[A-Z]{2}$'),
+    check (char_length(country_code) = 2),
   status text not null default 'active'
-    check (status in ('active', 'inactive', 'archived')),
-  created_by uuid references public.profiles(id) on delete set null,
+    check (status in ('pending', 'active', 'suspended', 'archived')),
+  created_by uuid references auth.users(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
 create table if not exists public.organization_memberships (
   id uuid primary key default gen_random_uuid(),
-  organization_id uuid not null references public.organizations(id) on delete cascade,
-  user_id uuid not null references public.profiles(id) on delete cascade,
-  role text not null check (char_length(trim(role)) between 1 and 48),
-  status text not null default 'active'
-    check (status in ('invited', 'active', 'suspended', 'left')),
+  organization_id uuid not null references public.organizations(id) on delete restrict,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  role text not null
+    check (role in ('learner', 'teacher', 'coordinator', 'mentor', 'staff', 'partner_contact')),
+  status text not null default 'invited'
+    check (status in ('invited', 'active', 'suspended', 'ended')),
   joined_at timestamptz,
-  created_by uuid references public.profiles(id) on delete set null,
+  ended_at timestamptz,
+  created_by uuid references auth.users(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  constraint organization_memberships_identity_unique
-    unique (organization_id, user_id, role)
+  unique (organization_id, user_id, role)
 );
 
 create table if not exists public.guardian_relationships (
   id uuid primary key default gen_random_uuid(),
-  guardian_user_id uuid not null references public.profiles(id) on delete cascade,
-  child_user_id uuid not null references public.profiles(id) on delete cascade,
-  relationship_type text not null default 'guardian'
-    check (relationship_type in ('parent', 'guardian', 'caregiver')),
+  child_user_id uuid not null references auth.users(id) on delete cascade,
+  guardian_user_id uuid not null references auth.users(id) on delete cascade,
+  relationship_kind text not null
+    check (relationship_kind in ('parental_responsibility_holder', 'guardian', 'caregiver', 'other')),
   status text not null default 'pending'
-    check (status in ('pending', 'active', 'revoked')),
-  created_by uuid references public.profiles(id) on delete set null,
+    check (status in ('pending', 'verified', 'revoked')),
+  verification_method text
+    check (verification_method in ('email_link', 'school_attestation', 'manual_admin', 'other')),
+  verified_by uuid references auth.users(id) on delete set null,
+  verified_at timestamptz,
+  revoked_at timestamptz,
+  evidence jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  constraint guardian_relationships_distinct_users_check
-    check (guardian_user_id <> child_user_id),
-  constraint guardian_relationships_pair_unique
-    unique (guardian_user_id, child_user_id)
+  check (child_user_id <> guardian_user_id),
+  check (status <> 'verified' or verified_at is not null),
+  check (status <> 'revoked' or revoked_at is not null),
+  unique (child_user_id, guardian_user_id)
 );
 
 create index if not exists organizations_type_status_idx
@@ -143,7 +151,7 @@ end
 $$;
 
 -- Ordinary clients only need reads at this layer. Creation/mutation is routed
--- through reviewed RPCs such as complete_onboarding or later guarded flows.
+-- through reviewed RPCs such as complete_onboarding or later governed flows.
 revoke all on public.profiles from anon, authenticated;
 revoke all on public.organizations from anon, authenticated;
 revoke all on public.organization_memberships from anon, authenticated;
