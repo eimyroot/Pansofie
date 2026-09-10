@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 const sql = fs.readFileSync("supabase/migrations/20260908203000_learning_core_foundation.sql", "utf8");
+const executableSql = sql.replace(/--.*$/gm, "");
 
 const expectedTables = [
   "learning_domains",
@@ -19,11 +20,11 @@ test("learning core adds only taxonomy, pedagogy, skill and impact tables", () =
   }
 
   for (const duplicate of ["mission_definitions", "mission_participations", "evidence_items"]) {
-    assert.doesNotMatch(sql, new RegExp(`create table(?: if not exists)? public\\.${duplicate}\\b`, "i"));
+    assert.doesNotMatch(executableSql, new RegExp(`create table(?: if not exists)? public\\.${duplicate}\\b`, "i"));
   }
 
-  assert.doesNotMatch(sql, /create table(?: if not exists)? public\.(spaces|memberships|guardian_links)\b/i);
-  assert.doesNotMatch(sql, /drop table|truncate table|delete from public\.profiles/i);
+  assert.doesNotMatch(executableSql, /create table(?: if not exists)? public\.(spaces|memberships|guardian_links)\b/i);
+  assert.doesNotMatch(executableSql, /drop table|truncate table|delete from public\.profiles/i);
 });
 
 test("learning core reuses the canonical experience engine", () => {
@@ -31,7 +32,7 @@ test("learning core reuses the canonical experience engine", () => {
   assert.match(sql, /references public\.experience_evidence\(id\)/i);
   assert.match(sql, /join public\.mission_runs r on r\.id = e\.run_id/i);
   assert.match(sql, /join public\.mission_skills ms/i);
-  assert.doesNotMatch(sql, /user_skill_portfolio/i);
+  assert.doesNotMatch(executableSql, /user_skill_portfolio/i);
   assert.match(sql, /user_skill_evidence_summary/i);
 });
 
@@ -48,7 +49,7 @@ test("pedagogical mission metadata encodes the six phase method without adding a
   }
   assert.match(sql, /development_level_min/i);
   assert.match(sql, /development_level_max/i);
-  assert.doesNotMatch(sql, /\bage_min\b|\bage_max\b/i);
+  assert.doesNotMatch(executableSql, /\bage_min\b|\bage_max\b/i);
 });
 
 test("impact dimensions remain separate and no human reputation score is introduced", () => {
@@ -64,13 +65,13 @@ test("impact dimensions remain separate and no human reputation score is introdu
   ]) {
     assert.match(sql, new RegExp(dimension));
   }
-  assert.doesNotMatch(sql, /leaderboard|reputation_score|public_xp/i);
+  assert.doesNotMatch(executableSql, /leaderboard|reputation_score|public_xp/i);
 });
 
 test("canonical curriculum metadata is read-only to ordinary authenticated users", () => {
   for (const relation of ["skills", "mission_learning_cycles", "mission_skills"]) {
     assert.match(sql, new RegExp(`grant select on public\\.${relation} to authenticated`, "i"));
-    assert.doesNotMatch(sql, new RegExp(`grant[^;]*(insert|update|delete)[^;]*public\\.${relation}`, "i"));
+    assert.doesNotMatch(executableSql, new RegExp(`grant[^;]*(insert|update|delete)[^;]*public\\.${relation}`, "i"));
   }
 });
 
