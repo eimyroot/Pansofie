@@ -1,3 +1,4 @@
+# Local-only Supabase stack. No production project reference or secret belongs here.
 project_id = "pansofie-local"
 
 [db]
