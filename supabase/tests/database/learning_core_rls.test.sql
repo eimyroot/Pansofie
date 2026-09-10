@@ -2,7 +2,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(18);
+select plan(17);
 
 select is(
   (select count(*)::integer from public.learning_domains),
