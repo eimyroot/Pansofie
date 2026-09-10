@@ -6,14 +6,12 @@ import { useLanguage } from "../state/LanguageContext";
 
 const BRANCHES = {
   cs: [
-    ["9–12 let", "První výpravy", "Krátké mise s dospělým, školou nebo skupinou."],
-    ["13–15 let", "Vlastní nápady", "Bezpečné experimenty, týmová tvorba a péče o okolí."],
-    ["16–18 let", "Skutečné projekty", "Mentoring přes ověřenou organizaci a větší samostatnost."],
+    ["6–13 let", "Hravé objevování", "Mise, kvízy a bezpečné objevování s rodičem, školou nebo důvěryhodnou skupinou."],
+    ["14–20 let", "Vlastní názor a projekty", "Debaty, hlubší témata a projekty s rostoucí samostatností a bezpečnými hranicemi."],
   ],
   en: [
-    ["Ages 9–12", "First quests", "Short missions with a trusted adult, school or group."],
-    ["Ages 13–15", "Own ideas", "Safe experiments, team creativity and care for your surroundings."],
-    ["Ages 16–18", "Real projects", "Mentoring through a verified organisation and more independence."],
+    ["Ages 6–13", "Playful discovery", "Missions, quizzes and safe exploration with a parent, school or trusted group."],
+    ["Ages 14–20", "Own voice and projects", "Debates, deeper topics and projects with growing independence and clear safety boundaries."],
   ],
 };
 
