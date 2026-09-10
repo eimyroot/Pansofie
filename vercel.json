@@ -1,3 +1,0 @@
-{
-  "buildCommand": "npm install --no-save --include=dev --ignore-scripts @electric-sql/pglite@0.5.8 && node scripts/pglite-migration-gate.mjs && npm run check"
-}
