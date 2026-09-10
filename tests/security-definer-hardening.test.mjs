@@ -17,9 +17,27 @@ const authenticatedRpcSignatures = [
 
 test("legacy RPC hardening is guarded for clean databases", () => {
   assert.match(migration, /to_regprocedure\(function_signature\)/);
+  for (const signature of [
+    "public.is_admin()",
+    "public.handle_new_user()",
+    "public.pansofie_materialize_mission_version(uuid)",
+  ]) {
+    assert.ok(migration.includes(`to_regprocedure('${signature}')`), `missing guard for ${signature}`);
+  }
+});
+
+test("restored auth baseline is not anonymously executable", () => {
   assert.match(
     migration,
-    /to_regprocedure\('public\.pansofie_materialize_mission_version\(uuid\)'\)/,
+    /revoke execute on function public\.is_admin\(\) from public, anon/,
+  );
+  assert.match(
+    migration,
+    /grant execute on function public\.is_admin\(\) to authenticated/,
+  );
+  assert.match(
+    migration,
+    /revoke execute on function public\.handle_new_user\(\) from public, anon, authenticated/,
   );
 });
 
