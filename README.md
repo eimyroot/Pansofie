@@ -1,12 +1,22 @@
-# Pansofie + Pansofie Young
+<div align="center">
+  <h1>Pansofie + Pansofie Young</h1>
+  <p><strong>One product core, different experiences for adults, families, schools, companies and young users.</strong></p>
+  <p>
+    <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs">
+    <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111827">
+    <img alt="Supabase" src="https://img.shields.io/badge/auth%20%26%20data-Supabase-3ECF8E?logo=supabase&logoColor=white">
+    <img alt="Status" src="https://img.shields.io/badge/stav-produktový%20prototyp-f59e0b">
+  </p>
+</div>
+
+<p align="center">
+  <img src="public/assets/adult-hero-rooftop.png" alt="Pansofie adult experience" width="49%">
+  <img src="public/art/pansofie-v1/hero-tree.png" alt="Pansofie Young experience" width="49%">
+</p>
 
 > **Stav projektu:** Produktový prototyp ve vývoji. Repo ukazuje veřejnou i přihlášenou UX vrstvu; nejde o tvrzení o produkční připravenosti.
 
-Kohezní Next.js produkt se šesti přihlášenými UX režimy nad společným jádrem. Původní veřejný React prototyp zůstává dostupný na stávajících routách.
-
-- Pansofie: dospělý fotografický editorial vzhled, cream/sage paleta, město + příroda.
-- Pansofie Young: samostatný ilustrativní/akvarelový svět se stromem, věkovými větvemi a misemi bez hodnocení člověka.
-- Sdílené jádro: Jak to funguje, Pro koho, Koloběh, Knihovna, Vize, Digitální kompost, Lidé & mentoring, Mapa koloběhu, Školy & organizace, profil, CS/EN, accessibility a bezpečnostní texty.
+Pansofie spojuje společné produktové jádro s odlišnými UX režimy podle kontextu uživatele. Dospělá část používá fotografický/editorial směr, Pansofie Young samostatný ilustrativní svět.
 
 ## Stack
 
