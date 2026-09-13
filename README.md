@@ -1,5 +1,7 @@
 # Pansofie + Pansofie Young
 
+> **Stav projektu:** Produktový prototyp ve vývoji. Repo ukazuje veřejnou i přihlášenou UX vrstvu; nejde o tvrzení o produkční připravenosti.
+
 Kohezní Next.js produkt se šesti přihlášenými UX režimy nad společným jádrem. Původní veřejný React prototyp zůstává dostupný na stávajících routách.
 
 - Pansofie: dospělý fotografický editorial vzhled, cream/sage paleta, město + příroda.
