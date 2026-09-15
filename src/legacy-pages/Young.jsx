@@ -1,121 +1,103 @@
 import React from "react";
-import { ArrowRight, BookOpen, Compass, Eye, FlaskConical, HandHeart, Leaf, Lightbulb, Palette, Recycle, ShieldCheck, Sprout, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Compass, HandHeart, Leaf, Lightbulb, Lock, MapPin, ShieldCheck, Sparkles, Sprout, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ART } from "../lib/artkit";
 import { useLanguage } from "../state/LanguageContext";
 
-const BRANCHES = {
-  cs: [
-    ["6–13 let", "Hravé objevování", "Mise, kvízy a bezpečné objevování s rodičem, školou nebo důvěryhodnou skupinou."],
-    ["14–20 let", "Vlastní názor a projekty", "Debaty, hlubší témata a projekty s rostoucí samostatností a bezpečnými hranicemi."],
-  ],
-  en: [
-    ["Ages 6–13", "Playful discovery", "Missions, quizzes and safe exploration with a parent, school or trusted group."],
-    ["Ages 14–20", "Own voice and projects", "Debates, deeper topics and projects with growing independence and clear safety boundaries."],
-  ],
-};
+const PHONES = [
+  ["Domů", "Přehled a doporučení", "Ahoj, Káťo! Svět tě potřebuje.", ART.help],
+  ["Mise", "Výzvy a úkoly", "Vysaď strom · Den bez plastu · Pomoz v komunitě", ART.panorthosia],
+  ["Mapa", "Objevuj projekty kolem sebe", "Bez přesné polohy dítěte.", ART.explore],
+  ["Projekty", "Přidej se nebo vytvoř", "Green Hope · Urban Family Farm · Family Team", ART.compost],
+  ["Komunita", "Lidé, týmy, příběhy", "Bezpečné týmy a ověřené role.", ART.idea],
+  ["Učení", "Krátká a zábavná forma", "Příroda · Lidé · Technologie · Kreativita", ART.pansofia],
+  ["Můj rozvoj", "XP, úrovně, odznaky", "Portfolio růstu bez hodnocení člověka.", ART.heroTree],
+  ["Mentor", "AI / člověk průvodce", "Otázky, nápady a jemná podpora.", ART.pampaedia],
+  ["Profil", "Tvoje cesta a úspěchy", "Soukromé portfolio a viditelnost pod kontrolou.", ART.help],
+  ["Nastavení", "Bezpečí a přizpůsobení", "Rodičovský režim, souhlasy a soukromí.", ART.panorthosia],
+  ["Přihlášení", "Jednoduchý vstup", "Vítej! Svět potřebuje tvoje nápady.", ART.heroTree],
+  ["Role při registraci", "Jsi tu jako...", "Příroda · Lidé · Technologie · Kreativita", ART.idea],
+  ["Onboarding", "Osobní nastavení", "Co tě zajímá? Vyber oblasti, které tě volají.", ART.pansofia],
+  ["Rodičovský režim", "Bezpečnost na prvním místě", "Viditelnost, omezení komunikace, přehled aktivit.", ART.panorthosia],
+  ["Mobilní menu", "Rychlá navigace", "Domů · Mise · Mapa · Projekty · Komunita.", ART.explore],
+];
 
-const YOUNG_COPY = {
-  cs: {
-    eyebrow: "Živý prostor pro mladé objevitele",
-    titleA: "Pansofie Young.",
-    titleB: "Místo, kde zvědavost roste dál.",
-    lead: "Objevuj, zkoušej, tvoř a pomáhej měnit svět kolem sebe. Young je bezpečná brána do Pansofie pro děti a mladé — s vlastními misemi, větvemi a stromem rozvoje bez hodnocení člověka.",
-    primary: "Vybrat si misi",
-    secondary: "Prozkoumat větve",
-    cardsTitle: "Co chceš dnes dát do pohybu?",
-    cardsLead: "Vyber si směr, který tě dnes volá. Bez povinnosti. Bez srovnávání.",
-    choices: [
-      ["Můžu někomu pomoct", "Najdu malý bezpečný krok, kde můžu být užitečný.", ART.help, Users],
-      ["Chci něco změnit", "Objevím nápady a projekty, které dávají smysl.", ART.change, Sprout],
-      ["Mám něco navíc", "Sdílím věc, čas nebo dovednost přes dospělého či organizaci.", ART.surplus, Recycle],
-      ["Mám nápad", "Uložím myšlenku, kterou můžu rozvinout s ostatními.", ART.idea, Lightbulb],
-      ["Jen se chci rozhlédnout", "Podívám se, co se děje kolem mě — bez závazku.", ART.explore, Compass],
-    ],
-    pillarsTitle: "Tři kořeny Pansofie",
-    pillarsLead: "Stejná vize jako v hlavní Pansofii, převedená do jazyka mladých.",
-    pillars: [
-      ["Vševěda", "Poznávat svět v souvislostech.", ART.pansofia, ["Objevovat", "Ptát se", "Propojovat"]],
-      ["Vševýchova", "Růst a učit se po svém tempu.", ART.pampaedia, ["Zkoušet", "Tvořit", "Učit se spolu"]],
-      ["Všenáprava", "Pomáhat světu kolem sebe malými kroky.", ART.panorthosia, ["Pomáhat", "Pečovat", "Měnit okolí"]],
-    ],
-    floating: [
-      ["Vševěda", "Pozorovat svět v souvislostech.", Eye],
-      ["Vševýchova", "Růst bez závodu a známkování.", BookOpen],
-      ["Všenáprava", "Zlepšovat svět kolem sebe.", Leaf],
-    ],
-  },
-  en: {
-    eyebrow: "A living space for young explorers",
-    titleA: "Pansofie Young.",
-    titleB: "A place where curiosity keeps growing.",
-    lead: "Discover, try, create and help change the world around you. Young is a safe gateway into Pansofie for children and young people — with missions, branches and a growth tree without rating a person.",
-    primary: "Choose a mission",
-    secondary: "Explore branches",
-    cardsTitle: "What do you want to set in motion today?",
-    cardsLead: "Choose the direction that calls you today. No obligation. No ranking.",
-    choices: [
-      ["I can help someone", "Find a small safe step where you can be useful.", ART.help, Users],
-      ["I want to change something", "Discover ideas and projects that feel meaningful.", ART.change, Sprout],
-      ["I have something extra", "Share a thing, time or skill through an adult or organisation.", ART.surplus, Recycle],
-      ["I have an idea", "Save a thought you can develop with others.", ART.idea, Lightbulb],
-      ["I just want to look around", "See what is happening around you — without commitment.", ART.explore, Compass],
-    ],
-    pillarsTitle: "Three roots of Pansofie",
-    pillarsLead: "The same vision as main Pansofie, translated for young people.",
-    pillars: [
-      ["Universal knowledge", "See the world in context.", ART.pansofia, ["Discover", "Ask", "Connect"]],
-      ["Lifelong education", "Grow and learn at your own pace.", ART.pampaedia, ["Try", "Create", "Learn together"]],
-      ["Improvement", "Help the world around you through small steps.", ART.panorthosia, ["Help", "Care", "Improve"]],
-    ],
-    floating: [
-      ["Universal knowledge", "Observe the world in context.", Eye],
-      ["Lifelong education", "Grow without races or grades.", BookOpen],
-      ["Improvement", "Improve the world around you.", Leaf],
-    ],
-  },
-};
+const ADULT_SCREENS = [
+  ["Domov", "Hlavní stránka"],
+  ["O nás", "Poslání, vize, příběh"],
+  ["7 cest", "Hlavní rozvojová mapa"],
+  ["16 oblastí", "Přehled obsahového světa"],
+  ["PansofieGO", "Mise, XP, dovednosti"],
+  ["Green Hope", "Příroda a udržitelnost"],
+  ["Urban Family Farm", "Praktická laboratoř života"],
+  ["Family Team", "Rodinné mise a spolupráce"],
+  ["Projekty", "Tvoř, zapojuj se, měň svět"],
+  ["Mapa", "Lidé, projekty, příležitosti"],
+  ["Impact Index", "Měření skutečného dopadu"],
+  ["Mezinárodní síť", "Lokální i globální spolupráce"],
+  ["Pro školy", "Vzdělávání v praxi"],
+  ["Pro organizace", "Partnerství a spolupráce"],
+  ["Blog / Zdroje", "Články, rozhovory, nástroje"],
+  ["Kontakt", "Spojme se"],
+  ["Přihlášení / Registrace", "Vstupní brána"],
+  ["Dashboard", "Osobní přehled"],
+  ["Profil", "Tvoje cesta v čase"],
+  ["Nastavení", "Bezpečnost a soukromí"],
+];
 
 export default function Young() {
   const { isEnglish } = useLanguage();
-  const branches = BRANCHES[isEnglish ? "en" : "cs"];
-  const copy = YOUNG_COPY[isEnglish ? "en" : "cs"];
-  return <div className="young-world">
-    <nav className="young-nav" aria-label={isEnglish ? "Pansofie Young navigation" : "Navigace Pansofie Young"}>
-      <Link to="/young" className="young-logo">PANSOFIE <span>YOUNG</span></Link>
-      <div><a href="#principles">{isEnglish ? "How it works" : "Jak to funguje"}</a><a href="#branches">{isEnglish ? "Branches" : "Větve"}</a><Link to="/young/mise">{isEnglish ? "Missions" : "Mise"}</Link><a href="#safety">{isEnglish ? "Safety" : "Bezpečí"}</a></div>
-      <Link to="/" className="young-exit">{isEnglish ? "Main Pansofie ↗" : "Hlavní Pansofie ↗"}</Link>
-    </nav>
 
-    <section className="young-hero young-hero--vision">
-      <div className="young-hero__copy"><p className="young-kicker">{copy.eyebrow}</p><h1><span>{copy.titleA}</span><em>{copy.titleB}</em></h1><p>{copy.lead}</p><div className="young-actions"><Link className="p-btn p-btn--green" to="/young/mise">{copy.primary}<ArrowRight size={16}/></Link><a className="p-btn p-btn--outline" href="#branches">{copy.secondary}</a></div></div>
-      <figure className="young-tree-stage">
-        <img src={ART.heroTree} alt={isEnglish ? "Watercolour Pansofie Young tree with many discovery branches" : "Akvarelový strom Pansofie Young s větvemi objevování"}/>
-        {copy.floating.map(([title,text,Icon], index)=><figcaption className={`young-float young-float--${index+1}`} key={title}><Icon size={25}/><span><strong>{title}</strong><small>{text}</small></span></figcaption>)}
-      </figure>
-    </section>
+  return <div className="board-young">
+    <section className="board-split" aria-labelledby="board-young-title">
+      <div className="board-adult-preview" aria-label="PANSOFIE hlavní produkt">
+        <header className="board-adult-hero">
+          <img src="/assets/adult-hero-rooftop.png" alt="" aria-hidden="true" />
+          <div><p>PANSOFIE</p><h2>Učit se životem</h2><span>Kompletní webová platforma pro jednotlivce, rodiny, školy, komunity a organizace, které tvoří lepší svět.</span></div>
+        </header>
+        <div className="board-adult-pills"><span>Vzdělávání</span><span>Komunita</span><span>Projekty</span><span>Dopad</span><span>O nás</span></div>
+        <div className="board-adult-grid">
+          {ADULT_SCREENS.map(([title, label], index) => <article key={title}><small>{String(index + 1).padStart(2, "0")}</small><h3>{title}</h3><p>{label}</p></article>)}
+        </div>
+      </div>
 
-    <section className="young-choice-board" aria-labelledby="young-choice-title">
-      <div className="young-choice-board__head"><h2 id="young-choice-title">{copy.cardsTitle}</h2><p>{copy.cardsLead}</p></div>
-      <div className="young-choice-grid">
-        {copy.choices.map(([title,text,img,Icon])=><Link to="/young/mise" className="young-choice-card" key={title}><img src={img} alt=""/><span><Icon size={16}/><strong>{title}</strong><small>{text}</small></span><ArrowRight size={16}/></Link>)}
+      <div className="board-young-main" aria-label="PANSOFIE YOUNG produkt">
+        <header className="board-young-hero">
+          <div>
+            <p>PANSOFIE YOUNG</p>
+            <h1 id="board-young-title">{isEnglish ? "Bigger ideas. Better tomorrow." : "Větší nápady. Lepší budoucnost."}</h1>
+            <span>{isEnglish ? "Interactive platform for children and young people ages 6-20." : "Interaktivní platforma pro děti a mladé 6-20 let."}</span>
+            <div><Link to="/young/mise">Objevuj mise <ArrowRight size={16}/></Link><Link to="/login">Vstoupit</Link></div>
+          </div>
+          <img src={ART.help} alt="Pansofie Young komunita mladých lidí" />
+          <i className="board-doodle board-doodle--smile">☺</i>
+          <i className="board-doodle board-doodle--crown">♔</i>
+          <i className="board-doodle board-doodle--spark">✦</i>
+        </header>
+
+        <div className="board-phone-grid" aria-label="Pansofie Young obrazovky">
+          {PHONES.map(([title, label, text, image], index) => <article className="board-phone" key={title}>
+            <div className="board-phone-top"><span>{String(index + 1).padStart(2, "0")}</span><b>{title}</b><em>{label}</em></div>
+            <div className="board-phone-screen">
+              <div className="board-phone-status"><span>0:{31 + index}</span><span>● ● ●</span></div>
+              <img src={image} alt="" />
+              <p>{label}</p>
+              <h2>{text}</h2>
+              {index === 2 && <div className="board-mini-map"><MapPin/><MapPin/><MapPin/><MapPin/></div>}
+              {index === 4 && <div className="board-list">{["Klára", "Tomáš", "Ema", "Adam"].map((name) => <span key={name}><Users size={13}/>{name}</span>)}</div>}
+              {index === 5 && <div className="board-topics">{["Příroda", "Lidé", "Technologie", "Sport"].map((item) => <button key={item}>{item}</button>)}</div>}
+              {index === 6 && <div className="board-xp"><span /><strong>Level 5</strong></div>}
+              {index === 7 && <div className="board-actions">{["Chci se něco naučit", "Potřebuju radu", "Mám nápad"].map((item) => <button key={item}>{item}</button>)}</div>}
+              {index === 13 && <div className="board-checks"><span><ShieldCheck size={13}/>Viditelný rodič</span><span><Lock size={13}/>Bezpečná komunikace</span></div>}
+            </div>
+          </article>)}
+        </div>
       </div>
     </section>
 
-    <section className="young-pillar-board" aria-labelledby="young-pillars-title">
-      <div className="young-choice-board__head"><h2 id="young-pillars-title">{copy.pillarsTitle}</h2><p>{copy.pillarsLead}</p></div>
-      <div className="young-pillar-grid">
-        {copy.pillars.map(([title,text,img,items])=><article key={title}><img src={img} alt=""/><div><h3>{title}</h3><p>{text}</p><ul>{items.map(item=><li key={item}>{item}</li>)}</ul></div></article>)}
-      </div>
+    <section className="board-principles">
+      {[[Compass, "Objevuju"], [Sparkles, "Zkouším"], [Lightbulb, "Tvořím"], [HandHeart, "Spolupracuju"], [Leaf, "Měním svět"], [BookOpen, "Učím se životem"]].map(([Icon, label]) => <article key={label}><Icon/><span>{label}</span></article>)}
+      <Link to="/young/mise">Vybrat první misi <ArrowRight size={16}/></Link>
     </section>
-
-    <section id="principles" className="young-principles" aria-labelledby="young-principles-title">
-      <div><p className="young-kicker">{isEnglish ? "YOUR WAY" : "TVOJE CESTA"}</p><h2 id="young-principles-title">{isEnglish ? "Four ways to start" : "Čtyři způsoby, jak začít"}</h2></div>
-      {[[Compass,"Objevuj","Discover"],[FlaskConical,"Zkoušej","Try"],[Palette,"Tvoř","Create"],[HandHeart,"Pomáhej měnit svět kolem sebe","Help change the world around you"]].map(([Icon,cs,en])=><article key={cs}><Icon aria-hidden="true"/><h3>{isEnglish?en:cs}</h3><p>{isEnglish ? "A possibility, never a test of your worth." : "Možnost, nikdy zkouška tvojí hodnoty."}</p></article>)}
-    </section>
-
-    <section id="branches" className="young-branches"><div className="young-section-head"><p className="young-kicker">{isEnglish ? "AGE BRANCHES" : "VĚKOVÉ VĚTVE"}</p><h2>{isEnglish ? "The tree grows with you" : "Strom roste s tebou"}</h2><p>{isEnglish ? "Age helps us suggest a safe level of independence. It never limits what you may be interested in." : "Věk nám pomáhá nabídnout bezpečnou míru samostatnosti. Nikdy neurčuje, co tě smí zajímat."}</p></div><div className="young-branch-grid">{branches.map(([age,title,text],i)=><article key={age}><span>0{i+1}</span><small>{age}</small><h3>{title}</h3><p>{text}</p><Link to="/young/mise">{isEnglish ? "See suitable missions" : "Zobrazit vhodné mise"}<ArrowRight size={14}/></Link></article>)}</div></section>
-
-    <section id="safety" className="young-safety"><ShieldCheck/><div><p className="young-kicker">{isEnglish ? "SAFE BY DESIGN" : "BEZPEČÍ UŽ V NÁVRHU"}</p><h2>{isEnglish ? "No precise child location. No direct contact with an unknown adult." : "Žádná přesná poloha dítěte. Žádný přímý kontakt s neznámým dospělým."}</h2><p>{isEnglish ? "Missions involving people or places are mediated by a parent, school or verified organisation. Public profiles do not show a child’s surname, school schedule or live location." : "Mise spojené s lidmi nebo místy zprostředkuje rodič, škola nebo ověřená organizace. Veřejný profil nezobrazuje příjmení dítěte, školní rozvrh ani živou polohu."}</p><Link to="/bezpecnost">{isEnglish ? "Read the safety rules" : "Přečíst pravidla bezpečí"}<ArrowRight size={14}/></Link></div></section>
   </div>;
 }

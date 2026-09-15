@@ -278,3 +278,162 @@
 @media (prefers-reduced-motion:reduce){
   .final-home *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
+
+.adult-board{
+  padding:28px 24px 42px;
+  background:#f7f4ed;
+  border-top:1px solid var(--fh-line);
+}
+.adult-board__head{
+  width:min(1500px,100%);
+  margin:0 auto 18px;
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:24px;
+}
+.adult-board__head h2{
+  max-width:760px;
+  margin:0;
+  color:var(--fh-forest);
+  font:650 clamp(34px,4vw,58px)/.98 "Plus Jakarta Sans",Inter,system-ui,sans-serif;
+  letter-spacing:-.04em;
+}
+.adult-board__head a{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  min-height:42px;
+  padding:0 18px;
+  border-radius:999px;
+  background:var(--fh-forest);
+  color:#fff;
+  font-size:11px;
+  font-weight:850;
+}
+.adult-board__grid{
+  width:min(1500px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.adult-board-card{
+  position:relative;
+  min-height:185px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:14px;
+  border:1px solid #dbe0da;
+  border-radius:7px;
+  background:#fffdf8;
+  box-shadow:0 10px 28px rgba(24,47,36,.04);
+}
+.adult-board-card::before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto;
+  height:72px;
+  opacity:.92;
+  background-size:cover;
+  background-position:center;
+}
+.adult-board-card--1::before{background-image:url("/assets/adult-hero-rooftop.png")}
+.adult-board-card--2::before{background-image:url("/assets/mockup/mat-compost.jpg")}
+.adult-board-card--3::before{background-image:url("/art/pansofie-v1/hero-tree.webp")}
+.adult-board-card--4::before{background-image:url("/art/pansofie-v1/pillar-pansofia.webp")}
+.adult-board-card--5::before{background-image:url("/art/pansofie-v1/action-help.webp")}
+.adult-board-card--6::before{background-image:url("/assets/mockup/vision-school.png")}
+.adult-board-card>div:first-child,.adult-board-card>p,.adult-board-card>div:not(:first-child){position:relative;z-index:1}
+.adult-board-card small{
+  display:inline-flex;
+  min-width:28px;
+  min-height:24px;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  background:#fff;
+  color:var(--fh-forest);
+  font-size:10px;
+  font-weight:900;
+}
+.adult-board-card h3{
+  margin:58px 0 4px;
+  color:#111d17;
+  font:800 22px/1.05 Georgia,"Times New Roman",serif;
+}
+.adult-board-card span{
+  color:#31584c;
+  font-size:11px;
+  font-weight:780;
+}
+.adult-board-card p{
+  margin:10px 0 0;
+  color:#58665f;
+  font-size:11px;
+  line-height:1.38;
+}
+.adult-board-paths,.adult-board-domains{
+  display:grid;
+  gap:6px;
+  margin-top:10px;
+}
+.adult-board-paths{grid-template-columns:repeat(2,minmax(0,1fr))}
+.adult-board-paths b{
+  padding:6px;
+  border-radius:999px;
+  background:#eef4ed;
+  color:#234a3c;
+  font-size:9px;
+  text-align:center;
+}
+.adult-board-domains{grid-template-columns:repeat(4,1fr)}
+.adult-board-domains i{
+  height:18px;
+  border:1px solid #dce5dd;
+  border-radius:5px;
+  background:#f6faf6;
+}
+.adult-board-chart{
+  display:flex;
+  align-items:end;
+  gap:7px;
+  min-height:54px;
+  margin-top:12px;
+}
+.adult-board-chart i{
+  flex:1;
+  border-radius:5px 5px 0 0;
+  background:#2f7e61;
+}
+.adult-board-chart i:nth-child(1){height:22px}.adult-board-chart i:nth-child(2){height:34px}.adult-board-chart i:nth-child(3){height:42px}.adult-board-chart i:nth-child(4){height:52px}
+.adult-board-map{
+  position:relative;
+  height:62px;
+  margin-top:10px;
+  border-radius:8px;
+  background:linear-gradient(45deg,#e6eee8 25%,#fff 25% 50%,#e6eee8 50% 75%,#fff 75%);
+}
+.adult-board-map i{
+  position:absolute;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#0d6a50;
+}
+.adult-board-map i:nth-child(1){left:16%;top:22%}.adult-board-map i:nth-child(2){left:38%;top:58%;background:#e9503e}.adult-board-map i:nth-child(3){left:55%;top:30%;background:#2d82d8}.adult-board-map i:nth-child(4){left:72%;top:62%}.adult-board-map i:nth-child(5){left:84%;top:22%;background:#f2a51d}
+
+@media (max-width:1180px){
+  .adult-board__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:820px){
+  .adult-board__head{display:block}
+  .adult-board__head a{margin-top:14px}
+  .adult-board__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  .adult-board{padding:24px 12px 34px}
+  .adult-board__grid{grid-template-columns:1fr}
+}

@@ -69,6 +69,28 @@ const COPY = {
 
 const ACTIONS = [UsersRound, Sprout, Recycle, Lightbulb, Binoculars];
 const PILLARS = [TreePine, BookOpen, Sprout];
+const BOARD_SCREENS = [
+  ["01", "Domov", "Hlavní stránka", "Učíme se životem. Společně tvoříme lepší svět."],
+  ["02", "O nás", "Poslání, vize, příběh", "Člověk, příroda, společnost v harmonii."],
+  ["03", "7 cest", "Hlavní rozvojová mapa", "Poznání, zdraví, charakter, vztahy, tvořivost, spolupráce, smysl."],
+  ["04", "16 oblastí", "Přehled obsahového světa", "Šestnáct oblastí poznání v jednom srozumitelném systému."],
+  ["05", "PansofieGO", "Mise, XP, dovednosti", "Malé mise, velké změny a viditelný osobní posun."],
+  ["06", "Green Hope", "Příroda a udržitelnost", "Zeleňující plány začínají u nás."],
+  ["07", "Urban Family Farm", "Praktická laboratoř života", "Město může být živé a jedlé."],
+  ["08", "Family Team", "Rodinné mise a spolupráce", "Silnější rodiny tvoří silnější svět."],
+  ["09", "Projekty", "Tvoř, zapojuj se, měň svět", "Projekty, které mají smysl."],
+  ["10", "Mapa", "Lidé, projekty, příležitosti", "Bezpečná mapa komunitních checkpointů."],
+  ["11", "Impact Index", "Měření skutečného dopadu", "Dopad jako evidence projektu, ne skóre člověka."],
+  ["12", "Mezinárodní síť", "Lokální i globální spolupráce", "Spojujeme lidi napříč hranicemi."],
+  ["13", "Pro školy", "Vzdělávání v praxi", "Škola, která připravuje na život."],
+  ["14", "Pro organizace", "Partnerství a spolupráce", "Spolu tvoříme udržitelnou budoucnost."],
+  ["15", "Blog / Zdroje", "Články, rozhovory, nástroje", "Místo pro inspiraci, znalosti a metody."],
+  ["16", "Kontakt", "Spojme se", "Rádi uslyšíme vaše nápady."],
+  ["17", "Přihlášení / Registrace", "Vstupní brána", "Jednoduchý a klidný vstup do komunity."],
+  ["18", "Dashboard", "Osobní přehled", "Moje cesta, mise, komunita, dopad."],
+  ["19", "Profil", "Tvoje cesta v čase", "Portfolio, evidence, reflexe a růst."],
+  ["20", "Nastavení", "Bezpečnost a soukromí", "Účet, oprávnění, jazyk, soukromý profil."],
+];
 
 export default function Home() {
   const { locale } = useLanguage();
@@ -153,6 +175,25 @@ export default function Home() {
             <p>{c.quote}</p>
             <footer><span aria-hidden="true" />{c.quoteBy}</footer>
           </blockquote>
+        </div>
+      </section>
+
+      <section className="adult-board" aria-labelledby="adult-board-title">
+        <header className="adult-board__head">
+          <div><p className="final-kicker">PANSOFIE · PRODUKTOVÁ MAPA</p><h2 id="adult-board-title">Celý svět Pansofie v jednom přehledu.</h2></div>
+          <Link to="/login">Vstoupit do dashboardu <ArrowRight size={16}/></Link>
+        </header>
+        <div className="adult-board__grid">
+          {BOARD_SCREENS.map(([number, title, label, text], index) => (
+            <article className={`adult-board-card adult-board-card--${(index % 6) + 1}`} key={title}>
+              <div><small>{number}</small><h3>{title}</h3><span>{label}</span></div>
+              <p>{text}</p>
+              {index === 2 && <div className="adult-board-paths">{["Poznání", "Zdraví", "Charakter", "Vztahy", "Tvořivost", "Spolupráce", "Smysl"].map((item) => <b key={item}>{item}</b>)}</div>}
+              {index === 3 && <div className="adult-board-domains">{Array.from({ length: 16 }, (_, i) => <i key={i} />)}</div>}
+              {index === 10 && <div className="adult-board-chart"><i/><i/><i/><i/></div>}
+              {index === 11 && <div className="adult-board-map"><i/><i/><i/><i/><i/></div>}
+            </article>
+          ))}
         </div>
       </section>
     </div>
