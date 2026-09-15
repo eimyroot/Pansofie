@@ -4,6 +4,7 @@ import { resolveExperience, routeForExperience } from "./experience";
 
 export async function getUserContext() {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data: claimsData, error: claimsError } = await supabase.auth.getClaims();
   const userId = claimsData?.claims?.sub;
   if (claimsError || !userId) return null;

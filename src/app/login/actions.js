@@ -4,6 +4,7 @@ import { createClient } from "../../lib/supabase/server";
 
 export async function login(formData) {
   const supabase = await createClient();
+  if (!supabase) redirect(`/login?error=${encodeURIComponent("Přihlášení není v tomto prostředí nakonfigurované.")}`);
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
   const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -13,6 +14,7 @@ export async function login(formData) {
 
 export async function signup(formData) {
   const supabase = await createClient();
+  if (!supabase) redirect(`/login?error=${encodeURIComponent("Registrace není v tomto prostředí nakonfigurovaná.")}`);
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
   const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/auth/callback` } });

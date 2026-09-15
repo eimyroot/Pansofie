@@ -4,6 +4,7 @@ import { createClient } from "../../lib/supabase/server";
 
 export async function completeOnboarding(formData) {
   const supabase = await createClient();
+  if (!supabase) redirect("/onboarding?error=Supabase%20není%20v%20tomto%20prostředí%20nakonfigurovaný.");
   const { data } = await supabase.auth.getClaims();
   if (!data?.claims?.sub) redirect("/login");
   const intent = String(formData.get("intent") ?? "");

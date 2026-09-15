@@ -6,8 +6,10 @@ export async function GET(request) {
   const code = url.searchParams.get("code");
   if (code) {
     const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) return NextResponse.redirect(new URL("/app", url.origin));
+    if (supabase) {
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      if (!error) return NextResponse.redirect(new URL("/app", url.origin));
+    }
   }
   return NextResponse.redirect(new URL("/login?error=Ověření%20se%20nezdařilo.", url.origin));
 }
