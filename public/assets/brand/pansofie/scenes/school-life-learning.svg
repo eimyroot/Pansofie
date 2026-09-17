@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+  <title id="t">Life learning school</title><desc id="d">Open classroom connected to nature, paths and practical projects.</desc>
+  <rect width="960" height="540" fill="#F6EFE1"/><rect x="96" y="88" width="768" height="360" rx="30" fill="#FFFDF8" stroke="#D8DDD4" stroke-width="7"/>
+  <rect x="130" y="124" width="700" height="142" rx="20" fill="#DCE8DE"/><path d="M130 286h700" stroke="#D8DDD4" stroke-width="7"/>
+  <g fill="#CF6C3F"><circle cx="176" cy="190" r="16"/><circle cx="228" cy="190" r="16"/><circle cx="280" cy="190" r="16"/><circle cx="332" cy="190" r="16"/><circle cx="384" cy="190" r="16"/><circle cx="436" cy="190" r="16"/><circle cx="488" cy="190" r="16"/></g>
+  <g fill="#174A3B"><circle cx="244" cy="354" r="32"/><circle cx="344" cy="346" r="28"/><circle cx="444" cy="358" r="32"/><path d="M188 424c28-58 80-58 108 0Z"/><path d="M300 424c24-50 64-50 88 0Z"/><path d="M390 424c28-58 80-58 108 0Z"/></g>
+  <path d="M600 418c-8-96 26-168 102-216M650 314c48-38 94-54 138-48M648 364c58-18 108-12 150 18" fill="none" stroke="#3B6633" stroke-width="10" stroke-linecap="round"/>
+</svg>

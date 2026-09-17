@@ -17,7 +17,7 @@ export default function YoungWorkspace({ variant = "kids" }) {
   return <div className={`young-app ${teen ? "young-app--teens" : "young-app--kids"}`}>
     <header className="young-app-hero">
       <div><p>PANSOFIE YOUNG</p><h1>{teen ? "Tvoje nápady mají cenu." : "Ahoj, Káťo! Svět tě potřebuje."}</h1><span>{teen ? "14-20 let · tvoř, spolupracuj, měň svět" : "6-13 let · objevuj, zkoušej, tvoř"}</span></div>
-      <Image src={teen ? "/assets/adult-hero-rooftop.png" : "/art/pansofie-v1/hero-tree.webp"} alt="Pansofie Young svět objevování" width={720} height={520} priority />
+      <Image src={teen ? "/assets/brand/young/photos/creative-studio-16x9.webp" : "/assets/brand/young/photos/explorers-nature-16x9.webp"} alt="Pansofie Young svět objevování" width={720} height={520} priority />
       <i aria-hidden="true">✦</i><i aria-hidden="true">♡</i><i aria-hidden="true">♔</i>
     </header>
 
@@ -35,7 +35,7 @@ export default function YoungWorkspace({ variant = "kids" }) {
         <button onClick={() => setActive("Mise")}>Začít</button>
       </section>
       <section className="young-phone-card"><p>Pokračuj, kde jsi skončila</p><h2>Malá dobrodružství každý den</h2><div className="young-progress"><span /></div></section>
-      <section className="young-phone-card"><p>Doporučeno pro tebe</p><h2>Jak funguje les?</h2><Image src="/art/pansofie-v1/pillar-panorthosia.webp" alt="" width={500} height={300}/><button onClick={() => setActive("Učení")}>Otevřít učení</button></section>
+      <section className="young-phone-card"><p>Doporučeno pro tebe</p><h2>Jak funguje les?</h2><Image src="/assets/brand/young/photos/explorers-nature-16x9.webp" alt="" width={500} height={300}/><button onClick={() => setActive("Učení")}>Otevřít učení</button></section>
     </main>}
 
     {active === "Mise" && <main className="young-stack">{recommended.map((item) => <article className="young-row-card" key={item.id}><Image src={item.image} alt="" width={160} height={110}/><div><span>{item.done ? "Aktivní" : "Nová"} · +{item.xp} XP</span><h2>{item.title}</h2><p>{item.detail}</p></div><button>{item.done ? "✓" : "+"}</button></article>)}</main>}
@@ -48,11 +48,11 @@ export default function YoungWorkspace({ variant = "kids" }) {
 
     {active === "Učení" && <main className="young-learning"><section className="young-method"><p>Jak se učíme</p><div>{LEARNING_METHOD.map((step, index) => <span key={step}><b>{index + 1}</b>{step}</span>)}</div></section><section className="young-topic-grid">{DOMAINS.map((domain, index) => <button key={domain}><span>{["🪞","🏃","🧠","💛","🤝","🏠","🌍","🌱","⚙","💰","🛠","🎨","🎭","⚖","🏛","🧭"][index]}</span>{domain}</button>)}</section></main>}
 
-    {active === "Můj rozvoj" && <main className="young-growth"><section className="young-phone-card young-profile-top"><Image src="/art/pansofie-v1/action-help.webp" alt="" width={420} height={420}/><h2>Káťa · Explorer</h2><p>Level 5 · 850 / 1 000 XP</p><div className="young-progress"><span /></div><small>XP je herní postup. Není to hodnota člověka ani reputační skóre.</small></section><section className="young-paths">{PATHS.map(([title, text, icon]) => <article key={title}><span>{icon}</span><div><h2>{title}</h2><p>{text}</p></div></article>)}</section></main>}
+    {active === "Můj rozvoj" && <main className="young-growth"><section className="young-phone-card young-profile-top"><Image src="/assets/brand/young/photos/community-cutout.png" alt="" width={420} height={420}/><h2>Káťa · Explorer</h2><p>Level 5 · 850 / 1 000 XP</p><div className="young-progress"><span /></div><small>XP je herní postup. Není to hodnota člověka ani reputační skóre.</small></section><section className="young-paths">{PATHS.map(([title, text, icon]) => <article key={title}><span>{icon}</span><div><h2>{title}</h2><p>{text}</p></div></article>)}</section></main>}
 
-    {active === "Mentor" && <main className="young-stack"><section className="young-phone-card mentor"><Image src="/art/pansofie-v1/action-explore.webp" alt="" width={500} height={320}/><p>AI / lidský průvodce</p><h2>Ahoj! S čím dnes chceš pomoct?</h2><span>{KNOWLEDGE_EXCHANGE}</span>{["Chci se něco naučit", "Potřebuju radu", "Mám nápad na projekt", "Chci si předat dovednost"].map((item) => <button key={item}>{item}</button>)}<small>Mentor doporučuje další krok, ale nenahrazuje rodiče, pedagoga ani odbornou pomoc.</small></section></main>}
+    {active === "Mentor" && <main className="young-stack"><section className="young-phone-card mentor"><Image src="/assets/brand/young/photos/creative-studio-16x9.webp" alt="" width={500} height={320}/><p>AI / lidský průvodce</p><h2>Ahoj! S čím dnes chceš pomoct?</h2><span>{KNOWLEDGE_EXCHANGE}</span>{["Chci se něco naučit", "Potřebuju radu", "Mám nápad na projekt", "Chci si předat dovednost"].map((item) => <button key={item}>{item}</button>)}<small>Mentor doporučuje další krok, ale nenahrazuje rodiče, pedagoga ani odbornou pomoc.</small></section></main>}
 
-    {active === "Profil" && <main className="young-growth"><section className="young-phone-card young-profile-top"><Image src="/art/pansofie-v1/action-help.webp" alt="" width={420} height={420}/><h2>Káťa</h2><p>Můj příběh, odznaky a bezpečné portfolio.</p></section><section className="young-stats"><strong>5</strong><strong>28</strong><strong>120</strong><span>projektů</span><span>odznaků</span><span>hodin</span></section></main>}
+    {active === "Profil" && <main className="young-growth"><section className="young-phone-card young-profile-top"><Image src="/assets/brand/young/photos/community-cutout.png" alt="" width={420} height={420}/><h2>Káťa</h2><p>Můj příběh, odznaky a bezpečné portfolio.</p></section><section className="young-stats"><strong>5</strong><strong>28</strong><strong>120</strong><span>projektů</span><span>odznaků</span><span>hodin</span></section></main>}
 
     {active === "Nastavení" && <main className="young-stack"><section className="young-phone-card"><p>Bezpečí a přizpůsobení</p><h2>Nastavení</h2>{["Můj účet", "Soukromí a bezpečí", "Rodičovský režim", "Upozornění", "Jazyk", "Připojené účty"].map((item) => <button key={item}>{item}</button>)}</section><section className="young-phone-card"><h2>Rodičovský režim</h2><label><input type="checkbox" checked={parentMode} onChange={(event) => setParentMode(event.target.checked)} /> Aktivovat bezpečný přehled</label><p>{parentMode ? "Rodič vidí doporučení, souhlasy a bezpečnostní limity." : "Young zůstává chráněný: bez přesné polohy, bez cizích kontaktů, se souhlasy."}</p></section></main>}
     </div>

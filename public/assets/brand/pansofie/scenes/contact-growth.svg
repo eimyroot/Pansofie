@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+  <title id="t">Contact and growth</title><desc id="d">Message card, leaves and calm civic contact scene.</desc>
+  <rect width="960" height="540" fill="#F4EFE4"/><circle cx="742" cy="124" r="118" fill="#FFE1A6"/>
+  <rect x="132" y="118" width="474" height="292" rx="34" fill="#FFFDF8" stroke="#D8DDD4" stroke-width="7"/>
+  <path d="M174 178h274M174 232h336M174 286h242" stroke="#174A3B" stroke-width="13" stroke-linecap="round"/>
+  <path d="m132 410 180-132c36-27 78-27 114 0l180 132" fill="none" stroke="#D8DDD4" stroke-width="7"/>
+  <path d="M692 430c-16-126 28-226 134-300M742 292c56-50 112-72 168-66M740 356c72-28 132-20 180 24" fill="none" stroke="#3B6633" stroke-width="12" stroke-linecap="round"/>
+  <g fill="#3B6633"><ellipse cx="806" cy="196" rx="50" ry="22" transform="rotate(-28 806 196)"/><ellipse cx="858" cy="272" rx="54" ry="22" transform="rotate(26 858 272)"/><ellipse cx="806" cy="364" rx="60" ry="24" transform="rotate(-18 806 364)"/></g>
+</svg>

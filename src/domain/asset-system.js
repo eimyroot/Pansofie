@@ -57,6 +57,11 @@ export const GO_MISSION_COVER_IDS = Object.freeze([
 export const PANSOFIE_ILLUSTRATION_IDS = Object.freeze([
   "ecosystem-tree", "school-learning", "green-hope", "family-team", "project-idea",
 ]);
+export const PANSOFIE_SCENE_IDS = Object.freeze([
+  "green-hope-lab", "urban-farm-system", "family-team-missions", "impact-index",
+  "collaboration-map", "school-life-learning", "organization-network",
+  "knowledge-journal", "contact-growth",
+]);
 
 export const YOUNG_ILLUSTRATION_IDS = Object.freeze([
   "ecosystem-tree", "intergenerational-help", "urban-garden", "resource-kit", "seedling",
@@ -90,4 +95,5 @@ export function youngPhoto(id) {
 export function goMissionCover(id) { assertId(GO_MISSION_COVER_IDS, id, "GO mission cover"); return assetPath("go", "mission-covers", id, "webp"); }
 
 export function pansofieIllustration(id) { assertId(PANSOFIE_ILLUSTRATION_IDS, id, "PANSOFIE illustration"); return assetPath("pansofie", "illustrations", id, "webp"); }
+export function pansofieScene(id) { assertId(PANSOFIE_SCENE_IDS, id, "PANSOFIE scene"); return assetPath("pansofie", "scenes", id); }
 export function youngIllustration(id) { assertId(YOUNG_ILLUSTRATION_IDS, id, "Young illustration"); return assetPath("young", "illustrations", id, "png"); }

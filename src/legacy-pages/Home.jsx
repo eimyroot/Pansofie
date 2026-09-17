@@ -8,9 +8,9 @@ import { useLanguage } from "../state/LanguageContext";
 
 const pathIds=["knowledge","health","character","relationships","creativity","collaboration","meaning"];
 const cards=[
-  ["Green Hope","Příroda a udržitelnost","/green-hope","/assets/brand/pansofie/illustrations/green-hope.webp"],
-  ["Urban Family Farm","Praktická laboratoř života","/urban-family-farm","/assets/brand/young/illustrations/urban-garden.png"],
-  ["Family Team","Rodinné mise a spolupráce","/family-team","/assets/brand/pansofie/illustrations/family-team.webp"],
+  ["Green Hope","Příroda a udržitelnost","/green-hope","/assets/brand/pansofie/scenes/green-hope-lab.svg"],
+  ["Urban Family Farm","Praktická laboratoř života","/urban-family-farm","/assets/brand/pansofie/scenes/urban-farm-system.svg"],
+  ["Family Team","Rodinné mise a spolupráce","/family-team","/assets/brand/pansofie/scenes/family-team-missions.svg"],
 ];
 
 export default function Home(){
@@ -25,7 +25,7 @@ export default function Home(){
 
     <section className="p2-path-preview"><header><div><p className="p2-kicker">7 CEST</p><h2>Sedm cest k naplněnému životu</h2></div><Link to="/7-cest">Celá rozvojová mapa <ArrowRight size={15}/></Link></header><div>{PATHS.map(([title],i)=><article key={title}><span><Image src={pathIcon(pathIds[i])} alt="" width={64} height={64} sizes="64px"/></span><b>{title}</b></article>)}</div></section>
 
-    <section className="p2-programs"><header><p className="p2-kicker">PROGRAMY A LABS</p><h2>Myšlenka se stává zkušeností.</h2></header><div>{cards.map(([title,label,to,image])=><Link to={to} key={title}><Image src={image} alt="" width={520} height={340} sizes="(max-width: 900px) 100vw, 33vw"/><div><small>{label}</small><h3>{title}</h3><span>Objevit <ArrowRight size={15}/></span></div></Link>)}</div></section>
+    <section className="p2-programs"><header><p className="p2-kicker">PROGRAMY A LABS</p><h2>Myšlenka se stává zkušeností.</h2></header><div>{cards.map(([title,label,to,image], index)=><Link to={to} key={title}><Image src={image} alt="" width={520} height={340} sizes="(max-width: 900px) 100vw, 33vw" priority={index === 0}/><div><small>{label}</small><h3>{title}</h3><span>Objevit <ArrowRight size={15}/></span></div></Link>)}</div></section>
 
     <section className="p2-entry-strip"><div><p className="p2-kicker">PŘÍLEŽITOST, NE POVINNOST</p><h2>Lepší svět začíná konkrétním krokem.</h2></div><div><Link to="/projekty">Můžu někomu pomoct <ArrowRight size={14}/></Link><Link to="/mapa">Můžu prozkoumat <ArrowRight size={14}/></Link></div><small>PANSOFIE · PAMPAEDIA · PANORTHOSIA</small></section>
 

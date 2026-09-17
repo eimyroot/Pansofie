@@ -341,11 +341,11 @@
   background-position:center;
 }
 .adult-board-card--1::before{background-image:url("/assets/adult-hero-rooftop.png")}
-.adult-board-card--2::before{background-image:url("/assets/mockup/mat-compost.jpg")}
-.adult-board-card--3::before{background-image:url("/art/pansofie-v1/hero-tree.webp")}
-.adult-board-card--4::before{background-image:url("/art/pansofie-v1/pillar-pansofia.webp")}
-.adult-board-card--5::before{background-image:url("/art/pansofie-v1/action-help.webp")}
-.adult-board-card--6::before{background-image:url("/assets/mockup/vision-school.png")}
+.adult-board-card--2::before{background-image:url("/assets/brand/pansofie/scenes/green-hope-lab.svg")}
+.adult-board-card--3::before{background-image:url("/assets/brand/pansofie/scenes/urban-farm-system.svg")}
+.adult-board-card--4::before{background-image:url("/assets/brand/pansofie/scenes/family-team-missions.svg")}
+.adult-board-card--5::before{background-image:url("/assets/brand/pansofie/scenes/impact-index.svg")}
+.adult-board-card--6::before{background-image:url("/assets/brand/pansofie/scenes/school-life-learning.svg")}
 .adult-board-card>div:first-child,.adult-board-card>p,.adult-board-card>div:not(:first-child){position:relative;z-index:1}
 .adult-board-card small{
   display:inline-flex;

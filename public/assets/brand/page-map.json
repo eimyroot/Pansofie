@@ -6,34 +6,34 @@
       "mobile": "/assets/brand/pansofie/photos/hero-community-left-safe-4x5.webp"
     },
     "about": {
-      "visual": "/assets/brand/pansofie/illustrations/ecosystem-tree.webp"
+      "visual": "/assets/brand/pansofie/scenes/organization-network.svg"
     },
     "greenHope": {
-      "visual": "/assets/brand/pansofie/illustrations/green-hope.webp",
+      "visual": "/assets/brand/pansofie/scenes/green-hope-lab.svg",
       "photo": "/assets/brand/pansofie/photos/growing-together-16x9.webp"
     },
     "urbanFamilyFarm": {
-      "photo": "/assets/brand/pansofie/photos/growing-together-16x9.webp",
-      "support": "/assets/brand/pansofie/illustrations/project-idea.webp"
+      "visual": "/assets/brand/pansofie/scenes/urban-farm-system.svg",
+      "photo": "/assets/brand/pansofie/photos/growing-together-16x9.webp"
     },
     "familyTeam": {
-      "visual": "/assets/brand/pansofie/illustrations/family-team.webp"
+      "visual": "/assets/brand/pansofie/scenes/family-team-missions.svg"
     },
     "projects": {
       "hero": "/assets/brand/pansofie/photos/community-city-16x9.webp",
       "support": "/assets/brand/pansofie/illustrations/project-idea.webp"
     },
     "schools": {
-      "visual": "/assets/brand/pansofie/illustrations/school-learning.webp"
+      "visual": "/assets/brand/pansofie/scenes/school-life-learning.svg"
     },
     "organizations": {
-      "photo": "/assets/brand/pansofie/photos/hero-community-left-safe-16x9.webp"
+      "visual": "/assets/brand/pansofie/scenes/organization-network.svg"
     },
     "blog": {
-      "photo": "/assets/brand/pansofie/photos/curiosity-nature-16x9.webp"
+      "visual": "/assets/brand/pansofie/scenes/knowledge-journal.svg"
     },
     "contact": {
-      "photo": "/assets/brand/pansofie/photos/prague-nature-16x9.webp"
+      "visual": "/assets/brand/pansofie/scenes/contact-growth.svg"
     }
   },
   "young": {

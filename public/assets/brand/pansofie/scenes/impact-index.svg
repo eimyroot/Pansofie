@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+  <title id="t">Impact index</title><desc id="d">Project impact dashboard with separate dimensions, chart and verified signals.</desc>
+  <rect width="960" height="540" fill="#F4EFE4"/><rect x="86" y="68" width="788" height="404" rx="32" fill="#FFFDF8" stroke="#D8DDD4" stroke-width="7"/>
+  <g fill="#EAF2EA"><rect x="132" y="116" width="170" height="100" rx="20"/><rect x="332" y="116" width="170" height="100" rx="20"/><rect x="532" y="116" width="170" height="100" rx="20"/></g>
+  <g stroke="#174A3B" stroke-width="12" stroke-linecap="round"><path d="M164 162h74M164 190h46M364 162h72M364 190h54M564 162h74M564 190h44"/></g>
+  <path d="M142 386c80-70 128-48 190-86 78-48 128-86 214-44 80 39 146 5 270-92" fill="none" stroke="#2F8D68" stroke-width="14" stroke-linecap="round"/>
+  <path d="M142 410h674" stroke="#D8DDD4" stroke-width="8" stroke-linecap="round"/>
+  <g fill="#CF6C3F"><circle cx="276" cy="326" r="12"/><circle cx="546" cy="256" r="12"/><circle cx="760" cy="204" r="12"/></g>
+</svg>

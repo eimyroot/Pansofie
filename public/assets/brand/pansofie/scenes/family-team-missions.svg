@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+  <title id="t">Family team missions</title><desc id="d">Family members connected by shared mission cards in a safe circle.</desc>
+  <rect width="960" height="540" fill="#FFF8EA"/><circle cx="480" cy="270" r="206" fill="#E3EFE4"/><circle cx="480" cy="270" r="142" fill="#FFFDF8" stroke="#D8DDD4" stroke-width="7"/>
+  <g fill="#174A3B"><circle cx="330" cy="226" r="40"/><circle cx="480" cy="174" r="46"/><circle cx="630" cy="226" r="40"/><circle cx="400" cy="360" r="34"/><circle cx="560" cy="360" r="34"/></g>
+  <g fill="#3B6633"><path d="M252 392c34-58 120-58 156 0v54H252Z"/><path d="M382 302c42-72 154-72 196 0v78H382Z"/><path d="M552 392c34-58 120-58 156 0v54H552Z"/></g>
+  <g fill="#FFFDF8" stroke="#D8DDD4" stroke-width="6"><rect x="96" y="92" width="178" height="104" rx="24"/><rect x="686" y="96" width="178" height="108" rx="24"/><rect x="124" y="386" width="178" height="96" rx="24"/><rect x="658" y="390" width="178" height="92" rx="24"/></g>
+  <g stroke="#174A3B" stroke-width="9" stroke-linecap="round"><path d="M134 134h92M134 164h54M726 140h88M726 168h56M164 426h90M700 430h94"/></g>
+  <path d="M292 168c45-46 104-70 174-72M544 98c76 10 134 45 174 104M724 292c-14 68-51 122-112 162M338 438c-58-38-93-90-106-158" fill="none" stroke="#CF6C3F" stroke-width="10" stroke-linecap="round"/>
+</svg>

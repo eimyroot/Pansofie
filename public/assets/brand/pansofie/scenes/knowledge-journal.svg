@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+  <title id="t">Knowledge journal</title><desc id="d">Open journal, resource cards and visual notes for connected learning.</desc>
+  <rect width="960" height="540" fill="#FFFDF8"/><rect x="126" y="78" width="708" height="384" rx="32" fill="#F4EFE4" stroke="#D8DDD4" stroke-width="7"/><path d="M480 78v384" stroke="#D8DDD4" stroke-width="7"/>
+  <g stroke="#174A3B" stroke-width="12" stroke-linecap="round"><path d="M188 148h210M188 192h148M188 236h188"/><path d="M556 148h208M556 192h116M556 236h166"/></g>
+  <g fill="#DCE8DE" stroke="#D8DDD4" stroke-width="6"><rect x="188" y="304" width="92" height="92" rx="18"/><rect x="312" y="304" width="92" height="92" rx="18"/><rect x="556" y="304" width="220" height="92" rx="18"/></g>
+  <path d="M210 350c24-28 50-28 78 0 22-22 45-20 68 6" fill="none" stroke="#3B6633" stroke-width="9" stroke-linecap="round"/>
+  <path d="M680 316v68M646 350h68M448 70c28 36 32 70 14 104M820 112c-34 14-56 36-66 68" fill="none" stroke="#CF6C3F" stroke-width="9" stroke-linecap="round"/>
+</svg>

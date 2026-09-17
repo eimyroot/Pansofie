@@ -11,10 +11,10 @@
   background-position:62% 58%;
 }
 .final-action-card__media--2{
-  background-image:linear-gradient(rgba(19,47,36,.02),rgba(19,47,36,.02)),url("/assets/mockup/mat-compost.jpg");
+  background-image:linear-gradient(rgba(19,47,36,.02),rgba(19,47,36,.02)),url("/assets/brand/pansofie/scenes/green-hope-lab.svg");
 }
 .final-action-card__media--3{
-  background-image:linear-gradient(rgba(19,47,36,.02),rgba(19,47,36,.02)),url("/assets/mockup/mat-pallets.jpg");
+  background-image:linear-gradient(rgba(19,47,36,.02),rgba(19,47,36,.02)),url("/assets/brand/pansofie/scenes/urban-farm-system.svg");
 }
 .final-action-card__media--4{
   background-image:linear-gradient(rgba(19,47,36,.08),rgba(19,47,36,.02)),url("/assets/adult-hero-rooftop.png");
@@ -29,8 +29,8 @@
   background-position:54% 52%;
 }
 .final-pillar-card__media--2{
-  background-image:linear-gradient(rgba(19,47,36,.03),rgba(19,47,36,.03)),url("/assets/mockup/mat-tools.jpg");
+  background-image:linear-gradient(rgba(19,47,36,.03),rgba(19,47,36,.03)),url("/assets/brand/pansofie/scenes/organization-network.svg");
 }
 .final-pillar-card__media--3{
-  background-image:linear-gradient(rgba(19,47,36,.03),rgba(19,47,36,.03)),url("/assets/mockup/mat-compost.jpg");
+  background-image:linear-gradient(rgba(19,47,36,.03),rgba(19,47,36,.03)),url("/assets/brand/pansofie/scenes/impact-index.svg");
 }

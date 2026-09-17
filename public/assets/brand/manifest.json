@@ -13,7 +13,8 @@
         "photos",
         "icons",
         "data-viz",
-        "illustrations"
+        "illustrations",
+        "scenes"
       ]
     },
     "young": {
@@ -143,6 +144,7 @@
     "pansofiePhotos": 7,
     "youngRasters": 8,
     "pansofieIllustrations": 5,
+    "pansofieScenes": 9,
     "youngIllustrations": 5,
     "goMissionCovers": 5
   }

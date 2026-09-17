@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+  <title id="t">Collaboration map</title><desc id="d">Abstract map of safe checkpoints, projects and local opportunities.</desc>
+  <rect width="960" height="540" fill="#F7F3E7"/>
+  <path d="M104 106c126-54 202-30 318-2 142 34 234-62 390-20v356c-156-42-248 54-390 20-116-28-192-52-318 2Z" fill="#FFFDF8" stroke="#D8DDD4" stroke-width="7"/>
+  <path d="M164 166c102 40 188 34 294-8 118-46 218-48 316-4M154 270c104-46 212-48 326-8 106 38 202 31 314-22M178 382c124-38 226-30 304 24 88 60 178 48 282-36" fill="none" stroke="#DCE8DE" stroke-width="18" stroke-linecap="round"/>
+  <g fill="#174A3B"><path d="M260 190c0-28 22-50 50-50s50 22 50 50c0 43-50 94-50 94s-50-51-50-94Z"/><circle cx="310" cy="190" r="18" fill="#FFFDF8"/><path d="M580 300c0-28 22-50 50-50s50 22 50 50c0 43-50 94-50 94s-50-51-50-94Z"/><circle cx="630" cy="300" r="18" fill="#FFFDF8"/></g>
+  <g fill="#CF6C3F"><path d="M446 242c0-23 19-42 42-42s42 19 42 42c0 36-42 78-42 78s-42-42-42-78Z"/><circle cx="488" cy="242" r="15" fill="#FFFDF8"/></g>
+  <g fill="#2F80D1"><path d="M686 166c0-21 17-38 38-38s38 17 38 38c0 32-38 72-38 72s-38-40-38-72Z"/><circle cx="724" cy="166" r="13" fill="#FFFDF8"/></g>
+</svg>

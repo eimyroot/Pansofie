@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+  <title id="t">Green Hope lab</title><desc id="d">Seedling, soil, water and measurement tools in a calm Pansofie editorial scene.</desc>
+  <rect width="960" height="540" fill="#F4EFE4"/><circle cx="760" cy="86" r="124" fill="#FFE1A6"/>
+  <path d="M0 390c130-58 246-72 362-34 150 48 260 26 394-36 76-35 145-38 204-13v233H0Z" fill="#DCE8DE"/>
+  <ellipse cx="480" cy="424" rx="250" ry="58" fill="#8B6240"/><ellipse cx="480" cy="402" rx="218" ry="44" fill="#6E4B35"/>
+  <path d="M478 396c-12-92 18-176 84-250 52 84 42 169-28 250" fill="#3B6633"/>
+  <path d="M501 364c64-76 136-115 216-118-13 88-75 142-186 163" fill="#4D7B42"/>
+  <path d="M464 358c-82-48-132-112-151-193 92 11 154 63 184 156" fill="#5D8E55"/>
+  <path d="M488 242c22 68 21 129-2 190" fill="none" stroke="#173A31" stroke-width="14" stroke-linecap="round"/>
+  <rect x="84" y="148" width="176" height="112" rx="28" fill="#FFFDF8" stroke="#D8DDD4" stroke-width="6"/>
+  <path d="M122 202h92m-46-42v84" stroke="#174A3B" stroke-width="10" stroke-linecap="round"/>
+  <path d="M704 388h150m-150 34h98" stroke="#174A3B" stroke-width="12" stroke-linecap="round"/>
+</svg>
