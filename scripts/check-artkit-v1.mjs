@@ -14,10 +14,19 @@ const home=fs.readFileSync(path.join(root,"src/legacy-pages/Home.jsx"),"utf8");
 const young=fs.readFileSync(path.join(root,"src/legacy-pages/Young.jsx"),"utf8");
 const main=fs.readFileSync(path.join(root,"src/main.jsx"),"utf8");
 const css=fs.readFileSync(path.join(root,"src/artkit-v1.css"),"utf8");
-if(!home.includes("final-hero__image") || !home.includes("adult-hero-rooftop.png")) throw new Error("Homepage missing final adult photographic hero");
-if(!home.includes("final-action-card") || !home.includes("final-pillar-card")) throw new Error("Homepage missing final adult editorial cards");
-if(!young.includes("ART.heroTree")) throw new Error("Young gateway missing Art Kit tree");
-for(const file of ["Home.jsx","Vision.jsx","RoleHub.jsx","Library.jsx","PersonalGrowth.jsx","Compost.jsx","Institutions.jsx","Profile.jsx","MissionDetail.jsx"]){
+const boardV2=home.includes("p2-home-hero");
+if(boardV2){
+  for(const marker of ["p2-home-media","p2-path-preview","p2-programs","p2-go-strip","/assets/brand/pansofie/photos/hero-community-left-safe-16x9.webp"]) if(!home.includes(marker)) throw new Error(`Board v2 homepage missing ${marker}`);
+  const youngPublic=fs.readFileSync(path.join(root,"src/legacy-pages/YoungPublicPage.jsx"),"utf8");
+  for(const marker of ["y2-world","y2-hero","youngDoodle","/assets/brand/young/photos/"]) if(!youngPublic.includes(marker)) throw new Error(`Young public board v2 missing ${marker}`);
+  const go=fs.readFileSync(path.join(root,"src/components/experiences/GoWorkspace.jsx"),"utf8");
+  for(const marker of ["go2-phone","goIcon","goBadge","goPin"]) if(!go.includes(marker)) throw new Error(`Pansofie GO board v2 missing ${marker}`);
+}else{
+  if(!home.includes("final-hero__image") || !home.includes("adult-hero-rooftop.png")) throw new Error("Homepage missing final adult photographic hero");
+  if(!home.includes("final-action-card") || !home.includes("final-pillar-card")) throw new Error("Homepage missing final adult editorial cards");
+  if(!young.includes("ART.heroTree")) throw new Error("Young gateway missing Art Kit tree");
+}
+for(const file of ["Home.jsx","PublicProductPage.jsx","Vision.jsx","RoleHub.jsx","Library.jsx","PersonalGrowth.jsx","Compost.jsx","Institutions.jsx","Profile.jsx","MissionDetail.jsx"]){
   const src=fs.readFileSync(path.join(root,"src/legacy-pages",file),"utf8");
   if(src.includes("ART.") || src.includes("/art/pansofie-v1")) throw new Error(`Adult route still uses illustrated Art Kit: ${file}`);
 }

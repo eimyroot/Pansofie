@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "pansofie": {
+    "home": {
+      "hero": "/assets/brand/pansofie/photos/hero-community-left-safe-16x9.webp",
+      "mobile": "/assets/brand/pansofie/photos/hero-community-left-safe-4x5.webp"
+    },
+    "about": {
+      "visual": "/assets/brand/pansofie/illustrations/ecosystem-tree.webp"
+    },
+    "greenHope": {
+      "visual": "/assets/brand/pansofie/illustrations/green-hope.webp",
+      "photo": "/assets/brand/pansofie/photos/growing-together-16x9.webp"
+    },
+    "urbanFamilyFarm": {
+      "photo": "/assets/brand/pansofie/photos/growing-together-16x9.webp",
+      "support": "/assets/brand/pansofie/illustrations/project-idea.webp"
+    },
+    "familyTeam": {
+      "visual": "/assets/brand/pansofie/illustrations/family-team.webp"
+    },
+    "projects": {
+      "hero": "/assets/brand/pansofie/photos/community-city-16x9.webp",
+      "support": "/assets/brand/pansofie/illustrations/project-idea.webp"
+    },
+    "schools": {
+      "visual": "/assets/brand/pansofie/illustrations/school-learning.webp"
+    },
+    "organizations": {
+      "photo": "/assets/brand/pansofie/photos/hero-community-left-safe-16x9.webp"
+    },
+    "blog": {
+      "photo": "/assets/brand/pansofie/photos/curiosity-nature-16x9.webp"
+    },
+    "contact": {
+      "photo": "/assets/brand/pansofie/photos/prague-nature-16x9.webp"
+    }
+  },
+  "young": {
+    "home": {
+      "hero": "/assets/brand/young/photos/hero-rooftop-left-safe-16x9.webp",
+      "mobile": "/assets/brand/young/photos/hero-rooftop-left-safe-4x5.webp"
+    },
+    "discover": {
+      "photo": "/assets/brand/young/photos/explorers-nature-16x9.webp"
+    },
+    "learnCreate": {
+      "photo": "/assets/brand/young/photos/creative-studio-16x9.webp"
+    },
+    "community": {
+      "cutout": "/assets/brand/young/photos/community-cutout.png"
+    },
+    "projects": {
+      "visual": "/assets/brand/young/illustrations/urban-garden.png"
+    },
+    "howItWorks": {
+      "visual": "/assets/brand/young/illustrations/ecosystem-tree.png"
+    },
+    "intergenerational": {
+      "visual": "/assets/brand/young/illustrations/intergenerational-help.png"
+    },
+    "resourceKit": {
+      "visual": "/assets/brand/young/illustrations/resource-kit.png"
+    },
+    "growth": {
+      "visual": "/assets/brand/young/illustrations/seedling.png"
+    }
+  },
+  "go": {
+    "navigation": "/assets/brand/go/icons",
+    "missions": "/assets/brand/go/mission-covers",
+    "mapPins": "/assets/brand/go/map",
+    "badges": "/assets/brand/go/badges"
+  },
+  "shared": {
+    "paths": "/assets/brand/shared/paths",
+    "domains": "/assets/brand/shared/domains"
+  }
+}

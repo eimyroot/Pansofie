@@ -8,33 +8,92 @@ export const PATHS = [
   ["Smysl", "Hledej, čemu stojí za to věnovat energii.", "◌"],
 ];
 
-export const DOMAINS = [
-  "Já", "Tělo", "Mysl", "Emoce", "Vztahy", "Rodina", "Společnost", "Příroda",
-  "Technologie", "Finance", "Práce", "Tvořivost", "Kultura", "Etika", "Občanství", "Smysl života",
+export const DOMAIN_DETAILS = [
+  ["Já", "Sebepoznání, sebehodnota a autenticita", "Sebereflexe", "Osobní cíle a rozhodnutí"],
+  ["Tělo", "Pohyb, spánek, výživa a energie", "Sebeřízení", "Sportovní a pohybové návyky"],
+  ["Mysl", "Kritické myšlení, učení a paměť", "Myšlení v souvislostech", "Řešení skutečných problémů"],
+  ["Emoce", "Emoční gramotnost a regulace", "Empatie a sebeovládání", "Zvládání konfliktů"],
+  ["Vztahy", "Komunikace, hranice a spolupráce", "Aktivní naslouchání", "Rodinné a přátelské vztahy"],
+  ["Rodina", "Role, odpovědnost a sdílení", "Spolupráce napříč generacemi", "Společné projekty doma"],
+  ["Společnost", "Občanská gramotnost a normy", "Zodpovědné rozhodování", "Účast na komunitním dění"],
+  ["Příroda", "Ekosystémy, cykly a závislosti", "Ekologické myšlení", "Pěstování a pozorování přírody"],
+  ["Technologie", "Digitální gramotnost, AI a bezpečnost", "Tvůrčí a kritické užití nástrojů", "Tvorba digitálních produktů"],
+  ["Finance", "Peníze, rozpočet, investice a hodnota práce", "Finanční plánování", "Rodinný rozpočet a první výdělek"],
+  ["Práce", "Pracovní návyky, odpovědnost a řemesla", "Vytrvalost a kvalita", "Brigády a mikroprojekty"],
+  ["Tvorba", "Kreativita, design a řemeslo", "Tvůrčí realizace nápadu", "Výrobky, umění a prototypy"],
+  ["Kultura", "Tradice, umění a identita", "Kulturní citlivost", "Místní zvyky a dědictví"],
+  ["Etika", "Hodnoty, spravedlnost a integrita", "Etické rozhodování", "Rozhodování v reálných situacích"],
+  ["Občanství", "Práva, povinnosti a participace", "Aktivní občanství", "Dobrovolnictví a participace"],
+  ["Smysl života", "Hodnoty, poslání a dlouhodobé cíle", "Sebeurčení", "Volba směru vzdělání a kariéry"],
 ];
 
+export const DOMAINS = DOMAIN_DETAILS.map(([title]) => title);
+export const ECOSYSTEM_CHAIN = ["Dítě", "Rodina", "Škola", "Komunita", "Příroda", "Ekonomika", "Společnost", "Svět"];
+export const LEARNING_METHOD = ["Poznej", "Hraj", "Udělej", "Vytvoř", "Sdílej", "Reflektuj"];
+
 export const MISSIONS = [
-  { id: "strom", title: "Vysaď strom", area: "Příroda", xp: 50, progress: 2, image: "/art/pansofie-v1/pillar-panorthosia.webp", detail: "Najdi vhodné místo, domluv péči a zaznamenej, co strom potřebuje." },
-  { id: "den", title: "Den bez plastu", area: "Občanství", xp: 30, progress: 1, image: "/art/pansofie-v1/action-change.webp", detail: "Všimni si jednorázových obalů a navrhni jednu změnu, která vydrží." },
-  { id: "komunita", title: "Pomoz v komunitě", area: "Spolupráce", xp: 40, progress: 0, image: "/art/pansofie-v1/action-help.webp", detail: "Vyber bezpečnou místní aktivitu s týmem nebo ověřenou organizací." },
+  { id: "rostlina", title: "Vypěstuj první rostlinu", area: "Příroda", xp: 50, progress: 2, program: "Green Hope", image: "/art/pansofie-v1/pillar-panorthosia.webp", detail: "Vyber semena, zasaď je, sleduj růst a zaznamenej, co rostlina potřebuje." },
+  { id: "videohovor", title: "Nauč prarodiče používat videohovor", area: "Vztahy", xp: 40, progress: 0, program: "Knowledge Exchange", image: "/art/pansofie-v1/action-help.webp", detail: "Předej jednu digitální dovednost bezpečně, trpělivě a s respektem." },
+  { id: "jidlo", title: "Uvař zdravé jídlo s rodinou", area: "Zdraví", xp: 35, progress: 1, program: "Family Team", image: "/art/pansofie-v1/action-change.webp", detail: "Naplánujte jídlo, rozdělte si role, připravte ho a společně zhodnoťte výsledek." },
+  { id: "puvod", title: "Zjisti, odkud pochází potraviny", area: "Poznávej", xp: 30, progress: 0, program: "Green Hope", image: "/art/pansofie-v1/action-explore.webp", detail: "Vyber tři potraviny, zjisti jejich původ a porovnej lokální alternativu." },
+  { id: "odpad", title: "Vytvoř něco z odpadu", area: "Tvořivost", xp: 45, progress: 0, program: "Green Hope", image: "/art/pansofie-v1/compost.webp", detail: "Proměň nepotřebný materiál ve funkční výrobek, prototyp nebo umělecký objekt." },
+  { id: "pomoc", title: "Pomoz člověku ve svém okolí", area: "Spolupráce", xp: 40, progress: 0, program: "PansofieGO", image: "/art/pansofie-v1/action-help.webp", detail: "Najdi bezpečnou konkrétní pomoc, domluv ji a udělej jeden dokončitelný krok." },
+  { id: "komunita", title: "Založ malý komunitní projekt", area: "Spolupráce", xp: 70, progress: 0, program: "PansofieGO", image: "/art/pansofie-v1/action-idea.webp", detail: "Pojmenuj problém, sestav malý tým, domluv první krok a ukaž výsledek." },
+  { id: "prvni-vydelek", title: "Vydělej první peníze vlastní činností", area: "Samostatnost", xp: 60, progress: 0, program: "Urban Family Farm", image: "/art/pansofie-v1/action-surplus.webp", detail: "Vytvoř jednoduchou hodnotu, spočítej náklady a bezpečně otestuj první prodej nebo odměnu." },
+  { id: "predani", title: "Nauč mladšího účastníka něco, co umíš", area: "Vztahy", xp: 45, progress: 0, program: "Knowledge Exchange", image: "/art/pansofie-v1/action-help.webp", detail: "Připrav krátké vysvětlení, ukaž postup, nech druhého vyzkoušet a společně reflektujte." },
+];
+
+export const GREEN_HOPE_TOPICS = [
+  "Pěstování potravin", "Biodiverzita", "Voda", "Půda", "Energie", "Odpad a recyklace",
+  "Kompostování", "Městská zeleň", "Ochrana přírody", "Lokální produkce", "Klimatická gramotnost",
+];
+
+export const URBAN_FARM_CYCLE = [
+  "Zasadit", "Vypěstovat", "Sklidit", "Zpracovat", "Prodat", "Spočítat náklady", "Vytvořit produkt", "Vydělat", "Reinvestovat část zisku",
+];
+
+export const FAMILY_MISSIONS = [
+  "Společné vaření", "Pěstování", "Rodinný výlet s úkolem", "Finanční plánování",
+  "Rodinný tvůrčí projekt", "Rozhovor mezi generacemi", "Společná tvorba", "Pomoc komunitě jako rodina",
+];
+
+export const IMPACT_DIMENSIONS = [
+  ["Poznání", "Co se lidé skutečně naučili a dokážou použít."],
+  ["Dovednosti", "Dokončené mise a doložené výstupy projektu."],
+  ["Well-being", "Dobrovolně sledovaná pohoda a zkušenost účastníků."],
+  ["Rodina", "Společné rodinné aktivity a projekty."],
+  ["Komunita", "Účast, spolupráce a dobrovolnický čas."],
+  ["Příroda", "Měřitelné výstupy Green Hope projektů."],
+  ["Podnikavost", "Mikroprojekty a praktická ekonomická zkušenost."],
+  ["Mezigenerační propojení", "Knowledge Exchange mezi generacemi."],
 ];
 
 export const PROJECTS = [
-  { title: "Green Hope", tag: "Příroda · udržitelnost", image: "/art/pansofie-v1/hero-tree.webp", description: "Zeleňující platforma, ve které se nápad promění v péči o konkrétní místo." },
-  { title: "Urban Family Farm", tag: "Město · rodina · jídlo", image: "/art/pansofie-v1/compost.webp", description: "Praktická laboratoř života ve městě: pěstování, komunita, workshopy a lokální jídlo." },
-  { title: "Family Team", tag: "Rodina · spolupráce", image: "/art/pansofie-v1/action-help.webp", description: "Rodinný tým, ve kterém má každý hlas, roli a bezpečný prostor pro společné projekty." },
+  { title: "Green Hope", tag: "Příroda · udržitelnost", status: "Idea / prototyp", image: "/art/pansofie-v1/hero-tree.webp", description: "Praktické environmentální mise: pěstování, kompost, voda, biodiverzita a péče o konkrétní místo." },
+  { title: "Urban Family Farm", tag: "Město · rodina · jídlo", status: "Prototyp", image: "/art/pansofie-v1/compost.webp", description: "Praktická laboratoř života propojující pěstování, ekonomiku, matematiku, podnikání a spolupráci." },
+  { title: "Family Team", tag: "Rodina · spolupráce", status: "Model programu", image: "/art/pansofie-v1/action-help.webp", description: "Rodinný tým s vlastními společnými misemi, projekty, rolemi a bezpečným sdíleným prostorem." },
+  { title: "Komunitní zahrada", tag: "Green Hope · lokální projekt", status: "Model projektu", image: "/art/pansofie-v1/pillar-panorthosia.webp", description: "Místo pro pěstování, učení, sousedskou spolupráci a malé měřitelné změny v okolí." },
+  { title: "Mikrogreens farma", tag: "Pěstování · podnikavost", status: "Model projektu", image: "/art/pansofie-v1/action-surplus.webp", description: "Krátký pěstitelský cyklus vhodný pro školy, rodiny i komunitní piloty s jednoduchou ekonomikou." },
+  { title: "Kompostovací centrum", tag: "Cirkularita · materiály", status: "Model projektu", image: "/art/pansofie-v1/compost.webp", description: "Praktické místo pro bioodpad, půdu, měření a spolupráci školy, rodin a komunity." },
+  { title: "Knowledge Exchange", tag: "Mezigenerační učení", status: "Koncept", image: "/art/pansofie-v1/action-explore.webp", description: "Výměna znalostí mezi generacemi: každý něco umí, každý se může něco naučit." },
+  { title: "Makerspace Pansofie", tag: "Technologie · tvorba", status: "Koncept", image: "/art/pansofie-v1/action-idea.webp", description: "Dílna pro řemeslo, digitální tvorbu, opravy, prototypování a smysluplné využití materiálů." },
 ];
 
 export const CHECKPOINTS = [
-  ["Komunitní zahrada", "Praha 7", "Projekt", "62 %"],
-  ["Školní laboratoř", "Brno", "Labs", "4 místa"],
-  ["Sousedská dílna", "Olomouc", "Partner", "dnes"],
-  ["Rodinná farma", "Litomyšl", "Projekt", "víkend"],
+  ["Komunitní zahrada", "Praha · DEMO", "Green Hope", "model checkpointu"],
+  ["Školní laboratoř", "Brno · DEMO", "Labs", "model checkpointu"],
+  ["Mikrogreens farma", "Košice · DEMO", "Urban Family Farm", "model checkpointu"],
+  ["Komunitní skleník", "Vídeň · DEMO", "Green Hope", "model checkpointu"],
+  ["Recyklační dílna", "Budapešť · DEMO", "Cirkularita", "model checkpointu"],
+  ["Knowledge Exchange", "online / lokálně · DEMO", "Mezigenerační", "model checkpointu"],
 ];
 
 export const ROLE_COPY = {
-  "owner": { title: "Dobrý den", label: "Osobní prostor", focus: "Moje cesta", metric: ["16", "7", "28", "120 h"] },
+  owner: { title: "Dobrý den", label: "Osobní prostor", focus: "Moje cesta", metric: ["16", "7", "28", "120 h"] },
   "parent / člen rodiny": { title: "Rodinný přehled", label: "Family Team", focus: "Náš společný týden", metric: ["5", "3", "12", "46 h"] },
   "člen školy": { title: "Školní studio", label: "Učení v praxi", focus: "Třídy a projekty", metric: ["8", "6", "34", "286 h"] },
   "člen firmy": { title: "Partnerský přehled", label: "Dopad a zdroje", focus: "Místní spolupráce", metric: ["12", "9", "41", "412 h"] },
 };
+
+export const ECOSYSTEM_PRINCIPLE = "Učit se životem, tvořit společně a měnit svět malými konkrétními činy.";
+export const KNOWLEDGE_EXCHANGE = "Každý člověk něco umí a každý se může něco naučit.";

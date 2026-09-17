@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { CHECKPOINTS, DOMAINS, MISSIONS, PROJECTS } from "../../domain/pansofie-content";
+import { CHECKPOINTS, DOMAINS, KNOWLEDGE_EXCHANGE, LEARNING_METHOD, MISSIONS, PATHS, PROJECTS } from "../../domain/pansofie-content";
 
 const NAV = ["Domů", "Mise", "Mapa", "Projekty", "Komunita", "Učení", "Můj rozvoj", "Mentor", "Profil", "Nastavení"];
-const TONES = ["Příroda", "Lidé", "Technologie", "Kreativita", "Sport", "Společnost"];
 const FRIENDS = ["Klára", "Tomáš", "Ema", "Adam", "Sofie"];
 
 export default function YoungWorkspace({ variant = "kids" }) {
@@ -41,17 +40,17 @@ export default function YoungWorkspace({ variant = "kids" }) {
 
     {active === "Mise" && <main className="young-stack">{recommended.map((item) => <article className="young-row-card" key={item.id}><Image src={item.image} alt="" width={160} height={110}/><div><span>{item.done ? "Aktivní" : "Nová"} · +{item.xp} XP</span><h2>{item.title}</h2><p>{item.detail}</p></div><button>{item.done ? "✓" : "+"}</button></article>)}</main>}
 
-    {active === "Mapa" && <main className="young-map-view"><div className="young-map-canvas" role="img" aria-label="Bezpečná mapa komunitních projektů">{CHECKPOINTS.map((item, index) => <button key={item[0]} style={{ left: `${16 + index * 20}%`, top: `${24 + (index % 2) * 34}%` }} aria-label={item[0]}>●</button>)}</div>{CHECKPOINTS.map(([title, place, type]) => <article className="young-phone-card" key={title}><p>{type}</p><h2>{title}</h2><span>{place} · orientační lokalita</span></article>)}</main>}
+    {active === "Mapa" && <main className="young-map-view"><div className="young-map-canvas" role="img" aria-label="Bezpečná mapa komunitních projektů">{CHECKPOINTS.map((item, index) => <button key={item[0]} style={{ left: `${14 + (index % 3) * 34}%`, top: `${22 + Math.floor(index / 3) * 48}%` }} aria-label={item[0]}>●</button>)}</div>{CHECKPOINTS.map(([title, place, type]) => <article className="young-phone-card" key={title}><p>{type}</p><h2>{title}</h2><span>{place} · orientační lokalita</span></article>)}</main>}
 
-    {active === "Projekty" && <main className="young-stack">{PROJECTS.map((project) => <article className="young-project-card" key={project.title}><Image src={project.image} alt="" width={640} height={360}/><div><span>{project.tag}</span><h2>{project.title}</h2><p>{project.description}</p></div></article>)}</main>}
+    {active === "Projekty" && <main className="young-stack">{PROJECTS.map((project) => <article className="young-project-card" key={project.title}><Image src={project.image} alt="" width={640} height={360}/><div><span>{project.tag} · {project.status}</span><h2>{project.title}</h2><p>{project.description}</p></div></article>)}</main>}
 
     {active === "Komunita" && <main className="young-stack"><section className="young-phone-card"><p>Lidé · týmy · příběhy</p><h2>Najdi parťáky ve svém okolí</h2><button>Prozkoumat komunitu</button></section>{FRIENDS.map((name, index) => <article className="young-friend" key={name}><span>{name[0]}</span><div><h2>{name}</h2><p>{["Miluje přírodu", "Fotí a cestuje", "Programuje pro dobro", "Zve na workshop", "Tvoří mapy"][index]}</p></div><button aria-label={`Pozvat ${name}`}>+</button></article>)}</main>}
 
-    {active === "Učení" && <main className="young-topic-grid">{DOMAINS.slice(0, 8).map((domain, index) => <button key={domain}><span>{["🌱","👥","🧠","⚙","🎨","🏃","🌍","💬"][index]}</span>{domain}</button>)}</main>}
+    {active === "Učení" && <main className="young-learning"><section className="young-method"><p>Jak se učíme</p><div>{LEARNING_METHOD.map((step, index) => <span key={step}><b>{index + 1}</b>{step}</span>)}</div></section><section className="young-topic-grid">{DOMAINS.map((domain, index) => <button key={domain}><span>{["🪞","🏃","🧠","💛","🤝","🏠","🌍","🌱","⚙","💰","🛠","🎨","🎭","⚖","🏛","🧭"][index]}</span>{domain}</button>)}</section></main>}
 
-    {active === "Můj rozvoj" && <main className="young-growth"><section className="young-phone-card young-profile-top"><Image src="/art/pansofie-v1/action-help.webp" alt="" width={420} height={420}/><h2>Káťa · Explorer</h2><p>Level 5 · 850 / 1 000 XP</p><div className="young-progress"><span /></div></section><section className="young-badges">{["Příroda", "Pomoc", "Učení", "Tým", "Kreativita", "Výzvy"].map((item) => <span key={item}>{item}</span>)}</section></main>}
+    {active === "Můj rozvoj" && <main className="young-growth"><section className="young-phone-card young-profile-top"><Image src="/art/pansofie-v1/action-help.webp" alt="" width={420} height={420}/><h2>Káťa · Explorer</h2><p>Level 5 · 850 / 1 000 XP</p><div className="young-progress"><span /></div><small>XP je herní postup. Není to hodnota člověka ani reputační skóre.</small></section><section className="young-paths">{PATHS.map(([title, text, icon]) => <article key={title}><span>{icon}</span><div><h2>{title}</h2><p>{text}</p></div></article>)}</section></main>}
 
-    {active === "Mentor" && <main className="young-stack"><section className="young-phone-card mentor"><Image src="/art/pansofie-v1/action-explore.webp" alt="" width={500} height={320}/><h2>Ahoj! S čím dnes chceš pomoct?</h2>{["Chci se něco naučit", "Potřebuju radu", "Mám nápad na projekt", "Chci si povídat"].map((item) => <button key={item}>{item}</button>)}</section></main>}
+    {active === "Mentor" && <main className="young-stack"><section className="young-phone-card mentor"><Image src="/art/pansofie-v1/action-explore.webp" alt="" width={500} height={320}/><p>AI / lidský průvodce</p><h2>Ahoj! S čím dnes chceš pomoct?</h2><span>{KNOWLEDGE_EXCHANGE}</span>{["Chci se něco naučit", "Potřebuju radu", "Mám nápad na projekt", "Chci si předat dovednost"].map((item) => <button key={item}>{item}</button>)}<small>Mentor doporučuje další krok, ale nenahrazuje rodiče, pedagoga ani odbornou pomoc.</small></section></main>}
 
     {active === "Profil" && <main className="young-growth"><section className="young-phone-card young-profile-top"><Image src="/art/pansofie-v1/action-help.webp" alt="" width={420} height={420}/><h2>Káťa</h2><p>Můj příběh, odznaky a bezpečné portfolio.</p></section><section className="young-stats"><strong>5</strong><strong>28</strong><strong>120</strong><span>projektů</span><span>odznaků</span><span>hodin</span></section></main>}
 

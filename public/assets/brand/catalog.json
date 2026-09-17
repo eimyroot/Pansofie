@@ -1,0 +1,167 @@
+{
+  "version": "1.4.0",
+  "generatedBy": "scripts/generate-brand-assets.mjs",
+  "systemSvg": {
+    "viewBox": "0 0 24 24",
+    "strokeWidth": 1.75,
+    "linecap": "round",
+    "linejoin": "round",
+    "color": "currentColor"
+  },
+  "doodleSvg": {
+    "viewBox": "0 0 64 64",
+    "strokeWidth": 3.5,
+    "color": "currentColor"
+  },
+  "assets": {
+    "paths": [
+      "knowledge",
+      "health",
+      "character",
+      "relationships",
+      "creativity",
+      "collaboration",
+      "meaning"
+    ],
+    "domains": [
+      "self",
+      "body",
+      "mind",
+      "emotions",
+      "relationships",
+      "family",
+      "society",
+      "nature",
+      "technology",
+      "finance",
+      "work",
+      "creation",
+      "culture",
+      "ethics",
+      "citizenship",
+      "meaning"
+    ],
+    "pansofieIcons": [
+      "education",
+      "community",
+      "projects",
+      "impact",
+      "about",
+      "school",
+      "organization",
+      "blog",
+      "contact",
+      "map",
+      "network",
+      "settings"
+    ],
+    "youngIcons": [
+      "explore",
+      "topics",
+      "stories",
+      "community",
+      "projects",
+      "join",
+      "search",
+      "account"
+    ],
+    "youngDoodles": [
+      "crown",
+      "spark",
+      "smile",
+      "arrow",
+      "underline",
+      "wave",
+      "heart",
+      "blob",
+      "asterisk",
+      "burst",
+      "chat",
+      "circle",
+      "cross",
+      "double-line",
+      "exclamation",
+      "flower",
+      "leaf",
+      "lightning",
+      "loop",
+      "planet",
+      "question",
+      "scribble",
+      "star",
+      "zigzag"
+    ],
+    "goIcons": [
+      "home",
+      "mission",
+      "map",
+      "projects",
+      "teams",
+      "portfolio",
+      "mentor",
+      "profile",
+      "settings",
+      "notifications",
+      "camera",
+      "upload",
+      "reflection",
+      "verified"
+    ],
+    "goPins": [
+      "mission",
+      "project",
+      "event",
+      "lab",
+      "mentor"
+    ],
+    "goBadges": [
+      "nature",
+      "helper",
+      "learner",
+      "team",
+      "creator",
+      "explorer",
+      "impact"
+    ],
+    "pansofiePhotos": [
+      "hero-community-left-safe-16x9",
+      "hero-community-left-safe-4x3",
+      "hero-community-left-safe-4x5",
+      "curiosity-nature-16x9",
+      "growing-together-16x9",
+      "prague-nature-16x9",
+      "community-city-16x9"
+    ],
+    "pansofieIllustrations": [
+      "ecosystem-tree",
+      "school-learning",
+      "green-hope",
+      "family-team",
+      "project-idea"
+    ],
+    "youngPhotos": [
+      "hero-rooftop-left-safe-16x9",
+      "hero-rooftop-left-safe-4x3",
+      "hero-rooftop-left-safe-4x5",
+      "community-cutout",
+      "creative-studio-16x9",
+      "creative-studio-4x5",
+      "explorers-nature-16x9",
+      "explorers-nature-4x5"
+    ],
+    "youngIllustrations": [
+      "ecosystem-tree",
+      "intergenerational-help",
+      "urban-garden",
+      "resource-kit",
+      "seedling"
+    ],
+    "goMissionCovers": [
+      "grow-16x9",
+      "explore-16x9",
+      "create-16x9",
+      "community-16x9",
+      "help-4x5"
+    ]
+  }
+}

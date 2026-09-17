@@ -1,0 +1,149 @@
+{
+  "version": "1.2.0",
+  "sourceOfTruth": "approved PANSOFIE / PANSOFIE YOUNG design board",
+  "principle": "one core, three presentation systems",
+  "generatedVectorCount": 77,
+  "generator": "scripts/generate-brand-assets.mjs",
+  "namespaces": {
+    "pansofie": {
+      "role": "public editorial web",
+      "base": "/assets/brand/pansofie",
+      "visual": "photographic, calm, editorial, premium",
+      "folders": [
+        "photos",
+        "icons",
+        "data-viz",
+        "illustrations"
+      ]
+    },
+    "young": {
+      "role": "public youth web",
+      "base": "/assets/brand/young",
+      "visual": "photographic, expressive, hand-drawn accents",
+      "folders": [
+        "photos",
+        "doodles",
+        "icons",
+        "illustrations"
+      ]
+    },
+    "go": {
+      "role": "mobile-first application",
+      "base": "/assets/brand/go",
+      "visual": "functional, fast, gamified, legible",
+      "folders": [
+        "icons",
+        "badges",
+        "mission-covers",
+        "map"
+      ]
+    },
+    "shared": {
+      "role": "semantic assets shared across products",
+      "base": "/assets/brand/shared",
+      "folders": [
+        "paths",
+        "domains"
+      ]
+    }
+  },
+  "svgContract": {
+    "viewBox": "0 0 24 24",
+    "strokeWidth": 1.75,
+    "linecap": "round",
+    "linejoin": "round",
+    "defaultFill": "none",
+    "colorMode": "currentColor where possible",
+    "detail": "low-to-medium",
+    "minimumSizePx": 16
+  },
+  "semanticSets": {
+    "paths": [
+      "knowledge",
+      "health",
+      "character",
+      "relationships",
+      "creativity",
+      "collaboration",
+      "meaning"
+    ],
+    "domains": [
+      "self",
+      "body",
+      "mind",
+      "emotions",
+      "relationships",
+      "family",
+      "society",
+      "nature",
+      "technology",
+      "finance",
+      "work",
+      "creation",
+      "culture",
+      "ethics",
+      "citizenship",
+      "meaning"
+    ]
+  },
+  "generationRules": {
+    "noTextBakedIntoImages": true,
+    "noMixedIconLibraries": true,
+    "noChildPreciseLocationVisuals": true,
+    "noHumanWorthScores": true,
+    "preferResponsiveCrops": true,
+    "requiredPhotoRatios": [
+      "16:9",
+      "4:3",
+      "4:5"
+    ],
+    "youngDoodles": [
+      "crown",
+      "spark",
+      "smile",
+      "arrow",
+      "underline",
+      "wave",
+      "heart",
+      "blob",
+      "asterisk",
+      "burst",
+      "chat",
+      "circle",
+      "cross",
+      "double-line",
+      "exclamation",
+      "flower",
+      "leaf",
+      "lightning",
+      "loop",
+      "planet",
+      "question",
+      "scribble",
+      "star",
+      "zigzag"
+    ],
+    "goMapPins": [
+      "mission",
+      "project",
+      "event",
+      "lab",
+      "mentor"
+    ]
+  },
+  "legacyPolicy": {
+    "art/pansofie-v1": "transition-only",
+    "assets/r8": "legacy",
+    "assets/r9": "legacy",
+    "assets/mockup": "reference-only",
+    "rule": "new production work must target /assets/brand"
+  },
+  "inventory": {
+    "systemVectors": 93,
+    "pansofiePhotos": 7,
+    "youngRasters": 8,
+    "pansofieIllustrations": 5,
+    "youngIllustrations": 5,
+    "goMissionCovers": 5
+  }
+}

@@ -6,8 +6,10 @@ import "../artkit-v1.css";
 import "../product.css";
 import "../home-final.css";
 import "../home-final-assets.css";
+import "../board-v2.css";
 import "./experience.css";
 import "./young-experience-final.css";
+import "./go-v2.css";
 
 export const metadata = { title: "Pansofie", description: "Pansofie a Pansofie Young" };
 

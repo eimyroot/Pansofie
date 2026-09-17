@@ -1,201 +1,34 @@
 import React from "react";
-import {
-  ArrowRight,
-  Binoculars,
-  BookOpen,
-  Lightbulb,
-  Recycle,
-  Sprout,
-  TreePine,
-  UsersRound,
-} from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Play, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
+import { PATHS, PROJECTS } from "../domain/pansofie-content";
+import { pathIcon } from "../domain/asset-system";
 import { useLanguage } from "../state/LanguageContext";
 
-const COPY = {
-  cs: {
-    eyebrow: "VĚTŠÍ SOUVISLOSTI PRO REÁLNÝ SVĚT",
-    title: <>Lepší svět<br/>začíná tady.<br/><span>Společně.</span></>,
-    lead: "Propojujeme lidi, znalosti a konkrétní činy pro život, který dává smysl — dnes i zítra.",
-    join: "PŘIPOJIT SE",
-    discover: "OBJEVIT PANSOFII",
-    context: ["LIDÉ", "PŘÍRODA", "MĚSTA", "VĚDĚNÍ", "MOŽNOSTI"],
-    impact: "MALÉ KROKY · VELKÝ DOPAD",
-    actionsLabel: "Co můžete dát do pohybu",
-    actions: [
-      ["Můžu někomu pomoct", "Najdu příležitosti, kde mohu být užitečný.", "/osobni-rust"],
-      ["Můžu něco změnit", "Zapojím se do konkrétních řešení.", "/knihovna"],
-      ["Mám přebytek", "Dám věcem druhý život a propojím se s lidmi.", "/digitalni-kompost"],
-      ["Mám nápad", "Proměním myšlenku ve skutečný projekt.", "/knihovna"],
-      ["Můžu prozkoumat", "Objevím nová místa, komunity a inspiraci.", "/mapa-kolobehu"],
-    ],
-    pillarsEyebrow: "TŘI PILÍŘE",
-    pillarsSub: "CELEK, VZDĚLÁNÍ, NÁPRAVA",
-    pillars: [
-      ["PANSOFIE", "Vidět celek. Propojovat.", "/vize#pan-sophia"],
-      ["PAMPAEDIA", "Učit se celý život.", "/vize#pampaedia"],
-      ["PANORTHOSIA", "Jednat moudře.", "/vize#panorthosia"],
-    ],
-    quote: "„Moudřejší společnost nevzniká náhodou. Vzniká lidmi, kteří se spojují.“",
-    quoteBy: "PANSOFIE",
-  },
-  en: {
-    eyebrow: "WIDER CONNECTIONS FOR THE REAL WORLD",
-    title: <>A better world<br/>starts here.<br/><span>Together.</span></>,
-    lead: "We connect people, knowledge and concrete action for a life that makes sense — today and tomorrow.",
-    join: "JOIN IN",
-    discover: "DISCOVER PANSOFIE",
-    context: ["PEOPLE", "NATURE", "CITIES", "KNOWLEDGE", "POSSIBILITIES"],
-    impact: "SMALL STEPS · BIG IMPACT",
-    actionsLabel: "What you can set in motion",
-    actions: [
-      ["I can help someone", "Find opportunities where I can be useful.", "/osobni-rust"],
-      ["I can change something", "Join concrete ideas and solutions.", "/knihovna"],
-      ["I have something extra", "Give things a second life and connect with people.", "/digitalni-kompost"],
-      ["I have an idea", "Turn a thought into a real project.", "/knihovna"],
-      ["I can explore", "Discover places, communities and inspiration.", "/mapa-kolobehu"],
-    ],
-    pillarsEyebrow: "THREE PILLARS",
-    pillarsSub: "WHOLE, EDUCATION, IMPROVEMENT",
-    pillars: [
-      ["PANSOFIA", "See the whole. Connect.", "/vize#pan-sophia"],
-      ["PAMPAEDIA", "Learn throughout life.", "/vize#pampaedia"],
-      ["PANORTHOSIA", "Act wisely.", "/vize#panorthosia"],
-    ],
-    quote: "“A wiser society does not happen by accident. It grows through people who connect.”",
-    quoteBy: "PANSOFIE",
-  },
-};
-
-const ACTIONS = [UsersRound, Sprout, Recycle, Lightbulb, Binoculars];
-const PILLARS = [TreePine, BookOpen, Sprout];
-const BOARD_SCREENS = [
-  ["01", "Domov", "Hlavní stránka", "Učíme se životem. Společně tvoříme lepší svět."],
-  ["02", "O nás", "Poslání, vize, příběh", "Člověk, příroda, společnost v harmonii."],
-  ["03", "7 cest", "Hlavní rozvojová mapa", "Poznání, zdraví, charakter, vztahy, tvořivost, spolupráce, smysl."],
-  ["04", "16 oblastí", "Přehled obsahového světa", "Šestnáct oblastí poznání v jednom srozumitelném systému."],
-  ["05", "PansofieGO", "Mise, XP, dovednosti", "Malé mise, velké změny a viditelný osobní posun."],
-  ["06", "Green Hope", "Příroda a udržitelnost", "Zeleňující plány začínají u nás."],
-  ["07", "Urban Family Farm", "Praktická laboratoř života", "Město může být živé a jedlé."],
-  ["08", "Family Team", "Rodinné mise a spolupráce", "Silnější rodiny tvoří silnější svět."],
-  ["09", "Projekty", "Tvoř, zapojuj se, měň svět", "Projekty, které mají smysl."],
-  ["10", "Mapa", "Lidé, projekty, příležitosti", "Bezpečná mapa komunitních checkpointů."],
-  ["11", "Impact Index", "Měření skutečného dopadu", "Dopad jako evidence projektu, ne skóre člověka."],
-  ["12", "Mezinárodní síť", "Lokální i globální spolupráce", "Spojujeme lidi napříč hranicemi."],
-  ["13", "Pro školy", "Vzdělávání v praxi", "Škola, která připravuje na život."],
-  ["14", "Pro organizace", "Partnerství a spolupráce", "Spolu tvoříme udržitelnou budoucnost."],
-  ["15", "Blog / Zdroje", "Články, rozhovory, nástroje", "Místo pro inspiraci, znalosti a metody."],
-  ["16", "Kontakt", "Spojme se", "Rádi uslyšíme vaše nápady."],
-  ["17", "Přihlášení / Registrace", "Vstupní brána", "Jednoduchý a klidný vstup do komunity."],
-  ["18", "Dashboard", "Osobní přehled", "Moje cesta, mise, komunita, dopad."],
-  ["19", "Profil", "Tvoje cesta v čase", "Portfolio, evidence, reflexe a růst."],
-  ["20", "Nastavení", "Bezpečnost a soukromí", "Účet, oprávnění, jazyk, soukromý profil."],
+const pathIds=["knowledge","health","character","relationships","creativity","collaboration","meaning"];
+const cards=[
+  ["Green Hope","Příroda a udržitelnost","/green-hope","/assets/brand/pansofie/illustrations/green-hope.webp"],
+  ["Urban Family Farm","Praktická laboratoř života","/urban-family-farm","/assets/brand/young/illustrations/urban-garden.png"],
+  ["Family Team","Rodinné mise a spolupráce","/family-team","/assets/brand/pansofie/illustrations/family-team.webp"],
 ];
 
-export default function Home() {
-  const { locale } = useLanguage();
-  const c = COPY[locale] || COPY.cs;
+export default function Home(){
+  const { isEnglish } = useLanguage();
+  return <div className="p2-home">
+    <section className="p2-home-hero">
+      <div className="p2-home-copy"><p className="p2-kicker">{isEnglish ? "PANSOFIE · LEARN THROUGH LIFE" : "PANSOFIE · UČIT SE ŽIVOTEM"}</p><h1>{isEnglish ? <>Learn through life.<br/><span>Together we shape a better world.</span></> : <>Učíme se životem.<br/><span>Společně tvoříme lepší svět.</span></>}</h1><p>{isEnglish ? "For people, families, schools, communities and organizations. Knowledge, relationships and concrete action in one connected ecosystem." : "Pro lidi, rodiny, školy, komunity a organizace. Vědění, vztahy a konkrétní činy v jednom propojeném ekosystému."}</p><div className="p2-actions"><Link className="p2-button" to="/jak-to-funguje">Začít cestu <ArrowRight size={16}/></Link><Link className="p2-button p2-button--light" to="/vize"><Play size={15}/> Přehrát příběh</Link></div><div className="p2-home-stats"><span><strong>7</strong> cest</span><span><strong>16</strong> oblastí</span><span><strong>3</strong> hlavní Labs</span></div></div>
+      <figure className="p2-home-media"><Image src="/assets/brand/pansofie/photos/hero-community-left-safe-16x9.webp" alt="Lidé propojují znalosti, přírodu a společnou práci" width={960} height={540} sizes="(max-width: 900px) 100vw, 48vw" priority/><figcaption>VĚDĚNÍ<br/>VZTAHY<br/>ČINY<br/><b>LEPŠÍ SVĚT</b></figcaption></figure>
+    </section>
 
-  return (
-    <div className="final-home">
-      <section className="final-hero" aria-labelledby="home-title">
-        <img
-          className="final-hero__image"
-          src="/assets/adult-hero-rooftop.png"
-          alt=""
-          aria-hidden="true"
-        />
-        <div className="final-hero__wash" aria-hidden="true" />
+    <nav className="p2-quick-nav" aria-label="Hlavní oblasti Pansofie"><Link to="/7-cest">Vzdělávání</Link><Link to="/projekty">Komunita</Link><Link to="/projekty">Projekty</Link><Link to="/impact">Dopad</Link><Link to="/o-nas">O nás</Link></nav>
 
-        <div className="final-hero__copy">
-          <p className="final-kicker">{c.eyebrow}</p>
-          <h1 id="home-title">{c.title}</h1>
-          <p className="final-hero__lead">{c.lead}</p>
-          <div className="final-hero__actions">
-            <Link className="final-button final-button--primary" to="/pro-koho">
-              {c.join}<ArrowRight size={16}/>
-            </Link>
-            <Link className="final-button final-button--ghost" to="/jak-to-funguje">
-              {c.discover}
-            </Link>
-          </div>
-          <div className="final-impact"><Sprout size={18}/><span>{c.impact}</span></div>
-        </div>
+    <section className="p2-path-preview"><header><div><p className="p2-kicker">7 CEST</p><h2>Sedm cest k naplněnému životu</h2></div><Link to="/7-cest">Celá rozvojová mapa <ArrowRight size={15}/></Link></header><div>{PATHS.map(([title],i)=><article key={title}><span><Image src={pathIcon(pathIds[i])} alt="" width={64} height={64} sizes="64px"/></span><b>{title}</b></article>)}</div></section>
 
-        <aside className="final-hero__context" aria-label={locale === "en" ? "Pansofie context" : "Souvislosti Pansofie"}>
-          {c.context.map((item) => <span key={item}>{item}</span>)}
-          <i aria-hidden="true" />
-        </aside>
-      </section>
+    <section className="p2-programs"><header><p className="p2-kicker">PROGRAMY A LABS</p><h2>Myšlenka se stává zkušeností.</h2></header><div>{cards.map(([title,label,to,image])=><Link to={to} key={title}><Image src={image} alt="" width={520} height={340} sizes="(max-width: 900px) 100vw, 33vw"/><div><small>{label}</small><h3>{title}</h3><span>Objevit <ArrowRight size={15}/></span></div></Link>)}</div></section>
 
-      <section className="final-actions" aria-labelledby="final-actions-title">
-        <h2 id="final-actions-title" className="sr-only">{c.actionsLabel}</h2>
-        <div className="final-actions__grid">
-          {c.actions.map(([title, text, to], index) => {
-            const Icon = ACTIONS[index];
-            return (
-              <Link className="final-action-card" to={to} key={title}>
-                <div className={`final-action-card__media final-action-card__media--${index + 1}`} aria-hidden="true" />
-                <span className="final-card-icon" aria-hidden="true"><Icon size={24}/></span>
-                <div className="final-action-card__body">
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                  <span className="final-round-arrow" aria-hidden="true"><ArrowRight size={16}/></span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+    <section className="p2-entry-strip"><div><p className="p2-kicker">PŘÍLEŽITOST, NE POVINNOST</p><h2>Lepší svět začíná konkrétním krokem.</h2></div><div><Link to="/projekty">Můžu někomu pomoct <ArrowRight size={14}/></Link><Link to="/mapa">Můžu prozkoumat <ArrowRight size={14}/></Link></div><small>PANSOFIE · PAMPAEDIA · PANORTHOSIA</small></section>
 
-      <section className="final-pillars" aria-labelledby="final-pillars-title">
-        <header className="final-pillars__head">
-          <h2 id="final-pillars-title">{c.pillarsEyebrow}</h2>
-          <p>{c.pillarsSub}</p>
-        </header>
-
-        <div className="final-pillars__layout">
-          <div className="final-pillars__grid">
-            {c.pillars.map(([title, text, to], index) => {
-              const Icon = PILLARS[index];
-              return (
-                <Link className="final-pillar-card" to={to} key={title}>
-                  <div className={`final-pillar-card__media final-pillar-card__media--${index + 1}`} aria-hidden="true" />
-                  <span className="final-card-icon final-card-icon--pillar" aria-hidden="true"><Icon size={24}/></span>
-                  <div className="final-pillar-card__body">
-                    <div><h3>{title}</h3><p>{text}</p></div>
-                    <span className="final-round-arrow" aria-hidden="true"><ArrowRight size={16}/></span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-
-          <blockquote className="final-quote">
-            <p>{c.quote}</p>
-            <footer><span aria-hidden="true" />{c.quoteBy}</footer>
-          </blockquote>
-        </div>
-      </section>
-
-      <section className="adult-board" aria-labelledby="adult-board-title">
-        <header className="adult-board__head">
-          <div><p className="final-kicker">PANSOFIE · PRODUKTOVÁ MAPA</p><h2 id="adult-board-title">Celý svět Pansofie v jednom přehledu.</h2></div>
-          <Link to="/login">Vstoupit do dashboardu <ArrowRight size={16}/></Link>
-        </header>
-        <div className="adult-board__grid">
-          {BOARD_SCREENS.map(([number, title, label, text], index) => (
-            <article className={`adult-board-card adult-board-card--${(index % 6) + 1}`} key={title}>
-              <div><small>{number}</small><h3>{title}</h3><span>{label}</span></div>
-              <p>{text}</p>
-              {index === 2 && <div className="adult-board-paths">{["Poznání", "Zdraví", "Charakter", "Vztahy", "Tvořivost", "Spolupráce", "Smysl"].map((item) => <b key={item}>{item}</b>)}</div>}
-              {index === 3 && <div className="adult-board-domains">{Array.from({ length: 16 }, (_, i) => <i key={i} />)}</div>}
-              {index === 10 && <div className="adult-board-chart"><i/><i/><i/><i/></div>}
-              {index === 11 && <div className="adult-board-map"><i/><i/><i/><i/><i/></div>}
-            </article>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
+    <section className="p2-go-strip"><div><p className="p2-kicker">PANSOFIE GO</p><h2>Malé mise. Velké změny.</h2><p>Mobilní akční vrstva pro mise, projekty, checkpointy, portfolio a reflexi.</p><Link className="p2-button p2-button--gold" to="/go">Otevřít GO <ArrowRight size={16}/></Link></div><Image src="/assets/brand/young/photos/creative-studio-16x9.webp" alt="Mladí lidé tvoří společný projekt" width={720} height={405} sizes="(max-width: 900px) 100vw, 42vw"/><Sprout className="p2-go-mark"/></section>
+  </div>;
 }
