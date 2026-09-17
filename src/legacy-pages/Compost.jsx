@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Image from "next/image";
 import { X } from "lucide-react";
 import { LOCALITIES } from "../lib/demoData";
 import { distanceKm } from "../lib/metabolism";
@@ -34,7 +35,7 @@ export default function Compost() {
     })
     .filter((item) => filter === "all" || item.category === filter || (filter === "wood" && ["wood","textile"].includes(item.category)) || (filter === "paper" && ["paper","other"].includes(item.category)))
     .filter((item) => item.km == null || item.km <= radius)
-    .sort((a,b) => (a.km ?? 999) - (b.km ?? 999)), [state.materials, filter, geo, radius]);
+    .sort((a,b) => (a.km ?? 999) - (b.km ?? 999)), [state.materials, isEnglish, filter, geo, radius]);
 
   const selected = cart.map((id) => state.materials.find((x) => x.id === id)).filter(Boolean);
 
@@ -62,7 +63,7 @@ export default function Compost() {
       <div><h1>{isEnglish?"Digital compost":"Digitální kompost"}</h1><p>{isEnglish?"A place for what you no longer need but someone else may still use.":"Sem patří to, co už nepotřebujete vy, ale ještě může posloužit ostatním."}</p>
         <button className="p-btn p-btn--outline p-btn--small" onClick={locate} style={{marginTop:10}}>{locateLabel}</button>
       </div>
-      <img className="mockup-asset p-compost-hero__art" src="/assets/mockup/mat-compost.jpg" alt={isEnglish?"Compost material ready for reuse":"Kompostový materiál připravený k dalšímu využití"} />
+      <Image className="mockup-asset p-compost-hero__art" src="/assets/mockup/mat-compost.jpg" alt={isEnglish?"Compost material ready for reuse":"Kompostový materiál připravený k dalšímu využití"} width={520} height={360} sizes="(max-width: 900px) 100vw, 38vw" />
     </section>
 
     <section className="p-panel p-compost-panel">
@@ -75,7 +76,7 @@ export default function Compost() {
         {items.slice(0,9).map((item) => {
           const chosen = cart.includes(item.id);
           return <button key={item.id} className={`p-material-card ${chosen?"is-selected":""}`} onClick={() => toggle(item.id)}>
-            <img src={materialVisual(item)} alt="" />
+            <Image src={materialVisual(item)} alt="" width={360} height={240} sizes="(max-width: 900px) 50vw, 20vw" />
             <h3>{item.title}</h3>
             <p>{item.quantity || (isEnglish?"quantity not provided":"množství neuvedeno")}</p>
             <p>{item.demo ? "DEMO" : "LOCAL"}</p>
@@ -93,7 +94,7 @@ export default function Compost() {
           {selected.length > 0 && <button className="p-btn p-btn--green p-btn--small" onClick={reserve}>{isEnglish?"Reserve selected":"Rezervovat výběr"}</button>}
         </div>
       </div>
-      <img className="mockup-asset p-cart-art" src="/assets/mockup/mat-leaves.jpg" alt={isEnglish?"Selected natural material":"Vybraný přírodní materiál"} />
+      <Image className="mockup-asset p-cart-art" src="/assets/mockup/mat-leaves.jpg" alt={isEnglish?"Selected natural material":"Vybraný přírodní materiál"} width={420} height={300} sizes="(max-width: 900px) 100vw, 32vw" />
     </section>
 
     {adding && <div className="r9-modal" onMouseDown={()=>setAdding(false)}>

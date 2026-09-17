@@ -19,7 +19,8 @@
     "check:gentle-r8": "node scripts/check-gentle-r8.mjs",
     "check:living-r8": "node scripts/check-living-r8.mjs",
     "check:stability-r9": "node scripts/check-stability-r9.mjs",
-    "check:artkit-v1": "node scripts/check-artkit-v1.mjs"
+    "check:artkit-v1": "node scripts/check-artkit-v1.mjs",
+    "screenshots:viewport-matrix": "node scripts/capture-viewport-matrix.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.7.0",

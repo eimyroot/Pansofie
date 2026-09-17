@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Image from "next/image";
 import { ArrowRight, Building2, GraduationCap, Sparkles } from "lucide-react";
 import { DEMO_MATERIALS, DEMO_SCHOOL_PROJECTS, LOCALITIES } from "../lib/demoData";
 import { matchProjectToMaterials } from "../lib/metabolism";
@@ -89,7 +90,7 @@ export default function Institutions() {
   return <div className="ak-page p-institutions r9-institutions">
     <section className="p-institutions-hero">
       <div><span className="p-kicker">{text.kicker}</span><h1>{text.titleA}<br/><em>{text.titleB}</em></h1><p>{text.lead}</p></div>
-      <img className="ak-institutions-art" src="/assets/mockup/mat-pallets.jpg" alt="" aria-hidden="true"/>
+      <Image className="ak-institutions-art" src="/assets/mockup/mat-pallets.jpg" alt="" aria-hidden="true" width={520} height={360} sizes="(max-width: 900px) 100vw, 38vw"/>
       <div className="p-institutions-flow" aria-label={isEnglish?"Organization, matching and school":"Organizace, matching a škola"}>
         <div className="p-flow-node"><Building2/><strong>{text.company}</strong><span>{text.material}</span></div>
         <div className="p-flow-arrow"><Sparkles/><b>Pansofie</b><span>{text.matching}</span></div>
@@ -133,7 +134,7 @@ export default function Institutions() {
         {tab === "companies" ? <div className="p-company-grid">{companyMaterials.slice(0,6).map((item) => {
           const match = matches.find((m)=>m.material.id===item.id);
           return <article className={`p-company-card ${match ? "is-match" : ""}`} key={item.id}>
-            <img src={materialVisual(item)} alt=""/><div className="p-company-card__body">
+            <Image src={materialVisual(item)} alt="" width={420} height={280} sizes="(max-width: 900px) 100vw, 24vw"/><div className="p-company-card__body">
               <div className="p-company-card__meta"><span>{item.demo ? "DEMO" : "LOCAL"}</span>{match && <b>MATCH</b>}</div>
               <h3>{item.title}</h3><p className="p-company-card__owner">{item.company} · {item.quantity}</p><p>{item.useCase || item.description}</p>
               <div className="p-company-card__return"><small>{text.could}</small><span>{text.undecided}</span></div>
