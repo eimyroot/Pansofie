@@ -7,7 +7,7 @@ const bundledNodeModules = "/Users/eimyna/.cache/codex-runtimes/codex-primary-ru
 
 function parseArgs(argv) {
   const args = {
-    baseUrl: "http://127.0.0.1:4311",
+    baseUrl: "http://localhost:4311",
     out: "/Users/eimyna/0_EVIDENCE/Pansofie/UI_POINT3_MATRIX",
     routes: ["/", "/7-cest", "/impact", "/young", "/young/objevuj", "/go", "/go/mapa", "/go/nastaveni"],
     viewports: [320, 375, 768, 1024, 1440],
@@ -84,6 +84,7 @@ try {
         brokenImages: Array.from(document.images)
           .filter((image) => image.complete && image.currentSrc && image.naturalWidth === 0)
           .map((image) => image.currentSrc || image.src),
+        bodyTextLength: document.body?.innerText?.trim().length ?? 0,
         headings: Array.from(document.querySelectorAll("h1"))
           .map((heading) => heading.textContent.trim())
           .filter(Boolean),
@@ -114,7 +115,7 @@ fs.writeFileSync(reportPath, `${JSON.stringify({
   report,
 }, null, 2)}\n`);
 
-const failures = report.filter((item) => item.status !== 200 || item.horizontalOverflow || item.brokenImages.length);
+const failures = report.filter((item) => item.status !== 200 || item.horizontalOverflow || item.brokenImages.length || item.bodyTextLength === 0 || item.headings.length === 0);
 console.log(`PANSOFIE_VIEWPORT_MATRIX=${failures.length ? "FAIL" : "PASS"}`);
 console.log(`PANSOFIE_VIEWPORT_MATRIX_REPORT=${reportPath}`);
 console.log(`PANSOFIE_VIEWPORT_MATRIX_SCREENSHOTS=${report.length}`);
