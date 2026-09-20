@@ -1,5 +1,7 @@
 import { login, signup } from "./actions";
 
+export const metadata = { title: "Přihlášení", robots: { index: false, follow: false } };
+
 export default async function LoginPage({ searchParams }) {
   const params = await searchParams;
   return <main className="auth-page"><section className="auth-card">

@@ -3,9 +3,11 @@ import Image from "next/image";
 import { ArrowRight, Check, Globe2, MapPin, Play, ShieldCheck, Sprout, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CHECKPOINTS, DOMAIN_DETAILS, IMPACT_DIMENSIONS, PATHS, PROJECTS } from "../domain/pansofie-content";
+import { GROW_ROUTE_ID, getGrowMissionPresentation, missionLearningSteps } from "../domain/mission-presentation";
+import { PROJECT_GREEN_HOPE_GROW_001 } from "../domain/project-core";
 import { domainIcon, pathIcon } from "../domain/asset-system";
 
-const pathIds = ["knowledge", "health", "character", "relationships", "creativity", "collaboration", "meaning"];
+const pathIds = ["body", "mind", "character", "relationships", "creativity", "prosperity", "meaning"];
 const domainIds = ["self", "body", "mind", "emotions", "relationships", "family", "society", "nature", "technology", "finance", "work", "creation", "culture", "ethics", "citizenship", "meaning"];
 
 const PROJECT_MEDIA = {
@@ -33,8 +35,14 @@ function Hero({ spec }) {
   return <section className="p2-detail-hero"><div className="p2-detail-copy"><p className="p2-kicker">{spec.eyebrow}</p><h1>{spec.title}</h1><p>{spec.lead}</p><Link className="p2-button" to={spec.cta[1]}>{spec.cta[0]} <ArrowRight size={16}/></Link></div><figure><Image src={spec.image} alt="" width={760} height={520} sizes="(max-width: 900px) 100vw, 45vw" priority/></figure></section>;
 }
 
+function GreenHopePage() {
+  const mission = getGrowMissionPresentation("public");
+  const steps = missionLearningSteps();
+  return <div className="p2-page p2-page--detail"><Hero spec={{...SPECS.green, cta:[mission.actionLabel,`/mise/${GROW_ROUTE_ID}`]}}/><section className="p2-detail-points"><article><Sprout/><h2>Začni něčím živým</h2><p>{mission.description}</p><Link className="p2-inline-cta" to={`/mise/${GROW_ROUTE_ID}`}>Otevřít misi <ArrowRight size={15}/></Link></article><article><Play/><h2>Šest kroků, ne šest povinností</h2><p>Poznej, zkus, udělej, vytvoř, sdílej a reflektuj. Záznam zkušenosti je dobrovolný.</p></article><article><Users/><h2>Od jednotlivce k projektu</h2><p>První pěstitelská zkušenost může pokračovat v rodině, škole nebo Green Hope projektu.</p></article><article><ShieldCheck/><h2>Bezpečně</h2><p>Young používá věkové a kontextové limity. Přesná poloha dítěte se veřejně nesdílí.</p></article></section><section className="p2-path-preview"><header><div><p className="p2-kicker">PRVNÍ MISE</p><h2>{mission.title}</h2><p>{mission.heading}</p></div><Link to={`/mise/${GROW_ROUTE_ID}`}>{mission.actionLabel} <ArrowRight size={15}/></Link></header><div>{steps.map((step,index)=><article key={step.id}><small>{String(index+1).padStart(2,"0")}</small><b>{step.labelCs}</b><p>{step.textCs}</p></article>)}</div></section><section className="p2-green-project"><div><p className="p2-kicker">MODELOVÝ PROJEKT · GREEN HOPE</p><h2>{PROJECT_GREEN_HOPE_GROW_001.titleCs}</h2><p>{PROJECT_GREEN_HOPE_GROW_001.summaryCs}</p><small>Nejde o oznámení existující lokality ani naměřeného dopadu. Je to funkční projektový prototyp.</small></div><a className="p2-button" href="/go/projekt-green-grow">Otevřít projekt v GO <ArrowRight size={16}/></a></section></div>;
+}
+
 function PathsPage() {
-  return <div className="p2-page"><header className="p2-page-head"><p className="p2-kicker">7 CEST</p><h1>Sedm cest k naplněnému životu</h1><p>Rozvojová mapa, která drží pohromadě poznání, zdraví, charakter, vztahy, tvořivost, spolupráci a smysl.</p></header><section className="p2-path-grid">{PATHS.map(([title,text],i)=><article key={title}><span><Image src={pathIcon(pathIds[i])} alt="" width={64} height={64} sizes="64px"/></span><small>0{i+1}</small><h2>{title}</h2><p>{text}</p></article>)}</section><Link className="p2-inline-cta" to="/16-oblasti">Pokračovat do 16 oblastí <ArrowRight size={16}/></Link></div>;
+  return <div className="p2-page"><header className="p2-page-head"><p className="p2-kicker">7 CEST</p><h1>Sedm cest k naplněnému životu</h1><p>Rozvojová mapa, která drží pohromadě tělo, mysl, charakter, vztahy, tvořivost, prosperitu a smysl.</p></header><section className="p2-path-grid">{PATHS.map(([title,text],i)=><article key={title}><span><Image src={pathIcon(pathIds[i])} alt="" width={64} height={64} sizes="64px"/></span><small>0{i+1}</small><h2>{title}</h2><p>{text}</p></article>)}</section><Link className="p2-inline-cta" to="/16-oblasti">Pokračovat do 16 oblastí <ArrowRight size={16}/></Link></div>;
 }
 
 function DomainsPage() {
@@ -63,6 +71,7 @@ function BlogPage() {
 }
 
 export default function PublicProductPage({ type }) {
+  if (type === "green") return <GreenHopePage/>;
   if (type === "paths") return <PathsPage/>;
   if (type === "domains") return <DomainsPage/>;
   if (type === "projects") return <ProjectsPage/>;

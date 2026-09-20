@@ -6,8 +6,8 @@ export const ASSET_NAMESPACES = Object.freeze({
 });
 
 export const PATH_ASSET_IDS = Object.freeze([
-  "knowledge", "health", "character", "relationships",
-  "creativity", "collaboration", "meaning",
+  "body", "mind", "character", "relationships",
+  "creativity", "prosperity", "meaning",
 ]);
 
 export const DOMAIN_ASSET_IDS = Object.freeze([

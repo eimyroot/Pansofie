@@ -6,7 +6,7 @@ import { PATHS, PROJECTS } from "../domain/pansofie-content";
 import { pathIcon } from "../domain/asset-system";
 import { useLanguage } from "../state/LanguageContext";
 
-const pathIds=["knowledge","health","character","relationships","creativity","collaboration","meaning"];
+const pathIds=["body","mind","character","relationships","creativity","prosperity","meaning"];
 const cards=[
   ["Green Hope","Příroda a udržitelnost","/green-hope","/assets/brand/pansofie/scenes/green-hope-lab.svg"],
   ["Urban Family Farm","Praktická laboratoř života","/urban-family-farm","/assets/brand/pansofie/scenes/urban-farm-system.svg"],

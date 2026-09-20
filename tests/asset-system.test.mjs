@@ -19,7 +19,7 @@ const groups = [
 
 test("asset system keeps three products plus shared semantics", () => {
   assert.deepEqual(Object.keys(ASSET_NAMESPACES), ["pansofie", "young", "go", "shared"]);
-  assert.equal(PATH_ASSET_IDS.length, 7);
+  assert.deepEqual(PATH_ASSET_IDS, ["body", "mind", "character", "relationships", "creativity", "prosperity", "meaning"]);
   assert.equal(DOMAIN_ASSET_IDS.length, 16);
   assert.equal(YOUNG_DOODLE_IDS.length, 24);
   assert.equal(GO_PIN_IDS.length, 5);
@@ -31,7 +31,7 @@ test("asset system keeps three products plus shared semantics", () => {
 });
 
 test("asset helpers produce semantic production paths", () => {
-  assert.equal(pathIcon("knowledge"), "/assets/brand/shared/paths/path-knowledge.svg");
+  assert.equal(pathIcon("mind"), "/assets/brand/shared/paths/path-mind.svg");
   assert.equal(domainIcon("finance"), "/assets/brand/shared/domains/domain-finance.svg");
   assert.equal(goPin("mission"), "/assets/brand/go/map/pin-mission.svg");
   assert.equal(assetPath("young", "doodles", "crown"), "/assets/brand/young/doodles/crown.svg");

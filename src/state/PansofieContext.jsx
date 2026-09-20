@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { DEMO_MATERIALS, DEMO_SCHOOL_PROJECTS } from "../lib/demoData";
 
 const STORAGE_KEY = "pansofie-1.0:state";
@@ -14,6 +14,7 @@ const initialState = {
   ledger: [],
   mentoring: {},
   missions: {},
+  projectParticipations: {},
 };
 
 function safeLoad() {
@@ -41,6 +42,7 @@ function safeLoad() {
       ledger: Array.isArray(parsed.ledger) ? parsed.ledger : [],
       mentoring: parsed.mentoring || {},
       missions: parsed.missions || {},
+      projectParticipations: parsed.projectParticipations || {},
     };
   } catch {
     return initialState;
@@ -49,15 +51,19 @@ function safeLoad() {
 
 const Context = createContext(null);
 
+const subscribeHydration = () => () => {};
+
 export function PansofieProvider({ children }) {
+  const hydrated = useSyncExternalStore(subscribeHydration, () => true, () => false);
   const [state, setState] = useState(safeLoad);
 
   useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
+  }, [state, hydrated]);
 
   const api = useMemo(() => ({
-    state,
+    state: hydrated ? state : initialState,
     updateProfile(patch) {
       setState((current) => ({
         ...current,
@@ -191,13 +197,76 @@ export function PansofieProvider({ children }) {
         };
       });
     },
+    saveMissionDocumentation(missionId, documentation) {
+      setState((current) => {
+        const existing = current.missions[missionId];
+        if (!existing) return current;
+        return {
+          ...current,
+          missions: {
+            ...current.missions,
+            [missionId]: {
+              ...existing,
+              documentation: {
+                evidenceNote: documentation?.evidenceNote?.trim() || "",
+                reflection: documentation?.reflection?.trim() || "",
+                updatedAt: new Date().toISOString(),
+              },
+            },
+          },
+        };
+      });
+    },
+    joinProject(project) {
+      setState((current) => ({
+        ...current,
+        projectParticipations: {
+          ...current.projectParticipations,
+          [project.id]: current.projectParticipations[project.id] || {
+            id: project.id,
+            title: project.titleCs || project.title,
+            program: project.program,
+            status: "joined",
+            joinedAt: new Date().toISOString(),
+            storage: "local",
+          },
+        },
+      }));
+    },
+    syncProjectParticipation(project, participation) {
+      setState((current) => {
+        const next = {
+          id: project.id,
+          title: project.titleCs || project.title,
+          program: project.program,
+          status: participation?.status || "joined",
+          joinedAt: participation?.joinedAt || new Date().toISOString(),
+          participationId: participation?.id || null,
+          storage: "account",
+        };
+        const existing = current.projectParticipations[project.id];
+        if (
+          existing?.status === next.status
+          && existing?.joinedAt === next.joinedAt
+          && existing?.participationId === next.participationId
+          && existing?.storage === next.storage
+        ) return current;
+        return {
+          ...current,
+          projectParticipations: {
+            ...current.projectParticipations,
+            [project.id]: next,
+          },
+        };
+      });
+    },
     resetPrototype() {
       setState({
         ...initialState,
         profile: { ...initialState.profile, joinedAt: new Date().toISOString() },
       });
     },
-  }), [state]);
+  }), [state, hydrated]);
 
   return <Context.Provider value={api}>{children}</Context.Provider>;
 }

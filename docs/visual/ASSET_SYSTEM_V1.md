@@ -97,7 +97,7 @@ Rules:
 
 Seven development paths use one consistent badge family:
 
-`Poznání · Zdraví · Charakter · Vztahy · Tvořivost · Spolupráce · Smysl`
+`Tělo · Mysl · Charakter · Vztahy · Tvořivost · Prosperita · Smysl`
 
 Sixteen domains use a quieter secondary family:
 
@@ -123,7 +123,7 @@ Use semantic names, not screen coordinates or temporary design labels.
 
 Examples:
 
-- `path-health.svg`
+- `path-body.svg`
 - `domain-finance.svg`
 - `doodle-crown-01.svg`
 - `pin-project.svg`

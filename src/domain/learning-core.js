@@ -7,6 +7,16 @@ export const LEARNING_CYCLE = Object.freeze([
   "reflect",
 ]);
 
+export const DEVELOPMENT_PATHS = Object.freeze([
+  { id: "body", labelCs: "Tělo", facetCs: "vitalita", principleCs: "Zdravé tělo je nástroj pro dobrý život." },
+  { id: "mind", labelCs: "Mysl", facetCs: "poznání", principleCs: "Mysl má hledat pravdu a řešení." },
+  { id: "character", labelCs: "Charakter", facetCs: "vnitřní síla", principleCs: "Skutečná hodnota člověka je v jeho charakteru." },
+  { id: "relationships", labelCs: "Vztahy", facetCs: "spolupráce", principleCs: "Člověk roste mezi lidmi." },
+  { id: "creativity", labelCs: "Tvořivost", facetCs: "inovace", principleCs: "Svět se zlepšuje díky tvořivým lidem." },
+  { id: "prosperity", labelCs: "Prosperita", facetCs: "praktický život", principleCs: "Člověk má umět hospodařit se zdroji." },
+  { id: "meaning", labelCs: "Smysl", facetCs: "přesah", principleCs: "Člověk má hledat smysl svého života a služby společnosti." },
+]);
+
 export const LEARNING_DOMAINS = Object.freeze([
   { id: "self", labelCs: "Já", labelEn: "Self" },
   { id: "body", labelCs: "Tělo", labelEn: "Body" },
@@ -44,7 +54,32 @@ export const IMPACT_DIMENSIONS = Object.freeze([
   "intergenerational_connection",
 ]);
 
+export const MISSION_GROW_001 = Object.freeze({
+  id: "MISSION-GROW-001",
+  slug: "vypestuj-prvni-rostlinu",
+  titleCs: "Vypěstuj první rostlinu",
+  program: "green_hope",
+  domainIds: ["nature"],
+  pathIds: ["meaning"],
+  difficulty: 1,
+  developmentLevelMin: 1,
+  developmentLevelMax: 4,
+  contentRating: "general",
+  supervisionRequirement: "recommended",
+  documentationMode: "optional",
+  learn: "Zjisti, co rostlina potřebuje k růstu: světlo, vodu, živiny a čas.",
+  play: "Vyber vhodné místo a porovnej, kde má rostlina nejlepší podmínky.",
+  do: "Zasaď semeno nebo sazenici a pečuj o ni v průběhu růstu.",
+  create: "Vytvoř jednoduchý záznam růstu pomocí poznámek, kresby nebo fotografie.",
+  share: "Sdílej bezpečně výsledek s rodinou, týmem nebo skupinou, se kterou misi plníš.",
+  reflect: "Popiš, co rostlině pomáhalo, co nefungovalo a co příště uděláš jinak.",
+});
+
 const AGE_GATE_KEYS = new Set(["ageMin", "ageMax", "minAge", "maxAge"]);
+const DOMAIN_IDS = new Set(LEARNING_DOMAINS.map((domain) => domain.id));
+const PATH_IDS = new Set(DEVELOPMENT_PATHS.map((path) => path.id));
+const CONTENT_RATINGS = new Set(["general", "guided", "mature"]);
+const SUPERVISION_REQUIREMENTS = new Set(["none", "recommended", "required"]);
 
 export function validateMissionBlueprint(mission) {
   const errors = [];
@@ -55,6 +90,16 @@ export function validateMissionBlueprint(mission) {
   }
 
   if (!PROGRAMS.includes(mission.program)) errors.push("program is invalid");
+  if (mission.domainIds && (!Array.isArray(mission.domainIds) || mission.domainIds.some((id) => !DOMAIN_IDS.has(id)))) {
+    errors.push("domainIds must contain only canonical learning domain ids");
+  }
+  if (mission.pathIds && (!Array.isArray(mission.pathIds) || mission.pathIds.some((id) => !PATH_IDS.has(id)))) {
+    errors.push("pathIds must contain only canonical development path ids");
+  }
+  if (mission.contentRating && !CONTENT_RATINGS.has(mission.contentRating)) errors.push("contentRating is invalid");
+  if (mission.supervisionRequirement && !SUPERVISION_REQUIREMENTS.has(mission.supervisionRequirement)) {
+    errors.push("supervisionRequirement is invalid");
+  }
   if (!Number.isInteger(mission.difficulty) || mission.difficulty < 1 || mission.difficulty > 5) {
     errors.push("difficulty must be an integer from 1 to 5");
   }

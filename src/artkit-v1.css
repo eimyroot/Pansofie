@@ -125,3 +125,6 @@
 }
 
 .ak-profile-avatar{width:116px;height:116px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;background:radial-gradient(circle at 35% 28%,#f9f3e7 0 28%,#dfe7ce 70%,#cad8b7 100%);border:1px solid #c9d2b6;color:#355f36;font-family:Georgia,"Times New Roman",serif;font-size:46px;box-shadow:0 12px 28px rgba(66,84,55,.10)}
+
+/* Tablet containment: art-kit pages live inside the padded public shell. */
+@media (min-width:761px) and (max-width:900px){.p-main>.ak-page{width:100%}}

@@ -15,12 +15,12 @@
   },
   "assets": {
     "paths": [
-      "knowledge",
-      "health",
+      "body",
+      "mind",
       "character",
       "relationships",
       "creativity",
-      "collaboration",
+      "prosperity",
       "meaning"
     ],
     "domains": [

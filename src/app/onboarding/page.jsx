@@ -1,5 +1,7 @@
 import { completeOnboarding } from "./actions";
 
+export const metadata = { title: "První nastavení", robots: { index: false, follow: false } };
+
 export default async function OnboardingPage({ searchParams }) {
   const params = await searchParams;
   const choices = [["personal","Pro sebe"],["family","Rodina"],["school","Škola"],["company","Firma"],["young","Pansofie Young"]];

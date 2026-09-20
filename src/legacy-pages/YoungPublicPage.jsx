@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight, MessageCircle, Play, Rocket, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DOMAINS, MISSIONS, PROJECTS } from "../domain/pansofie-content";
+import { GROW_ROUTE_ID } from "../domain/mission-presentation";
 import { youngDoodle, youngIcon } from "../domain/asset-system";
 
 const topics=[
@@ -30,7 +31,7 @@ function YoungHome(){return <>
 
 function YoungExplore(){return <main className="y2-subpage"><header><p>OBJEVUJ</p><h1>Témata, která stojí za to řešit.</h1><p>Ne podle předmětů. Podle skutečného života a otázek, které se navzájem propojují.</p></header><div className="y2-domain-cloud">{DOMAINS.map((d,i)=><span key={d}>{["🪞","🏃","🧠","💛","🤝","🏠","🌍","🌱","⚙","💰","🛠","🎨","🎭","⚖","🏛","🧭"][i]} {d}</span>)}</div><div className="y2-topic-grid">{topics.map(([title,text,tag,image])=><article key={title}><Image src={image} alt="" width={540} height={304} sizes="(max-width: 900px) 100vw, 25vw"/><span>{tag}</span><h3>{title}</h3><p>{text}</p></article>)}</div></main>}
 
-function YoungMissions(){return <main className="y2-subpage"><header><p>MISE</p><h1>Zkus něco doopravdy.</h1><p>Krátké výzvy, které propojují učení s konkrétní akcí. XP je herní postup, ne hodnocení člověka.</p></header><div className="y2-mission-grid">{MISSIONS.map(m=><article key={m.id}><Image src={m.image} alt="" width={540} height={320} sizes="(max-width: 900px) 100vw, 33vw"/><small>{m.program} · +{m.xp} XP</small><h2>{m.title}</h2><p>{m.detail}</p><button>Začít misi <ArrowRight size={14}/></button></article>)}</div></main>}
+function YoungMissions(){return <main className="y2-subpage"><header><p>MISE</p><h1>Zkus něco doopravdy.</h1><p>Krátké výzvy, které propojují učení s konkrétní akcí. XP je herní postup, ne hodnocení člověka.</p></header><div className="y2-mission-grid">{MISSIONS.map(m=><article key={m.id}><Image src={m.image} alt="" width={540} height={320} sizes="(max-width: 900px) 100vw, 33vw"/><small>{m.program} · +{m.xp} XP</small><h2>{m.title}</h2><p>{m.detail}</p>{m.id===GROW_ROUTE_ID?<Link className="y2-mission-link" to={`/mise/${GROW_ROUTE_ID}`}>Otevřít první misi <ArrowRight size={14}/></Link>:<button>Začít misi <ArrowRight size={14}/></button>}</article>)}</div></main>}
 
 function YoungProjects(){return <main className="y2-subpage"><header><p>PROJEKTY</p><h1>Nápad je začátek. Projekt je krok dál.</h1><p>Přidej se k modelovému projektu nebo si připrav vlastní bezpečný experiment.</p></header><div className="y2-project-grid">{PROJECTS.map((p)=><article key={p.title}><Image src={p.image} alt="" width={540} height={304} sizes="(max-width: 900px) 100vw, 33vw"/><span>{p.tag}</span><h2>{p.title}</h2><p>{p.description}</p><small>{p.status}</small></article>)}</div></main>}
 

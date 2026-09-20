@@ -1,5 +1,5 @@
-import YoungWorkspace from "../../../components/experiences/YoungWorkspace";
+import YoungAuthenticatedPage from "../../../components/experiences/YoungAuthenticatedPage";
 
 export default function Page() {
-  return <YoungWorkspace variant="kids" />;
+  return <YoungAuthenticatedPage expectedExperience="young_kids" />;
 }
