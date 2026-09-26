@@ -61,17 +61,19 @@ test("public homepage renders canonical 16 areas, seven paths and six-phase meth
   assert.equal(PATHS.length, 7);
   assert.deepEqual(LEARNING_METHOD, ["Poznej", "Hraj", "Udělej", "Vytvoř", "Sdílej", "Reflektuj"]);
   const home = readFileSync("src/app/page.jsx", "utf8");
-  assert.match(home, /PUBLIC_DOMAINS\.map/);
-  assert.match(home, /PUBLIC_PATHS\.map/);
-  assert.match(home, /LEARNING_METHOD\.map/);
+  assert.match(home, /PansofieEcosystemAtlas domains=\{PUBLIC_DOMAINS\} paths=\{PUBLIC_PATHS\}/);
+  assert.match(home, /PansofieLearningSequence steps=\{LEARNING_METHOD\}/);
 });
 
-test("public homepage uses the adult Pansofie asset namespace and avoids fake scale metrics", () => {
+test("public homepage uses the adult Pansofie identity system and avoids fake scale metrics", () => {
   const home = readFileSync("src/app/page.jsx", "utf8");
-  assert.match(home, /PansofieArtPanel/);
-  assert.doesNotMatch(home, /hero-community-left-safe-16x9/);
-  assert.doesNotMatch(home, /1000\+|tisíc projektů|žebříčk/i);
-  assert.match(home, /Modelový projekt/);
+  const homeFrame = readFileSync("src/components/public/PansofieHomeFrame.jsx", "utf8");
+  const homeSurface = home + homeFrame;
+  assert.match(home, /PansofieManifestHero/);
+  assert.doesNotMatch(home, /PansofieArtPanel/);
+  assert.doesNotMatch(homeSurface, /hero-community-left-safe-16x9/);
+  assert.doesNotMatch(homeSurface, /1000\+|tisíc projektů|veřejný žebříček|žebříček lidí/i);
+  assert.match(homeSurface, /Modelový projekt/i);
 });
 
 test("M6 public styling preserves accessibility and responsive fallbacks", () => {
@@ -228,16 +230,18 @@ test("M6.6 normalizes public title templates without duplicated brand suffixes",
 
 test("editorial homepage connects city, generations, circularity and responsible AI without fake claims", () => {
   const home = readFileSync("src/app/page.jsx", "utf8");
+  const homeFrame = readFileSync("src/components/public/PansofieHomeFrame.jsx", "utf8");
+  const editorialHome = home + homeFrame;
   const shell = readFileSync("src/components/public/PublicShell.jsx", "utf8");
-  assert.match(home, /Lepší svět/);
-  assert.match(home, /Příležitost, ne povinnost/);
-  assert.match(home, /OD KOMENSKÉHO K AI/);
-  assert.match(home, /AI jako nástroj/);
-  assert.match(home, /Mikrogreens a městské pěstování/);
-  assert.match(home, /Druhá šance pro materiál/);
-  assert.match(home, /Generace si mají co předat/);
+  assert.match(editorialHome, /Učení, které|Lepší svět/);
+  assert.match(editorialHome, /Příležitost, ne povinnost/);
+  assert.match(editorialHome, /OD KOMENSKÉHO K AI/);
+  assert.match(editorialHome, /AI jako nástroj/);
+  assert.match(editorialHome, /Mikrogreens a městské pěstování/);
+  assert.match(editorialHome, /Druhá šance pro materiál/);
+  assert.match(editorialHome, /Generace si mají co předat/);
   assert.match(shell, /Lidé · vědění · kontext · změna/);
-  assert.doesNotMatch(home, /ověřený partner|naměřený dopad|1000\+|40 000\+/i);
+  assert.doesNotMatch(editorialHome, /ověřený partner|naměřený dopad|1000\+|40 000\+/i);
 });
 
 test("M6.8 carries the mature editorial world across projects, schools, organizations and circularity", () => {
@@ -327,6 +331,8 @@ test("M6.11 completes the people, knowledge and place editorial layer", () => {
 test("M6.12 builds a clear public bridge from Pansofie into GO without merging GO with Young", () => {
   const go = readFileSync("src/app/pansofie-go/page.jsx", "utf8");
   const home = readFileSync("src/app/page.jsx", "utf8");
+  const homeFrame = readFileSync("src/components/public/PansofieHomeFrame.jsx", "utf8");
+  const homeSurface = home + homeFrame;
   const how = readFileSync("src/app/jak-to-funguje/page.jsx", "utf8");
 
   assert.match(go, /EditorialFeatureBand/);
@@ -343,8 +349,9 @@ test("M6.12 builds a clear public bridge from Pansofie into GO without merging G
   assert.doesNotMatch(go, /Young\s*[=/·-]+\s*GO|GO\s*[=/·-]+\s*Young/i);
   assert.doesNotMatch(go, /veřejný žebříček|XP.*hodnotu člověka.*je/i);
 
-  assert.match(home, /Jak se z poznání stává akce v PansofieGO/);
-  assert.match(home, /Aplikace pro celý ekosystém Pansofie/);
+  assert.match(homeSurface, /href="\/pansofie-go"/);
+  assert.match(homeSurface, /Jak se poznání mění v akci|poznání stává akce/i);
+  assert.match(homeSurface, /Aplikace pro celý ekosystém Pansofie/);
   assert.match(how, /Když chce člověk pokračovat do praxe, přichází PansofieGO/);
   assert.match(how, /href="\/pansofie-go"/);
 });
@@ -431,8 +438,8 @@ test("M6.16 presents Pansofie GO primarily as a location-based game without publ
 test("M6.17 turns the generated visual direction into real responsive public UI", () => {
   const home = readFileSync("src/app/page.jsx", "utf8");
   const css = readFileSync("src/app/public-pansofie.css", "utf8");
-  assert.match(home, /VISUAL_ENTRY_POINTS/);
-  assert.match(home, /pw-home-gateway/);
+  assert.match(home, /PansofieEditorialGateway/);
+  assert.doesNotMatch(home, /VISUAL_ENTRY_POINTS|pw-home-gateway/);
   assert.match(css, /\.pw-visual-hero/);
   assert.match(css, /\.pw-visual-card-strip/);
   assert.match(css, /\.pw-mini-pill-grid/);

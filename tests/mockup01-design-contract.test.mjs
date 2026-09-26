@@ -5,6 +5,7 @@ import { readFileSync, readdirSync } from "node:fs";
 const css = readFileSync("src/app/mockup01.css", "utf8");
 const art = readFileSync("src/components/public/PansofieArtPanel.jsx", "utf8");
 const home = readFileSync("src/app/page.jsx", "utf8");
+const homeFrame = readFileSync("src/components/public/PansofieHomeFrame.jsx", "utf8");
 const feature = readFileSync("src/components/public/EditorialFeatureBand.jsx", "utf8");
 const projectStory = readFileSync("src/components/public/ProjectVisualStoryPage.jsx", "utf8");
 const layout = readFileSync("src/app/layout.jsx", "utf8");
@@ -17,7 +18,8 @@ test("Mockup 01 palette is a production contract", () => {
 test("Adult public visuals use Pansofie art language instead of stock as the default", () => {
   assert.match(art, /pa-routes/);
   assert.match(art, /pa-botanical/);
-  assert.match(home, /PansofieArtPanel/);
+  assert.match(home, /PansofieManifestHero/);
+  assert.match(homeFrame, /p02-botanical|p02-hero__lines/);
   assert.match(feature, /PansofieArtPanel/);
   assert.match(projectStory, /PansofieArtPanel/);
   assert.doesNotMatch(feature, /<Image/);
