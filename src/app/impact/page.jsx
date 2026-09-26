@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { IMPACT_DIMENSIONS } from "../../domain/pansofie-content";
 import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
@@ -12,9 +13,9 @@ export const metadata = {
 
 export default function ImpactPage() {
   return <PublicShell active="/impact">
-    <section className="pw-page-hero pw-page-hero--reverse">
-      <div><p className="pw-eyebrow">IMPACT</p><h1>Dopad není jedno číslo.</h1><p>Pansofie odděluje učení, dovednosti, rodinu, komunitu, přírodu, podnikavost a další oblasti. Smyslem není hodnotit člověka, ale zaznamenat konkrétní změny tam, kde pro ně existují podklady.</p></div>
-      <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("impact-index")} alt="Schéma více rozměrů dopadu Pansofie" fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--engine">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">IMPACT</p><h1>Dopad není jedno číslo.</h1><p>Pansofie odděluje učení, dovednosti, rodinu, komunitu, přírodu, podnikavost a další oblasti. Smyslem není hodnotit člověka, ale zaznamenat konkrétní změny tam, kde pro ně existují podklady.</p></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="DOPAD" title="Dopad bez jednoho skóre" detail="tvrzení má hranici danou důkazem" flow={["Výstup","Evidence","Kontext","Interpretace"]}/></div>
     </section>
 
     <EditorialFeatureBand

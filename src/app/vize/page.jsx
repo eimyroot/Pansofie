@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { pansofieIllustration, pansofiePhoto } from "../../domain/asset-system";
 
@@ -16,9 +17,9 @@ const PILLARS = [
 ];
 export default function VisionPage() {
   return <PublicShell active="/vize">
-    <section className="pw-page-hero">
-      <div><p className="pw-eyebrow">VIZE PANSOFIE</p><h1>Staré pilíře. Současný život.</h1><p>Pansofie nechce starší myšlenky vystavit jako historii. Překládá je do situací, které lidé skutečně žijí dnes.</p></div>
-      <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieIllustration("ecosystem-tree")} alt="Ilustrace propojeného ekosystému Pansofie" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--engine">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">VIZE PANSOFIE</p><h1>Staré pilíře. Současný život.</h1><p>Pansofie nechce starší myšlenky vystavit jako historii. Překládá je do situací, které lidé skutečně žijí dnes.</p></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="VIZE PANSOFIE" title="Poznat. Růst. Zlepšovat." detail="pansofia · pampaedia · panorthosia" flow={["Pansofia","Pampaedia","Panorthosia"]}/></div>
     </section>
     <EditorialFeatureBand
       eyebrow="OD KOMENSKÉHO K DNEŠKU"

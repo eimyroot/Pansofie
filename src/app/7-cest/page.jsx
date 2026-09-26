@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { PATHS } from "../../domain/pansofie-content";
 import { DEVELOPMENT_PATHS } from "../../domain/learning-core";
@@ -15,9 +16,9 @@ const PUBLIC_PATHS = PATHS.map(([title, text], index) => ({ id: DEVELOPMENT_PATH
 
 export default function PathsPage() {
   return <PublicShell active="/7-cest">
-    <section className="pw-visual-hero pw-visual-hero--discover-paths">
+    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--discover-paths">
       <div className="pw-visual-hero__copy"><p className="pw-eyebrow">JAK ROSTEME</p><h1>7 cest k životu v souvislostech.</h1><p>Každá cesta je jiný úhel pohledu na rozvoj člověka. Nejde o typologii ani hodnocení osobnosti. Cesty pomáhají vybírat zkušenosti, které dávají smysl právě teď.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/projekty">Vidět cesty v praxi</Link><Link className="pw-button pw-button--light" href="/16-oblasti">16 oblastí</Link></div></div>
-      <div className="pw-visual-hero__media"><Image src={pansofiePhoto("prague-nature-16x9")} alt="Město, příroda a krajina jako propojený životní prostor" fill priority sizes="(max-width: 900px) 100vw, 58vw"/><div className="pw-visual-hero__note">tělo · mysl · charakter · vztahy · tvořivost · prosperita · smysl</div></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="paths" paths={PUBLIC_PATHS}/></div>
     </section>
     <nav className="pw-discover-icon-grid pw-discover-icon-grid--paths" aria-label="Přehled 7 cest">
       {PUBLIC_PATHS.map((path, index) => <a href={`#${path.id}`} className="pw-discover-icon-card" key={path.id}><span>{String(index + 1).padStart(2,"0")}</span><Image src={pathIcon(path.id)} alt="" width={52} height={52} aria-hidden="true"/><strong>{path.title}</strong></a>)}

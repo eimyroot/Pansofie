@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "./PublicShell";
 import { EditorialFeatureBand } from "./EditorialFeatureBand";
+import { PansofieVisualEngine } from "./PansofieVisualEngine";
 
 export function ProgramStoryPage({
   active,
@@ -21,14 +22,14 @@ export function ProgramStoryPage({
   editorialFeature,
 }) {
   return <PublicShell active={active} current={current || active}>
-    <section className="pw-page-hero">
-      <div>
+    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--program-story">
+      <div className="pw-visual-hero__copy">
         <p className="pw-eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
         <p>{lead}</p>
         {cta && <div className="pw-story-hero__cta"><Link className="pw-button pw-button--dark" href={cta.href}>{cta.label}</Link></div>}
       </div>
-      <div className="pw-page-hero__media"><Image src={image} alt={imageAlt} fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker={eyebrow} title="Společná zkušenost" detail="role · vztahy · skutečný život" flow={(sequence.length ? sequence : principles.map(([label])=>label)).slice(0,6)}/></div>
     </section>
     <section className="pw-story-intro">
       <div><p className="pw-eyebrow">PROČ TO EXISTUJE</p><h2>{introTitle}</h2></div>
