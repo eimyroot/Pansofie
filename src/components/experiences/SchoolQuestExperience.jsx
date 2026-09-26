@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import SchoolQuestMentor from "./SchoolQuestMentor";
 import {
   advanceSchoolQuestPhaseAction,
   completeSchoolQuestAction,
@@ -174,6 +175,14 @@ function QuestComplete({ quest }) {
       <small>MISE DOKONČENA</small>
       <h2>Šest kroků je za tebou.</h2>
       <p>Dokončení znamená, že jsi prošel/prošla zkušeností. Není to známka, osobní skóre ani automatické potvrzení kompetence.</p>
+      {quest.gameReward ? (
+        <div className="goq-game-reward" aria-label="Soukromá herní odměna">
+          <span><b>+{quest.gameReward.xp} XP</b><small>jen herní postup</small></span>
+          {quest.gameReward.badge ? (
+            <span><b>{quest.gameReward.badge.glyph} · {quest.gameReward.badge.title}</b><small>soukromý odznak za konkrétní zkušenost</small></span>
+          ) : null}
+        </div>
+      ) : null}
       <div className="goq-complete-actions">
         <a href="/go/portfolio">Moje portfolio</a>
         <a href="/go/school">Další školní mise</a>
@@ -326,6 +335,9 @@ function QuestWorkspace({ initialQuest }) {
                   onAdvance={advance}
                   busy={busy}
                 />
+              )}
+              {phase && isCurrentPhase && (
+                <SchoolQuestMentor quest={quest} phase={phase} />
               )}
               {phase && (
                 <PrivateNotebook

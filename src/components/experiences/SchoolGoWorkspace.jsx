@@ -100,6 +100,28 @@ function StaffMetrics({ classData }) {
     </section>
   );
 }
+function ClassMilestones({ milestoneState }) {
+  const state = milestoneState || { total: 0, completed: 0, achievedCount: 0, milestones: [] };
+  return (
+    <section className="go2-school-milestones" aria-labelledby="class-milestones-heading">
+      <div className="go2-school-section-head">
+        <small>SPOLUPRÁCE · BEZ POŘADÍ LIDÍ</small>
+        <h2 id="class-milestones-heading">Milníky třídy</h2>
+        <p>Společný postup vychází jen z dokončených quest runů. Neurčuje nejlepšího studenta ani osobní reputaci.</p>
+      </div>
+      <div className="go2-school-milestone-grid">
+        {(state.milestones || []).map((item) => (
+          <article key={item.key} className={item.achieved ? "is-achieved" : ""}>
+            <span aria-hidden="true">{item.achieved ? "✓" : "○"}</span>
+            <div><strong>{item.label}</strong><p>{item.description}</p></div>
+          </article>
+        ))}
+      </div>
+      <small className="go2-school-milestone-summary">{state.achievedCount || 0}/{(state.milestones || []).length || 0} společných milníků · {state.completed || 0}/{state.total || 0} dokončených runů</small>
+    </section>
+  );
+}
+
 function AssignmentComposer({ classData, missions }) {
   const router = useRouter();
   const learners = classData.roster.filter((member) => member.role === "learner");
@@ -287,6 +309,30 @@ function StudentRoster({ classData }) {
     </section>
   );
 }
+function PrivateGamification({ gamification }) {
+  const game = gamification || { xp: 0, completedRewardCount: 0, badges: [] };
+  return (
+    <section className="go2-private-game" aria-labelledby="private-game-heading">
+      <div className="go2-private-game-score">
+        <small>SOUKROMÝ HERNÍ POSTUP</small>
+        <strong>{game.xp || 0} XP</strong>
+        <span>XP je jen herní stopa za dokončené zkušenosti. Není známka, kompetence ani hodnota člověka.</span>
+      </div>
+      <div>
+        <h2 id="private-game-heading">Moje odznaky</h2>
+        <div className="go2-private-badges">
+          {(game.badges || []).length ? game.badges.map((badge) => (
+            <article key={badge.key}>
+              <b aria-hidden="true">{badge.glyph}</b>
+              <div><strong>{badge.title}</strong><p>{badge.description}</p></div>
+            </article>
+          )) : <p className="go2-note">První odznak vznikne až z dokončené canonical mise s herní odměnou.</p>}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function LearnerAssignments({ assignments }) {
   return (
     <section className="go2-school-section" aria-labelledby="my-school-missions-heading">
@@ -353,12 +399,16 @@ export default function SchoolGoWorkspace({ snapshot }) {
           ) : classData.canManage ? (
             <>
               <StaffMetrics classData={classData} />
+              <ClassMilestones milestoneState={classData.milestones} />
               <AssignmentComposer classData={classData} missions={snapshot.missions || []} />
               <StaffAssignments assignments={classData.assignments || []} />
               <StudentRoster classData={classData} />
             </>
           ) : (
-            <LearnerAssignments assignments={classData.assignments || []} />
+            <>
+              <PrivateGamification gamification={snapshot.privateGamification} />
+              <LearnerAssignments assignments={classData.assignments || []} />
+            </>
           )}
           <section className="go2-safety go2-school-safety">
             <div>

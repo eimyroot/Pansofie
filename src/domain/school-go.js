@@ -1,5 +1,6 @@
 import { createClient } from "../lib/supabase/server.js";
 import { loadSchoolMissionAssignments } from "./school-mission-assignment.js";
+import { loadLearnerSchoolGamification, summarizeClassMilestones } from "./school-gamification.js";
 
 const STAFF_ROLES = new Set(["teacher", "mentor"]);
 
@@ -111,6 +112,7 @@ async function loadClassSnapshot(supabase, row, context, orgRole, ownRole) {
       role: member.class_role,
       joinedAt: member.joined_at,
     })),
+    milestones: summarizeClassMilestones(progressResult.data || []),
     assignments: assignments.map((assignment) => {
       const progressRows = progressByAssignment.get(assignment.id) || [];
       return {
@@ -186,6 +188,10 @@ export async function loadSchoolGoSnapshot(context) {
     ));
   }
 
+  const privateGamification = orgRole === "learner"
+    ? await loadLearnerSchoolGamification(supabase, context.userId)
+    : null;
+
   return {
     mode: "school",
     displayName: context.profile?.display_name || context.profile?.full_name || "Můj prostor",
@@ -197,6 +203,7 @@ export async function loadSchoolGoSnapshot(context) {
     roleLabel: schoolRoleLabel(orgRole),
     canManageSchool: orgRole === "coordinator",
     canManageAnyClass: classes.some((item) => item.canManage),
+    privateGamification,
     classes,
     missions: (missionsResult.data || []).map(normalizeMission),
   };

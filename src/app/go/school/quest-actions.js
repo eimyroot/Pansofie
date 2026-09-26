@@ -8,6 +8,8 @@ import {
 } from "../../../domain/mission-persistence";
 import { MISSION_CYCLE, normalizeCycleProgress } from "../../../domain/mission-cycle";
 import { loadOwnedSchoolQuestLink } from "../../../domain/school-quest";
+import { buildSchoolQuestMentorPrompt, mentorProductionConfig, validateMentorQuestion } from "../../../domain/school-quest-mentor";
+import { requestAnthropicMentor } from "../../../lib/anthropic-mentor";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -90,6 +92,87 @@ export async function saveSchoolQuestNotesAction(input = {}) {
     };
   } catch (error) {
     return { mode: "error", message: error?.message || "Soukromý záznam se nepodařilo uložit." };
+  }
+}
+
+function mentorQuotaError(error) {
+  const message = String(error?.message || "");
+  if (message.includes("mentor_subject_daily_limit")) {
+    return { code: "daily_limit", message: "Dnešní osobní limit průvodce je vyčerpaný. Mise funguje dál bez AI." };
+  }
+  if (message.includes("mentor_school_daily_limit")) {
+    return { code: "school_limit", message: "Školní denní limit průvodce je vyčerpaný. Mise funguje dál bez AI." };
+  }
+  if (message.includes("mentor_global_daily_budget")) {
+    return { code: "budget_limit", message: "Denní rozpočet AI průvodce je vyčerpaný. Mise funguje dál bez AI." };
+  }
+  return null;
+}
+
+export async function askSchoolQuestMentorAction(input = {}) {
+  const assignmentId = String(input.assignmentId || "");
+  const phaseId = String(input.phaseId || "");
+  if (!MISSION_CYCLE.includes(phaseId)) {
+    return { mode: "error", message: "Neplatná fáze mise." };
+  }
+  const validation = validateMentorQuestion(input.question);
+  if (!validation.ok) return { mode: "error", code: validation.code, message: validation.message };
+
+  const production = mentorProductionConfig();
+  if (!production.ready) {
+    return { mode: "unavailable", message: "AI průvodce není v tomto prostředí produkčně povolený." };
+  }
+
+  const auth = await getQuestAuth();
+  if (!auth) return { mode: "error", message: "Pro průvodce je potřeba přihlášení." };
+  try {
+    const owned = await resolveOwnedQuest(auth, assignmentId);
+    if (owned.assignment.status === "cancelled") {
+      return { mode: "error", message: "Zrušené školní zadání už průvodce neotevírá." };
+    }
+    if (owned.run.status === "assigned") {
+      return { mode: "error", message: "Nejdřív začni misi. Pak ti průvodce pomůže s aktuálním krokem." };
+    }
+    if (owned.run.status === "completed" || owned.run.status === "cancelled") {
+      return { mode: "error", message: "Tato mise už nemá aktivní krok pro průvodce." };
+    }
+
+    const { data: cycleRow, error: cycleError } = await auth.supabase
+      .from("mission_run_cycle_progress")
+      .select("current_phase, completed_phases")
+      .eq("run_id", owned.run.id)
+      .eq("user_id", auth.userId)
+      .maybeSingle();
+    if (cycleError) throw cycleError;
+    const cycle = normalizeCycleProgress(cycleRow);
+    if (cycle.isCycleComplete || phaseId !== cycle.currentPhase) {
+      return { mode: "error", message: "Průvodce pracuje jen s právě otevřeným krokem mise." };
+    }
+
+    const { error: quotaError } = await auth.supabase
+      .rpc("reserve_school_mentor_usage", { target_assignment_id: assignmentId })
+      .single();
+    if (quotaError) {
+      const quota = mentorQuotaError(quotaError);
+      if (quota) return { mode: "error", ...quota };
+      throw quotaError;
+    }
+
+    const prompt = buildSchoolQuestMentorPrompt({
+      mission: owned.assignment.missions,
+      phaseId,
+      question: validation.question,
+    });
+    const result = await requestAnthropicMentor(prompt);
+    if (result.mode === "unavailable") {
+      return { mode: "unavailable", message: "AI průvodce není v tomto prostředí připojený." };
+    }
+    if (result.mode !== "ok") {
+      return { mode: "error", code: result.code, message: "Průvodce teď neodpovídá. Zkus to za chvíli znovu." };
+    }
+    return { mode: "account", answer: result.answer, ephemeral: true };
+  } catch (error) {
+    return { mode: "error", message: error?.message || "Průvodce teď není dostupný." };
   }
 }
 

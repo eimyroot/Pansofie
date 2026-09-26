@@ -1,5 +1,7 @@
 import { createClient } from "../lib/supabase/server.js";
 import { normalizeCycleProgress, normalizeMissionCycle, topicMeta } from "./mission-cycle.js";
+import { mentorAvailability } from "./school-quest-mentor.js";
+import { loadMissionGameReward } from "./school-gamification.js";
 
 const ASSIGNMENT_SELECT = `
   id, school_id, class_id, scope, target_user_id, status,
@@ -71,12 +73,13 @@ export async function loadSchoolQuestExperience(context, assignmentId) {
     return { mode: "locked", reason: "assignment_not_owned" };
   }
 
-  const [{ data: classRow, error: classError }, documentation] = await Promise.all([
+  const [{ data: classRow, error: classError }, documentation, gameReward] = await Promise.all([
     supabase.from("school_classes")
       .select("id, name, academic_year")
       .eq("id", owned.assignment.class_id)
       .maybeSingle(),
     loadQuestDocumentation(supabase, owned.run.id, context.userId),
+    loadMissionGameReward(supabase, owned.assignment.missions?.id),
   ]);
   if (classError) throw classError;
 
@@ -122,5 +125,7 @@ export async function loadSchoolQuestExperience(context, assignmentId) {
     cycle: documentation.cycle,
     evidenceNote: documentation.evidenceNote,
     reflection: documentation.reflection,
+    mentor: mentorAvailability(),
+    gameReward,
   };
 }
