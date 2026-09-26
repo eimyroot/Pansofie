@@ -443,3 +443,21 @@ test("M6.17 turns the generated visual direction into real responsive public UI"
     assert.match(source, /nepředstírá|bez povinn|konkrétní|skutečn/i);
   }
 });
+
+test("M6.18 gives every Objevuj destination its own responsive visual entry system", () => {
+  const css = readFileSync("src/app/public-pansofie.css", "utf8");
+  assert.match(css, /\.pw-discover-gateway/);
+  assert.match(css, /\.pw-discover-icon-grid--paths/);
+  assert.match(css, /\.pw-discover-icon-grid--domains/);
+  assert.match(css, /\.pw-resource-grid--visual/);
+  const about = readFileSync("src/app/o-nas/page.jsx", "utf8");
+  const paths = readFileSync("src/app/7-cest/page.jsx", "utf8");
+  const domains = readFileSync("src/app/16-oblasti/page.jsx", "utf8");
+  const blog = readFileSync("src/app/blog/page.jsx", "utf8");
+  for (const source of [about, paths, domains, blog]) assert.match(source, /pw-visual-hero/);
+  assert.match(about, /pw-discover-gateway/);
+  assert.match(paths, /pw-discover-icon-grid--paths/);
+  assert.match(domains, /pw-discover-icon-grid--domains/);
+  assert.match(blog, /pw-resource-grid pw-resource-grid--visual/);
+  assert.doesNotMatch(about + paths + domains + blog, /1000\+|garantovan|ověřený partner/i);
+});
