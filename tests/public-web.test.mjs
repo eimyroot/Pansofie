@@ -425,3 +425,21 @@ test("M6.16 presents Pansofie GO primarily as a location-based game without publ
   assert.match(go, /Poloha se používá jen po aktivním spuštění uživatelem/i);
   assert.match(go, /nemá ukazovat přesnou polohu dítěte ani živý pohyb lidí/i);
 });
+
+
+test("M6.17 turns the generated visual direction into real responsive public UI", () => {
+  const home = readFileSync("src/app/page.jsx", "utf8");
+  const css = readFileSync("src/app/public-pansofie.css", "utf8");
+  assert.match(home, /VISUAL_ENTRY_POINTS/);
+  assert.match(home, /pw-home-gateway/);
+  assert.match(css, /\.pw-visual-hero/);
+  assert.match(css, /\.pw-visual-card-strip/);
+  assert.match(css, /\.pw-mini-pill-grid/);
+  for (const route of ["labs", "komunita", "partneri", "dobrovolnictvi", "partnerstvi"]) {
+    const source = readFileSync(`src/app/${route}/page.jsx`, "utf8");
+    assert.match(source, /pw-visual-hero/);
+    assert.match(source, /pw-button/);
+    assert.doesNotMatch(source, /1000\+|seznam ověřených partnerů[.!]|navigator\.geolocation/s);
+    assert.match(source, /nepředstírá|bez povinn|konkrétní|skutečn/i);
+  }
+});
