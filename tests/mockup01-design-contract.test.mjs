@@ -56,3 +56,10 @@ test("Adult public runtime cannot fall back to legacy Pansofie visual helpers", 
   assert.match(adult, /PansofieVisualEngine/);
   assert.match(adult, /PansofieVisualCard|PansofieArtPanel|EditorialFeatureBand/);
 });
+
+test("dark Mockup 01 surfaces preserve readable editorial contrast", () => {
+  assert.match(css, /\.pw-site \.pw-editorial-band h2/);
+  assert.match(css, /\.pw-site \.pw-future-bridge h2/);
+  assert.match(css, /\.pw-site \.pw-paths h2/);
+  assert.match(css, /color:#f8f4eb/);
+});
