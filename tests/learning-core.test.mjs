@@ -7,6 +7,7 @@ import {
   LEARNING_DOMAINS,
   MISSION_GROW_001,
   PROGRAMS,
+  SKILL_ECOLOGICAL_THINKING,
   validateMissionBlueprint,
 } from "../src/domain/learning-core.js";
 import { MISSIONS, PATHS } from "../src/domain/pansofie-content.js";
@@ -34,6 +35,10 @@ test("MISSION-GROW-001 is a valid Green Hope learning-core blueprint", () => {
   assert.equal(MISSION_GROW_001.program, "green_hope");
   assert.deepEqual(MISSION_GROW_001.domainIds, ["nature"]);
   assert.deepEqual(MISSION_GROW_001.pathIds, ["meaning"]);
+  assert.deepEqual(MISSION_GROW_001.skillCodes, [SKILL_ECOLOGICAL_THINKING.code]);
+  assert.deepEqual(MISSION_GROW_001.impactDimensionIds, ["nature"]);
+  assert.equal(SKILL_ECOLOGICAL_THINKING.domainId, "nature");
+  assert.equal(SKILL_ECOLOGICAL_THINKING.titleCs, "Ekologické myšlení");
   assert.equal(MISSION_GROW_001.documentationMode, "optional");
   assert.deepEqual(validateMissionBlueprint(MISSION_GROW_001), []);
   const growCard = MISSIONS.find((mission) => mission.id === "rostlina");

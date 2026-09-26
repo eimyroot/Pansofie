@@ -35,9 +35,10 @@ export async function getUserContext() {
   return { userId, profile, organization, membership, experience, onboardingRequired: false };
 }
 
-export async function requireUserContext(expectedExperience) {
+export async function requireUserContext(expectedExperience, options = {}) {
   const context = await getUserContext();
-  if (!context) redirect("/login");
+  const returnTo = typeof options.returnTo === "string" && options.returnTo.startsWith("/") && !options.returnTo.startsWith("//") ? options.returnTo : null;
+  if (!context) redirect(returnTo ? `/login?next=${encodeURIComponent(returnTo)}` : "/login");
   if (context.onboardingRequired) redirect("/onboarding");
   if (expectedExperience && context.experience !== expectedExperience) redirect(routeForExperience(context.experience));
   return context;

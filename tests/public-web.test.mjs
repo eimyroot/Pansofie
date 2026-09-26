@@ -224,3 +224,198 @@ test("M6.6 normalizes public title templates without duplicated brand suffixes",
   const youngLayout = readFileSync("src/app/young/layout.jsx", "utf8");
   assert.match(youngLayout, /template: "%s \| Pansofie Young"/);
 });
+
+test("editorial homepage connects city, generations, circularity and responsible AI without fake claims", () => {
+  const home = readFileSync("src/app/page.jsx", "utf8");
+  const shell = readFileSync("src/components/public/PublicShell.jsx", "utf8");
+  assert.match(home, /Lepší svět/);
+  assert.match(home, /Příležitost, ne povinnost/);
+  assert.match(home, /OD KOMENSKÉHO K AI/);
+  assert.match(home, /AI jako nástroj/);
+  assert.match(home, /Mikrogreens a městské pěstování/);
+  assert.match(home, /Druhá šance pro materiál/);
+  assert.match(home, /Generace si mají co předat/);
+  assert.match(shell, /Lidé · vědění · kontext · změna/);
+  assert.doesNotMatch(home, /ověřený partner|naměřený dopad|1000\+|40 000\+/i);
+});
+
+test("M6.8 carries the mature editorial world across projects, schools, organizations and circularity", () => {
+  const files = ["projekty", "pro-skoly", "pro-organizace", "green-hope", "urban-family-farm", "digitalni-kompost", "sit", "instituce"];
+  for (const file of files) {
+    const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
+    assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
+  }
+  assert.match(readFileSync("src/app/urban-family-farm/page.jsx", "utf8"), /MIKROGREENS/);
+  assert.match(readFileSync("src/app/digitalni-kompost/page.jsx", "utf8"), /MATERIÁLY V OBĚHU/);
+  assert.match(readFileSync("src/app/sit/page.jsx", "utf8"), /KOMUNITA, NE FEED/);
+  assert.match(readFileSync("src/app/pro-skoly/page.jsx", "utf8"), /AI pomáhá zkoumat a tvořit/);
+  assert.doesNotMatch(readFileSync("src/app/instituce/page.jsx", "utf8"), /[0-9]+\s*(kg|t|CO2|CO₂)|[0-9]+%.*ESG/i);
+});
+
+
+test("M6.9 completes the adult editorial system across orientation and trust pages", () => {
+  const files = ["o-nas", "vize", "jak-to-funguje", "pro-koho", "knihovna", "impact", "kontakt"];
+  for (const file of files) {
+    const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
+    assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
+  }
+
+  const how = readFileSync("src/app/jak-to-funguje/page.jsx", "utf8");
+  assert.match(how, /Pansofie Young je samostatná zkušenost/i);
+  assert.match(how, /PansofieGO je aplikace pro celý ekosystém/i);
+  assert.doesNotMatch(how, /Young\s*[=/·-]+\s*GO/i);
+
+  const impact = readFileSync("src/app/impact/page.jsx", "utf8");
+  assert.match(impact, /DŮKAZ PŘED PŘÍBĚHEM/);
+  assert.match(impact, /Bez podkladů nevzniká automatické číslo/i);
+  assert.doesNotMatch(impact, /1000\+|ověřený dopad|garantovaný dopad/i);
+
+  const library = readFileSync("src/app/knihovna/page.jsx", "utf8");
+  assert.match(library, /Dokud konkrétní materiál není publikovaný a ověřený/i);
+
+  const contact = readFileSync("src/app/kontakt/page.jsx", "utf8");
+  assert.match(contact, /lokálním prototypem/i);
+  assert.doesNotMatch(contact, /ověřený partner|garantovaná spolupráce/i);
+});
+
+test("M6.10 turns the canonical 16 areas and 7 paths into the same adult editorial system", () => {
+  const domains = readFileSync("src/app/16-oblasti/page.jsx", "utf8");
+  const paths = readFileSync("src/app/7-cest/page.jsx", "utf8");
+
+  assert.match(domains, /EditorialFeatureBand/);
+  assert.match(domains, /MAPA SOUVISLOSTÍ/);
+  assert.match(domains, /DOMAIN_DETAILS\.map/);
+  assert.match(domains, /LEARNING_DOMAINS\[index\]\.id/);
+
+  assert.match(paths, /EditorialFeatureBand/);
+  assert.match(paths, /RŮST BEZ ŽEBŘÍČKU/);
+  assert.match(paths, /PATHS\.map/);
+  assert.match(paths, /DEVELOPMENT_PATHS\[index\]\.id/);
+  assert.match(paths, /nemají pořadí, vítěze ani ideální profil/i);
+
+  assert.doesNotMatch(`${domains}\n${paths}`, /1000\+|ověřený dopad|garantovaný dopad|osobnostní skóre/i);
+});
+test("M6.11 completes the people, knowledge and place editorial layer", () => {
+  const files = ["family-team", "osobni-rust", "mapa", "blog"];
+  for (const file of files) {
+    const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
+    assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
+  }
+
+  const family = readFileSync("src/app/family-team/page.jsx", "utf8");
+  assert.match(family, /RODINA JAKO PRVNÍ TÝM/);
+  assert.match(family, /každý člen zůstává samostatnou identitou/i);
+  assert.doesNotMatch(family, /sdílený rodinný účet|společné heslo/i);
+
+  const growth = readFileSync("src/app/osobni-rust/page.jsx", "utf8");
+  assert.match(growth, /ZNALOST MEZI GENERACEMI/);
+  assert.match(growth, /Nejde o veřejný katalog mentorů ani tržiště protislužeb/i);
+  assert.doesNotMatch(growth, /navigator\.geolocation|MENTORS|nearby/i);
+
+  const map = readFileSync("src/app/mapa/page.jsx", "utf8");
+  assert.match(map, /MÍSTO, NE POLOHA ČLOVĚKA/);
+  assert.match(map, /Žádné veřejné sledování lidí, dětí ani jejich živého pohybu/i);
+  assert.match(map, /DEMO data/);
+
+  const blog = readFileSync("src/app/blog/page.jsx", "utf8");
+  assert.match(blog, /OBSAH S PAMĚTÍ A ZDROJEM/);
+  assert.match(blog, /Dokud materiál není skutečně publikovaný/i);
+  assert.doesNotMatch(blog, /publishedAt|authorId|viewsCount/);
+});
+
+test("M6.12 builds a clear public bridge from Pansofie into GO without merging GO with Young", () => {
+  const go = readFileSync("src/app/pansofie-go/page.jsx", "utf8");
+  const home = readFileSync("src/app/page.jsx", "utf8");
+  const how = readFileSync("src/app/jak-to-funguje/page.jsx", "utf8");
+
+  assert.match(go, /EditorialFeatureBand/);
+  assert.match(go, /APLIKACE PRO CELÝ EKOSYSTÉM/);
+  assert.match(go, /GO není Young/i);
+  assert.match(go, /PansofieGO je společná aplikace pro celý ekosystém Pansofie/i);
+  for (const step of ["Poznání", "Zkušenost", "Mise \/ projekt", "Portfolio \/ dovednost", "Skutečný dopad"]) {
+    assert.match(go, new RegExp(step));
+  }
+  for (const context of ["Jednotlivec", "Rodina", "Škola", "Komunita a organizace"]) {
+    assert.match(go, new RegExp(context));
+  }
+  assert.match(go, /Young a GO proto nejsou dvě jména pro totéž/i);
+  assert.doesNotMatch(go, /Young\s*[=/·-]+\s*GO|GO\s*[=/·-]+\s*Young/i);
+  assert.doesNotMatch(go, /veřejný žebříček|XP.*hodnotu člověka.*je/i);
+
+  assert.match(home, /Jak se z poznání stává akce v PansofieGO/);
+  assert.match(home, /Aplikace pro celý ekosystém Pansofie/);
+  assert.match(how, /Když chce člověk pokračovat do praxe, přichází PansofieGO/);
+  assert.match(how, /href="\/pansofie-go"/);
+});
+
+
+test("M6.13 closes MAIN public navigation, accessibility semantics and crawler boundaries", () => {
+  const shell = readFileSync("src/components/public/PublicShell.jsx", "utf8");
+  const story = readFileSync("src/components/public/ProgramStoryPage.jsx", "utf8");
+  const projects = readFileSync("src/app/projekty/page.jsx", "utf8");
+  const go = readFileSync("src/app/pansofie-go/page.jsx", "utf8");
+  const robots = readFileSync("src/app/robots.js", "utf8");
+
+  for (const group of ["Poznat Pansofii", "Praxe a projekty", "Lidé a organizace", "Důvěra a informace"]) {
+    assert.match(shell, new RegExp(group));
+  }
+  for (const href of ["/green-hope", "/urban-family-farm", "/family-team", "/digitalni-kompost", "/mapa-kolobehu", "/instituce", "/osobni-rust", "/kontakt"]) {
+    assert.match(shell, new RegExp(`\\["${href.replaceAll("/", "\\/")}"`));
+  }
+  assert.match(shell, /aria-current=\{current === href \? "page" : undefined\}/);
+  assert.match(shell, /aria-label="Mapa veřejné Pansofie"/);
+  assert.match(story, /current=\{current \|\| active\}/);
+
+  assert.match(readFileSync("src/app/green-hope/page.jsx", "utf8"), /active="\/projekty" current="\/green-hope"/);
+  assert.match(readFileSync("src/app/urban-family-farm/page.jsx", "utf8"), /active="\/projekty" current="\/urban-family-farm"/);
+  assert.match(readFileSync("src/app/family-team/page.jsx", "utf8"), /active="\/projekty" current="\/family-team"/);
+  assert.match(readFileSync("src/app/pro-skoly/page.jsx", "utf8"), /active="\/pro-skoly" current="\/pro-skoly"/);
+  assert.match(go, /<PublicShell active="\/pansofie-go">/);
+
+  assert.match(projects, /"Komunitní zahrada": "\/mise\/rostlina"/);
+  assert.doesNotMatch(projects, /"Komunitní zahrada": "\/go\//);
+  for (const privateRoot of ['"/app"', '"/go"', '"/auth/"', '"/login"', '"/onboarding"']) {
+    assert.match(robots, new RegExp(privateRoot.replaceAll("/", "\\/")));
+  }
+});
+
+
+test("M6.14 makes public navigation task-oriented and separates GO as a geolocation game", () => {
+  const shell = readFileSync("src/components/public/PublicShell.jsx", "utf8");
+  const css = readFileSync("src/app/public-pansofie.css", "utf8");
+  const navModel = shell.slice(shell.indexOf("const PUBLIC_NAV_GROUPS"), shell.indexOf("const FOOTER_GROUPS"));
+
+  for (const label of ["Domů", "Objevuj", "Projekty", "Komunita", "Zapoj se"]) assert.match(navModel, new RegExp(label));
+  assert.doesNotMatch(navModel, /pansofie-go|young/i);
+  assert.match(shell, /pw-go-launch/);
+  assert.match(shell, /Geolokační hra/);
+  assert.match(shell, /pw-menu__group-title/);
+  assert.match(css, /\.pw-nav-group:focus-within \.pw-nav-panel/);
+  assert.match(css, /max-height: calc\(100vh - 88px\)/);
+});
+
+test("M6.15 gives each public navigation group a real landing page and stable active context", () => {
+  const shell = readFileSync("src/components/public/PublicShell.jsx", "utf8");
+  const navModel = shell.slice(shell.indexOf("const PUBLIC_NAV_GROUPS"), shell.indexOf("const FOOTER_GROUPS"));
+
+  for (const [label, href] of [["Objevuj", "/jak-to-funguje"], ["Projekty", "/projekty"], ["Komunita", "/sit"], ["Zapoj se", "/pro-koho"]]) {
+    assert.match(navModel, new RegExp(`label: "${label}", href: "${href.replaceAll("/", "\\/")}"`));
+  }
+  assert.match(navModel, /label: "Zapoj se"[^\n]*match: \["\/pro-koho", "\/pro-skoly", "\/pro-organizace", "\/kontakt"\]/);
+  assert.doesNotMatch(navModel, /label: "Komunita"[^\n]*\/pro-koho/);
+
+  for (const route of ["jak-to-funguje", "o-nas", "vize", "knihovna", "blog", "digitalni-kompost", "mapa-kolobehu", "mapa", "sit", "instituce", "osobni-rust", "pro-koho", "pro-organizace", "kontakt"]) {
+    const source = readFileSync(`src/app/${route}/page.jsx`, "utf8");
+    assert.match(source, new RegExp(`<PublicShell active="\\/${route}"`), `${route} should expose its public navigation context`);
+  }
+});
+
+test("M6.16 presents Pansofie GO primarily as a location-based game without public people tracking", () => {
+  const go = readFileSync("src/app/pansofie-go/page.jsx", "utf8");
+  assert.match(go, /GEOLOKAČNÍ HRA/);
+  assert.match(go, /Město je herní mapa/);
+  assert.match(go, /Mapa.*checkpointy.*mise.*projekty/is);
+  assert.match(go, /href="\/go\/mapa"/);
+  assert.match(go, /Poloha se používá jen po aktivním spuštění uživatelem/i);
+  assert.match(go, /nemá ukazovat přesnou polohu dítěte ani živý pohyb lidí/i);
+});

@@ -15,7 +15,7 @@ export async function updateSession(request) {
   });
   const { data } = await supabase.auth.getClaims();
   const path = request.nextUrl.pathname;
-  const protectedPath = path === "/app" || path.startsWith("/app/") || path.startsWith("/young/kids") || path.startsWith("/young/teens") || path.startsWith("/onboarding");
+  const protectedPath = path === "/app" || path.startsWith("/app/") || path.startsWith("/young/kids") || path.startsWith("/young/teens") || path === "/go" || path.startsWith("/go/") || path.startsWith("/onboarding");
   if (protectedPath && !data?.claims?.sub) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { ECOSYSTEM_CHAIN, ECOSYSTEM_PRINCIPLE, KNOWLEDGE_EXCHANGE } from "../../domain/pansofie-content";
 import { pansofiePhoto } from "../../domain/asset-system";
 
@@ -10,11 +11,21 @@ export const metadata = {
 };
 
 export default function AboutPage() {
-  return <PublicShell>
+  return <PublicShell active="/o-nas">
     <section className="pw-page-hero">
       <div><p className="pw-eyebrow">O PANSOFII</p><h1>Člověk, příroda a společnost nejsou oddělené světy.</h1><p>Pansofie vzniká jako rámec pro učení v souvislostech. Spojuje poznání, zkušenost, tvorbu, spolupráci a reflexi tak, aby se vzdělávání mohlo vrátit do skutečného života.</p></div>
       <div className="pw-page-hero__media"><Image src={pansofiePhoto("prague-nature-16x9")} alt="Město a příroda jako propojený životní prostor" fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
     </section>
+
+    <EditorialFeatureBand
+      eyebrow="UČENÍ ŽIVOTEM"
+      title="Moudrost není sbírka odpovědí. Je schopnost vidět vztahy."
+      text="Pansofie propojuje člověka, rodinu, místo, přírodu, technologie i společnost. Smyslem není přidat další oddělený předmět, ale pomoci vidět, jak rozhodnutí v jedné oblasti ovlivňuje ostatní."
+      image={pansofiePhoto("growing-together-16x9")}
+      imageAlt="Lidé různých generací spolupracují v prostředí propojeném s přírodou"
+      items={[["Člověk", "Poznání sebe, těla, mysli, emocí a vlastních rozhodnutí."], ["Rodina", "První tým, ve kterém se zkušenost, péče a odpovědnost potkávají."], ["Místo", "Škola, město a příroda jako prostředí pro skutečné učení."], ["Svět", "Poznání, které může přejít do tvorby, pomoci a odpovědné změny."]]}
+      link={{ href: "/jak-to-funguje", label: "Jak se rámec převádí do praxe" }}
+    />
 
     <section className="pw-story-intro">
       <div><p className="pw-eyebrow">PRINCIP</p><h2>{ECOSYSTEM_PRINCIPLE}</h2></div>

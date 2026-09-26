@@ -10,15 +10,39 @@ import { PROJECT_GREEN_HOPE_GROW_001 } from "../../domain/project-core";
 
 const TAB_SETS = Object.freeze({
   explore: Object.freeze([
-    ["Domů", "Domů"], ["Mise", "Výpravy"], ["Projekty", "Tvořím"], ["Moje cesta", "Moje cesta"], ["Bezpečí", "Bezpečí"],
+    ["Domů", "Domů"], ["Objevuj", "Objevuj"], ["Hraj", "Hraj"], ["Mise", "Výpravy"], ["Projekty", "Tvořím"], ["Moje cesta", "Moje cesta"], ["Profil", "Profil"], ["Bezpečí", "Bezpečí"],
   ]),
   quest: Object.freeze([
-    ["Domů", "Domů"], ["Mise", "Mise"], ["Projekty", "Projekty"], ["Moje cesta", "Moje cesta"], ["Komunita", "Můj tým"], ["Bezpečí", "Bezpečí"],
+    ["Domů", "Domů"], ["Objevuj", "Objevuj"], ["Hraj", "Hraj"], ["Mise", "Mise"], ["Projekty", "Projekty"], ["Mapa", "Mapa"], ["Tým", "Můj tým"], ["Moje cesta", "Moje cesta"], ["Komunita", "Komunita"], ["Profil", "Profil"], ["Bezpečí", "Bezpečí"],
   ]),
   impact: Object.freeze([
-    ["Domů", "Domů"], ["Mise", "Mise"], ["Projekty", "Projekty"], ["Moje cesta", "Moje cesta"], ["Komunita", "Komunita"], ["Mentor", "Mentor"], ["Bezpečí", "Bezpečí"],
+    ["Domů", "Domů"], ["Objevuj", "Objevuj"], ["Hraj", "Hraj"], ["Mise", "Mise"], ["Projekty", "Projekty"], ["Mapa", "Mapa"], ["Tým", "Tým"], ["Moje cesta", "Moje cesta"], ["Komunita", "Komunita"], ["Mentor", "Mentor"], ["Profil", "Profil"], ["Bezpečí", "Bezpečí"],
   ]),
 });
+
+const YOUNG_DISCOVERY = Object.freeze([
+  ["AI a technologie","Jak nástroje mění tvorbu, práci a rozhodování.","/assets/brand/young/scenes/topic-ai.svg"],
+  ["Vztahy a identita","Jak rozumět sobě, hranicím a lidem kolem sebe.","/assets/brand/young/scenes/topic-relationships.svg"],
+  ["Klima a příroda","Co lze pozorovat, zkusit a skutečně ovlivnit.","/assets/brand/young/scenes/topic-climate.svg"],
+  ["Společnost a budoucnost","Jak vznikají pravidla, změna a společná rozhodnutí.","/assets/brand/young/scenes/topic-society.svg"],
+  ["Vzdělávání","Jak se učit zkušeností, otázkou a tvorbou.","/assets/brand/young/scenes/topic-learning.svg"],
+  ["Práce a hodnota","Jak vzniká užitek, odpovědnost a spolupráce.","/assets/brand/young/scenes/topic-future.svg"],
+]);
+const YOUNG_PLAY = Object.freeze([
+  ["QUIZ","Co bys udělal/a?","Krátká situace s více úhly pohledu. Ne test osobnosti.","/assets/brand/young/scenes/play-quiz.svg"],
+  ["DEBATA TÝDNE","Dva pohledy. Žádná povinná správná strana.","Argumenty, zdroje a prostor vytvořit si vlastní názor.","/assets/brand/young/scenes/play-debate.svg"],
+  ["MINI SÉRIE","Jedno téma po malých částech.","Obsah, pokus a otázka, která může pokračovat misí.","/assets/brand/young/scenes/play-series.svg"],
+]);
+const YOUNG_CONTEXT_SCENES = Object.freeze({
+  map: "/assets/brand/young/scenes/map-safe-places.svg",
+  team: "/assets/brand/young/scenes/team-safe-context.svg",
+  community: "/assets/brand/young/scenes/community-circles.svg",
+  mentor: "/assets/brand/young/scenes/mentor-guide.svg",
+  profile: "/assets/brand/young/scenes/profile-private.svg",
+  portfolio: "/assets/brand/young/scenes/portfolio-private.svg",
+  empty: "/assets/brand/young/scenes/empty-gentle.svg",
+});
+
 const MISSION_STATUS = Object.freeze({
   not_started: "Ještě nezačato",
   assigned: "Připraveno",
@@ -46,8 +70,8 @@ function ContextCard({ account }) {
   );
 }
 
-export default function YoungWorkspace({ variant = "kids", presentation, displayName, account }) {
-  const [active, setActive] = useState("Domů");
+export default function YoungWorkspace({ variant = "kids", presentation, displayName, account, initialActive = "Domů" }) {
+  const [active, setActive] = useState(initialActive);
   const mode = presentation?.id || (variant === "teens" ? "impact" : "quest");
   const copy = presentation || { label: "Young", ageLabel: "", eyebrow: "PANSOFIE YOUNG", title: "Můj Young prostor", lead: "Uč se zkušeností." };
   const tabs = TAB_SETS[mode] || TAB_SETS.quest;
@@ -60,6 +84,11 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
     : mode === "quest"
       ? "/assets/brand/young/photos/hero-rooftop-left-safe-16x9.webp"
       : "/assets/brand/young/photos/creative-studio-16x9.webp";
+  const heroImageMobile = mode === "explore"
+    ? "/assets/brand/young/photos/explorers-nature-4x5.webp"
+    : mode === "quest"
+      ? "/assets/brand/young/photos/hero-rooftop-left-safe-4x5.webp"
+      : "/assets/brand/young/photos/creative-studio-4x5.webp";
   const heroThread = mode === "explore"
     ? "OTÁZKA → POKUS → OBJEV"
     : mode === "quest"
@@ -79,7 +108,7 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
           </div>
         </div>
         <div className="young-product-hero-media">
-          <Image src={heroImage} alt="Mladí lidé při objevování, tvoření a spolupráci" width={880} height={620} priority />
+          <picture><source media="(max-width: 760px)" srcSet={heroImageMobile}/><Image src={heroImage} alt="Mladí lidé při objevování, tvoření a spolupráci" width={880} height={620} priority /></picture>
           <span>{heroThread}</span>
         </div>
       </header>
@@ -105,7 +134,7 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
               </div>
               <Link className="young-product-primary" href="/go/mise-grow">{missionPresentation.actionLabel}</Link>
             </div>
-            <Image src="/assets/brand/go/mission-covers/grow-16x9.webp" alt="Rostlina jako první praktická Green Hope mise" width={720} height={480} />
+            <Image className="is-scene" src="/assets/brand/young/scenes/mission-grow.svg" alt="Mladý člověk sází a pozoruje první rostlinu" width={720} height={480} />
           </section>
 
           <section className="young-product-grid young-product-grid--three" aria-label="Přehled účtu">
@@ -124,6 +153,60 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
           </section>
         </main>
       )}
+
+      {active === "Objevuj" && (
+        <main className="young-product-main">
+          <section className="young-product-section-head">
+            <div><span className="young-product-kicker">OTÁZKY MÍSTO PŘEDMĚTŮ</span><h2>Objevuj svět po souvislostech.</h2></div>
+            <p>Témata nejsou oddělené šuplíky. Jedna otázka může spojit přírodu, technologie, vztahy, práci i budoucnost.</p>
+          </section>
+          <div className="young-product-discovery-cards">
+            {YOUNG_DISCOVERY.map(([title,text,image],index)=><article key={title}><Image src={image} alt="" width={420} height={236}/><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}
+          </div>
+        </main>
+      )}
+
+      {active === "Hraj" && (
+        <main className="young-product-main">
+          <section className="young-product-section-head">
+            <div><span className="young-product-kicker">HRAVÉ FORMÁTY · VIZUÁLNÍ PROTOTYP</span><h2>Quiz, debata a mini série bez pasti na pozornost.</h2></div>
+            <p>Hravost má otevřít otázku a vést ke zkušenosti. Tyto karty jsou vizuální board, ne tvrzení o živém feedu nebo publikovaném obsahu.</p>
+          </section>
+          <div className="young-play-board">
+            {YOUNG_PLAY.map(([type,title,text,image])=><article key={type}><Image src={image} alt="" width={420} height={236}/><span className="young-product-kicker">{type}</span><h3>{title}</h3><p>{text}</p></article>)}
+          </div>
+        </main>
+      )}
+
+      {active === "Mapa" && (
+        <main className="young-product-main">
+          <section className="young-product-section-head">
+            <div><span className="young-product-kicker">MAPA MÍST, NE DĚTÍ</span><h2>Checkpointy patří k místům a projektům.</h2></div>
+            <p>Young nezobrazuje přesnou polohu dítěte ani lidi „poblíž“. Mapa ukazuje jen bezpečné kontexty, veřejná místa a schválené projektové body.</p>
+          </section>
+          <figure className="young-context-visual"><Image src={YOUNG_CONTEXT_SCENES.map} alt="Mapa ukazuje projekt, školu a veřejné místo bez polohy dítěte" width={960} height={540}/><figcaption>Projekt · škola · veřejné místo. Mapa míst, ne lidí.</figcaption></figure>
+          <div className="young-product-grid young-product-grid--three"><article className="young-product-card"><span className="young-product-kicker">PROJEKT</span><h3>Green Hope bod</h3><p>Modelový projektový checkpoint bez přesné osobní polohy.</p></article><article className="young-product-card"><span className="young-product-kicker">ŠKOLA</span><h3>Školní kontext</h3><p>Místo spravované školou nebo třídou s jasnými rolemi.</p></article><article className="young-product-card"><span className="young-product-kicker">VEŘEJNÉ MÍSTO</span><h3>Dílna / knihovna / zahrada</h3><p>Bezpečný bod pro aktivitu, ne profil člověka.</p></article></div>
+        </main>
+      )}
+
+      {active === "Tým" && (
+        <main className="young-product-main">
+          <section className="young-product-section-head">
+            <div><span className="young-product-kicker">TÝMY A MATCHING</span><h2>Spolupracuj přes ověřený kontext.</h2></div>
+            <p>Matching nehledá cizí lidi v okolí. Páruje roli, potřebu projektu a schválený tým nebo organizaci.</p>
+          </section>
+          <figure className="young-context-visual"><Image src={YOUNG_CONTEXT_SCENES.team} alt="Mladý člověk spolupracuje v ověřeném rodinném nebo školním týmu" width={960} height={540}/><figcaption>Spolupráce přes ověřený kontext, ne přes veřejné hledání lidí.</figcaption></figure>
+          <div className="young-product-grid young-product-grid--three"><ContextCard account={account}/><article className="young-product-card"><span className="young-product-kicker">RODINA / PRŮVODCE</span><h3>{account.guardianState === "verified" ? "Ověřené propojení" : account.guardianState === "pending" ? "Čeká na ověření" : "Bez propojení"}</h3><p>{guardianCopy(account.guardianState)}</p></article><article className="young-product-card"><span className="young-product-kicker">MATCHING · PROTOTYP</span><h3>Potřeba projektu ↔ bezpečný kontext</h3><p>Žádný veřejný seznam dětí, nearby discovery ani přímé zprávy neznámým dospělým.</p></article></div>
+        </main>
+      )}
+
+      {active === "Profil" && (
+        <main className="young-product-main">
+          <section className="young-profile-board"><Image className="young-profile-scene" src={YOUNG_CONTEXT_SCENES.profile} alt="Soukromý profil odděluje identitu od veřejného hodnocení" width={960} height={540}/><div className="young-profile-avatar" aria-hidden="true">{(displayName || "Y").trim().slice(0,1).toUpperCase()}</div><span className="young-product-kicker">SOUKROMÝ PROFIL</span><h2>{displayName || "Můj svět"}</h2><p>{copy.label} · {copy.ageLabel}</p><div><span><strong>{account.portfolioCount}</strong> portfolio</span><span><strong>{account.project.completed}/{account.project.total || 1}</strong> projekt</span><span><strong>{missionStatus}</strong> mise</span></div></section>
+          <section className="young-achievement-board"><div><span className="young-product-kicker">XP / LEVEL / ACHIEVEMENTS · VIZUÁLNÍ BOARD</span><h2>Herní vrstva ano. Hodnocení člověka ne.</h2><p>Dokud účet nemá ověřený herní ledger, Young nevymýšlí falešné XP, level ani získané odznaky.</p></div><div className="young-achievement-placeholders"><span>XP<br/><small>bez fake hodnoty</small></span><span>LEVEL<br/><small>bez fake úrovně</small></span><span>ODZNAKY<br/><small>jen za skutečnou zkušenost</small></span></div></section>
+        </main>
+      )}
+
       {active === "Mise" && (
         <main className="young-product-main">
           <section className="young-product-section-head">
@@ -164,6 +247,7 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
             <div><span className="young-product-kicker">MOJE CESTA</span><h2>Zkušenosti místo skóre člověka.</h2></div>
             <p>Mise, projekty a portfolio ukazují, co jsi opravdu zkusil nebo vytvořil. Nehodnotí tvoji cenu ani osobnost.</p>
           </section>
+          <figure className="young-context-visual"><Image src={account.portfolioCount ? YOUNG_CONTEXT_SCENES.portfolio : YOUNG_CONTEXT_SCENES.empty} alt={account.portfolioCount ? "Soukromé portfolio propojuje konkrétní zkušenosti a výstupy" : "Prázdný stav nabízí další krok bez tlaku a falešného pokroku"} width={960} height={540}/><figcaption>{account.portfolioCount ? "Portfolio drží konkrétní zkušenosti. Není to veřejný žebříček." : "Prázdno není selhání. Další krok je nabídka, ne povinnost."}</figcaption></figure>
           <div className="young-product-grid young-product-grid--three">
             <article className="young-product-card"><span className="young-product-kicker">MISE</span><h3>{missionStatus}</h3><p>{MISSION_GROW_001.titleCs}</p></article>
             <article className="young-product-card"><span className="young-product-kicker">PROJEKT</span><h3>{account.project.completed}/{account.project.total || 1}</h3><p>{PROJECT_GREEN_HOPE_GROW_001.titleCs}</p></article>
@@ -180,6 +264,7 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
             <div><span className="young-product-kicker">BEZPEČNÉ KRUHY</span><h2>Spolupracuj tam, kde je jasný kontext.</h2></div>
             <p>Young nehledá lidi v okolí a nenabízí přímé zprávy neznámým dospělým. Spolupráce patří do rodiny, školy, týmu nebo schváleného projektu.</p>
           </section>
+          <figure className="young-context-visual"><Image src={YOUNG_CONTEXT_SCENES.community} alt="Rodina, škola a projekt tvoří oddělené bezpečné komunitní kruhy" width={960} height={540}/><figcaption>Bezpečné kruhy podle vztahu a role, ne veřejný katalog lidí.</figcaption></figure>
           <div className="young-product-grid young-product-grid--three">
             <ContextCard account={account} />
             <article className="young-product-card">
@@ -202,6 +287,7 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
             <div><span className="young-product-kicker">PRŮVODCE</span><h2>Další krok, ne automatická autorita.</h2></div>
             <p>Mentor může pomoct otázkou, vysvětlením nebo plánem. Nenahrazuje rodiče, pedagoga ani odbornou pomoc.</p>
           </section>
+          <figure className="young-context-visual"><Image src={YOUNG_CONTEXT_SCENES.mentor} alt="Průvodce pomáhá rozdělit otázku na bezpečné další kroky" width={960} height={540}/><figcaption>Průvodce pomáhá s orientací. Není automatická autorita ani živý chat.</figcaption></figure>
           <div className="young-product-grid young-product-grid--two">
             {["Chci pochopit, jak něco funguje", "Potřebuju rozdělit nápad na malé kroky", "Chci si připravit bezpečný projekt", "Chci si zapsat, co jsem se naučil"].map((item) => (
               <article className="young-product-card" key={item}><h3>{item}</h3><p>Průvodce zatím nabízí bezpečný směr. Tato obrazovka nepředstírá živý chat ani lidskou odpověď.</p></article>
@@ -231,10 +317,10 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
             <div><span className="young-product-kicker">JAK SE UČÍME</span><h2 id="young-discovery-title">Od otázky ke zkušenosti.</h2></div>
             <p>Šest kroků je nabídka cesty, ne povinná kontrolní listina.</p>
           </div>
-          <div className="young-product-method">
+          <div className="young-product-method" tabIndex={0} aria-label="Metodika Pansofie">
             {LEARNING_METHOD.map((step, index) => <span key={step}><b>{String(index + 1).padStart(2, "0")}</b>{step}</span>)}
           </div>
-          <div className="young-product-domain-strip" aria-label="16 oblastí Pansofie">
+          <div className="young-product-domain-strip" tabIndex={0} aria-label="16 oblastí Pansofie">
             {DOMAIN_DETAILS.map(([title, description]) => <article key={title}><strong>{title}</strong><span>{description}</span></article>)}
           </div>
         </section>

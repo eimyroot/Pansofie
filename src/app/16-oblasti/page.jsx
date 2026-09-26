@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { DOMAIN_DETAILS } from "../../domain/pansofie-content";
 import { LEARNING_DOMAINS } from "../../domain/learning-core";
 import { domainIcon, pansofiePhoto } from "../../domain/asset-system";
@@ -18,6 +19,16 @@ export default function DomainsPage() {
       <div><p className="pw-eyebrow">CO POZNÁVÁME</p><h1>16 oblastí.<br/>Jeden život.</h1><p>Život není rozdělený do předmětů. Tělo ovlivňuje mysl, vztahy rodinu, technologie společnost a naše rozhodnutí svět kolem nás. Pansofie proto pracuje se šestnácti oblastmi jako s jedním propojeným celkem.</p></div>
       <div className="pw-page-hero__media"><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="Pozorování přírody jako součást poznávání světa" fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
     </section>
+
+    <EditorialFeatureBand
+      eyebrow="MAPA SOUVISLOSTÍ"
+      title="Šestnáct oblastí není šestnáct šuplíků."
+      text="Skutečný život protíná více oblastí najednou. Rozhodnutí o práci se dotýká financí, vztahů i zdraví; technologie mění společnost i naši pozornost; péče o přírodu souvisí s občanstvím, ekonomikou a tím, jak chceme žít. Oblasti proto slouží jako mapa pro otázky, ne jako oddělené školní předměty."
+      image={pansofiePhoto("community-city-16x9")}
+      imageAlt="Lidé v městském prostředí jako součást propojeného systému života"
+      items={[["Já a tělo", "Vnitřní stav ovlivňuje rozhodování, energii i vztahy."], ["Vztahy a rodina", "Blízké prostředí formuje způsob, jak spolupracujeme a pečujeme."], ["Práce a technologie", "Nástroje, tvorba hodnoty a odpovědnost se vyvíjejí společně."], ["Příroda a společnost", "Místo, zdroje a občanská rozhodnutí patří do stejného světa."]]}
+      link={{ href: "/7-cest", label: "Podívat se na 7 cest růstu" }}
+    />
 
     <nav className="pw-anchor-nav" aria-label="Oblasti života">
       {PUBLIC_DOMAINS.map((domain, index) => <a key={domain.id} href={`#${domain.id}`}>{String(index + 1).padStart(2,"0")} {domain.title}</a>)}

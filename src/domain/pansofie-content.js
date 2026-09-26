@@ -51,17 +51,18 @@ export const MISSIONS = [
     program: "Green Hope",
     programId: MISSION_GROW_001.program,
     image: "/assets/brand/go/mission-covers/grow-16x9.webp",
+    thumbnailImage: "/assets/brand/go/mission-covers/grow-1x1.webp",
     detail: "Vyber semena, zasaď je, sleduj růst a zaznamenej, co rostlina potřebuje.",
     learningCycle: MISSION_GROW_001,
   },
-  { id: "videohovor", title: "Nauč prarodiče používat videohovor", area: "Vztahy", xp: 40, progress: 0, program: "Knowledge Exchange", image: "/assets/brand/go/mission-covers/help-4x5.webp", detail: "Předej jednu digitální dovednost bezpečně, trpělivě a s respektem." },
-  { id: "jidlo", title: "Uvař zdravé jídlo s rodinou", area: "Zdraví", xp: 35, progress: 1, program: "Family Team", image: "/assets/brand/go/mission-covers/community-16x9.webp", detail: "Naplánujte jídlo, rozdělte si role, připravte ho a společně zhodnoťte výsledek." },
-  { id: "puvod", title: "Zjisti, odkud pochází potraviny", area: "Poznávej", xp: 30, progress: 0, program: "Green Hope", image: "/assets/brand/go/mission-covers/explore-16x9.webp", detail: "Vyber tři potraviny, zjisti jejich původ a porovnej lokální alternativu." },
-  { id: "odpad", title: "Vytvoř něco z odpadu", area: "Tvořivost", xp: 45, progress: 0, program: "Green Hope", image: "/assets/brand/go/mission-covers/create-16x9.webp", detail: "Proměň nepotřebný materiál ve funkční výrobek, prototyp nebo umělecký objekt." },
-  { id: "pomoc", title: "Pomoz člověku ve svém okolí", area: "Spolupráce", xp: 40, progress: 0, program: "PansofieGO", image: "/assets/brand/go/mission-covers/help-4x5.webp", detail: "Najdi bezpečnou konkrétní pomoc, domluv ji a udělej jeden dokončitelný krok." },
-  { id: "komunita", title: "Založ malý komunitní projekt", area: "Spolupráce", xp: 70, progress: 0, program: "PansofieGO", image: "/assets/brand/go/mission-covers/community-16x9.webp", detail: "Pojmenuj problém, sestav malý tým, domluv první krok a ukaž výsledek." },
-  { id: "prvni-vydelek", title: "Vydělej první peníze vlastní činností", area: "Samostatnost", xp: 60, progress: 0, program: "Urban Family Farm", image: "/assets/brand/go/mission-covers/grow-16x9.webp", detail: "Vytvoř jednoduchou hodnotu, spočítej náklady a bezpečně otestuj první prodej nebo odměnu." },
-  { id: "predani", title: "Nauč mladšího účastníka něco, co umíš", area: "Vztahy", xp: 45, progress: 0, program: "Knowledge Exchange", image: "/assets/brand/go/mission-covers/help-4x5.webp", detail: "Připrav krátké vysvětlení, ukaž postup, nech druhého vyzkoušet a společně reflektujte." },
+  { id: "videohovor", title: "Nauč prarodiče používat videohovor", area: "Vztahy", xp: 40, progress: 0, program: "Knowledge Exchange", image: "/assets/brand/go/scenes/video-call-help.svg", detail: "Předej jednu digitální dovednost bezpečně, trpělivě a s respektem." },
+  { id: "jidlo", title: "Uvař zdravé jídlo s rodinou", area: "Zdraví", xp: 35, progress: 1, program: "Family Team", image: "/assets/brand/go/scenes/family-cooking.svg", detail: "Naplánujte jídlo, rozdělte si role, připravte ho a společně zhodnoťte výsledek." },
+  { id: "puvod", title: "Zjisti, odkud pochází potraviny", area: "Poznávej", xp: 30, progress: 0, program: "Green Hope", image: "/assets/brand/go/scenes/food-origin.svg", detail: "Vyber tři potraviny, zjisti jejich původ a porovnej lokální alternativu." },
+  { id: "odpad", title: "Vytvoř něco z odpadu", area: "Tvořivost", xp: 45, progress: 0, program: "Green Hope", image: "/assets/brand/go/scenes/upcycle-build.svg", detail: "Proměň nepotřebný materiál ve funkční výrobek, prototyp nebo umělecký objekt." },
+  { id: "pomoc", title: "Pomoz člověku ve svém okolí", area: "Spolupráce", xp: 40, progress: 0, program: "PansofieGO", image: "/assets/brand/go/scenes/safe-help.svg", detail: "Najdi bezpečnou konkrétní pomoc, domluv ji a udělej jeden dokončitelný krok." },
+  { id: "komunita", title: "Založ malý komunitní projekt", area: "Spolupráce", xp: 70, progress: 0, program: "PansofieGO", image: "/assets/brand/go/scenes/community-project.svg", detail: "Pojmenuj problém, sestav malý tým, domluv první krok a ukaž výsledek." },
+  { id: "prvni-vydelek", title: "Vydělej první peníze vlastní činností", area: "Samostatnost", xp: 60, progress: 0, program: "Urban Family Farm", image: "/assets/brand/go/scenes/micro-enterprise.svg", detail: "Vytvoř jednoduchou hodnotu, spočítej náklady a bezpečně otestuj první prodej nebo odměnu." },
+  { id: "predani", title: "Nauč mladšího účastníka něco, co umíš", area: "Vztahy", xp: 45, progress: 0, program: "Knowledge Exchange", image: "/assets/brand/go/scenes/teach-younger.svg", detail: "Připrav krátké vysvětlení, ukaž postup, nech druhého vyzkoušet a společně reflektujte." },
 ];
 
 export const GREEN_HOPE_TOPICS = [
@@ -90,14 +91,14 @@ export const IMPACT_DIMENSIONS = [
 ];
 
 export const PROJECTS = [
-  { title: "Green Hope", tag: "Příroda · udržitelnost", status: "Idea / prototyp", image: "/assets/brand/pansofie/scenes/green-hope-lab.svg", description: "Praktické environmentální mise: pěstování, kompost, voda, biodiverzita a péče o konkrétní místo." },
-  { title: "Urban Family Farm", tag: "Město · rodina · jídlo", status: "Prototyp", image: "/assets/brand/pansofie/scenes/urban-farm-system.svg", description: "Praktická laboratoř života propojující pěstování, ekonomiku, matematiku, podnikání a spolupráci." },
-  { title: "Family Team", tag: "Rodina · spolupráce", status: "Model programu", image: "/assets/brand/pansofie/scenes/family-team-missions.svg", description: "Rodinný tým s vlastními společnými misemi, projekty, rolemi a bezpečným sdíleným prostorem." },
+  { title: "Green Hope", tag: "Příroda · udržitelnost", status: "Idea / prototyp", image: "/assets/brand/go/scenes/green-hope-project.svg", description: "Praktické environmentální mise: pěstování, kompost, voda, biodiverzita a péče o konkrétní místo." },
+  { title: "Urban Family Farm", tag: "Město · rodina · jídlo", status: "Prototyp", image: "/assets/brand/go/scenes/urban-farm-project.svg", description: "Praktická laboratoř života propojující pěstování, ekonomiku, matematiku, podnikání a spolupráci." },
+  { title: "Family Team", tag: "Rodina · spolupráce", status: "Model programu", image: "/assets/brand/go/scenes/family-team-project.svg", description: "Rodinný tým s vlastními společnými misemi, projekty, rolemi a bezpečným sdíleným prostorem." },
   { id: "komunitni-zahrada", blueprintId: PROJECT_GREEN_HOPE_GROW_001.id, programId: PROJECT_GREEN_HOPE_GROW_001.program, missionIds: PROJECT_GREEN_HOPE_GROW_001.missionIds, impactDimensionIds: PROJECT_GREEN_HOPE_GROW_001.impactDimensionIds, modelOnly: true, title: PROJECT_GREEN_HOPE_GROW_001.titleCs, tag: "Green Hope · modelový projekt", status: "Model projektu", image: "/assets/brand/go/mission-covers/grow-16x9.webp", description: PROJECT_GREEN_HOPE_GROW_001.summaryCs },
-  { title: "Mikrogreens farma", tag: "Pěstování · podnikavost", status: "Model projektu", image: "/assets/brand/go/mission-covers/grow-16x9.webp", description: "Krátký pěstitelský cyklus vhodný pro školy, rodiny i komunitní piloty s jednoduchou ekonomikou." },
-  { title: "Kompostovací centrum", tag: "Cirkularita · materiály", status: "Model projektu", image: "/assets/brand/go/mission-covers/create-16x9.webp", description: "Praktické místo pro bioodpad, půdu, měření a spolupráci školy, rodin a komunity." },
-  { title: "Knowledge Exchange", tag: "Mezigenerační učení", status: "Koncept", image: "/assets/brand/go/mission-covers/help-4x5.webp", description: "Výměna znalostí mezi generacemi: každý něco umí, každý se může něco naučit." },
-  { title: "Makerspace Pansofie", tag: "Technologie · tvorba", status: "Koncept", image: "/assets/brand/young/photos/creative-studio-16x9.webp", description: "Dílna pro řemeslo, digitální tvorbu, opravy, prototypování a smysluplné využití materiálů." },
+  { title: "Mikrogreens farma", tag: "Pěstování · podnikavost", status: "Model projektu", image: "/assets/brand/go/scenes/microgreens-work.svg", description: "Krátký pěstitelský cyklus vhodný pro školy, rodiny i komunitní piloty s jednoduchou ekonomikou." },
+  { title: "Kompostovací centrum", tag: "Cirkularita · materiály", status: "Model projektu", image: "/assets/brand/go/scenes/compost-center.svg", description: "Praktické místo pro bioodpad, půdu, měření a spolupráci školy, rodin a komunity." },
+  { title: "Knowledge Exchange", tag: "Mezigenerační učení", status: "Koncept", image: "/assets/brand/go/scenes/knowledge-exchange-project.svg", description: "Výměna znalostí mezi generacemi: každý něco umí, každý se může něco naučit." },
+  { title: "Makerspace Pansofie", tag: "Technologie · tvorba", status: "Koncept", image: "/assets/brand/go/scenes/makerspace-project.svg", description: "Dílna pro řemeslo, digitální tvorbu, opravy, prototypování a smysluplné využití materiálů." },
 ];
 
 export const CHECKPOINTS = [

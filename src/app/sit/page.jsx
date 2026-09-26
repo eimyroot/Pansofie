@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { CHECKPOINTS, KNOWLEDGE_EXCHANGE } from "../../domain/pansofie-content";
-import { pansofieScene } from "../../domain/asset-system";
+import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Síť spolupráce",
@@ -17,7 +18,7 @@ const PRINCIPLES = [
 ];
 
 export default function NetworkPage() {
-  return <PublicShell>
+  return <PublicShell active="/sit">
     <section className="pw-page-hero pw-page-hero--reverse">
       <div><p className="pw-eyebrow">SÍŤ PANSOFIE</p><h1>Propojení, které začíná blízko.</h1><p>Pansofie může spojovat jednotlivce, rodiny, školy, komunity a organizace. Ne jako veřejný katalog lidí, ale přes ověřené vztahy, projekty a bezpečné kontexty.</p></div>
       <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("organization-network")} alt="Schéma propojené sítě lidí a organizací" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
@@ -26,6 +27,16 @@ export default function NetworkPage() {
       <div><p className="pw-eyebrow">JAK SÍŤ FUNGUJE</p><h2>Každý uzel má vlastní roli.</h2></div>
       <div><p>Rodina není škola, škola není komunita a komunita není organizace. Sdílejí ale projekty, zkušenosti a možnosti spolupráce. Pansofie drží identity a oprávnění oddělené.</p><small>Ukázkové checkpointy níže nejsou seznamem potvrzených partnerů ani přesnými místy dětí.</small></div>
     </section>
+
+    <EditorialFeatureBand
+      eyebrow="KOMUNITA, NE FEED"
+      title="Silná síť nevzniká počtem kontaktů. Vzniká tím, že si lidé umějí konkrétně pomoct."
+      text="Rodina, třída, místní firma, senior, spolek nebo městská iniciativa mohou být součástí stejného projektu, aniž by se z Pansofie stala veřejná sociální síť lidí a jejich poloh."
+      image={pansofiePhoto("growing-together-16x9")}
+      imageAlt="Mezigenerační spolupráce lidí na společné činnosti"
+      items={[["Rodiny", "Společné mise při zachování jednotlivých identit."], ["Školy", "Bezpečné třídy a projektové kontexty."], ["Senioři", "Zkušenost, příběhy a praktická pomoc bez veřejného katalogu osob."], ["Organizace", "Zdroje a know-how kolem konkrétního projektu."]]}
+      link={{ href: "/pro-organizace", label: "Zapojení organizací" }}
+    />
 
     <section className="pw-story-principles">
       {PRINCIPLES.map(([title,text], index) => <article key={title}><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}

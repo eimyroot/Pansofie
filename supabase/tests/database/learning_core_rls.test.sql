@@ -207,13 +207,13 @@ insert into public.mission_runs (id, mission_id, user_id, status) values
     'dddddddd-dddd-4ddd-8ddd-dddddddddddd',
     'cccccccc-cccc-4ccc-8ccc-cccccccccccc',
     '11111111-1111-4111-8111-111111111111',
-    'in_progress'
+    'completed'
   ),
   (
     'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
     'cccccccc-cccc-4ccc-8ccc-cccccccccccc',
     '22222222-2222-4222-8222-222222222222',
-    'in_progress'
+    'completed'
   )
 on conflict (id) do nothing;
 

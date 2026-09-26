@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { LEARNING_METHOD, ECOSYSTEM_CHAIN } from "../../domain/pansofie-content";
 import { pansofiePhoto } from "../../domain/asset-system";
 
@@ -18,11 +19,21 @@ const FLOW = [
 ];
 
 export default function HowItWorksPage() {
-  return <PublicShell>
+  return <PublicShell active="/jak-to-funguje">
     <section className="pw-page-hero">
       <div><p className="pw-eyebrow">JAK PANSOFIE FUNGUJE</p><h1>Možnost něco udělat. Ne další systém povinností.</h1><p>Pansofie vytváří cesty od poznání ke zkušenosti. Člověk se může rozhlédnout, vybrat si smysluplný vstup a pokračovat vlastním tempem.</p></div>
       <div className="pw-page-hero__media"><Image src={pansofiePhoto("hero-community-left-safe-16x9")} alt="Lidé v prostředí propojujícím město, přírodu a komunitu" fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
     </section>
+
+    <EditorialFeatureBand
+      eyebrow="JEDEN EKOSYSTÉM · TŘI ZKUŠENOSTI"
+      title="Pansofie vysvětluje. Young překládá svět mladým. GO umožňuje jednat."
+      text="Veřejná Pansofie drží společný rámec a souvislosti. Pansofie Young je samostatná zkušenost pro děti a mladé. PansofieGO je aplikace pro celý ekosystém, ve které se podle věku a kontextu pracuje s misemi, projekty, týmy, portfoliem a dalšími akcemi."
+      image={pansofiePhoto("community-city-16x9")}
+      imageAlt="Lidé v městském prostředí, kde se potkává učení, komunita a praktická činnost"
+      items={[["Pansofie", "Společný obsahový, filozofický a metodický rámec."], ["Pansofie Young", "Vlastní jazyk, obsah a vizuální zkušenost pro mladé."], ["PansofieGO", "Společná akční aplikace pro celý ekosystém podle role a kontextu."], ["Skutečný svět", "Místo, kde se poznání mění ve zkušenost, dovednost a konkrétní výsledek."]]}
+      link={{ href: "/pansofie-go", label: "Poznat PansofieGO" }}
+    />
 
     <section className="pw-story-intro">
       <div><p className="pw-eyebrow">ZÁKLADNÍ PRINCIP</p><h2>Pansofie nabízí příležitost. Nevytváří povinnost.</h2></div>
@@ -46,8 +57,8 @@ export default function HowItWorksPage() {
     </section>
 
     <section className="pw-next">
-      <div><p className="pw-eyebrow">VYZKOUŠET V PRAXI</p><h2>První krok nemusí být velký.</h2><p>Green Hope už nabízí první konkrétní misi propojenou s akčním jádrem Pansofie.</p></div>
-      <Link className="pw-button pw-button--dark" href="/green-hope">Poznat Green Hope</Link>
+      <div><p className="pw-eyebrow">OD ORIENTACE K AKCI</p><h2>Když chce člověk pokračovat do praxe, přichází PansofieGO.</h2><p>GO je společná aplikace pro celý ekosystém. Převádí témata a projekty do konkrétních misí, spolupráce a portfolia podle věku, role a kontextu.</p></div>
+      <Link className="pw-button pw-button--dark" href="/pansofie-go">Jak funguje PansofieGO</Link>
     </section>
   </PublicShell>;
 }

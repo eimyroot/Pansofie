@@ -25,7 +25,7 @@ test("asset system keeps three products plus shared semantics", () => {
   assert.equal(GO_PIN_IDS.length, 5);
   assert.equal(PANSOFIE_PHOTO_IDS.length, 7);
   assert.equal(YOUNG_PHOTO_IDS.length, 8);
-  assert.equal(GO_MISSION_COVER_IDS.length, 5);
+  assert.equal(GO_MISSION_COVER_IDS.length, 7);
   assert.equal(PANSOFIE_ILLUSTRATION_IDS.length, 5);
   assert.equal(YOUNG_ILLUSTRATION_IDS.length, 5);
 });
@@ -71,5 +71,5 @@ test("every registered raster asset exists", () => {
     assert.ok(existsSync(disk(resolver(id))), `Missing raster: ${resolver(id)}`);
     count += 1;
   }
-  assert.equal(count, 30);
+  assert.equal(count, 32);
 });

@@ -54,6 +54,17 @@ export const IMPACT_DIMENSIONS = Object.freeze([
   "intergenerational_connection",
 ]);
 
+export const SKILL_ECOLOGICAL_THINKING = Object.freeze({
+  code: "ecological_thinking",
+  domainId: "nature",
+  titleCs: "Ekologické myšlení",
+  titleEn: "Ecological thinking",
+  descriptionCs: "Pozorovat vztahy mezi živými organismy, podmínkami prostředí a vlastní péčí a vyvozovat z nich praktické závěry.",
+  descriptionEn: "Observe relationships between living organisms, environmental conditions and care, and draw practical conclusions from them.",
+});
+
+export const CANONICAL_SKILLS = Object.freeze([SKILL_ECOLOGICAL_THINKING]);
+
 export const MISSION_GROW_001 = Object.freeze({
   id: "MISSION-GROW-001",
   slug: "vypestuj-prvni-rostlinu",
@@ -61,6 +72,8 @@ export const MISSION_GROW_001 = Object.freeze({
   program: "green_hope",
   domainIds: ["nature"],
   pathIds: ["meaning"],
+  skillCodes: [SKILL_ECOLOGICAL_THINKING.code],
+  impactDimensionIds: ["nature"],
   difficulty: 1,
   developmentLevelMin: 1,
   developmentLevelMax: 4,
