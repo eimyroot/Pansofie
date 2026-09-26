@@ -1,9 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { pansofieIllustration, pansofiePhoto } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Vize Pansofie",
@@ -25,7 +23,6 @@ export default function VisionPage() {
       eyebrow="OD KOMENSKÉHO K DNEŠKU"
       title="Celostní myšlení má smysl jen tehdy, když obstojí v současném světě."
       text="Pansofie překládá tři tradiční pilíře do prostředí města, rodiny, školy, přírody a technologií. AI může pomáhat hledat souvislosti a tvořit, ale úsudek, odpovědnost a konečné rozhodnutí zůstávají na člověku."
-      image={pansofiePhoto("prague-nature-16x9")}
       imageAlt="Město a příroda jako současný prostor pro celostní učení"
       reverse
       items={[["Poznání", "Rozumět vztahům místo hromadění izolovaných odpovědí."], ["Výchova", "Učit se napříč věkem a prostředím, ne pouze ve škole."], ["Náprava", "Převádět porozumění do konkrétní péče, tvorby a pomoci."], ["Technologie", "Používat nástroje kriticky a tvořivě, ne předávat jim lidský úsudek."]]}

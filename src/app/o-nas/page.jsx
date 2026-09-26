@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
+import { PansofieVisualCard } from "../../components/public/PansofieVisualCard";
 import { ECOSYSTEM_CHAIN, ECOSYSTEM_PRINCIPLE, KNOWLEDGE_EXCHANGE } from "../../domain/pansofie-content";
-import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
 export const metadata = {
   title: "O Pansofii",
@@ -18,17 +17,16 @@ export default function AboutPage() {
       <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="O PANSOFII" title="Učení v souvislostech" detail="člověk · příroda · společnost" flow={["Člověk","Rodina","Místo","Svět"]}/></div>
     </section>
     <section className="pw-discover-gateway" aria-label="Hlavní vstupy do Pansofie">
-      <Link href="/16-oblasti" className="pw-discover-gateway__card"><div><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="" fill sizes="(max-width: 700px) 100vw, 25vw"/></div><span>01 · POZNÁNÍ</span><h2>16 oblastí</h2><p>Mapa témat, která se v životě přirozeně prolínají.</p></Link>
-      <Link href="/7-cest" className="pw-discover-gateway__card"><div><Image src={pansofiePhoto("growing-together-16x9")} alt="" fill sizes="(max-width: 700px) 100vw, 25vw"/></div><span>02 · RŮST</span><h2>7 cest</h2><p>Sedm způsobů, jak se může zkušenost proměnit v rozvoj.</p></Link>
-      <Link href="/projekty" className="pw-discover-gateway__card"><div><Image src={pansofieScene("urban-farm-system")} alt="" fill sizes="(max-width: 700px) 100vw, 25vw"/></div><span>03 · PRAXE</span><h2>Projekty</h2><p>Místo, kde se poznání setká s konkrétní činností.</p></Link>
-      <Link href="/blog" className="pw-discover-gateway__card"><div><Image src={pansofieScene("knowledge-journal")} alt="" fill sizes="(max-width: 700px) 100vw, 25vw"/></div><span>04 · SOUVISLOSTI</span><h2>Články</h2><p>Příběhy a zdroje, které pomáhají vidět širší kontext.</p></Link>
+      <PansofieVisualCard href="/16-oblasti" className="pw-discover-gateway__card" label="01 · POZNÁNÍ" title="16 oblastí" text="Mapa témat, která se v životě přirozeně prolínají."/>
+      <PansofieVisualCard href="/7-cest" className="pw-discover-gateway__card" label="02 · RŮST" title="7 cest" text="Sedm způsobů, jak se může zkušenost proměnit v rozvoj."/>
+      <PansofieVisualCard href="/projekty" className="pw-discover-gateway__card" label="03 · PRAXE" title="Projekty" text="Místo, kde se poznání setká s konkrétní činností."/>
+      <PansofieVisualCard href="/blog" className="pw-discover-gateway__card" label="04 · SOUVISLOSTI" title="Články" text="Příběhy a zdroje, které pomáhají vidět širší kontext."/>
     </section>
 
     <EditorialFeatureBand
       eyebrow="UČENÍ ŽIVOTEM"
       title="Moudrost není sbírka odpovědí. Je schopnost vidět vztahy."
       text="Pansofie propojuje člověka, rodinu, místo, přírodu, technologie i společnost. Smyslem není přidat další oddělený předmět, ale pomoci vidět, jak rozhodnutí v jedné oblasti ovlivňuje ostatní."
-      image={pansofiePhoto("growing-together-16x9")}
       imageAlt="Lidé různých generací spolupracují v prostředí propojeném s přírodou"
       items={[["Člověk", "Poznání sebe, těla, mysli, emocí a vlastních rozhodnutí."], ["Rodina", "První tým, ve kterém se zkušenost, péče a odpovědnost potkávají."], ["Místo", "Škola, město a příroda jako prostředí pro skutečné učení."], ["Svět", "Poznání, které může přejít do tvorby, pomoci a odpovědné změny."]]}
       link={{ href: "/jak-to-funguje", label: "Jak se rámec převádí do praxe" }}

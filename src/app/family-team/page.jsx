@@ -1,6 +1,5 @@
 import { ProgramStoryPage } from "../../components/public/ProgramStoryPage";
 import { FAMILY_MISSIONS } from "../../domain/pansofie-content";
-import { pansofiePhoto } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Family Team",
@@ -15,11 +14,10 @@ const PRINCIPLES = [
 ];
 
 export default function FamilyTeamPage() {
-  return <ProgramStoryPage active="/projekty" current="/family-team" eyebrow="FAMILY TEAM" title="Rodina není jen publikum. Může být tým." lead="Family Team dává rodinám společný prostor pro mise, projekty, učení a reflexi, ale zachovává vlastní identitu a bezpečí každého člena." image={pansofiePhoto("community-city-16x9")} imageAlt="Lidé různých generací společně v městském komunitním prostoru" introTitle="Společná zkušenost může být silnější než další rodinný kalendář." intro="Pansofie pracuje s rodinou jako přirozeným místem spolupráce, odpovědnosti a předávání dovedností. Nejde o kontrolní panel rodiče nad dítětem, ale o bezpečný sdílený kontext." editorialFeature={{
+  return <ProgramStoryPage active="/projekty" current="/family-team" eyebrow="FAMILY TEAM" title="Rodina není jen publikum. Může být tým." lead="Family Team dává rodinám společný prostor pro mise, projekty, učení a reflexi, ale zachovává vlastní identitu a bezpečí každého člena." introTitle="Společná zkušenost může být silnější než další rodinný kalendář." intro="Pansofie pracuje s rodinou jako přirozeným místem spolupráce, odpovědnosti a předávání dovedností. Nejde o kontrolní panel rodiče nad dítětem, ale o bezpečný sdílený kontext." editorialFeature={{
     eyebrow: "RODINA JAKO PRVNÍ TÝM",
     title: "Společný projekt není sdílený účet.",
     text: "Family Team propojuje čas, dovednosti, péči a společné cíle, ale každý člen zůstává samostatnou identitou s vlastním soukromím a přiměřenými oprávněními. Rodina může něco tvořit společně, aniž by se z ní stal jeden účet nebo kontrolní panel.",
-    image: pansofiePhoto("growing-together-16x9"),
     imageAlt: "Různé generace spolupracují na společné praktické činnosti",
     items: [["Vlastní identita", "Každý člen má svůj účet, kontext a přiměřená oprávnění."], ["Společný záměr", "Projekt nebo mise mohou spojit rodinu bez povinného skórování."], ["Role podle situace", "Plánování, tvorba, péče i realizace se mohou přirozeně střídat."], ["Mezi generacemi", "Zkušenost může proudit od dětí k dospělým i opačným směrem."]],
     link: { href: "/osobni-rust", label: "Jak zkušenost putuje mezi generacemi" },
