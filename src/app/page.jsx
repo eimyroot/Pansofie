@@ -20,6 +20,16 @@ const PROGRAMS = [
 const PUBLIC_DOMAINS = DOMAIN_DETAILS.map(([title, text], index) => ({ id: LEARNING_DOMAINS[index].id, title, text }));
 const PUBLIC_PATHS = PATHS.map(([title, text], index) => ({ id: DEVELOPMENT_PATHS[index].id, title, text }));
 
+const VISUAL_ENTRY_POINTS = [
+  { title: "Objevuj", text: "O Pansofii, 7 cest, 16 oblastí a články v jednom klidném vstupu.", href: "/o-nas", image: pansofiePhoto("prague-nature-16x9") },
+  { title: "Projekty", text: "Green Hope, Urban Family Farm, Digitální kompost a Labs jako živé směry praxe.", href: "/projekty", image: pansofiePhoto("growing-together-16x9") },
+  { title: "Komunita", text: "Rodiny, školy, místa, organizace a partneři bez veřejného katalogu lidí.", href: "/komunita", image: pansofiePhoto("community-city-16x9") },
+  { title: "Zapoj se", text: "Dobrovolnictví, partnerství a kontakt jako konkrétní další krok.", href: "/dobrovolnictvi", image: pansofiePhoto("curiosity-nature-16x9") },
+  { title: "Pansofie GO", text: "Geolokační hra, která bere město jako mapu misí a checkpointů.", href: "/pansofie-go", image: pansofieScene("collaboration-map") },
+  { title: "Přihlásit se", text: "Vstup do pracovního prostoru, kde projekty a mise navazují na účet.", href: "/login", image: pansofiePhoto("hero-community-left-safe-16x9") },
+];
+
+
 export default function HomePage() {
   return <PublicShell active="/">
     <section className="pw-hero">
@@ -37,6 +47,15 @@ export default function HomePage() {
         <Image src={pansofiePhoto("hero-community-left-safe-16x9")} alt="Lidé různých generací v prostředí, kde se propojuje město a příroda" fill priority sizes="(max-width: 780px) 100vw, 55vw"/>
         <div className="pw-hero__caption"><span>ČLOVĚK</span><i aria-hidden="true">→</i><span>RODINA</span><i aria-hidden="true">→</i><span>KOMUNITA</span><i aria-hidden="true">→</i><span>SVĚT</span></div>
       </div>
+    </section>
+
+    <section className="pw-home-gateway" aria-label="Hlavní vstupy do Pansofie">
+      {VISUAL_ENTRY_POINTS.map((item) => <Link className="pw-home-gateway__card" href={item.href} key={item.title}>
+        <div><Image src={item.image} alt="" fill sizes="(max-width: 900px) 100vw, 16vw"/></div>
+        <h2>{item.title}</h2>
+        <p>{item.text}</p>
+        <span>Pokračovat →</span>
+      </Link>)}
     </section>
 
     <section className="pw-editorial-doors" aria-label="Pansofie v každodenním světě">

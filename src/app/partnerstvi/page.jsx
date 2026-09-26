@@ -1,17 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
-import { pansofieScene } from "../../domain/asset-system";
+import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
 export const metadata = { title: "Partnerství", description: "Partnerství Pansofie navázané na konkrétní projekty, potřeby, role a odpovědnost." };
 
+const RULES = [["Účel", "Nejdřív se pojmenuje konkrétní potřeba nebo projekt."], ["Role", "Know-how, materiál, prostor, finance nebo čas mají jasný kontext."], ["Dopad", "Výstupy se oddělují od marketingu a tvrzení musí mít skutečné podklady."], ["Bezpečí", "Soukromí, souhlasy a viditelnost se řeší od začátku."]];
+
 export default function PartnershipPage() {
   return <PublicShell active="/partnerstvi">
-    <section className="pw-page-hero pw-page-hero--reverse">
-      <div><p className="pw-eyebrow">PARTNERSTVÍ</p><h1>Spolupráce má mít konkrétní smysl.</h1><p>Partnerství se v Pansofii váže na konkrétní projekt, místo nebo potřebu. Role, rozsah a odpovědnost mají být jasnější než logo a marketingový příběh.</p></div>
-      <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("organization-network")} alt="Organizace a komunity propojené kolem konkrétní spolupráce" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--partnership">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">PARTNERSTVÍ</p><h1>Spolupráce má mít konkrétní smysl.</h1><p>Partnerství se v Pansofii váže na konkrétní projekt, místo nebo potřebu. Role, rozsah a odpovědnost mají být jasnější než logo a marketingový příběh.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/kontakt">Navrhnout spolupráci</Link><Link className="pw-button pw-button--light" href="/partneri">Partneři</Link></div></div>
+      <div className="pw-visual-hero__media"><Image src={pansofiePhoto("growing-together-16x9")} alt="Spolupráce u společného zeleného projektu" fill priority sizes="(max-width: 900px) 100vw, 52vw"/><div className="pw-visual-hero__note">problém → role → pravidla → doložený výstup</div></div>
     </section>
-    <section className="pw-impact-rules"><article><p className="pw-eyebrow">01 · ÚČEL</p><h3>Začít problémem</h3><p>Nejdřív se pojmenuje konkrétní potřeba nebo projekt, až potom forma spolupráce.</p></article><article><p className="pw-eyebrow">02 · ROLE</p><h3>Vědět, kdo co přináší</h3><p>Know-how, materiál, prostor, finance nebo čas mají jasný kontext a odpovědnost.</p></article><article><p className="pw-eyebrow">03 · DOPAD</p><h3>Dokládat, nevymýšlet</h3><p>Výstupy a dopad se oddělují od marketingu a tvrzení musí mít skutečné podklady.</p></article></section>
+    <section className="pw-mini-pill-grid">{RULES.map(([title,text], index) => <article key={title}><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}</section>
+    <section className="pw-editorial-band pw-editorial-band--reverse"><div className="pw-editorial-band__media"><Image src={pansofieScene("organization-network")} alt="Síť organizací a komunit" fill sizes="(max-width: 900px) 100vw, 52vw"/></div><div className="pw-editorial-band__copy"><p className="pw-eyebrow">SPOLEČNÝ DOPAD</p><h2>Spolupráce není status. Je to dohoda o konkrétní práci.</h2><p>Škola může přijít s projektem, firma s materiálem, obec s místem, komunita s místní potřebou. Pansofie drží tyto role čitelné a nepřetavuje je do falešného dojmu ověřené instituční sítě.</p><div className="pw-editorial-band__items"><article><strong>Školy</strong><span>Projekt a bezpečný pedagogický kontext.</span></article><article><strong>Firmy</strong><span>Materiál, odbornost nebo kapacita.</span></article><article><strong>Obce</strong><span>Místo a veřejný kontext.</span></article><article><strong>Komunity</strong><span>Reálná potřeba a místní vztahy.</span></article></div></div></section>
     <section className="pw-next"><div><p className="pw-eyebrow">KONTAKT</p><h2>Navrhněte konkrétní spolupráci.</h2><p>Pro školy, obce, firmy, neziskové organizace a komunitní projekty slouží společný kontaktní vstup.</p></div><Link className="pw-button pw-button--dark" href="/kontakt">Kontakt</Link></section>
   </PublicShell>;
 }
