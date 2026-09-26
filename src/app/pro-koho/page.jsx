@@ -1,9 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { pansofiePhoto } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Pro koho je Pansofie",
@@ -27,7 +25,6 @@ export default function WhoPage() {
       eyebrow="JEDEN EKOSYSTÉM · RŮZNÉ VSTUPY"
       title="Stejný svět nemusí vypadat stejně pro dítě, rodinu, školu a organizaci."
       text="Pansofie drží společné jádro, ale zkušenost se mění podle člověka a kontextu. Mladý člověk nepotřebuje firemní rozhraní a škola nepotřebuje dětskou herní vrstvu. Společné zůstávají oblasti, projekty, bezpečné vztahy a cesta od poznání ke zkušenosti."
-      image={pansofiePhoto("growing-together-16x9")}
       imageAlt="Různé generace spolupracují na společné činnosti"
       reverse
       items={[["Děti a mladí", "Vlastní Young zkušenost a věkově přiměřené používání GO."], ["Rodiny", "Společné projekty při zachování jednotlivých identit a soukromí."], ["Školy", "Třídy, učitelé a projekty v řízeném školním kontextu."], ["Organizace", "Materiál, know-how, prostor nebo podpora kolem konkrétní potřeby."]]}

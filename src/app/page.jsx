@@ -2,9 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../components/public/PublicShell";
 import { PansofieVisualEngine } from "../components/public/PansofieVisualEngine";
+import { PansofieArtPanel } from "../components/public/PansofieArtPanel";
+import { MOCKUP01_PHOTOS } from "../components/public/PansofieDocumentary";
 import { DOMAIN_DETAILS, LEARNING_METHOD, PATHS, ECOSYSTEM_PRINCIPLE, KNOWLEDGE_EXCHANGE } from "../domain/pansofie-content";
 import { DEVELOPMENT_PATHS, LEARNING_DOMAINS } from "../domain/learning-core";
-import { domainIcon, pathIcon, pansofieIllustration, pansofiePhoto, pansofieScene } from "../domain/asset-system";
+import { domainIcon, pathIcon } from "../domain/asset-system";
 
 export const metadata = {
   title: { absolute: "Pansofie · Všechno souvisí se vším" },
@@ -12,29 +14,28 @@ export const metadata = {
 };
 
 const PROGRAMS = [
-  { title: "Green Hope", eyebrow: "Příroda a péče", text: "Od první rostliny po komunitní projekty. Poznání se mění v konkrétní zkušenost.", href: "/green-hope", image: pansofieIllustration("green-hope") },
-  { title: "Urban Family Farm", eyebrow: "Praktický život", text: "Pěstování, zpracování, náklady, prodej a reinvestice jako jeden srozumitelný cyklus.", href: "/urban-family-farm", image: pansofieScene("urban-farm-system") },
-  { title: "Family Team", eyebrow: "Rodina jako tým", text: "Společné mise a projekty při zachování vlastního prostoru a odpovídajících oprávnění.", href: "/family-team", image: pansofieIllustration("family-team") },
-  { title: "Knowledge Exchange", eyebrow: "Mezigenerační učení", text: KNOWLEDGE_EXCHANGE, href: "/sit", image: pansofieScene("knowledge-journal") },
+  { title: "Green Hope", eyebrow: "Příroda a péče", text: "Od první rostliny po komunitní projekty. Poznání se mění v konkrétní zkušenost.", href: "/green-hope", variant: "nature", nodes:["Pěstování","Péče","Místo","Komunita"] },
+  { title: "Urban Family Farm", eyebrow: "Praktický život", text: "Pěstování, zpracování, náklady, prodej a reinvestice jako jeden srozumitelný cyklus.", href: "/urban-family-farm", variant: "city", nodes:["Pěstuj","Zpracuj","Spočítej","Rozhodni"] },
+  { title: "Family Team", eyebrow: "Rodina jako tým", text: "Společné mise a projekty při zachování vlastního prostoru a odpovídajících oprávnění.", href: "/family-team", variant: "community", nodes:["Rodina","Role","Zkušenost","Reflexe"] },
+  { title: "Knowledge Exchange", eyebrow: "Mezigenerační učení", text: KNOWLEDGE_EXCHANGE, href: "/sit", variant: "knowledge", nodes:["Dovednost","Příběh","Kontext","Vzájemnost"] },
 ];
 
 const PUBLIC_DOMAINS = DOMAIN_DETAILS.map(([title, text], index) => ({ id: LEARNING_DOMAINS[index].id, title, text }));
 const PUBLIC_PATHS = PATHS.map(([title, text], index) => ({ id: DEVELOPMENT_PATHS[index].id, title, text }));
 
 const VISUAL_ENTRY_POINTS = [
-  { title: "Objevuj", text: "O Pansofii, 7 cest, 16 oblastí a články v jednom klidném vstupu.", href: "/o-nas", image: pansofiePhoto("prague-nature-16x9") },
-  { title: "Projekty", text: "Green Hope, Urban Family Farm, Digitální kompost a Labs jako živé směry praxe.", href: "/projekty", image: pansofiePhoto("growing-together-16x9") },
-  { title: "Komunita", text: "Rodiny, školy, místa, organizace a partneři bez veřejného katalogu lidí.", href: "/komunita", image: pansofiePhoto("community-city-16x9") },
-  { title: "Zapoj se", text: "Dobrovolnictví, partnerství a kontakt jako konkrétní další krok.", href: "/dobrovolnictvi", image: pansofiePhoto("curiosity-nature-16x9") },
-  { title: "Pansofie GO", text: "Geolokační hra, která bere město jako mapu misí a checkpointů.", href: "/pansofie-go", image: pansofieScene("collaboration-map") },
-  { title: "Přihlásit se", text: "Vstup do pracovního prostoru, kde projekty a mise navazují na účet.", href: "/login", image: pansofiePhoto("hero-community-left-safe-16x9") },
+  { title: "Objevuj", text: "O Pansofii, 7 cest, 16 oblastí a články v jednom klidném vstupu.", href: "/o-nas", label:"ATLAS", variant:"knowledge", nodes:["7 cest","16 oblastí","Vize","Články"] },
+  { title: "Projekty", text: "Green Hope, Urban Family Farm, Digitální kompost a Labs jako živé směry praxe.", href: "/projekty", label:"PRAXE", variant:"nature", nodes:["Místo","Potřeba","Lidé","Výsledek"] },
+  { title: "Komunita", text: "Rodiny, školy, místa, organizace a partneři bez veřejného katalogu lidí.", href: "/komunita", label:"VZTAHY", variant:"community", nodes:["Rodina","Škola","Místo","Organizace"] },
+  { title: "Zapoj se", text: "Dobrovolnictví, partnerství a kontakt jako konkrétní další krok.", href: "/dobrovolnictvi", label:"AKCE", variant:"city", nodes:["Čas","Dovednost","Projekt","Partnerství"] },
 ];
+
 
 
 export default function HomePage() {
   return <PublicShell active="/">
-    <section className="pw-hero pw-hero--engine">
-      <div className="pw-hero__copy">
+    <section className="p01-home-hero">
+      <div className="p01-home-hero__copy">
         <p className="pw-eyebrow">PANSOFIE · LIDÉ · VĚDĚNÍ · KONTEXT · ZMĚNA</p>
         <h1>Lepší svět<br/>začíná tady.<br/>Společně.</h1>
         <p className="pw-lead">Pansofie propojuje lidi, školy, firmy, rodiny, seniory, město, přírodu a technologie. Ne jako oddělené světy, ale jako síť vztahů, ve které se poznání mění v lepší rozhodnutí a konkrétní možnosti.</p>
@@ -44,9 +45,16 @@ export default function HomePage() {
         </div>
         <p className="pw-audience">Příležitost, ne povinnost. Pro jednotlivce, rodiny, školy, komunity i organizace.</p>
       </div>
-      <div className="pw-hero__engine">
-        <PansofieVisualEngine domains={PUBLIC_DOMAINS} paths={PUBLIC_PATHS}/>
-      </div>
+      <figure className="p01-home-hero__photo">
+        <Image src={MOCKUP01_PHOTOS.ecosystem} alt="Mezigenerační učení, pěstování a tvorba v komunitním prostoru" fill priority sizes="(max-width: 900px) 100vw, 48vw"/>
+        <figcaption><span>PANSOFIE</span><strong>Ekosystém pro učení životem</strong><small>vzdělávání · komunita · projekty · skutečný život</small></figcaption>
+      </figure>
+      <PansofieArtPanel eyebrow="VŠECHNO SOUVISÍ SE VŠÍM" title="Jeden svět. Více vztahů." detail="lidé · příroda · místa · vzdělávání · komunita" nodes={["Lidé","Příroda","Místa","Vzdělávání","Komunita"]} variant="ecosystem" caption="Poznání má smysl ve vztahu k tomu, co žijeme."/>
+    </section>
+
+    <section className="p01-ecosystem-map">
+      <div><p className="pw-eyebrow">EKOSYSTÉM PANSOFIE</p><h2>Propojené světy. Jeden smysl.</h2><p>16 oblastí ukazuje, co v životě poznáváme. 7 cest ukazuje, jak můžeme růst. Projekty a komunita dávají poznání konkrétní kontext.</p><div className="p01-ecosystem-map__links"><Link href="/16-oblasti">16 oblastí →</Link><Link href="/7-cest">7 cest →</Link><Link href="/projekty">Projekty →</Link></div></div>
+      <PansofieVisualEngine domains={PUBLIC_DOMAINS} paths={PUBLIC_PATHS}/>
     </section>
 
     <section className="pve-identity-strip" aria-label="Pansofie v jednom pohledu">
@@ -56,24 +64,18 @@ export default function HomePage() {
       <article><span>04 · VZTAHY</span><h3>Komunita</h3><p>Bezpečné kontexty propojené přes účel a společnou práci.</p></article>
     </section>
 
-    <section className="pw-home-gateway" aria-label="Hlavní vstupy do Pansofie">
+    <section className="pw-home-gateway pw-home-gateway--p01" aria-label="Hlavní vstupy do Pansofie">
       {VISUAL_ENTRY_POINTS.map((item) => <Link className="pw-home-gateway__card" href={item.href} key={item.title}>
-        <div><Image src={item.image} alt="" fill sizes="(max-width: 900px) 100vw, 16vw"/></div>
-        <h2>{item.title}</h2>
-        <p>{item.text}</p>
-        <span>Pokračovat →</span>
+        <div><PansofieArtPanel compact eyebrow={item.label} title={item.title} detail={item.text} nodes={item.nodes} variant={item.variant}/></div>
+        <h2>{item.title}</h2><p>{item.text}</p><span>Pokračovat →</span>
       </Link>)}
     </section>
 
-    <section className="pw-editorial-doors" aria-label="Pansofie v každodenním světě">
-      <article className="pw-editorial-doors__lead">
-        <p className="pw-eyebrow">MĚSTO JAKO UČEBNA</p>
-        <h2>Stejný svět. Více perspektiv.</h2>
-        <p>Dítě, učitelka, podnikatel, soused i senior vidí jinou část stejného problému. Pansofie je dává do souvislostí, aniž by z nich dělala jednu správnou odpověď.</p>
-      </article>
-      <Link className="pw-editorial-door" href="/pro-skoly"><Image src={pansofieIllustration("school-learning")} alt="Škola propojená s praktickým životem" fill sizes="(max-width: 900px) 100vw, 24vw"/><span>ŠKOLY</span><strong>Vzdělávání pro život</strong></Link>
-      <Link className="pw-editorial-door" href="/pro-organizace"><Image src={pansofieScene("organization-network")} alt="Organizace a firmy propojené s komunitou" fill sizes="(max-width: 900px) 100vw, 24vw"/><span>FIRMY A ORGANIZACE</span><strong>Odpovědné podnikání</strong></Link>
-      <Link className="pw-editorial-door" href="/sit"><Image src={pansofiePhoto("community-city-16x9")} alt="Lidé různých generací ve městě" fill sizes="(max-width: 900px) 100vw, 24vw"/><span>KOMUNITA</span><strong>Generace si mají co předat</strong></Link>
+    <section className="pw-editorial-doors pw-editorial-doors--p01" aria-label="Pansofie v každodenním světě">
+      <article className="pw-editorial-doors__lead"><p className="pw-eyebrow">MĚSTO JAKO UČEBNA</p><h2>Stejný svět. Více perspektiv.</h2><p>Dítě, učitelka, podnikatel, soused i senior vidí jinou část stejného problému. Pansofie je dává do souvislostí.</p></article>
+      <Link className="pw-editorial-door" href="/pro-skoly"><PansofieArtPanel compact eyebrow="ŠKOLY" title="Vzdělávání pro život" detail="učivo · místo · projekt · zkušenost" nodes={["Škola","Město","Příroda","Projekt"]} variant="knowledge"/></Link>
+      <Link className="pw-editorial-door" href="/pro-organizace"><PansofieArtPanel compact eyebrow="ORGANIZACE" title="Zdroje v souvislostech" detail="materiál · know-how · prostor · účel" nodes={["Materiál","Know-how","Místo","Účel"]} variant="city"/></Link>
+      <Link className="pw-editorial-door" href="/sit"><PansofieArtPanel compact eyebrow="KOMUNITA" title="Generace si mají co předat" detail="zkušenost · pomoc · vztah · místo" nodes={["Rodina","Senior","Škola","Komunita"]} variant="community"/></Link>
     </section>
 
     <section className="pw-manifest">
@@ -135,7 +137,7 @@ export default function HomePage() {
       </div>
       <div className="pw-program-grid">
         {PROGRAMS.map((program) => <article className="pw-program" key={program.title}>
-          <div className="pw-program__media"><Image src={program.image} alt="" fill sizes="(max-width: 780px) 100vw, 50vw"/></div>
+          <div className="pw-program__media"><PansofieArtPanel eyebrow={program.eyebrow} title={program.title} detail={program.text} nodes={program.nodes} variant={program.variant}/></div>
           <div className="pw-program__body">
             <p className="pw-eyebrow">{program.eyebrow}</p>
             <h3>{program.title}</h3>
@@ -147,9 +149,7 @@ export default function HomePage() {
     </section>
 
     <section className="pw-future-bridge" aria-labelledby="future-bridge-title">
-      <div className="pw-future-bridge__media">
-        <Image src={pansofieScene("knowledge-journal")} alt="Poznání, pozorování a nové technologie v jednom pracovním prostoru" fill sizes="(max-width: 900px) 100vw, 48vw"/>
-      </div>
+      <div className="pw-future-bridge__media"><PansofieArtPanel eyebrow="OD KOMENSKÉHO K AI" title="Poznání v souvislostech" detail="člověk · úsudek · technologie · odpovědnost" nodes={["Vědění","Úsudek","AI","Smysl","Zkušenost"]} variant="knowledge" caption="Technologie rozšiřuje možnosti. Smysl a odpovědnost zůstávají lidské."/></div>
       <div className="pw-future-bridge__copy">
         <p className="pw-eyebrow">OD KOMENSKÉHO K AI</p>
         <h2 id="future-bridge-title">Moudrost není víc informací. Je to schopnost vidět vztahy mezi nimi.</h2>
@@ -168,15 +168,15 @@ export default function HomePage() {
         <p>Od mikrogreens a městského pěstování přes zbytkové materiály až po mezigenerační pomoc. Ne jako katalog slibů, ale jako témata, ve kterých lze propojit poznání, dovednost a místní spolupráci.</p>
       </div>
       <div className="pw-circular-world__grid">
-        <Link href="/urban-family-farm"><div><Image src={pansofiePhoto("prague-nature-16x9")} alt="Městské pěstování a zeleň" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>URBAN FAMILY FARM</span><h3>Mikrogreens a městské pěstování</h3><p>Malá plocha, krátké cykly, praktická zkušenost s pěstováním a lokální potravou.</p></Link>
-        <Link href="/digitalni-kompost"><div><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="Přírodní materiály a pozorování detailu" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>MATERIÁLY V OBĚHU</span><h3>Druhá šance pro materiál</h3><p>Přebytky, zbytky a věci, které mohou najít další smysluplné použití místo rychlého odpadu.</p></Link>
-        <Link href="/sit"><div><Image src={pansofiePhoto("growing-together-16x9")} alt="Spolupráce lidí různých generací" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>MEZIGENERAČNÍ VÝMĚNA</span><h3>Pomoc, zkušenost a čas</h3><p>Starší i mladší mají co nabídnout. Pansofie vytváří prostor pro bezpečné předávání zkušeností a praktickou pomoc.</p></Link>
-        <Link href="/green-hope"><div><Image src={pansofiePhoto("community-city-16x9")} alt="Komunita, město a příroda" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>GREEN HOPE</span><h3>Zeleň jako společný projekt</h3><p>Od jedné rostliny k péči o místo. Bez automatických tvrzení o dopadu, s důrazem na skutečnou zkušenost.</p></Link>
+        <Link href="/urban-family-farm"><PansofieArtPanel compact eyebrow="URBAN FAMILY FARM" title="Mikrogreens a městské pěstování" detail="malý cyklus · hodně souvislostí" nodes={["Semeno","Péče","Práce","Hodnota"]} variant="nature"/></Link>
+        <Link href="/digitalni-kompost"><PansofieArtPanel compact eyebrow="MATERIÁLY V OBĚHU" title="Druhá šance pro materiál" detail="potřeba · zdroj · propojení · použití" nodes={["Dřevo","Textil","Obal","Vybavení"]} variant="city"/></Link>
+        <Link href="/sit"><PansofieArtPanel compact eyebrow="KNOWLEDGE EXCHANGE" title="Pomoc, zkušenost a čas" detail="bez katalogu lidí · kolem konkrétního účelu" nodes={["Zkušenost","Dovednost","Kontext","Vzájemnost"]} variant="community"/></Link>
+        <Link href="/green-hope"><PansofieArtPanel compact eyebrow="GREEN HOPE" title="Zeleň jako společný projekt" detail="pozoruj · pěstuj · pečuj · sdílej" nodes={["Půda","Voda","Rostlina","Místo"]} variant="nature"/></Link>
       </div>
     </section>
 
     <section className="pw-project-feature">
-      <div className="pw-project-feature__media"><Image src={pansofiePhoto("growing-together-16x9")} alt="Společná práce na praktickém projektu" fill sizes="(max-width: 780px) 100vw, 52vw"/></div>
+      <div className="pw-project-feature__media"><PansofieArtPanel eyebrow="GREEN HOPE" title="Vypěstuj první rostlinu" detail="pozorování · péče · zkušenost · reflexe" nodes={["Semeno","Půda","Voda","Pozorování","Péče"]} variant="nature" caption="Modelový projekt · bez tvrzení o skutečné lokalitě nebo naměřeném dopadu"/></div>
       <div className="pw-project-feature__copy">
         <p className="pw-eyebrow">PRVNÍ KONKRÉTNÍ KROK</p>
         <h2>Vypěstuj první rostlinu.</h2>

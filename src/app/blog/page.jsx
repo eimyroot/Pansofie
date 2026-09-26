@@ -1,9 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
+import { PansofieArtPanel } from "../../components/public/PansofieArtPanel";
 
 export const metadata = {
   title: "Blog a zdroje",
@@ -11,9 +10,9 @@ export const metadata = {
 };
 
 const TOPICS = [
-  { title: "Rodina jako prostředí učení", text: "Jak mohou společné činnosti, rozhovor a předávání zkušeností propojit generace bez dalšího školního režimu.", href: "/family-team", image: pansofieScene("family-team-missions"), label: "Rodina · vztahy" },
-  { title: "Příroda jako skutečná laboratoř", text: "Od pěstování a půdy po vodu a biodiverzitu. Poznání, které lze ověřit vlastní zkušeností.", href: "/green-hope", image: pansofiePhoto("growing-together-16x9"), label: "Příroda · zkušenost" },
-  { title: "Město, práce a praktická ekonomika", text: "Pěstovat, zpracovat, spočítat náklady, vytvořit hodnotu a pochopit, jak spolu souvisí práce a zdroje.", href: "/urban-family-farm", image: pansofieScene("urban-farm-system"), label: "Práce · finance" },
+  { title: "Rodina jako prostředí učení", text: "Jak mohou společné činnosti, rozhovor a předávání zkušeností propojit generace bez dalšího školního režimu.", href: "/family-team", label: "Rodina · vztahy", variant:"community", nodes:["Rodina","Činnost","Rozhovor","Zkušenost"] },
+  { title: "Příroda jako skutečná laboratoř", text: "Od pěstování a půdy po vodu a biodiverzitu. Poznání, které lze ověřit vlastní zkušeností.", href: "/green-hope", label: "Příroda · zkušenost", variant:"nature", nodes:["Půda","Voda","Pěstování","Biodiverzita"] },
+  { title: "Město, práce a praktická ekonomika", text: "Pěstovat, zpracovat, spočítat náklady, vytvořit hodnotu a pochopit, jak spolu souvisí práce a zdroje.", href: "/urban-family-farm", label: "Práce · finance", variant:"city", nodes:["Práce","Náklady","Hodnota","Rozhodnutí"] },
 ];
 
 export default function BlogPage() {
@@ -27,7 +26,6 @@ export default function BlogPage() {
       eyebrow="OBSAH S PAMĚTÍ A ZDROJEM"
       title="Text má vést k pochopení, ne jen k dalšímu scrollu."
       text="Editoriální vrstva Pansofie má spojovat souvislost, dohledatelný podklad, konkrétní příklad a další možný krok. Téma se nestává článkem jen tím, že dostane hezký obrázek a titulek. Dokud materiál není skutečně publikovaný, zůstává transparentně označeným směrem nebo návrhem."
-      image={pansofiePhoto("growing-together-16x9")}
       imageAlt="Lidé sdílejí zkušenost při společné praktické činnosti"
       reverse
       items={[["Souvislost", "Proč téma patří do života a s čím dalším se propojuje."], ["Zdroj", "Dohledatelný podklad oddělený od názoru a modelového příkladu."], ["Příklad", "Konkrétní situace, která pomůže myšlenku pochopit."], ["Další krok", "Možnost pokračovat v knihovně, projektu nebo vlastní zkušenosti."]]}
@@ -39,8 +37,8 @@ export default function BlogPage() {
     </section>
 
     <section className="pw-resource-grid pw-resource-grid--visual">
-      {TOPICS.map((topic, index) => <article className="pw-resource-card" key={topic.title}>
-        <div className="pw-resource-card__media"><Image src={topic.image} alt="" fill sizes="(max-width: 900px) 100vw, 33vw" priority={index === 0}/></div>
+      {TOPICS.map((topic) => <article className="pw-resource-card" key={topic.title}>
+        <div className="pw-resource-card__media"><PansofieArtPanel eyebrow={topic.label} title={topic.title} detail={topic.text} nodes={topic.nodes} variant={topic.variant}/></div>
         <div><span>{topic.label}</span><h2>{topic.title}</h2><p>{topic.text}</p><Link href={topic.href}>Přejít k tématu <b aria-hidden="true">→</b></Link></div>
       </article>)}
     </section>

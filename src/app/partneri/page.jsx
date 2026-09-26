@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
-import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 
 export const metadata = { title: "Partneři", description: "Role partnerů a organizací v ekosystému Pansofie bez předstírání neověřených partnerství." };
 
@@ -15,7 +14,7 @@ export default function PartnersPage() {
       <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="PARTNEŘI" title="Kapacita má směr" detail="zdroj se váže ke konkrétní potřebě" flow={["Zdroj","Kontext","Role","Odpovědnost"]}/></div>
     </section>
     <section className="pw-mini-pill-grid pw-mini-pill-grid--roles">{ROLES.map(([title,text], index) => <article key={title}><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}</section>
-    <section className="pw-editorial-band"><div className="pw-editorial-band__media"><Image src={pansofiePhoto("community-city-16x9")} alt="Lidé spolupracují v městském komunitním prostředí" fill sizes="(max-width: 900px) 100vw, 52vw"/></div><div className="pw-editorial-band__copy"><p className="pw-eyebrow">NE LOGA PRO LOGA</p><h2>Partnerství má být dohledatelné a přiměřené.</h2><p>Partner se do Pansofie nevkládá jako dekorace. Každá spolupráce má mít jasnou roli, kontext a pravidla bezpečnosti, hlavně tam, kde se účastní mladí lidé.</p><div className="pw-editorial-band__items"><article><strong>Účel</strong><span>Co přesně partner přináší.</span></article><article><strong>Rozsah</strong><span>Kde a jak spolupráce platí.</span></article><article><strong>Důkaz</strong><span>Jak se ověří skutečný výstup.</span></article><article><strong>Bezpečí</strong><span>Jak chráníme účastníky a kontext.</span></article></div></div></section>
+    <EditorialFeatureBand eyebrow="NE LOGA PRO LOGA" title="Partnerství má být dohledatelné a přiměřené." text="Partner se do Pansofie nevkládá jako dekorace. Každá spolupráce má mít jasnou roli, kontext a pravidla bezpečnosti, hlavně tam, kde se účastní mladí lidé." imageAlt="Partnerství jako vztah účelu, rozsahu, důkazu a bezpečí" items={[["Účel","Co přesně partner přináší."],["Rozsah","Kde a jak spolupráce platí."],["Důkaz","Jak se ověří skutečný výstup."],["Bezpečí","Jak chráníme účastníky a kontext."]]}/>
     <section className="pw-next"><div><p className="pw-eyebrow">PRO ORGANIZACE</p><h2>Partnerství začíná konkrétním účelem.</h2><p>Organizace mohou nabídnout kapacitu nebo přijít s projektem, který potřebuje bezpečný kontext spolupráce.</p></div><Link className="pw-button pw-button--dark" href="/pro-organizace">Pro organizace</Link></section>
   </PublicShell>;
 }

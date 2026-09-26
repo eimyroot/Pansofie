@@ -5,7 +5,7 @@ import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngi
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { DOMAIN_DETAILS } from "../../domain/pansofie-content";
 import { LEARNING_DOMAINS } from "../../domain/learning-core";
-import { domainIcon, pansofiePhoto } from "../../domain/asset-system";
+import { domainIcon } from "../../domain/asset-system";
 
 export const metadata = {
   title: "16 oblastí života",
@@ -28,7 +28,6 @@ export default function DomainsPage() {
       eyebrow="MAPA SOUVISLOSTÍ"
       title="Šestnáct oblastí není šestnáct šuplíků."
       text="Skutečný život protíná více oblastí najednou. Rozhodnutí o práci se dotýká financí, vztahů i zdraví; technologie mění společnost i naši pozornost; péče o přírodu souvisí s občanstvím, ekonomikou a tím, jak chceme žít. Oblasti proto slouží jako mapa pro otázky, ne jako oddělené školní předměty."
-      image={pansofiePhoto("community-city-16x9")}
       imageAlt="Lidé v městském prostředí jako součást propojeného systému života"
       items={[["Já a tělo", "Vnitřní stav ovlivňuje rozhodování, energii i vztahy."], ["Vztahy a rodina", "Blízké prostředí formuje způsob, jak spolupracujeme a pečujeme."], ["Práce a technologie", "Nástroje, tvorba hodnoty a odpovědnost se vyvíjejí společně."], ["Příroda a společnost", "Místo, zdroje a občanská rozhodnutí patří do stejného světa."]]}
       link={{ href: "/7-cest", label: "Podívat se na 7 cest růstu" }}

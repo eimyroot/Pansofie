@@ -5,7 +5,7 @@ import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngi
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { PATHS } from "../../domain/pansofie-content";
 import { DEVELOPMENT_PATHS } from "../../domain/learning-core";
-import { pathIcon, pansofiePhoto } from "../../domain/asset-system";
+import { pathIcon } from "../../domain/asset-system";
 
 export const metadata = {
   title: "7 cest",
@@ -28,7 +28,6 @@ export default function PathsPage() {
       eyebrow="RŮST BEZ ŽEBŘÍČKU"
       title="Cesta není skóre. Je to směr, který si člověk může právě teď otevřít."
       text="Sedm cest pomáhá rozpoznat, jaký druh zkušenosti nebo rozvoje dává v určité chvíli smysl. Nemají pořadí, vítěze ani ideální profil. Jeden projekt může současně rozvíjet tělo, vztahy, tvořivost i prosperitu a v jiné životní situaci bude důležitá úplně jiná kombinace."
-      image={pansofiePhoto("growing-together-16x9")}
       imageAlt="Lidé různých generací spolupracují a rozvíjejí různé schopnosti v jednom projektu"
       reverse
       items={[["Všestranně", "Více cest se může potkat v jedné zkušenosti."], ["Dobrovolně", "Člověk si vybírá, čemu chce právě teď věnovat pozornost."], ["V kontextu", "Stejná cesta vypadá jinak doma, ve škole, v práci nebo projektu."], ["Bez pořadí", "Žádná cesta není vyšší, lepší ani povinná pro všechny."]]}

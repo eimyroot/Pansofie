@@ -1,10 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { LEARNING_METHOD, ECOSYSTEM_CHAIN } from "../../domain/pansofie-content";
-import { pansofiePhoto } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Jak Pansofie funguje",
@@ -30,7 +28,6 @@ export default function HowItWorksPage() {
       eyebrow="JEDEN EKOSYSTÉM · TŘI ZKUŠENOSTI"
       title="Pansofie vysvětluje. Young překládá svět mladým. GO umožňuje jednat."
       text="Veřejná Pansofie drží společný rámec a souvislosti. Pansofie Young je samostatná zkušenost pro děti a mladé. PansofieGO je aplikace pro celý ekosystém, ve které se podle věku a kontextu pracuje s misemi, projekty, týmy, portfoliem a dalšími akcemi."
-      image={pansofiePhoto("community-city-16x9")}
       imageAlt="Lidé v městském prostředí, kde se potkává učení, komunita a praktická činnost"
       items={[["Pansofie", "Společný obsahový, filozofický a metodický rámec."], ["Pansofie Young", "Vlastní jazyk, obsah a vizuální zkušenost pro mladé."], ["PansofieGO", "Společná akční aplikace pro celý ekosystém podle role a kontextu."], ["Skutečný svět", "Místo, kde se poznání mění ve zkušenost, dovednost a konkrétní výsledek."]]}
       link={{ href: "/pansofie-go", label: "Poznat PansofieGO" }}
