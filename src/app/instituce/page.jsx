@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
@@ -17,9 +18,9 @@ const FLOW = [
 ];
 export default function InstitutionsPage() {
   return <PublicShell active="/instituce">
-    <section className="pw-page-hero">
-      <div><p className="pw-eyebrow">ŠKOLY × ORGANIZACE</p><h1>Co jedné instituci přebývá, druhé může chybět.</h1><p>Školy mohou popsat skutečné projektové potřeby. Organizace mohou nabídnout čisté materiálové přebytky nebo kapacitu. Pansofie mezi nimi hledá smysluplný překryv.</p></div>
-      <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("organization-network")} alt="Schéma spolupráce školy a organizace" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--engine">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">ŠKOLY × ORGANIZACE</p><h1>Co jedné instituci přebývá, druhé může chybět.</h1><p>Školy mohou popsat skutečné projektové potřeby. Organizace mohou nabídnout čisté materiálové přebytky nebo kapacitu. Pansofie mezi nimi hledá smysluplný překryv.</p></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="ŠKOLY × ORGANIZACE" title="Matching jako návrh" detail="lidé rozhodují o skutečném předání" flow={["Nabídka","Potřeba","Překryv","Rozhodnutí"]}/></div>
     </section>
     <EditorialFeatureBand
       eyebrow="DRUHÁ ŠANCE PRO MATERIÁL"

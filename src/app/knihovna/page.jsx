@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
@@ -19,9 +20,9 @@ const ITEMS = [
 ];
 export default function LibraryPage() {
   return <PublicShell active="/knihovna">
-    <section className="pw-page-hero pw-page-hero--reverse">
-      <div><p className="pw-eyebrow">KNIHOVNA PANSOFIE</p><h1>Místo, kde se dobré nápady neztrácejí.</h1><p>Návody, podněty, příklady a zkušenosti, které mohou někomu dalšímu otevřít cestu. Ne povinné úkoly, ale věci, které lze vzít, upravit nebo jen přečíst.</p></div>
-      <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("knowledge-journal")} alt="Ilustrace sdílených poznámek a zkušeností" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--engine">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">KNIHOVNA PANSOFIE</p><h1>Místo, kde se dobré nápady neztrácejí.</h1><p>Návody, podněty, příklady a zkušenosti, které mohou někomu dalšímu otevřít cestu. Ne povinné úkoly, ale věci, které lze vzít, upravit nebo jen přečíst.</p></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="KNIHOVNA PANSOFIE" title="Znalost, která cestuje" detail="podklad · zkušenost · další použití" flow={["Otázka","Návod","Příklad","Reflexe","Zdroj"]}/></div>
     </section>
     <EditorialFeatureBand
       eyebrow="ZNALOST, KTERÁ CESTUJE"

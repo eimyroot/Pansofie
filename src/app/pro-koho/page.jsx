@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { pansofiePhoto } from "../../domain/asset-system";
 
@@ -18,9 +19,9 @@ const ROLES = [
 ];
 export default function WhoPage() {
   return <PublicShell active="/pro-koho">
-    <section className="pw-page-hero">
-      <div><p className="pw-eyebrow">PRO KOHO JE PANSOFIE</p><h1>Každý může vstoupit jinak.</h1><p>Není potřeba vědět předem, co přesně chcete dělat. Stačí zvolit pohled, který je vám teď nejbližší, nebo se jen rozhlédnout.</p></div>
-      <div className="pw-page-hero__media"><Image src={pansofiePhoto("community-city-16x9")} alt="Lidé různých generací ve společném městském prostoru" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--engine">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">PRO KOHO JE PANSOFIE</p><h1>Každý může vstoupit jinak.</h1><p>Není potřeba vědět předem, co přesně chcete dělat. Stačí zvolit pohled, který je vám teď nejbližší, nebo se jen rozhlédnout.</p></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="PRO KOHO JE PANSOFIE" title="Různé vstupy. Jedno jádro." detail="kontext mění zkušenost, ne hodnotu člověka" flow={["Mladí","Rodiny","Školy","Organizace","Komunity"]}/></div>
     </section>
     <EditorialFeatureBand
       eyebrow="JEDEN EKOSYSTÉM · RŮZNÉ VSTUPY"

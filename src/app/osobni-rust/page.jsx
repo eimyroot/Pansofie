@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { pansofiePhoto } from "../../domain/asset-system";
 
@@ -17,9 +18,9 @@ const AREAS = [
 ];
 export default function PersonalGrowthPage() {
   return <PublicShell active="/osobni-rust">
-    <section className="pw-page-hero pw-page-hero--reverse">
-      <div><p className="pw-eyebrow">KNOWLEDGE EXCHANGE</p><h1>Možná se můžeme něco naučit jeden od druhého.</h1><p>To, co může člověk nabídnout druhému, je možnost, ne podmínka a ne dluh. Pansofie chce propojovat zkušenosti v bezpečných kontextech.</p></div>
-      <div className="pw-page-hero__media"><Image src={pansofiePhoto("growing-together-16x9")} alt="Lidé různých generací při společné praktické činnosti" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--engine">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">KNOWLEDGE EXCHANGE</p><h1>Možná se můžeme něco naučit jeden od druhého.</h1><p>To, co může člověk nabídnout druhému, je možnost, ne podmínka a ne dluh. Pansofie chce propojovat zkušenosti v bezpečných kontextech.</p></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="KNOWLEDGE EXCHANGE" title="Zkušenost mezi generacemi" detail="bez veřejného katalogu lidí" flow={["Dovednost","Příběh","Kontext","Vzájemnost"]}/></div>
     </section>
     <EditorialFeatureBand
       eyebrow="ZNALOST MEZI GENERACEMI"
