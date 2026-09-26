@@ -17,9 +17,9 @@ test("Pansofie Visual Engine v1 is a shared identity system, not a page-local de
   assert.match(css, /pve-lines/);
 });
 
-test("core public surfaces use the Visual Engine as their primary hero language", () => {
+test("core public surfaces use the canonical Pansofie identity language", () => {
+  assert.match(read("src/app/page.jsx"), /PansofieEcosystemAtlas domains=\{PUBLIC_DOMAINS\} paths=\{PUBLIC_PATHS\}/, "homepage must use the canonical living atlas");
   const surfaces = {
-    "src/app/page.jsx": /PansofieVisualEngine domains=\{PUBLIC_DOMAINS\} paths=\{PUBLIC_PATHS\}/,
     "src/app/7-cest/page.jsx": /PansofieVisualEngine mode="paths"/,
     "src/app/16-oblasti/page.jsx": /PansofieVisualEngine mode="domains"/,
     "src/app/projekty/page.jsx": /PansofieVisualEngine mode="projects"/,
