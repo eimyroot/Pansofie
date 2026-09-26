@@ -71,3 +71,12 @@ body:has(.pw-site){background:var(--p01-cream)}
   .pw-visual-card-strip--five .pa-panel.is-compact .pa-node--6,
   .pw-visual-card-strip--five .pa-panel.is-compact .pa-node--7{display:none}
 }
+
+/* Dark editorial surfaces keep the Mockup 01 serif hierarchy readable. */
+.pw-site .pw-editorial-band h2,
+.pw-site .pw-future-bridge h2,
+.pw-site .pw-paths h2,
+.pw-site .pw-paths h3{color:#f8f4eb}
+.pw-site .pw-editorial-band .pw-eyebrow,
+.pw-site .pw-future-bridge .pw-eyebrow,
+.pw-site .pw-paths .pw-eyebrow{color:#b9cfbe}
