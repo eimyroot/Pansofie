@@ -101,7 +101,7 @@ test("public impact page avoids aggregate person scoring and fake results", () =
 test("new adult pages use the shared Pansofie shell rather than Young or GO shells", () => {
   for (const file of ["green-hope", "urban-family-farm", "family-team", "impact", "o-nas", "pro-skoly"]) {
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
-    assert.match(source, /PublicShell|ProgramStoryPage/);
+    assert.match(source, /PublicShell|ProgramStoryPage|ProjectVisualStoryPage/);
     assert.doesNotMatch(source, /YoungWorkspace|GoWorkspace/);
   }
 });
@@ -460,4 +460,44 @@ test("M6.18 gives every Objevuj destination its own responsive visual entry syst
   assert.match(domains, /pw-discover-icon-grid--domains/);
   assert.match(blog, /pw-resource-grid pw-resource-grid--visual/);
   assert.doesNotMatch(about + paths + domains + blog, /1000\+|garantovan|ověřený partner/i);
+});
+
+
+test("M6.19 gives core project destinations the same visual editorial depth", () => {
+  const css = readFileSync("src/app/public-pansofie.css", "utf8");
+  const projects = readFileSync("src/app/projekty/page.jsx", "utf8");
+  const green = readFileSync("src/app/green-hope/page.jsx", "utf8");
+  const farm = readFileSync("src/app/urban-family-farm/page.jsx", "utf8");
+  const compost = readFileSync("src/app/digitalni-kompost/page.jsx", "utf8");
+  const shared = readFileSync("src/components/public/ProjectVisualStoryPage.jsx", "utf8");
+  assert.match(css, /\.pw-project-gateway/);
+  assert.match(css, /\.pw-material-grid/);
+  assert.match(projects, /pw-visual-hero/);
+  assert.match(projects, /pw-project-gateway/);
+  assert.match(projects, /PROJECT_VISUALS/);
+  for (const visual of ["green-hope-lab", "urban-farm-system", "family-team-missions", "collaboration-map", "knowledge-journal", "school-life-learning"]) assert.match(projects, new RegExp(visual));
+  assert.match(green, /ProjectVisualStoryPage/);
+  assert.match(farm, /ProjectVisualStoryPage/);
+  assert.match(shared, /pw-visual-card-strip/);
+  assert.match(compost, /pw-material-grid/);
+  assert.match(compost, /DŮLEŽITÁ HRANICE/);
+  assert.doesNotMatch(projects + green + farm + compost, /1000\+|garantovan|ověřený partner|má naměřený ekologický dopad|prokázaný ekologický dopad/i);
+});
+
+
+test("M6.20 gives network, school, organization and contact routes full visual landing systems", () => {
+  const css = readFileSync("src/app/public-pansofie.css", "utf8");
+  const network = readFileSync("src/app/sit/page.jsx", "utf8");
+  const school = readFileSync("src/app/pro-skoly/page.jsx", "utf8");
+  const org = readFileSync("src/app/pro-organizace/page.jsx", "utf8");
+  const contact = readFileSync("src/app/kontakt/page.jsx", "utf8");
+  for (const source of [network, school, org, contact]) assert.match(source, /pw-visual-hero/);
+  assert.match(css, /\.pw-community-entry-grid/);
+  assert.match(css, /\.pw-contact-entry-grid/);
+  assert.match(network, /nejsou seznamem potvrzených partnerů/);
+  assert.match(school, /není postavená na povinném skórování dítěte/);
+  assert.match(org, /Dopad se dokládá, nevymýšlí/);
+  assert.match(contact, /lokální prototyp/);
+  assert.match(contact, /Nepředstírá odeslání ani přijetí na mailbox/);
+  assert.doesNotMatch(network + school + org + contact, /1000\+|garantovaná spolupráce|seznam ověřených partnerů[.!]/i);
 });
