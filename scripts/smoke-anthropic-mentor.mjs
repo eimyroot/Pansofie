@@ -1,7 +1,7 @@
 import { requestAnthropicMentor } from "../src/lib/anthropic-mentor.js";
 
 const retentionMode = process.env.ANTHROPIC_DATA_RETENTION_MODE || "unverified";
-const allowedRetention = new Set(["standard_30d", "zdr"]);
+const allowedRetention = new Set(["standard_api", "zdr"]);
 
 if (process.env.MENTOR_LIVE_SMOKE !== "1") {
   console.error("MENTOR_LIVE_SMOKE=1 is required for an explicit paid provider smoke test.");
@@ -13,6 +13,10 @@ if (!process.env.ANTHROPIC_API_KEY) {
 }
 if (!allowedRetention.has(retentionMode)) {
   console.error("ANTHROPIC_DATA_RETENTION_MODE must be acknowledged before the live smoke test.");
+  process.exit(2);
+}
+if (process.env.MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED !== "true") {
+  console.error("MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED=true is required before a paid provider smoke test.");
   process.exit(2);
 }
 

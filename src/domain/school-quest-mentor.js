@@ -70,12 +70,13 @@ export function buildSchoolQuestMentorPrompt({ mission, phaseId, question }) {
   };
 }
 
-const VERIFIED_RETENTION_MODES = new Set(["standard_30d", "zdr"]);
+const VERIFIED_RETENTION_MODES = new Set(["standard_api", "zdr"]);
 
 export function mentorProductionConfig() {
   const retentionMode = process.env.ANTHROPIC_DATA_RETENTION_MODE || "unverified";
   const retentionVerified = VERIFIED_RETENTION_MODES.has(retentionMode);
   const enabled = process.env.MENTOR_PRODUCTION_ENABLED === "true";
+  const providerSpendVerified = process.env.MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED === "true";
   const model = process.env.ANTHROPIC_MODEL || DEFAULT_MENTOR_MODEL;
   const modelAllowed = model === DEFAULT_MENTOR_MODEL;
   return {
@@ -84,7 +85,8 @@ export function mentorProductionConfig() {
     retentionVerified,
     model,
     modelAllowed,
-    ready: enabled && retentionVerified && modelAllowed && Boolean(process.env.ANTHROPIC_API_KEY),
+    providerSpendVerified,
+    ready: enabled && retentionVerified && modelAllowed && providerSpendVerified && Boolean(process.env.ANTHROPIC_API_KEY),
   };
 }
 

@@ -106,6 +106,9 @@ function mentorQuotaError(error) {
   if (message.includes("mentor_global_daily_budget")) {
     return { code: "budget_limit", message: "Denní rozpočet AI průvodce je vyčerpaný. Mise funguje dál bez AI." };
   }
+  if (message.includes("mentor_global_monthly_budget")) {
+    return { code: "monthly_budget_limit", message: "Měsíční rozpočet AI průvodce je vyčerpaný. Mise funguje dál bez AI." };
+  }
   return null;
 }
 

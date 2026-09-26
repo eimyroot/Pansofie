@@ -1,7 +1,7 @@
 begin;
 
 create extension if not exists pgtap with schema extensions;
-select plan(16);
+select plan(21);
 
 select ok(
   to_regclass('public.school_mentor_usage_policy') is not null
@@ -209,6 +209,49 @@ select is(
   (select sum(budgeted_micro_usd)::bigint from public.school_mentor_usage_daily),
   60000::bigint,
   'budget ledger records only bounded aggregate micro-USD reservations'
+);
+
+select ok(
+  exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'school_mentor_usage_policy'
+      and column_name = 'global_monthly_budget_micro_usd'
+  ),
+  'mentor policy has an application-level monthly spend ceiling'
+);
+
+reset role;
+delete from public.school_mentor_usage_daily;
+update public.school_mentor_usage_policy
+set subject_daily_request_limit = 10,
+    school_daily_request_limit = 10,
+    global_daily_budget_micro_usd = 1000000,
+    global_monthly_budget_micro_usd = 60000,
+    per_request_budget_micro_usd = 30000
+where id = 1;
+set local role authenticated;
+set local request.jwt.claim.sub = 'a1111111-1111-4111-8111-111111111111';
+select lives_ok(
+  $$select * from public.reserve_school_mentor_usage('aa200000-0000-4000-8000-000000000001')$$,
+  'first request can reserve within monthly spend ceiling'
+);
+set local request.jwt.claim.sub = 'b1111111-1111-4111-8111-111111111111';
+select lives_ok(
+  $$select * from public.reserve_school_mentor_usage('bb200000-0000-4000-8000-000000000001')$$,
+  'second school can consume the remaining monthly budget'
+);
+set local request.jwt.claim.sub = 'a2222222-2222-4222-8222-222222222222';
+select throws_ok(
+  $$select * from public.reserve_school_mentor_usage('aa200000-0000-4000-8000-000000000002')$$,
+  null::text, null::text,
+  'global monthly spend ceiling blocks the next provider call'
+);
+reset role;
+select is(
+  (select sum(budgeted_micro_usd)::bigint from public.school_mentor_usage_daily),
+  60000::bigint,
+  'monthly ceiling keeps only bounded aggregate reservations'
 );
 
 select * from finish();

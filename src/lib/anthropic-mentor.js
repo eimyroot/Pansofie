@@ -1,6 +1,6 @@
 const ANTHROPIC_MESSAGES_URL = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VERSION = "2023-06-01";
-export const DEFAULT_MENTOR_MODEL = "claude-sonnet-4-6";
+export const DEFAULT_MENTOR_MODEL = "claude-sonnet-5";
 export const MENTOR_MAX_OUTPUT_TOKENS = 420;
 export const MENTOR_TIMEOUT_MS = 12_000;
 

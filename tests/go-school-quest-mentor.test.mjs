@@ -122,13 +122,21 @@ test("mentor availability requires an explicit production and retention gate wit
     key: process.env.ANTHROPIC_API_KEY,
     enabled: process.env.MENTOR_PRODUCTION_ENABLED,
     retention: process.env.ANTHROPIC_DATA_RETENTION_MODE,
+    providerSpend: process.env.MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED,
     model: process.env.ANTHROPIC_MODEL,
   };
   process.env.ANTHROPIC_API_KEY = "configured-for-test";
   process.env.MENTOR_PRODUCTION_ENABLED = "true";
-  process.env.ANTHROPIC_DATA_RETENTION_MODE = "standard_30d";
+  process.env.ANTHROPIC_DATA_RETENTION_MODE = "standard_api";
+  process.env.MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED = "true";
   try {
     assert.equal(mentorProductionConfig().ready, true);
+    process.env.MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED = "false";
+    assert.equal(mentorProductionConfig().ready, false);
+    process.env.MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED = "true";
+    process.env.ANTHROPIC_DATA_RETENTION_MODE = "standard_30d";
+    assert.equal(mentorProductionConfig().ready, false);
+    process.env.ANTHROPIC_DATA_RETENTION_MODE = "standard_api";
     process.env.ANTHROPIC_MODEL = "claude-opus-4-1";
     assert.equal(mentorProductionConfig().ready, false);
     process.env.ANTHROPIC_MODEL = DEFAULT_MENTOR_MODEL;
@@ -136,13 +144,13 @@ test("mentor availability requires an explicit production and retention gate wit
       available: true,
       ephemeral: true,
       historyPersistence: "none",
-      providerRetention: "standard_30d",
+      providerRetention: "standard_api",
     });
     assert.equal(JSON.stringify(mentorAvailability()).includes("configured-for-test"), false);
     process.env.ANTHROPIC_DATA_RETENTION_MODE = "unverified";
     assert.equal(mentorAvailability().available, false);
   } finally {
-    for (const [name, value] of [["ANTHROPIC_API_KEY", before.key], ["MENTOR_PRODUCTION_ENABLED", before.enabled], ["ANTHROPIC_DATA_RETENTION_MODE", before.retention], ["ANTHROPIC_MODEL", before.model]]) {
+    for (const [name, value] of [["ANTHROPIC_API_KEY", before.key], ["MENTOR_PRODUCTION_ENABLED", before.enabled], ["ANTHROPIC_DATA_RETENTION_MODE", before.retention], ["MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED", before.providerSpend], ["ANTHROPIC_MODEL", before.model]]) {
       if (value === undefined) delete process.env[name]; else process.env[name] = value;
     }
   }
@@ -175,9 +183,12 @@ test("quest mentor stays server-authenticated, current-phase bound and non-persi
   assert.match(envExample, /ANTHROPIC_API_KEY=/);
   assert.match(envExample, /MENTOR_PRODUCTION_ENABLED=false/);
   assert.match(envExample, /ANTHROPIC_DATA_RETENTION_MODE=unverified/);
+  assert.match(envExample, /MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED=false/);
+  assert.match(envExample, /ANTHROPIC_MODEL=claude-sonnet-5/);
   assert.doesNotMatch(envExample, /ANTHROPIC_API_KEY=\S+/);
   assert.match(smoke, /MENTOR_LIVE_SMOKE/);
   assert.match(smoke, /synthetic_test/);
+  assert.match(smoke, /MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED/);
   assert.doesNotMatch(smoke, /console\.log\(result\.answer/);
   assert.match(globalGo, /PŘIPRAVOVANÁ VRSTVA · NEJDE O ŽIVÝ CHAT/);
 });
