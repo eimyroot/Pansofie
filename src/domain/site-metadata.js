@@ -9,7 +9,8 @@ export const PUBLIC_SITEMAP_PATHS = Object.freeze([
   "/green-hope", "/urban-family-farm", "/family-team", "/impact", "/o-nas",
   "/pro-skoly", "/pro-organizace", "/pro-koho", "/knihovna", "/vize",
   "/osobni-rust", "/digitalni-kompost", "/mapa-kolobehu", "/instituce",
-  "/sit", "/mapa", "/blog", "/kontakt", "/pansofie-go", "/mise/rostlina",
+  "/sit", "/komunita", "/partneri", "/dobrovolnictvi", "/partnerstvi", "/labs",
+  "/mapa", "/blog", "/kontakt", "/pansofie-go", "/mise/rostlina",
   "/young", "/young/objevuj", "/young/mise", "/young/projekty",
   "/young/komunita", "/young/jak-to-funguje",
 ]);

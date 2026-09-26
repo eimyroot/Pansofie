@@ -3,10 +3,10 @@ import Link from "next/link";
 
 const PUBLIC_NAV_GROUPS = [
   { label: "Domů", href: "/", match: ["/"], items: [] },
-  { label: "Objevuj", href: "/jak-to-funguje", match: ["/jak-to-funguje", "/o-nas", "/vize", "/16-oblasti", "/7-cest", "/knihovna", "/blog", "/impact"], items: [["/o-nas", "O Pansofii"], ["/jak-to-funguje", "Jak to funguje"], ["/16-oblasti", "16 oblastí"], ["/7-cest", "7 cest"], ["/vize", "Vize"], ["/knihovna", "Knihovna"], ["/blog", "Blog"], ["/impact", "Dopad"]] },
-  { label: "Projekty", href: "/projekty", match: ["/projekty", "/green-hope", "/urban-family-farm", "/family-team", "/digitalni-kompost", "/mapa-kolobehu", "/mapa"], items: [["/green-hope", "Green Hope"], ["/urban-family-farm", "Urban Family Farm"], ["/family-team", "Family Team"], ["/digitalni-kompost", "Materiály v oběhu"], ["/mapa-kolobehu", "Mapa koloběhu"], ["/mapa", "Mapa míst"]] },
-  { label: "Komunita", href: "/sit", match: ["/sit", "/instituce", "/osobni-rust"], items: [["/sit", "Síť a komunita"], ["/instituce", "Instituce"], ["/osobni-rust", "Knowledge Exchange"]] },
-  { label: "Zapoj se", href: "/pro-koho", match: ["/pro-koho", "/pro-skoly", "/pro-organizace", "/kontakt"], items: [["/pro-skoly", "Pro školy"], ["/pro-organizace", "Pro organizace"], ["/kontakt", "Kontakt"]] },
+  { label: "Objevuj", href: "/o-nas", match: ["/o-nas", "/7-cest", "/16-oblasti", "/blog"], items: [["/o-nas", "O Pansofii"], ["/7-cest", "7 cest"], ["/16-oblasti", "16 oblastí"], ["/blog", "Články"]] },
+  { label: "Projekty", href: "/projekty", match: ["/projekty", "/green-hope", "/urban-family-farm", "/digitalni-kompost", "/labs"], items: [["/projekty", "Přehled projektů"], ["/green-hope", "Green Hope"], ["/urban-family-farm", "Urban Family Farm"], ["/digitalni-kompost", "Digitální kompost"], ["/labs", "Labs"]] },
+  { label: "Komunita", href: "/komunita", match: ["/komunita", "/sit", "/pro-skoly", "/pro-organizace", "/partneri"], items: [["/komunita", "Komunita"], ["/sit", "Síť"], ["/pro-skoly", "Pro školy"], ["/pro-organizace", "Pro organizace"], ["/partneri", "Partneři"]] },
+  { label: "Zapoj se", href: "/dobrovolnictvi", match: ["/dobrovolnictvi", "/partnerstvi", "/kontakt"], items: [["/dobrovolnictvi", "Dobrovolnictví"], ["/partnerstvi", "Partnerství"], ["/kontakt", "Kontakt"]] },
 ];
 
 const FOOTER_GROUPS = [
@@ -39,7 +39,6 @@ export function PublicShell({ children, active = "", current = active }) {
           </div>)}
         </nav>
         <nav className="pw-actions" aria-label="Produkty a účet">
-          <Link className={`pw-link-muted${active === "/young" ? " is-active" : ""}`} aria-current={current === "/young" ? "page" : undefined} href="/young">Young</Link>
           <Link className={`pw-go-launch${active === "/pansofie-go" ? " is-active" : ""}`} aria-current={current === "/pansofie-go" ? "page" : undefined} href="/pansofie-go"><span>Pansofie GO</span><small>Geolokační hra</small></Link>
           <Link className="pw-login" href="/login">Přihlásit se</Link>
         </nav>
@@ -51,7 +50,6 @@ export function PublicShell({ children, active = "", current = active }) {
               {group.items.map(([href, label]) => <Link key={href} aria-current={current === href ? "page" : undefined} href={href}>{label}</Link>)}
             </div>)}
             <div className="pw-menu__products">
-              <Link aria-current={current === "/young" ? "page" : undefined} href="/young">Pansofie Young</Link>
               <Link className="pw-menu__go" aria-current={current === "/pansofie-go" ? "page" : undefined} href="/pansofie-go"><span>Pansofie GO</span><small>Geolokační hra</small></Link>
               <Link href="/login">Přihlásit se</Link>
             </div>
