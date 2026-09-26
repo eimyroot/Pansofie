@@ -1,7 +1,53 @@
 import { MISSION_CYCLE, normalizeMissionCycle } from "./mission-cycle.js";
 import { DEFAULT_MENTOR_MODEL } from "../lib/anthropic-mentor.js";
+import { MENTOR_PROVIDER_ANTHROPIC, MENTOR_PROVIDER_NONE } from "../lib/mentor-provider.js";
 
 export const MENTOR_QUESTION_MAX_CHARS = 800;
+
+const LITE_PHASE_GUIDANCE = {
+  learn: {
+    question: "Kterou jednu myšlenku z tohoto kroku už dokážeš vysvětlit vlastními slovy?",
+    hint: "Zkus ji převést na krátký příklad ze skutečného života.",
+  },
+  play: {
+    question: "Kterou možnost bys bezpečně vyzkoušel/a jako malý experiment a co bys při tom sledoval/a?",
+    hint: "Stačí jeden pokus, který jde snadno vrátit nebo změnit.",
+  },
+  do: {
+    question: "Jaký nejmenší konkrétní krok můžeš udělat teď a podle čeho poznáš, že proběhl správně?",
+    hint: "Neřeš celý úkol najednou. Vyber jen první ověřitelný krok.",
+  },
+  create: {
+    question: "Co přesně chceš vytvořit a jaká jedna vlastnost rozhodne, že výsledek dává smysl?",
+    hint: "Nejdřív si pojmenuj jednoduché kritérium hotového výsledku.",
+  },
+  share: {
+    question: "Co je z výsledku bezpečné a užitečné sdílet, aniž bys zveřejnil/a osobní údaje?",
+    hint: "Sdílej princip, postup nebo výsledek, ne identitu lidí.",
+  },
+  reflect: {
+    question: "Co ses během mise dozvěděl/a o svém postupu a co bys příště změnil/a jako první?",
+    hint: "Stačí jedna konkrétní věc, ne známka ani hodnocení sebe sama.",
+  },
+};
+
+const LITE_INTENT_GUIDANCE = [
+  {
+    pattern: /bezpe|soukrom|osobn|hesl|kontakt/i,
+    question: "Jak můžeš udělat další krok bez sdílení osobních nebo citlivých údajů?",
+    hint: "Použij anonymní příklad nebo obecný popis místo skutečné identity či kontaktu.",
+  },
+  {
+    pattern: /ověř|over|zdroj|pravd|tvrzen|důkaz|dukaz/i,
+    question: "Jaký nezávislý důkaz nebo druhý zdroj by ti pomohl rozhodnout, jestli je tvrzení spolehlivé?",
+    hint: "Hledej zdroj, který neopakuje jen stejnou původní informaci.",
+  },
+  {
+    pattern: /chyba|nefung|špat|spat|zasek|nevím|nevim|zač/i,
+    question: "Kde přesně se postup zastavil: v porozumění zadání, ve volbě kroku, nebo při ověřování výsledku?",
+    hint: "Vyber jen jednu z těchto tří možností a řeš ji jako první.",
+  },
+];
 
 const EMAIL_RE = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 const PHONE_RE = /(?:\+?420[\s.-]*)?(?:\d[\s.-]*){9}/;
@@ -70,9 +116,25 @@ export function buildSchoolQuestMentorPrompt({ mission, phaseId, question }) {
   };
 }
 
+
+export function buildMentorLiteResponse({ mission, phaseId, question }) {
+  if (!MISSION_CYCLE.includes(phaseId)) throw new Error("Neplatná fáze pro mentora.");
+  const phases = normalizeMissionCycle(mission || {});
+  const phase = phases.find((item) => item.id === phaseId);
+  if (!phase) throw new Error("Fáze mise nebyla nalezena.");
+
+  const matched = LITE_INTENT_GUIDANCE.find((item) => item.pattern.test(String(question || "")));
+  const guidance = matched || LITE_PHASE_GUIDANCE[phaseId];
+  const task = clip(phase.text, 180);
+  const taskPrefix = task ? `Teď řešíš: ${task} ` : "";
+  return `${taskPrefix}${guidance.question} Malý tip: ${guidance.hint}`.slice(0, 520);
+}
+
 const VERIFIED_RETENTION_MODES = new Set(["standard_api", "zdr"]);
 
 export function mentorProductionConfig() {
+  const provider = process.env.MENTOR_PROVIDER || MENTOR_PROVIDER_NONE;
+  const providerSupported = provider === MENTOR_PROVIDER_ANTHROPIC;
   const retentionMode = process.env.ANTHROPIC_DATA_RETENTION_MODE || "unverified";
   const retentionVerified = VERIFIED_RETENTION_MODES.has(retentionMode);
   const enabled = process.env.MENTOR_PRODUCTION_ENABLED === "true";
@@ -80,22 +142,26 @@ export function mentorProductionConfig() {
   const model = process.env.ANTHROPIC_MODEL || DEFAULT_MENTOR_MODEL;
   const modelAllowed = model === DEFAULT_MENTOR_MODEL;
   return {
+    provider,
+    providerSupported,
     enabled,
     retentionMode,
     retentionVerified,
     model,
     modelAllowed,
     providerSpendVerified,
-    ready: enabled && retentionVerified && modelAllowed && providerSpendVerified && Boolean(process.env.ANTHROPIC_API_KEY),
+    ready: providerSupported && enabled && retentionVerified && modelAllowed && providerSpendVerified && Boolean(process.env.ANTHROPIC_API_KEY),
   };
 }
 
 export function mentorAvailability() {
   const config = mentorProductionConfig();
   return {
-    available: config.ready,
+    available: true,
+    mode: config.ready ? "hybrid" : "lite",
+    providerAvailable: config.ready,
     ephemeral: true,
     historyPersistence: "none",
-    providerRetention: config.retentionVerified ? config.retentionMode : "unverified",
+    providerRetention: config.ready ? config.retentionMode : "not_used",
   };
 }

@@ -14,12 +14,12 @@ export default function SchoolQuestMentor({ quest, phase }) {
   const [messages, setMessages] = useState([]);
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
-  const available = Boolean(quest.mentor?.available);
+  const providerAvailable = Boolean(quest.mentor?.providerAvailable);
 
   const ask = async (event) => {
     event.preventDefault();
     const text = question.trim();
-    if (!text || busy || !available) return;
+    if (!text || busy) return;
     setBusy(true);
     setStatus("");
     try {
@@ -38,7 +38,9 @@ export default function SchoolQuestMentor({ quest, phase }) {
         { role: "mentor", text: result.answer },
       ].slice(-6));
       setQuestion("");
-      setStatus("Odpověď je jen v této otevřené obrazovce.");
+      setStatus(result.source === "provider"
+        ? "Odpověď využila AI rozšíření. Historie zůstává jen v této otevřené obrazovce."
+        : "Mentor Lite pomohl bez externí AI. Historie zůstává jen v této otevřené obrazovce.");
     } catch {
       setStatus("Průvodce teď neodpovídá. Zkus to později.");
     } finally {
@@ -51,59 +53,62 @@ export default function SchoolQuestMentor({ quest, phase }) {
       <div className="goq-mentor-head">
         <span className="goq-mentor-mark" aria-hidden="true">?</span>
         <div>
-          <small>SOKRATOVSKÝ AI PRŮVODCE</small>
+          <small>SOKRATOVSKÝ PRŮVODCE</small>
           <h3 id="quest-mentor-heading">Pomůže otázkou. Neudělá úkol za tebe.</h3>
         </div>
       </div>
-      <p className="goq-mentor-privacy">Poskytovateli AI odešleme jen text tvé otázky, název mise a právě otevřený krok. Z účtu mu nepřidáváme jméno, třídu, soukromé poznámky ani portfolio. Do otázky nepiš osobní nebo citlivé údaje.</p>
-      {!available ? (
-        <div className="goq-mentor-offline" role="status">
-          <b>Průvodce v tomto prostředí není připojený.</b>
-          <span>Mise funguje dál bez AI. Připojení vyžaduje serverovou konfiguraci provozovatele.</span>
+      <p className="goq-mentor-privacy">
+        Mentor Lite funguje i bez externí AI. Pokud provozovatel zapne AI rozšíření, poskytovateli se odešle jen text otázky,
+        název mise a právě otevřený krok. Z účtu mu nepřidáváme jméno, třídu, soukromé poznámky ani portfolio.
+      </p>
+      <div className="goq-mentor-offline" role="status">
+        <b>{providerAvailable ? "Mentor Lite + AI rozšíření" : "Mentor Lite je aktivní"}</b>
+        <span>{providerAvailable
+          ? "Když externí AI selže nebo narazí na limit, průvodce automaticky pokračuje bezpečnou Lite nápovědou."
+          : "Funguje bez externího API. Připojení AI lze později zapnout serverovou konfigurací bez změny tohoto rozhraní."}</span>
+      </div>
+      <div className="goq-mentor-suggestions" aria-label="Návrhy otázek pro průvodce">
+        {SUGGESTIONS.map((item) => (
+          <button key={item} type="button" onClick={() => setQuestion(item)} disabled={busy}>{item}</button>
+        ))}
+      </div>
+      {messages.length > 0 && (
+        <div className="goq-mentor-thread" aria-live="polite">
+          {messages.map((item, index) => (
+            <article key={`${item.role}-${index}`} className={`is-${item.role}`}>
+              <small>{item.role === "mentor" ? "PRŮVODCE" : "TY"}</small>
+              <p>{item.text}</p>
+            </article>
+          ))}
         </div>
-      ) : (
-        <>
-          <div className="goq-mentor-suggestions" aria-label="Návrhy otázek pro průvodce">
-            {SUGGESTIONS.map((item) => (
-              <button key={item} type="button" onClick={() => setQuestion(item)} disabled={busy}>{item}</button>
-            ))}
-          </div>
-          {messages.length > 0 && (
-            <div className="goq-mentor-thread" aria-live="polite">
-              {messages.map((item, index) => (
-                <article key={`${item.role}-${index}`} className={`is-${item.role}`}>
-                  <small>{item.role === "mentor" ? "PRŮVODCE" : "TY"}</small>
-                  <p>{item.text}</p>
-                </article>
-              ))}
-            </div>
-          )}
-          <form className="goq-mentor-form" onSubmit={ask}>
-            <label htmlFor="quest-mentor-question">Kde se teď potřebuješ pohnout?</label>
-            <textarea
-              id="quest-mentor-question"
-              rows="3"
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              maxLength={800}
-              placeholder="Např. Nevím, jak začít ověřovat tohle tvrzení…"
-              disabled={busy}
-            />
-            <div className="goq-mentor-form-meta">
-              <span>{question.length}/800 · historie se po reloadu smaže</span>
-              {messages.length > 0 && (
-                <button type="button" onClick={() => { setMessages([]); setStatus(""); }}>
-                  Smazat výměnu
-                </button>
-              )}
-            </div>
-            <button type="submit" className="goq-mentor-submit" disabled={busy || !question.trim()}>
-              {busy ? "Průvodce přemýšlí…" : "Zeptat se průvodce"}
-            </button>
-          </form>
-        </>
       )}
-      <p className="goq-mentor-boundary">Průvodce nenahrazuje učitele, rodiče ani odbornou pomoc. Pansofie tuto výměnu neukládá do portfolia ani databáze; poskytovatel API může vstup a výstup dočasně zpracovávat podle smluvního retenčního režimu provozovatele.</p>
+      <form className="goq-mentor-form" onSubmit={ask}>
+        <label htmlFor="quest-mentor-question">Kde se teď potřebuješ pohnout?</label>
+        <textarea
+          id="quest-mentor-question"
+          rows="3"
+          value={question}
+          onChange={(event) => setQuestion(event.target.value)}
+          maxLength={800}
+          placeholder="Např. Nevím, jak začít ověřovat tohle tvrzení…"
+          disabled={busy}
+        />
+        <div className="goq-mentor-form-meta">
+          <span>{question.length}/800 · historie se po reloadu smaže</span>
+          {messages.length > 0 && (
+            <button type="button" onClick={() => { setMessages([]); setStatus(""); }}>
+              Smazat výměnu
+            </button>
+          )}
+        </div>
+        <button type="submit" className="goq-mentor-submit" disabled={busy || !question.trim()}>
+          {busy ? "Průvodce přemýšlí…" : "Zeptat se průvodce"}
+        </button>
+      </form>
+      <p className="goq-mentor-boundary">
+        Průvodce nenahrazuje učitele, rodiče ani odbornou pomoc. Pansofie tuto výměnu neukládá do portfolia ani databáze.
+        Externí poskytovatel se zapojuje jen v explicitně povoleném AI režimu a pod stejnými privacy a budget pravidly.
+      </p>
       {status && <p className="goq-mentor-status" role="status">{status}</p>}
     </section>
   );
