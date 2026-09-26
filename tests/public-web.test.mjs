@@ -259,11 +259,12 @@ test("M6.8 carries the mature editorial world across projects, schools, organiza
 
 
 test("M6.9 completes the adult editorial system across orientation and trust pages", () => {
-  const files = ["o-nas", "vize", "jak-to-funguje", "pro-koho", "knihovna", "impact", "kontakt"];
+  const files = ["vize", "jak-to-funguje", "pro-koho", "knihovna", "impact", "kontakt"];
   for (const file of files) {
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
     assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
   }
+  assert.match(readFileSync("src/app/o-nas/page.jsx", "utf8"), /DiscoverHero variant="about"/);
 
   const how = readFileSync("src/app/jak-to-funguje/page.jsx", "utf8");
   assert.match(how, /Pansofie Young je samostatná zkušenost/i);
@@ -287,25 +288,26 @@ test("M6.10 turns the canonical 16 areas and 7 paths into the same adult editori
   const domains = readFileSync("src/app/16-oblasti/page.jsx", "utf8");
   const paths = readFileSync("src/app/7-cest/page.jsx", "utf8");
 
-  assert.match(domains, /EditorialFeatureBand/);
+  assert.match(domains, /DiscoverHero variant="domains"/);
   assert.match(domains, /MAPA SOUVISLOSTÍ/);
   assert.match(domains, /DOMAIN_DETAILS\.map/);
   assert.match(domains, /LEARNING_DOMAINS\[index\]\.id/);
 
-  assert.match(paths, /EditorialFeatureBand/);
+  assert.match(paths, /DiscoverHero variant="paths"/);
   assert.match(paths, /RŮST BEZ ŽEBŘÍČKU/);
   assert.match(paths, /PATHS\.map/);
   assert.match(paths, /DEVELOPMENT_PATHS\[index\]\.id/);
-  assert.match(paths, /nemají pořadí, vítěze ani ideální profil/i);
+  assert.match(paths, /Žádná cesta není vyšší, lepší ani povinná pro všechny/i);
 
   assert.doesNotMatch(`${domains}\n${paths}`, /1000\+|ověřený dopad|garantovaný dopad|osobnostní skóre/i);
 });
 test("M6.11 completes the people, knowledge and place editorial layer", () => {
-  const files = ["family-team", "osobni-rust", "mapa", "blog"];
+  const files = ["family-team", "osobni-rust", "mapa"];
   for (const file of files) {
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
     assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
   }
+  assert.match(readFileSync("src/app/blog/page.jsx", "utf8"), /DiscoverHero variant="articles"/);
 
   const family = readFileSync("src/app/family-team/page.jsx", "utf8");
   assert.match(family, /RODINA JAKO PRVNÍ TÝM/);
@@ -452,21 +454,22 @@ test("M6.17 turns the generated visual direction into real responsive public UI"
   }
 });
 
-test("M6.18 gives every Objevuj destination its own responsive visual entry system", () => {
-  const css = readFileSync("src/app/public-pansofie.css", "utf8");
-  assert.match(css, /\.pw-discover-gateway/);
-  assert.match(css, /\.pw-discover-icon-grid--paths/);
-  assert.match(css, /\.pw-discover-icon-grid--domains/);
-  assert.match(css, /\.pw-resource-grid--visual/);
+test("M6.18 gives every Objevuj destination one shared editorial atlas family", () => {
+  const css = readFileSync("src/app/discover-frame02.css", "utf8");
+  assert.match(css, /\.d02-family/);
+  assert.match(css, /\.d02-path-hero/);
+  assert.match(css, /\.d02-domain-hero/);
+  assert.match(css, /\.d02-articles-hero/);
   const about = readFileSync("src/app/o-nas/page.jsx", "utf8");
   const paths = readFileSync("src/app/7-cest/page.jsx", "utf8");
   const domains = readFileSync("src/app/16-oblasti/page.jsx", "utf8");
   const blog = readFileSync("src/app/blog/page.jsx", "utf8");
-  for (const source of [about, paths, domains, blog]) assert.match(source, /pw-visual-hero/);
-  assert.match(about, /pw-discover-gateway/);
-  assert.match(paths, /pw-discover-icon-grid--paths/);
-  assert.match(domains, /pw-discover-icon-grid--domains/);
-  assert.match(blog, /pw-resource-grid pw-resource-grid--visual/);
+  for (const source of [about, paths, domains, blog]) assert.match(source, /DiscoverFamilyNav/);
+  assert.match(about, /DiscoverHero variant="about"/);
+  assert.match(paths, /DiscoverHero variant="paths"/);
+  assert.match(domains, /DiscoverHero variant="domains"/);
+  assert.match(blog, /DiscoverHero variant="articles"/);
+  assert.doesNotMatch(about + paths + domains + blog, /PansofieVisualEngine|EditorialFeatureBand|PansofieArtPanel/);
   assert.doesNotMatch(about + paths + domains + blog, /1000\+|garantovan|ověřený partner/i);
 });
 
