@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
-import { pansofieScene } from "../../domain/asset-system";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 
 export const metadata = {
   title: "Mapa koloběhu",
@@ -16,10 +15,7 @@ const LAYERS = [
 ];
 export default function CycleMapPage() {
   return <PublicShell active="/mapa-kolobehu">
-    <section className="pw-page-hero pw-page-hero--reverse">
-      <div><p className="pw-eyebrow">MAPA KOLOBĚHU</p><h1>Nejen kde co je. Hlavně kam může hodnota pokračovat.</h1><p>Mapa koloběhu ukazuje vztah mezi materiály, dovednostmi, školami, projekty a organizacemi. Veřejná vrstva neslouží ke sledování lidí ani k zobrazování jejich přesné polohy.</p></div>
-      <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("collaboration-map")} alt="Schéma oběhu zdrojů, projektů a zkušeností" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
-    </section>
+    <section className="pw-visual-hero pw-visual-hero--engine"><div className="pw-visual-hero__copy"><p className="pw-eyebrow">MAPA KOLOBĚHU</p><h1>Nejen kde co je. Hlavně kam může hodnota pokračovat.</h1><p>Mapa koloběhu ukazuje vztah mezi materiály, dovednostmi, školami, projekty a organizacemi. Veřejná vrstva neslouží ke sledování lidí ani k zobrazování jejich přesné polohy.</p></div><div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="MAPA KOLOBĚHU" title="Hodnota pokračuje" detail="zdroj · potřeba · propojení · další použití" flow={["Materiál","Dovednost","Potřeba","Propojení","Další život"]}/></div></section>
     <section className="pw-story-principles">
       {LAYERS.map(([title,text], index) => <article key={title}><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}
     </section>

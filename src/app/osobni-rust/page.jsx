@@ -1,9 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { pansofiePhoto } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Osobní růst a Knowledge Exchange",
@@ -26,7 +24,6 @@ export default function PersonalGrowthPage() {
       eyebrow="ZNALOST MEZI GENERACEMI"
       title="Zkušenost má cenu, když může bezpečně cestovat dál."
       text="Knowledge Exchange staví na tom, co lidé skutečně umějí, zažili nebo dokážou vysvětlit v kontextu. Nejde o veřejný katalog mentorů ani tržiště protislužeb. Propojení má vznikat kolem konkrétní potřeby, projektu a ověřeného vztahu."
-      image={pansofiePhoto("community-city-16x9")}
       imageAlt="Různé generace sdílejí zkušenost v komunitním prostředí"
       reverse
       items={[["Dovednost", "Praktická znalost, kterou lze ukázat nebo společně vyzkoušet."], ["Příběh", "Zkušenost, která vysvětluje souvislosti, nejen správný postup."], ["Kontext", "Rodina, škola, tým nebo projekt určují bezpečný rámec propojení."], ["Vzájemnost", "Každý může něco předat i přijmout bez dluhu a povinné protislužby."]]}

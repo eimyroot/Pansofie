@@ -1,9 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Instituce a cirkulární propojení",
@@ -26,7 +24,6 @@ export default function InstitutionsPage() {
       eyebrow="DRUHÁ ŠANCE PRO MATERIÁL"
       title="Druhý život materiálu začíná konkrétní potřebou, ne algoritmem."
       text="Pansofie může propojit školní projekt s přebytkem firmy nebo organizace, ale konečné rozhodnutí zůstává na lidech. Matching pomáhá objevit souvislost, ne automaticky přesouvat věci ani vyrábět ESG zásluhy."
-      image={pansofiePhoto("prague-nature-16x9")}
       imageAlt="Město a příroda jako společný prostor pro udržitelné projekty"
       reverse
       items={[["Školní dílna", "Materiál pro bezpečný projekt s konkrétním zadáním."], ["Komunitní oprava", "Věci a díly, které mohou znovu sloužit."], ["Městské pěstování", "Nádoby, konstrukce a vybavení pro pilotní záhony."], ["Prototyp", "Zbytek materiálu jako vstup pro návrh a testování."]]}

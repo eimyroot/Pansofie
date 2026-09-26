@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
 import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
-import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 
 export const metadata = { title: "Partnerství", description: "Partnerství Pansofie navázané na konkrétní projekty, potřeby, role a odpovědnost." };
 
@@ -15,7 +14,7 @@ export default function PartnershipPage() {
       <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="PARTNERSTVÍ" title="Dohoda o konkrétní práci" detail="účel · role · pravidla · výstup" flow={["Problém","Role","Pravidla","Výstup"]}/></div>
     </section>
     <section className="pw-mini-pill-grid">{RULES.map(([title,text], index) => <article key={title}><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}</section>
-    <section className="pw-editorial-band pw-editorial-band--reverse"><div className="pw-editorial-band__media"><Image src={pansofieScene("organization-network")} alt="Síť organizací a komunit" fill sizes="(max-width: 900px) 100vw, 52vw"/></div><div className="pw-editorial-band__copy"><p className="pw-eyebrow">SPOLEČNÝ DOPAD</p><h2>Spolupráce není status. Je to dohoda o konkrétní práci.</h2><p>Škola může přijít s projektem, firma s materiálem, obec s místem, komunita s místní potřebou. Pansofie drží tyto role čitelné a nepřetavuje je do falešného dojmu ověřené instituční sítě.</p><div className="pw-editorial-band__items"><article><strong>Školy</strong><span>Projekt a bezpečný pedagogický kontext.</span></article><article><strong>Firmy</strong><span>Materiál, odbornost nebo kapacita.</span></article><article><strong>Obce</strong><span>Místo a veřejný kontext.</span></article><article><strong>Komunity</strong><span>Reálná potřeba a místní vztahy.</span></article></div></div></section>
+    <EditorialFeatureBand eyebrow="SPOLEČNÝ DOPAD" title="Spolupráce není status. Je to dohoda o konkrétní práci." text="Škola může přijít s projektem, firma s materiálem, obec s místem, komunita s místní potřebou. Pansofie drží tyto role čitelné a nepřetavuje je do falešného dojmu ověřené instituční sítě." reverse imageAlt="Síť rolí, míst a zdrojů propojených kolem konkrétní práce" items={[["Školy","Projekt a bezpečný pedagogický kontext."],["Firmy","Materiál, odbornost nebo kapacita."],["Obce","Místo a veřejný kontext."],["Komunity","Reálná potřeba a místní vztahy."]]}/>
     <section className="pw-next"><div><p className="pw-eyebrow">KONTAKT</p><h2>Navrhněte konkrétní spolupráci.</h2><p>Pro školy, obce, firmy, neziskové organizace a komunitní projekty slouží společný kontaktní vstup.</p></div><Link className="pw-button pw-button--dark" href="/kontakt">Kontakt</Link></section>
   </PublicShell>;
 }

@@ -68,7 +68,8 @@ test("public homepage renders canonical 16 areas, seven paths and six-phase meth
 
 test("public homepage uses the adult Pansofie asset namespace and avoids fake scale metrics", () => {
   const home = readFileSync("src/app/page.jsx", "utf8");
-  assert.match(home, /hero-community-left-safe-16x9/);
+  assert.match(home, /PansofieArtPanel/);
+  assert.doesNotMatch(home, /hero-community-left-safe-16x9/);
   assert.doesNotMatch(home, /1000\+|tisíc projektů|žebříčk/i);
   assert.match(home, /Modelový projekt/);
 });
@@ -474,8 +475,8 @@ test("M6.19 gives core project destinations the same visual editorial depth", ()
   assert.match(css, /\.pw-material-grid/);
   assert.match(projects, /pw-visual-hero/);
   assert.match(projects, /pw-project-gateway/);
-  assert.match(projects, /PROJECT_VISUALS/);
-  for (const visual of ["green-hope-lab", "urban-farm-system", "family-team-missions", "collaboration-map", "knowledge-journal", "school-life-learning"]) assert.match(projects, new RegExp(visual));
+  assert.match(projects, /PansofieArtPanel/);
+  assert.doesNotMatch(projects, /PROJECT_VISUALS|green-hope-lab|urban-farm-system|family-team-missions|collaboration-map|knowledge-journal|school-life-learning/);
   assert.match(green, /ProjectVisualStoryPage/);
   assert.match(farm, /ProjectVisualStoryPage/);
   assert.match(shared, /pw-visual-card-strip/);
