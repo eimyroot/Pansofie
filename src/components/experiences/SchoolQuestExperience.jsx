@@ -136,7 +136,7 @@ function PrivateNotebook({ phaseId, quest, evidenceNote, reflection, onEvidence,
 
 function PhaseCard({ phase, quest, isCurrent, cycleComplete, onAdvance, busy }) {
   return (
-    <section className="goq-phase-card">
+    <section className="goq-phase-card" data-phase={phase.id}>
       <div className="goq-phase-index"><span>{phase.symbol}</span><small>{phase.kicker}</small></div>
       <div className="goq-phase-copy">
         <small>{isCurrent ? "AKTUÁLNÍ KROK" : "HOTOVÝ KROK"}</small>
@@ -179,7 +179,7 @@ function QuestComplete({ quest }) {
         <a href="/go/school">Další školní mise</a>
       </div>
       {quest.evidenceNote || quest.reflection ? (
-        <div className="goq-private-proof"><b>Soukromý záznam uložen</b><span>Vidíš ho jen ty a oprávnění správci podle databázových pravidel.</span></div>
+        <div className="goq-private-proof"><b>Soukromý záznam uložen</b><span>Vidíš ho ve svém účtu; přístup se řídí databázovými pravidly a oprávněními.</span></div>
       ) : null}
     </section>
   );
@@ -307,6 +307,10 @@ function QuestWorkspace({ initialQuest }) {
             <QuestIntro quest={quest} onStart={start} busy={busy} />
           ) : (
             <>
+              <div className="goq-cycle-head">
+                <small>CESTA QUESTU</small>
+                <strong>{quest.cycle.completedCount}/6 checkpointů</strong>
+              </div>
               <CycleRail
                 phases={phases}
                 cycle={quest.cycle}

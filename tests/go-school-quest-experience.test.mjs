@@ -3,8 +3,9 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const read = async (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
-const [migration, cycle, schoolQuest, actions, route, workspace, schoolWorkspace, css, persistence] = await Promise.all([
+const [migration, hardening, cycle, schoolQuest, actions, route, workspace, schoolWorkspace, css, persistence] = await Promise.all([
   read("supabase/migrations/20260926120000_mission_learning_cycle.sql"),
+  read("supabase/migrations/20260926121000_mission_learning_cycle_hardening.sql"),
   read("src/domain/mission-cycle.js"),
   read("src/domain/school-quest.js"),
   read("src/app/go/school/quest-actions.js"),
@@ -20,6 +21,13 @@ test("mission cycle is canonical rather than school-specific duplication", () =>
   assert.doesNotMatch(migration, /school_quest_steps|school_mission_cycle/i);
   assert.match(migration, /advance_mission_learning_cycle/);
   assert.match(migration, /LEARN → PLAY → DO → CREATE → SHARE → REFLECT/);
+});
+
+test("learning-cycle state is read-only to clients and RPC-only for mutation", () => {
+  assert.match(hardening, /revoke insert, update, delete/);
+  assert.match(hardening, /grant select on public\.mission_run_cycle_progress to authenticated/);
+  assert.match(hardening, /drop policy if exists mission_cycle_insert_own_run_or_admin/);
+  assert.match(hardening, /drop policy if exists mission_cycle_update_own_run_or_admin/);
 });
 
 test("starter school quest catalog covers AI, finance and cyber", () => {
@@ -73,7 +81,13 @@ test("quest UI presents all six phases without public ranking", () => {
 test("quest visual system differentiates topics and protects accessibility basics", () => {
   for (const theme of ["ai", "finance", "cyber", "nature"]) {
     assert.match(css, new RegExp(`goq-theme-${theme}`));
+    assert.match(css, new RegExp(`goq-theme-${theme} \.goq-visual`));
   }
+  assert.match(workspace, /goq-cycle-head/);
+  assert.match(workspace, /data-phase=\{phase\.id\}/);
+  assert.equal(cycle.includes('glyph: "Kč/€"'), true);
+  assert.equal(cycle.includes('glyph: "₿"'), false);
+  assert.match(css, /font-size:12\.5px/);
   assert.match(css, /focus-visible/);
   assert.match(css, /prefers-reduced-motion:reduce/);
   assert.match(css, /min-height:46px/);

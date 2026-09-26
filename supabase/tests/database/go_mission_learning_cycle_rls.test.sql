@@ -2,7 +2,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(26);
+select plan(28);
 
 select ok(
   to_regclass('public.mission_run_cycle_progress') is not null,
@@ -156,6 +156,22 @@ select ok(
   not has_column_privilege('authenticated', 'public.mission_run_cycle_progress', 'user_id', 'UPDATE')
   and not has_column_privilege('authenticated', 'public.mission_run_cycle_progress', 'run_id', 'UPDATE'),
   'ordinary clients cannot rewrite cycle ownership'
+);
+
+select ok(
+  has_table_privilege('authenticated', 'public.mission_run_cycle_progress', 'SELECT')
+  and not has_table_privilege('authenticated', 'public.mission_run_cycle_progress', 'INSERT')
+  and not has_table_privilege('authenticated', 'public.mission_run_cycle_progress', 'UPDATE')
+  and not has_table_privilege('authenticated', 'public.mission_run_cycle_progress', 'DELETE'),
+  'authenticated users can read governed progress but cannot mutate the table directly'
+);
+
+select throws_ok(
+  $$update public.mission_run_cycle_progress
+    set completed_phases = array['learn','play','do','create','share','reflect']::text[]
+    where run_id = '8aaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'$$,
+  null::text, null::text,
+  'owner cannot forge learning-cycle completion with direct table update'
 );
 
 select results_eq(

@@ -18,7 +18,7 @@ export const MISSION_CYCLE_META = Object.freeze({
 
 export const QUEST_TOPIC_META = Object.freeze({
   ai_education: { label: "AI VE ŠKOLE", theme: "ai", glyph: "AI" },
-  financial_literacy: { label: "FINANČNÍ GRAMOTNOST", theme: "finance", glyph: "₿" },
+  financial_literacy: { label: "FINANČNÍ GRAMOTNOST", theme: "finance", glyph: "Kč/€" },
   cyber_security: { label: "KYBERBEZPEČNOST", theme: "cyber", glyph: "⌾" },
   nature: { label: "PŘÍRODA", theme: "nature", glyph: "✦" },
 });
