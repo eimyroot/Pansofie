@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import {
+  buildMentorLiteResponse,
   buildSchoolQuestMentorPrompt,
   mentorAvailability,
   mentorProductionConfig,
@@ -12,6 +13,7 @@ import {
   MENTOR_MAX_OUTPUT_TOKENS,
   requestAnthropicMentor,
 } from "../src/lib/anthropic-mentor.js";
+import { requestMentorProvider } from "../src/lib/mentor-provider.js";
 
 const read = async (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
@@ -56,6 +58,68 @@ test("mentor prompt is phase-scoped, minimal and injection-resistant by structur
     question: "Q".repeat(800),
   });
   assert.ok(bounded.user.length < 4000, `mentor payload context too large: ${bounded.user.length}`);
+});
+
+test("Mentor Lite is always phase-aware, bounded and does not echo the student message", () => {
+  const answers = new Map();
+  for (const phaseId of ["learn", "play", "do", "create", "share", "reflect"]) {
+    const answer = buildMentorLiteResponse({
+      mission,
+      phaseId,
+      question: "Moje tajná formulace, kterou nechci v odpovědi zopakovat.",
+    });
+    assert.ok(answer.length > 40 && answer.length <= 520);
+    assert.match(answer, /Malý tip:/);
+    assert.doesNotMatch(answer, /tajná formulace/);
+    answers.set(phaseId, answer);
+  }
+  assert.equal(new Set(answers.values()).size, 6);
+
+  const verification = buildMentorLiteResponse({ mission, phaseId: "do", question: "Jak ověřím tvrzení a zdroj?" });
+  assert.match(verification, /nezávislý důkaz|druhý zdroj/i);
+});
+
+test("provider-neutral adapter stays disabled by default and delegates only an explicit provider", async () => {
+  let calls = 0;
+  const disabled = await requestMentorProvider({
+    provider: "none",
+    prompt: { system: "x", user: "y" },
+    fetchImpl: async () => { calls += 1; },
+  });
+  assert.equal(disabled.mode, "unavailable");
+  assert.equal(disabled.code, "provider_not_enabled");
+  assert.equal(calls, 0);
+});
+
+test("provider-neutral adapter delegates an explicitly enabled Anthropic provider", async () => {
+  const before = process.env.ANTHROPIC_API_KEY;
+  process.env.ANTHROPIC_API_KEY = "adapter-test-key";
+  let calls = 0;
+  try {
+    const result = await requestMentorProvider({
+      provider: "anthropic",
+      prompt: { system: "system prompt", user: "user prompt" },
+      fetchImpl: async () => {
+        calls += 1;
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            model: DEFAULT_MENTOR_MODEL,
+            stop_reason: "end_turn",
+            content: [{ type: "text", text: "Co bys ověřil/a jako první?" }],
+            usage: { input_tokens: 10, output_tokens: 8 },
+          }),
+        };
+      },
+    });
+    assert.equal(result.mode, "ok");
+    assert.equal(result.answer, "Co bys ověřil/a jako první?");
+    assert.equal(calls, 1);
+  } finally {
+    if (before === undefined) delete process.env.ANTHROPIC_API_KEY;
+    else process.env.ANTHROPIC_API_KEY = before;
+  }
 });
 
 test("provider adapter sends a bounded Anthropic Messages request without tools or sampling knobs", async () => {
@@ -120,12 +184,14 @@ test("provider adapter fails closed without configuration and never retries a ra
 test("mentor availability requires an explicit production and retention gate without exposing credentials", () => {
   const before = {
     key: process.env.ANTHROPIC_API_KEY,
+    provider: process.env.MENTOR_PROVIDER,
     enabled: process.env.MENTOR_PRODUCTION_ENABLED,
     retention: process.env.ANTHROPIC_DATA_RETENTION_MODE,
     providerSpend: process.env.MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED,
     model: process.env.ANTHROPIC_MODEL,
   };
   process.env.ANTHROPIC_API_KEY = "configured-for-test";
+  process.env.MENTOR_PROVIDER = "anthropic";
   process.env.MENTOR_PRODUCTION_ENABLED = "true";
   process.env.ANTHROPIC_DATA_RETENTION_MODE = "standard_api";
   process.env.MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED = "true";
@@ -142,15 +208,24 @@ test("mentor availability requires an explicit production and retention gate wit
     process.env.ANTHROPIC_MODEL = DEFAULT_MENTOR_MODEL;
     assert.deepEqual(mentorAvailability(), {
       available: true,
+      mode: "hybrid",
+      providerAvailable: true,
       ephemeral: true,
       historyPersistence: "none",
       providerRetention: "standard_api",
     });
     assert.equal(JSON.stringify(mentorAvailability()).includes("configured-for-test"), false);
     process.env.ANTHROPIC_DATA_RETENTION_MODE = "unverified";
-    assert.equal(mentorAvailability().available, false);
+    assert.deepEqual(mentorAvailability(), {
+      available: true,
+      mode: "lite",
+      providerAvailable: false,
+      ephemeral: true,
+      historyPersistence: "none",
+      providerRetention: "not_used",
+    });
   } finally {
-    for (const [name, value] of [["ANTHROPIC_API_KEY", before.key], ["MENTOR_PRODUCTION_ENABLED", before.enabled], ["ANTHROPIC_DATA_RETENTION_MODE", before.retention], ["MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED", before.providerSpend], ["ANTHROPIC_MODEL", before.model]]) {
+    for (const [name, value] of [["ANTHROPIC_API_KEY", before.key], ["MENTOR_PROVIDER", before.provider], ["MENTOR_PRODUCTION_ENABLED", before.enabled], ["ANTHROPIC_DATA_RETENTION_MODE", before.retention], ["MENTOR_PROVIDER_SPEND_LIMIT_VERIFIED", before.providerSpend], ["ANTHROPIC_MODEL", before.model]]) {
       if (value === undefined) delete process.env[name]; else process.env[name] = value;
     }
   }
@@ -172,14 +247,20 @@ test("quest mentor stays server-authenticated, current-phase bound and non-persi
   assert.match(actions, /buildSchoolQuestMentorPrompt/);
   assert.match(actions, /reserve_school_mentor_usage/);
   assert.match(actions, /mentorProductionConfig/);
-  assert.match(actions, /requestAnthropicMentor/);
+  assert.match(actions, /buildMentorLiteResponse/);
+  assert.match(actions, /requestMentorProvider/);
+  assert.match(actions, /source: "lite"/);
+  assert.match(actions, /source: "provider"/);
   assert.doesNotMatch(actions, /input\.userId|input\.studentId|input\.classId|input\.schoolId/);
   assert.match(questDomain, /mentor: mentorAvailability\(\)/);
   assert.match(mentorUi, /historie se po reloadu smaže/);
   assert.match(mentorUi, /neukládá do portfolia ani databáze/);
+  assert.match(mentorUi, /Mentor Lite je aktivní/);
+  assert.match(mentorUi, /bez externí AI/);
   assert.match(mentorUi, /maxLength=\{800\}/);
   assert.doesNotMatch(mentorUi, /dangerouslySetInnerHTML|localStorage|sessionStorage/);
   assert.match(questUi, /phase && isCurrentPhase[\s\S]*SchoolQuestMentor/);
+  assert.match(envExample, /MENTOR_PROVIDER=none/);
   assert.match(envExample, /ANTHROPIC_API_KEY=/);
   assert.match(envExample, /MENTOR_PRODUCTION_ENABLED=false/);
   assert.match(envExample, /ANTHROPIC_DATA_RETENTION_MODE=unverified/);
