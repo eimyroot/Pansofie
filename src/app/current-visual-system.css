@@ -92,3 +92,8 @@ body:has(.pw-site){background:var(--current-cream)}
   .go2-stage{padding:0!important}.go2-desktop-note{display:none!important}.go2-phone{width:100%!important;min-height:100vh!important;border-radius:0!important;border:0!important}
 }
 @media(prefers-reduced-motion:reduce){.pw-site *,.y2-world *,.go2-stage *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* School GO keeps readable contrast inside the pale desktop context card. */
+.go2-school-aside>p{color:#405f54!important}
+.go2-school-aside .go2-school-aside-note{background:rgba(255,255,255,.82)!important;color:#24493d!important}
+.go2-school-aside>a{color:#0d5c46!important}
