@@ -380,33 +380,39 @@ test("M6.13 closes MAIN public navigation, accessibility semantics and crawler b
 });
 
 
-test("M6.14 makes public navigation task-oriented and separates GO as a geolocation game", () => {
+test("M6.14 makes public navigation match the approved public menu and separates GO as a geolocation game", () => {
   const shell = readFileSync("src/components/public/PublicShell.jsx", "utf8");
   const css = readFileSync("src/app/public-pansofie.css", "utf8");
   const navModel = shell.slice(shell.indexOf("const PUBLIC_NAV_GROUPS"), shell.indexOf("const FOOTER_GROUPS"));
+  const headerActions = shell.slice(shell.indexOf('<nav className="pw-actions"'), shell.indexOf('<details className="pw-menu">'));
 
   for (const label of ["Domů", "Objevuj", "Projekty", "Komunita", "Zapoj se"]) assert.match(navModel, new RegExp(label));
+  for (const label of ["O Pansofii", "7 cest", "16 oblastí", "Články", "Přehled projektů", "Green Hope", "Urban Family Farm", "Digitální kompost", "Labs", "Komunita", "Síť", "Pro školy", "Pro organizace", "Partneři", "Dobrovolnictví", "Partnerství", "Kontakt"]) assert.match(navModel, new RegExp(label));
   assert.doesNotMatch(navModel, /pansofie-go|young/i);
+  assert.doesNotMatch(headerActions, /href="\/young"/);
   assert.match(shell, /pw-go-launch/);
+  assert.match(shell, /Pansofie GO/);
   assert.match(shell, /Geolokační hra/);
+  assert.match(shell, /Přihlásit se/);
   assert.match(shell, /pw-menu__group-title/);
   assert.match(css, /\.pw-nav-group:focus-within \.pw-nav-panel/);
   assert.match(css, /max-height: calc\(100vh - 88px\)/);
 });
 
-test("M6.15 gives each public navigation group a real landing page and stable active context", () => {
+test("M6.15 gives every approved public navigation destination a real page and stable active context", () => {
   const shell = readFileSync("src/components/public/PublicShell.jsx", "utf8");
   const navModel = shell.slice(shell.indexOf("const PUBLIC_NAV_GROUPS"), shell.indexOf("const FOOTER_GROUPS"));
 
-  for (const [label, href] of [["Objevuj", "/jak-to-funguje"], ["Projekty", "/projekty"], ["Komunita", "/sit"], ["Zapoj se", "/pro-koho"]]) {
+  for (const [label, href] of [["Objevuj", "/o-nas"], ["Projekty", "/projekty"], ["Komunita", "/komunita"], ["Zapoj se", "/dobrovolnictvi"]]) {
     assert.match(navModel, new RegExp(`label: "${label}", href: "${href.replaceAll("/", "\\/")}"`));
   }
-  assert.match(navModel, /label: "Zapoj se"[^\n]*match: \["\/pro-koho", "\/pro-skoly", "\/pro-organizace", "\/kontakt"\]/);
-  assert.doesNotMatch(navModel, /label: "Komunita"[^\n]*\/pro-koho/);
+  assert.match(navModel, /label: "Projekty"[^\n]*\/labs/);
+  assert.match(navModel, /label: "Komunita"[^\n]*\/partneri/);
+  assert.match(navModel, /label: "Zapoj se"[^\n]*\/dobrovolnictvi[^\n]*\/partnerstvi[^\n]*\/kontakt/);
 
-  for (const route of ["jak-to-funguje", "o-nas", "vize", "knihovna", "blog", "digitalni-kompost", "mapa-kolobehu", "mapa", "sit", "instituce", "osobni-rust", "pro-koho", "pro-organizace", "kontakt"]) {
+  for (const route of ["o-nas", "7-cest", "16-oblasti", "blog", "projekty", "green-hope", "urban-family-farm", "digitalni-kompost", "labs", "komunita", "sit", "pro-skoly", "pro-organizace", "partneri", "dobrovolnictvi", "partnerstvi", "kontakt"]) {
     const source = readFileSync(`src/app/${route}/page.jsx`, "utf8");
-    assert.match(source, new RegExp(`<PublicShell active="\\/${route}"`), `${route} should expose its public navigation context`);
+    assert.match(source, new RegExp(`(?:active|current)="\\/${route}"`), `${route} should expose its public navigation context`);
   }
 });
 
