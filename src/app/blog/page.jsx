@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
@@ -17,9 +18,9 @@ const TOPICS = [
 
 export default function BlogPage() {
   return <PublicShell active="/blog">
-    <section className="pw-visual-hero pw-visual-hero--discover-articles">
+    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--discover-articles">
       <div className="pw-visual-hero__copy"><p className="pw-eyebrow">ČLÁNKY A ZDROJE</p><h1>Myšlenky, které pokračují v životě.</h1><p>Veřejná knihovna Pansofie má postupně spojovat články, rozhovory, metodiky a praktické materiály. Dokud konkrétní zdroj není publikovaný, nevydáváme tematický návrh za hotový článek.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/knihovna">Otevřít knihovnu</Link><Link className="pw-button pw-button--light" href="/16-oblasti">Procházet témata</Link></div></div>
-      <div className="pw-visual-hero__media"><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="Pozorování a učení v přírodě" fill priority sizes="(max-width: 900px) 100vw, 58vw"/><div className="pw-visual-hero__note">souvislost · zdroj · příklad · další krok</div></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="ČLÁNKY A ZDROJE" title="Obsah, který vede dál" detail="otázka · zdroj · příklad · krok" flow={["Otázka","Souvislost","Zdroj","Příklad","Další krok"]}/></div>
     </section>
     <div className="pw-discover-section-head"><p className="pw-eyebrow">TÉMATA K ROZPRACOVÁNÍ</p><h2>Obsah nezačíná titulkem. Začíná otázkou.</h2></div>
     <EditorialFeatureBand

@@ -2,14 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "./PublicShell";
 import { EditorialFeatureBand } from "./EditorialFeatureBand";
+import { PansofieVisualEngine } from "./PansofieVisualEngine";
 
 export function ProjectVisualStoryPage({ active="/projekty", current, eyebrow, title, lead, image, imageAlt, heroNote, visualCards=[], principles=[], editorialFeature, sequence=[], topics=[], cta, note }) {
   return <PublicShell active={active} current={current}>
-    <section className="pw-visual-hero pw-visual-hero--project-story">
+    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--project-story">
       <div className="pw-visual-hero__copy"><p className="pw-eyebrow">{eyebrow}</p><h1>{title}</h1><p>{lead}</p>
         {cta && <div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href={cta.href}>{cta.label}</Link><Link className="pw-button pw-button--light" href="/projekty">Přehled projektů</Link></div>}
       </div>
-      <div className="pw-visual-hero__media"><Image src={image} alt={imageAlt} fill priority sizes="(max-width: 900px) 100vw, 58vw"/>{heroNote && <div className="pw-visual-hero__note">{heroNote}</div>}</div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker={eyebrow} title="Od otázky ke zkušenosti" detail={heroNote || "poznání → zkušenost → další krok"} flow={(heroNote || "poznání → zkušenost → další krok").split("→").map(item=>item.trim()).filter(Boolean)}/></div>
     </section>
     {visualCards.length > 0 && <section className={`pw-visual-card-strip pw-visual-card-strip--${visualCards.length === 4 ? "four" : "three"}`}>
       {visualCards.map((card) => <Link href={card.href} className="pw-visual-card" key={card.title}><div><Image src={card.image} alt="" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>{card.label}</span><h2>{card.title}</h2><p>{card.text}</p></Link>)}

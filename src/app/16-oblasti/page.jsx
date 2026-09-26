@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { DOMAIN_DETAILS } from "../../domain/pansofie-content";
 import { LEARNING_DOMAINS } from "../../domain/learning-core";
@@ -15,9 +16,9 @@ const PUBLIC_DOMAINS = DOMAIN_DETAILS.map(([title, text], index) => ({ id: LEARN
 
 export default function DomainsPage() {
   return <PublicShell active="/16-oblasti">
-    <section className="pw-visual-hero pw-visual-hero--discover-domains">
+    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--discover-domains">
       <div className="pw-visual-hero__copy"><p className="pw-eyebrow">CO POZNÁVÁME</p><h1>16 oblastí.<br/>Jeden život.</h1><p>Život není rozdělený do předmětů. Tělo ovlivňuje mysl, vztahy rodinu, technologie společnost a naše rozhodnutí svět kolem nás. Pansofie proto pracuje se šestnácti oblastmi jako s jedním propojeným celkem.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="#self">Otevřít mapu oblastí</Link><Link className="pw-button pw-button--light" href="/7-cest">7 cest růstu</Link></div></div>
-      <div className="pw-visual-hero__media"><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="Pozorování přírody jako součást poznávání světa" fill priority sizes="(max-width: 900px) 100vw, 58vw"/><div className="pw-visual-hero__note">člověk · vztahy · společnost · příroda · technologie · smysl</div></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="domains" domains={PUBLIC_DOMAINS}/></div>
     </section>
     <nav className="pw-discover-icon-grid pw-discover-icon-grid--domains" aria-label="Vizuální mapa 16 oblastí">
       {PUBLIC_DOMAINS.map((domain, index) => <a href={`#${domain.id}`} className="pw-discover-icon-card" key={domain.id}><span>{String(index + 1).padStart(2,"0")}</span><Image src={domainIcon(domain.id)} alt="" width={44} height={44} aria-hidden="true"/><strong>{domain.title}</strong></a>)}

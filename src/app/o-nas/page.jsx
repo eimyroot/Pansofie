@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { ECOSYSTEM_CHAIN, ECOSYSTEM_PRINCIPLE, KNOWLEDGE_EXCHANGE } from "../../domain/pansofie-content";
 import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
@@ -12,9 +13,9 @@ export const metadata = {
 
 export default function AboutPage() {
   return <PublicShell active="/o-nas">
-    <section className="pw-visual-hero pw-visual-hero--discover-about">
+    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--discover-about">
       <div className="pw-visual-hero__copy"><p className="pw-eyebrow">O PANSOFII</p><h1>Člověk, příroda a společnost nejsou oddělené světy.</h1><p>Pansofie vzniká jako rámec pro učení v souvislostech. Spojuje poznání, zkušenost, tvorbu, spolupráci a reflexi tak, aby se vzdělávání mohlo vrátit do skutečného života.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/16-oblasti">Objev 16 oblastí</Link><Link className="pw-button pw-button--light" href="/7-cest">Projít 7 cest</Link></div></div>
-      <div className="pw-visual-hero__media"><Image src={pansofiePhoto("prague-nature-16x9")} alt="Město a příroda jako propojený životní prostor" fill priority sizes="(max-width: 900px) 100vw, 58vw"/><div className="pw-visual-hero__note">lidé · příroda · města · budoucnost</div></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="O PANSOFII" title="Učení v souvislostech" detail="člověk · příroda · společnost" flow={["Člověk","Rodina","Místo","Svět"]}/></div>
     </section>
     <section className="pw-discover-gateway" aria-label="Hlavní vstupy do Pansofie">
       <Link href="/16-oblasti" className="pw-discover-gateway__card"><div><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="" fill sizes="(max-width: 700px) 100vw, 25vw"/></div><span>01 · POZNÁNÍ</span><h2>16 oblastí</h2><p>Mapa témat, která se v životě přirozeně prolínají.</p></Link>

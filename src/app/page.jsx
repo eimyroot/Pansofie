@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../components/public/PublicShell";
+import { PansofieVisualEngine } from "../components/public/PansofieVisualEngine";
 import { DOMAIN_DETAILS, LEARNING_METHOD, PATHS, ECOSYSTEM_PRINCIPLE, KNOWLEDGE_EXCHANGE } from "../domain/pansofie-content";
 import { DEVELOPMENT_PATHS, LEARNING_DOMAINS } from "../domain/learning-core";
 import { domainIcon, pathIcon, pansofieIllustration, pansofiePhoto, pansofieScene } from "../domain/asset-system";
@@ -32,7 +33,7 @@ const VISUAL_ENTRY_POINTS = [
 
 export default function HomePage() {
   return <PublicShell active="/">
-    <section className="pw-hero">
+    <section className="pw-hero pw-hero--engine">
       <div className="pw-hero__copy">
         <p className="pw-eyebrow">PANSOFIE · LIDÉ · VĚDĚNÍ · KONTEXT · ZMĚNA</p>
         <h1>Lepší svět<br/>začíná tady.<br/>Společně.</h1>
@@ -43,10 +44,16 @@ export default function HomePage() {
         </div>
         <p className="pw-audience">Příležitost, ne povinnost. Pro jednotlivce, rodiny, školy, komunity i organizace.</p>
       </div>
-      <div className="pw-hero__media">
-        <Image src={pansofiePhoto("hero-community-left-safe-16x9")} alt="Lidé různých generací v prostředí, kde se propojuje město a příroda" fill priority sizes="(max-width: 780px) 100vw, 55vw"/>
-        <div className="pw-hero__caption"><span>ČLOVĚK</span><i aria-hidden="true">→</i><span>RODINA</span><i aria-hidden="true">→</i><span>KOMUNITA</span><i aria-hidden="true">→</i><span>SVĚT</span></div>
+      <div className="pw-hero__engine">
+        <PansofieVisualEngine domains={PUBLIC_DOMAINS} paths={PUBLIC_PATHS}/>
       </div>
+    </section>
+
+    <section className="pve-identity-strip" aria-label="Pansofie v jednom pohledu">
+      <article><span>01 · OBSAH</span><h3>16 oblastí</h3><p>Mapa života od Já a Těla po Občanství a Smysl.</p></article>
+      <article><span>02 · RŮST</span><h3>7 cest</h3><p>Směry rozvoje bez pořadí, skóre a ideálního profilu.</p></article>
+      <article><span>03 · PRAXE</span><h3>Projekty</h3><p>Místo, kde se vědění potká s lidmi a skutečnou potřebou.</p></article>
+      <article><span>04 · VZTAHY</span><h3>Komunita</h3><p>Bezpečné kontexty propojené přes účel a společnou práci.</p></article>
     </section>
 
     <section className="pw-home-gateway" aria-label="Hlavní vstupy do Pansofie">

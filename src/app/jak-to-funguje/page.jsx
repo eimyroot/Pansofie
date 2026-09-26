@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
 import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { LEARNING_METHOD, ECOSYSTEM_CHAIN } from "../../domain/pansofie-content";
 import { pansofiePhoto } from "../../domain/asset-system";
@@ -20,9 +21,9 @@ const FLOW = [
 
 export default function HowItWorksPage() {
   return <PublicShell active="/jak-to-funguje">
-    <section className="pw-page-hero">
-      <div><p className="pw-eyebrow">JAK PANSOFIE FUNGUJE</p><h1>Možnost něco udělat. Ne další systém povinností.</h1><p>Pansofie vytváří cesty od poznání ke zkušenosti. Člověk se může rozhlédnout, vybrat si smysluplný vstup a pokračovat vlastním tempem.</p></div>
-      <div className="pw-page-hero__media"><Image src={pansofiePhoto("hero-community-left-safe-16x9")} alt="Lidé v prostředí propojujícím město, přírodu a komunitu" fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--engine">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">JAK PANSOFIE FUNGUJE</p><h1>Možnost něco udělat. Ne další systém povinností.</h1><p>Pansofie vytváří cesty od poznání ke zkušenosti. Člověk se může rozhlédnout, vybrat si smysluplný vstup a pokračovat vlastním tempem.</p></div>
+      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="JAK PANSOFIE FUNGUJE" title="Od orientace ke zkušenosti" detail="příležitost · ne povinnost" flow={["Rozhlédnout se","Vyzkoušet","Vytvořit","Sdílet","Reflektovat"]}/></div>
     </section>
 
     <EditorialFeatureBand
