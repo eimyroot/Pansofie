@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { IMPACT_DIMENSIONS } from "../../domain/pansofie-content";
-import { pansofieScene } from "../../domain/asset-system";
+import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Dopad",
@@ -15,6 +16,17 @@ export default function ImpactPage() {
       <div><p className="pw-eyebrow">IMPACT</p><h1>Dopad není jedno číslo.</h1><p>Pansofie odděluje učení, dovednosti, rodinu, komunitu, přírodu, podnikavost a další oblasti. Smyslem není hodnotit člověka, ale zaznamenat konkrétní změny tam, kde pro ně existují podklady.</p></div>
       <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("impact-index")} alt="Schéma více rozměrů dopadu Pansofie" fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
     </section>
+
+    <EditorialFeatureBand
+      eyebrow="DŮKAZ PŘED PŘÍBĚHEM"
+      title="Nejdřív konkrétní změna. Teprve potom tvrzení o dopadu."
+      text="Pansofie odděluje výstup, pozorování a interpretaci. Když projekt něco vypěstuje, vytvoří nebo skutečně změní, lze zaznamenat konkrétní výsledek a jeho kontext. Bez podkladů nevzniká automatické číslo, certifikát ani marketingová zásluha."
+      image={pansofiePhoto("growing-together-16x9")}
+      imageAlt="Lidé spolupracují na konkrétní činnosti, jejíž výsledek lze popsat v kontextu"
+      reverse
+      items={[["Výstup", "Co se opravdu stalo nebo vzniklo."], ["Evidence", "Čím lze konkrétní tvrzení doložit."], ["Kontext", "Kde, pro koho a za jakých podmínek změna vznikla."], ["Interpretace", "Co lze z výsledku říct bez přehánění a bez hodnocení člověka."]]}
+      link={{ href: "/projekty", label: "Vidět dopad v projektovém kontextu" }}
+    />
 
     <section className="pw-story-intro">
       <div><p className="pw-eyebrow">OSM DIMENZÍ</p><h2>Vidět změnu bez zjednodušení člověka.</h2></div>

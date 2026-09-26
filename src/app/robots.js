@@ -6,7 +6,7 @@ export default function robots() {
     rules: [{
       userAgent: "*",
       allow: "/",
-      disallow: ["/app/", "/go/", "/login", "/onboarding", "/young/kids", "/young/teens", "/profil"],
+      disallow: ["/app", "/app/", "/go", "/go/", "/auth/", "/login", "/onboarding", "/young/kids", "/young/teens", "/profil"],
     }],
     sitemap: siteUrl("/sitemap.xml"),
     host: siteUrl("/").replace(/\/$/, ""),

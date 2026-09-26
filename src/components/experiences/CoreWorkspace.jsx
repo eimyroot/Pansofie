@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   CHECKPOINTS, DOMAIN_DETAILS, ECOSYSTEM_CHAIN, FAMILY_MISSIONS, GREEN_HOPE_TOPICS,
@@ -25,6 +26,7 @@ export default function CoreWorkspace({ role = "owner" }) {
 
   return <div className="core-workspace">
     <aside className="workspace-rail" aria-label="Hlavní navigace">
+      <Link className="workspace-brand" href="/" aria-label="Pansofie, veřejný web"><span aria-hidden="true">P</span><div><strong>Pansofie</strong><small>můj prostor</small></div></Link>
       <div className="workspace-user"><span>AN</span><div><strong>Anna Nováková</strong><small>{copy.label}</small></div></div>
       <nav>{NAV.map((item) => <button key={item} className={active === item ? "is-active" : ""} onClick={() => setActive(item)}>{item}</button>)}</nav>
       <div className="workspace-rail-foot"><button onClick={() => setActive("Nastavení")}>Nastavení</button>{isPartner && <button onClick={() => setActive("Správa")}>Administrace</button>}<a href="/soukromi">Soukromí a bezpečí</a></div>
@@ -52,7 +54,7 @@ export default function CoreWorkspace({ role = "owner" }) {
 
       {active === "Labs" && <section className="labs-world"><div className="section-heading"><div><p className="eyebrow">Bezpečný prostor pro pokusy</p><h2>Pansofie Labs</h2></div></div><div className="lab-feature"><div><p className="eyebrow">Green Hope</p><h3>Planeta jako učebna</h3><p>Nejen o ekologii mluvit, ale pěstovat, kompostovat, měřit, opravovat a pečovat.</p><div className="topic-cloud">{GREEN_HOPE_TOPICS.map((topic) => <span key={topic}>{topic}</span>)}</div></div><Image src="/assets/brand/pansofie/illustrations/green-hope.webp" alt="Příroda jako prostor pro praktické učení" width={620} height={420}/></div><div className="lab-panel"><p className="eyebrow">Urban Family Farm</p><h3>Od semínka k hodnotě</h3><div className="cycle-flow">{URBAN_FARM_CYCLE.map((step, index) => <span key={step}><b>{index + 1}</b>{step}</span>)}</div></div><div className="lab-panel"><p className="eyebrow">Family Team</p><h3>Rodina tvoří společně</h3><div className="family-mission-grid">{FAMILY_MISSIONS.map((mission) => <span key={mission}>{mission}</span>)}</div></div></section>}
 
-      {active === "Síť" && <section><div className="section-heading"><div><p className="eyebrow">Lidé · projekty · příležitosti</p><h2>Mapa spolupráce</h2></div><span>Bez přesných adres dětí</span></div><div className="network-layout"><div className="network-map" role="img" aria-label="Orientační mapa projektů bez přesných domácích adres">{CHECKPOINTS.map((item,index) => <button key={item[0]} style={{left:`${14 + (index % 3) * 34}%`,top:`${22 + Math.floor(index / 3) * 48}%`}} aria-label={item[0]}>●</button>)}</div><div className="checkpoint-list">{CHECKPOINTS.map(([title,place,type,status]) => <article key={title}><span>{type}</span><h3>{title}</h3><p>{place} · {status}</p><button>Zobrazit checkpoint</button></article>)}</div></div></section>}
+      {active === "Síť" && <section><div className="section-heading"><div><p className="eyebrow">Lidé · projekty · příležitosti</p><h2>Mapa spolupráce</h2></div><span>Bez přesných adres dětí</span></div><div className="network-layout"><div className="network-map" role="group" aria-label="Orientační mapa projektů bez přesných domácích adres">{CHECKPOINTS.map((item,index) => <button key={item[0]} style={{left:`${14 + (index % 3) * 34}%`,top:`${22 + Math.floor(index / 3) * 48}%`}} aria-label={item[0]}>●</button>)}</div><div className="checkpoint-list">{CHECKPOINTS.map(([title,place,type,status]) => <article key={title}><span>{type}</span><h3>{title}</h3><p>{place} · {status}</p><button>Zobrazit checkpoint</button></article>)}</div></div></section>}
 
       {active === "Portfolio" && <section><div className="section-heading"><div><p className="eyebrow">Evidence · reflexe · růst</p><h2>Moje cesta v čase</h2></div></div><div className="portfolio-layout"><div className="growth-tree"><Image src="/assets/brand/pansofie/illustrations/ecosystem-tree.webp" alt="Vizuální strom osobního rozvoje" width={620} height={620}/><strong>Level 5</strong><span>850 / 1 000 XP</span></div><div className="reflection"><h3>Co se mi povedlo?</h3><p>Reflexe je soukromá, dokud se ji sami nerozhodnete sdílet.</p><textarea aria-label="Soukromá reflexe" placeholder="Zapište si, co jste objevili…"/><button>Uložit soukromě</button></div><ImpactCard /></div></section>}
 

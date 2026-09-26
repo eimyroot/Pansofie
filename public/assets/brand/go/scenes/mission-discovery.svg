@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d"><title id="t">Výběr mise</title><desc id="d">Několik bezpečných cest z jednoho výchozího bodu bez hodnocení člověka</desc><rect width="960" height="540" fill="#FFF9EE"/>
+<circle cx="480" cy="270" r="78" fill="#DDEFE4"/><circle cx="480" cy="270" r="34" fill="#0A4B3E"/>
+<path d="M480 192V92M408 230L290 160M552 230L670 160M408 310L290 382M552 310L670 382" fill="none" stroke="#0A4B3E" stroke-width="18" stroke-linecap="round"/>
+<g fill="#6DAA78" stroke="#FFF9EE" stroke-width="12"><circle cx="480" cy="82" r="38"/><circle cx="276" cy="152" r="38"/><circle cx="684" cy="152" r="38"/><circle cx="276" cy="392" r="38"/><circle cx="684" cy="392" r="38"/></g>
+<path d="M463 82l12 12 25-30" fill="none" stroke="#FFF9EE" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

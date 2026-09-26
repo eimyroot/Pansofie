@@ -15,7 +15,7 @@ const LAYERS = [
   ["Organizace", "Know-how, kapacita a zdroje, které mohou vstoupit do místní spolupráce."],
 ];
 export default function CycleMapPage() {
-  return <PublicShell>
+  return <PublicShell active="/mapa-kolobehu">
     <section className="pw-page-hero pw-page-hero--reverse">
       <div><p className="pw-eyebrow">MAPA KOLOBĚHU</p><h1>Nejen kde co je. Hlavně kam může hodnota pokračovat.</h1><p>Mapa koloběhu ukazuje vztah mezi materiály, dovednostmi, školami, projekty a organizacemi. Veřejná vrstva neslouží ke sledování lidí ani k zobrazování jejich přesné polohy.</p></div>
       <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("collaboration-map")} alt="Schéma oběhu zdrojů, projektů a zkušeností" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>

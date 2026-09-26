@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { PATHS } from "../../domain/pansofie-content";
 import { DEVELOPMENT_PATHS } from "../../domain/learning-core";
 import { pathIcon, pansofiePhoto } from "../../domain/asset-system";
@@ -18,6 +19,17 @@ export default function PathsPage() {
       <div><p className="pw-eyebrow">JAK ROSTEME</p><h1>7 cest k životu v souvislostech.</h1><p>Každá cesta je jiný úhel pohledu na rozvoj člověka. Nejde o typologii ani hodnocení osobnosti. Cesty pomáhají vybírat zkušenosti, které dávají smysl právě teď.</p></div>
       <div className="pw-page-hero__media"><Image src={pansofiePhoto("prague-nature-16x9")} alt="Město, příroda a krajina jako propojený životní prostor" fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
     </section>
+
+    <EditorialFeatureBand
+      eyebrow="RŮST BEZ ŽEBŘÍČKU"
+      title="Cesta není skóre. Je to směr, který si člověk může právě teď otevřít."
+      text="Sedm cest pomáhá rozpoznat, jaký druh zkušenosti nebo rozvoje dává v určité chvíli smysl. Nemají pořadí, vítěze ani ideální profil. Jeden projekt může současně rozvíjet tělo, vztahy, tvořivost i prosperitu a v jiné životní situaci bude důležitá úplně jiná kombinace."
+      image={pansofiePhoto("growing-together-16x9")}
+      imageAlt="Lidé různých generací spolupracují a rozvíjejí různé schopnosti v jednom projektu"
+      reverse
+      items={[["Všestranně", "Více cest se může potkat v jedné zkušenosti."], ["Dobrovolně", "Člověk si vybírá, čemu chce právě teď věnovat pozornost."], ["V kontextu", "Stejná cesta vypadá jinak doma, ve škole, v práci nebo projektu."], ["Bez pořadí", "Žádná cesta není vyšší, lepší ani povinná pro všechny."]]}
+      link={{ href: "/projekty", label: "Vidět cesty v konkrétních projektech" }}
+    />
 
     <section className="pw-path-list">
       {PUBLIC_PATHS.map((path, index) => <article className="pw-path-detail" id={path.id} key={path.id}>

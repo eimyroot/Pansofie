@@ -52,7 +52,7 @@ export const YOUNG_PHOTO_IDS = Object.freeze([
 ]);
 
 export const GO_MISSION_COVER_IDS = Object.freeze([
-  "grow-16x9", "explore-16x9", "create-16x9", "community-16x9", "help-4x5",
+  "grow-16x9", "grow-4x5", "grow-1x1", "explore-16x9", "create-16x9", "community-16x9", "help-4x5",
 ]);
 export const PANSOFIE_ILLUSTRATION_IDS = Object.freeze([
   "ecosystem-tree", "school-learning", "green-hope", "family-team", "project-idea",

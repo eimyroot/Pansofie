@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
-import { pansofieScene } from "../../domain/asset-system";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
+import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Pro organizace",
@@ -16,7 +17,7 @@ const ROLES = [
 ];
 
 export default function OrganizationsPage() {
-  return <PublicShell>
+  return <PublicShell active="/pro-organizace">
     <section className="pw-page-hero pw-page-hero--reverse">
       <div><p className="pw-eyebrow">PRO ORGANIZACE</p><h1>Partnerství má mít konkrétní smysl.</h1><p>Pansofie hledá spolupráci, která pomáhá lidem, místům a projektům něco skutečně vytvořit. Ne logo na stránce a vágní tvrzení o dopadu.</p><Link className="pw-button pw-button--dark pw-story-hero__cta" href="/kontakt">Navrhnout spolupráci</Link></div>
       <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("organization-network")} alt="Síť spolupráce mezi komunitami a organizacemi" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
@@ -25,6 +26,17 @@ export default function OrganizationsPage() {
       <div><p className="pw-eyebrow">CO PARTNERSTVÍ ZNAMENÁ</p><h2>Role je důležitější než viditelnost.</h2></div>
       <div><p>Každá spolupráce má mít jasný účel, rozsah, odpovědnost a způsob, jak rozlišit skutečný výstup od marketingového příběhu. U mladých účastníků platí navíc bezpečnostní a přístupová pravidla.</p></div>
     </section>
+
+    <EditorialFeatureBand
+      eyebrow="FIRMA JAKO SOUČÁST MÍSTA"
+      title="Firma může nabídnout víc než peníze."
+      text="Materiál, znalost, čas odborníka, dílna nebo nevyužitá kapacita mohou pomoct konkrétnímu školnímu či komunitnímu projektu. Spolupráce má být dohledatelná a přiměřená, ne převlečená reklama."
+      image={pansofiePhoto("community-city-16x9")}
+      imageAlt="Lidé spolupracují v městském komunitním prostředí"
+      reverse
+      items={[["Materiál", "Čisté přebytky a zbytky pro konkrétní použití."], ["Know-how", "Odborná zkušenost předaná bez marketingového nátlaku."], ["Prostor", "Dílna, zahrada nebo bezpečné místo pro ověřený projekt."], ["Čas", "Mentoring a pomoc navázaná na jasný účel a pravidla."]]}
+      link={{ href: "/instituce", label: "Školy × organizace" }}
+    />
 
     <section className="pw-story-principles">
       {ROLES.map(([title,text], index) => <article key={title}><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}

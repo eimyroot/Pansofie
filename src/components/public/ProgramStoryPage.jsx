@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "./PublicShell";
+import { EditorialFeatureBand } from "./EditorialFeatureBand";
 
 export function ProgramStoryPage({
   active,
+  current,
   eyebrow,
   title,
   lead,
@@ -16,8 +18,9 @@ export function ProgramStoryPage({
   topics = [],
   cta,
   note,
+  editorialFeature,
 }) {
-  return <PublicShell active={active}>
+  return <PublicShell active={active} current={current || active}>
     <section className="pw-page-hero">
       <div>
         <p className="pw-eyebrow">{eyebrow}</p>
@@ -31,6 +34,8 @@ export function ProgramStoryPage({
       <div><p className="pw-eyebrow">PROČ TO EXISTUJE</p><h2>{introTitle}</h2></div>
       <div><p>{intro}</p>{note && <small>{note}</small>}</div>
     </section>
+
+    {editorialFeature && <EditorialFeatureBand {...editorialFeature}/>}
 
     {principles.length > 0 && <section className="pw-story-principles">
       {principles.map(([title, text], index) => <article key={title}>

@@ -43,11 +43,12 @@ test("public content card maps the model project to the project blueprint", () =
 test("Green Hope public page and GO expose the same project core", () => {
   const publicPage = readFileSync("src/legacy-pages/PublicProductPage.jsx", "utf8");
   const go = readFileSync("src/components/experiences/GoWorkspace.jsx", "utf8");
-  const state = readFileSync("src/state/PansofieContext.jsx", "utf8");
+  const actions = readFileSync("src/app/go/actions.js", "utf8");
   assert.match(publicPage, /\/go\/projekt-green-grow/);
   assert.match(go, /screen==="projekt-green-grow"/);
-  assert.match(go, /deriveProjectProgress/);
+  assert.match(go, /loadProjectStateAction/);
+  assert.match(actions, /loadProjectAccountState/);
   assert.match(go, /DIMENZE, KTERÉ PROJEKT MŮŽE SLEDOVAT/);
-  assert.match(state, /projectParticipations/);
-  assert.match(state, /joinProject\(project\)/);
+  assert.match(go, /accountJoined/);
+  assert.match(go, /progress/);
 });

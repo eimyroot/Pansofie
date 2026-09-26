@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
 import { CHECKPOINTS } from "../../domain/pansofie-content";
-import { pansofieScene } from "../../domain/asset-system";
+import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Mapa",
@@ -10,11 +11,21 @@ export const metadata = {
 };
 
 export default function MapPage() {
-  return <PublicShell>
+  return <PublicShell active="/mapa">
     <section className="pw-page-hero">
       <div><p className="pw-eyebrow">MAPA PANSOFIE</p><h1>Místa, kde se myšlenka mění ve zkušenost.</h1><p>Mapa má ukazovat projekty, laboratoře a příležitosti. U mladých lidí neslouží k veřejnému sdílení přesné polohy ani k hledání lidí v okolí.</p></div>
       <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("collaboration-map")} alt="Ilustrační mapa spolupráce a projektů" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
     </section>
+
+    <EditorialFeatureBand
+      eyebrow="MÍSTO, NE POLOHA ČLOVĚKA"
+      title="Mapa ukazuje příležitosti. Ne lidi pod lupou."
+      text="Veřejná vrstva může ukázat projekt, zahradu, školu, laboratoř nebo jiné místo, které je bezpečné zveřejnit. Osobní poloha, domácí adresa ani živý pohyb dítěte nejsou veřejným obsahem Pansofie."
+      image={pansofiePhoto("prague-nature-16x9")}
+      imageAlt="Město a příroda jako veřejný prostor pro projekty a zkušenosti"
+      items={[["Projekt", "Konkrétní záměr, ke kterému se lze bezpečně vztáhnout."], ["Místo", "Veřejně vhodná lokalita, ne soukromá adresa člověka."], ["Checkpoint", "Orientační bod s jasným účelem a kontextem."], ["Soukromí", "Žádné veřejné sledování lidí, dětí ani jejich živého pohybu."]]}
+      link={{ href: "/sit", label: "Jak se místa propojují se sítí Pansofie" }}
+    />
 
     <section className="pw-story-intro">
       <div><p className="pw-eyebrow">BEZPEČNOST PŘEDEVŠÍM</p><h2>Projekt ano. Přesná poloha dítěte ne.</h2></div>

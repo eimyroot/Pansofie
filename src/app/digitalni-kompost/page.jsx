@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
-import { pansofieScene } from "../../domain/asset-system";
+import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
+import { pansofiePhoto, pansofieScene } from "../../domain/asset-system";
 
 export const metadata = {
   title: "Digitální kompost",
@@ -15,11 +16,21 @@ const FLOW = [
   ["Uzavřít kruh", "Potvrdit, že předání proběhlo, bez povinného veřejného příběhu nebo skóre."],
 ];
 export default function CompostPage() {
-  return <PublicShell>
+  return <PublicShell active="/digitalni-kompost">
     <section className="pw-page-hero">
       <div><p className="pw-eyebrow">DIGITÁLNÍ KOMPOST</p><h1>Co už nepotřebuje jeden, může ještě posloužit druhému.</h1><p>Cirkulární vrstva Pansofie propojuje přebytky s konkrétním využitím. Ne jako anonymní tržiště, ale jako součást projektů, škol a místní spolupráce.</p></div>
       <div className="pw-page-hero__media pw-page-hero__media--contain"><Image src={pansofieScene("collaboration-map")} alt="Ilustrace oběhu zdrojů mezi lidmi a projekty" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
     </section>
+    <EditorialFeatureBand
+      eyebrow="MATERIÁLY V OBĚHU"
+      title="Odpad je často jen materiál bez dalšího plánu."
+      text="Dřevo z výroby, zbytky textilu, čisté obaly nebo vybavení mohou být užitečné pro školní dílnu, komunitní opravu nebo prototyp. Veřejná Pansofie ukazuje princip, ne falešnou živou burzu zásob."
+      image={pansofiePhoto("community-city-16x9")}
+      imageAlt="Městská komunita spolupracující na praktických projektech"
+      items={[["Dřevo", "Modely, truhlíky, opravy a výukové prototypy."], ["Textil", "Tvorba, opravy, design a práce s materiálem."], ["Obaly", "Prototypování, organizace a opakované použití."], ["Vybavení", "Druhý život tam, kde existuje konkrétní potřeba."]]}
+      link={{ href: "/instituce", label: "Jak funguje institucionální matching" }}
+    />
+
     <section className="pw-how-flow">
       {FLOW.map(([title,text], index) => <article key={title}><span>{String(index+1).padStart(2,"0")}</span><h2>{title}</h2><p>{text}</p></article>)}
     </section>

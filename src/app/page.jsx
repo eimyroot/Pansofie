@@ -24,19 +24,30 @@ export default function HomePage() {
   return <PublicShell active="/">
     <section className="pw-hero">
       <div className="pw-hero__copy">
-        <p className="pw-eyebrow">PANSOFIE · UČENÍ PRO SKUTEČNÝ ŽIVOT</p>
-        <h1>Všechno<br/>souvisí se vším.</h1>
-        <p className="pw-lead">Pansofie propojuje člověka, rodinu, společnost, přírodu, technologie i smysl. Ne jako oddělené předměty, ale jako jeden svět, ve kterém skutečně žijeme.</p>
+        <p className="pw-eyebrow">PANSOFIE · LIDÉ · VĚDĚNÍ · KONTEXT · ZMĚNA</p>
+        <h1>Lepší svět<br/>začíná tady.<br/>Společně.</h1>
+        <p className="pw-lead">Pansofie propojuje lidi, školy, firmy, rodiny, seniory, město, přírodu a technologie. Ne jako oddělené světy, ale jako síť vztahů, ve které se poznání mění v lepší rozhodnutí a konkrétní možnosti.</p>
         <div className="pw-hero__actions">
-          <Link className="pw-button pw-button--dark" href="/16-oblasti">Objev 16 oblastí</Link>
-          <Link className="pw-button pw-button--light" href="/jak-to-funguje">Jak Pansofie funguje</Link>
+          <Link className="pw-button pw-button--dark" href="/jak-to-funguje">Poznej Pansofii</Link>
+          <Link className="pw-button pw-button--light" href="/7-cest">Najdi svou cestu</Link>
         </div>
-        <p className="pw-audience">Pro jednotlivce, rodiny, školy, komunity i organizace.</p>
+        <p className="pw-audience">Příležitost, ne povinnost. Pro jednotlivce, rodiny, školy, komunity i organizace.</p>
       </div>
       <div className="pw-hero__media">
         <Image src={pansofiePhoto("hero-community-left-safe-16x9")} alt="Lidé různých generací v prostředí, kde se propojuje město a příroda" fill priority sizes="(max-width: 780px) 100vw, 55vw"/>
         <div className="pw-hero__caption"><span>ČLOVĚK</span><i aria-hidden="true">→</i><span>RODINA</span><i aria-hidden="true">→</i><span>KOMUNITA</span><i aria-hidden="true">→</i><span>SVĚT</span></div>
       </div>
+    </section>
+
+    <section className="pw-editorial-doors" aria-label="Pansofie v každodenním světě">
+      <article className="pw-editorial-doors__lead">
+        <p className="pw-eyebrow">MĚSTO JAKO UČEBNA</p>
+        <h2>Stejný svět. Více perspektiv.</h2>
+        <p>Dítě, učitelka, podnikatel, soused i senior vidí jinou část stejného problému. Pansofie je dává do souvislostí, aniž by z nich dělala jednu správnou odpověď.</p>
+      </article>
+      <Link className="pw-editorial-door" href="/pro-skoly"><Image src={pansofieIllustration("school-learning")} alt="Škola propojená s praktickým životem" fill sizes="(max-width: 900px) 100vw, 24vw"/><span>ŠKOLY</span><strong>Vzdělávání pro život</strong></Link>
+      <Link className="pw-editorial-door" href="/pro-organizace"><Image src={pansofieScene("organization-network")} alt="Organizace a firmy propojené s komunitou" fill sizes="(max-width: 900px) 100vw, 24vw"/><span>FIRMY A ORGANIZACE</span><strong>Odpovědné podnikání</strong></Link>
+      <Link className="pw-editorial-door" href="/sit"><Image src={pansofiePhoto("community-city-16x9")} alt="Lidé různých generací ve městě" fill sizes="(max-width: 900px) 100vw, 24vw"/><span>KOMUNITA</span><strong>Generace si mají co předat</strong></Link>
     </section>
 
     <section className="pw-manifest">
@@ -88,6 +99,7 @@ export default function HomePage() {
       <ol className="pw-method__steps">
         {LEARNING_METHOD.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2,"0")}</span><strong>{step}</strong></li>)}
       </ol>
+      <Link className="pw-text-link" href="/pansofie-go">Jak se z poznání stává akce v PansofieGO <span aria-hidden="true">→</span></Link>
     </section>
 
     <section className="pw-section pw-programs" aria-labelledby="programs-title">
@@ -105,6 +117,35 @@ export default function HomePage() {
             <Link href={program.href}>Zjistit více <span aria-hidden="true">→</span></Link>
           </div>
         </article>)}
+      </div>
+    </section>
+
+    <section className="pw-future-bridge" aria-labelledby="future-bridge-title">
+      <div className="pw-future-bridge__media">
+        <Image src={pansofieScene("knowledge-journal")} alt="Poznání, pozorování a nové technologie v jednom pracovním prostoru" fill sizes="(max-width: 900px) 100vw, 48vw"/>
+      </div>
+      <div className="pw-future-bridge__copy">
+        <p className="pw-eyebrow">OD KOMENSKÉHO K AI</p>
+        <h2 id="future-bridge-title">Moudrost není víc informací. Je to schopnost vidět vztahy mezi nimi.</h2>
+        <p>Pansofie navazuje na pansofickou myšlenku poznávání světa v souvislostech a přenáší ji do doby umělé inteligence. Technologie rozšiřuje možnosti, ale úsudek, odpovědnost a smysl zůstávají lidské.</p>
+        <div className="pw-future-bridge__lenses">
+          <article><span>01</span><strong>Vědění v souvislostech</strong><small>16 oblastí a 7 cest místo izolovaných témat.</small></article>
+          <article><span>02</span><strong>AI jako nástroj</strong><small>Pro hledání souvislostí, tvorbu a otázky. Ne jako autorita nad člověkem.</small></article>
+          <article><span>03</span><strong>Život jako učebna</strong><small>Město, škola, firma, rodina i příroda jsou místa učení.</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section className="pw-circular-world" aria-labelledby="circular-title">
+      <div className="pw-section__head">
+        <div><p className="pw-eyebrow">MALÉ VĚCI · VELKÉ SOUVISLOSTI</p><h2 id="circular-title">Co může město znovu využít?</h2></div>
+        <p>Od mikrogreens a městského pěstování přes zbytkové materiály až po mezigenerační pomoc. Ne jako katalog slibů, ale jako témata, ve kterých lze propojit poznání, dovednost a místní spolupráci.</p>
+      </div>
+      <div className="pw-circular-world__grid">
+        <Link href="/urban-family-farm"><div><Image src={pansofiePhoto("prague-nature-16x9")} alt="Městské pěstování a zeleň" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>URBAN FAMILY FARM</span><h3>Mikrogreens a městské pěstování</h3><p>Malá plocha, krátké cykly, praktická zkušenost s pěstováním a lokální potravou.</p></Link>
+        <Link href="/digitalni-kompost"><div><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="Přírodní materiály a pozorování detailu" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>MATERIÁLY V OBĚHU</span><h3>Druhá šance pro materiál</h3><p>Přebytky, zbytky a věci, které mohou najít další smysluplné použití místo rychlého odpadu.</p></Link>
+        <Link href="/sit"><div><Image src={pansofiePhoto("growing-together-16x9")} alt="Spolupráce lidí různých generací" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>MEZIGENERAČNÍ VÝMĚNA</span><h3>Pomoc, zkušenost a čas</h3><p>Starší i mladší mají co nabídnout. Pansofie vytváří prostor pro bezpečné předávání zkušeností a praktickou pomoc.</p></Link>
+        <Link href="/green-hope"><div><Image src={pansofiePhoto("community-city-16x9")} alt="Komunita, město a příroda" fill sizes="(max-width: 900px) 100vw, 25vw"/></div><span>GREEN HOPE</span><h3>Zeleň jako společný projekt</h3><p>Od jedné rostliny k péči o místo. Bez automatických tvrzení o dopadu, s důrazem na skutečnou zkušenost.</p></Link>
       </div>
     </section>
 
@@ -132,7 +173,7 @@ export default function HomePage() {
           <span>02</span><h3>Pansofie Young</h3><p>Věkově citlivá zkušenost pro mladé, s misemi, projekty a bezpečnými kontexty místo otevřeného sociálního vyhledávání.</p><Link href="/young">Vstoupit do Young →</Link>
         </article>
         <article className="pw-product pw-product--go">
-          <span>03</span><h3>Pansofie GO</h3><p>Akční vrstva pro mise, projekty, portfolio a další konkrétní kroky. Herní motivace není hodnocením člověka.</p><Link href="/pansofie-go">Poznat Pansofie GO →</Link>
+          <span>03</span><h3>Pansofie GO</h3><p>Aplikace pro celý ekosystém Pansofie. Podle věku, role a kontextu propojuje mise, projekty, týmy, portfolio a další konkrétní kroky. Herní motivace není hodnocením člověka.</p><Link href="/pansofie-go">Poznat Pansofie GO →</Link>
         </article>
       </div>
     </section>

@@ -36,7 +36,8 @@
         "icons",
         "badges",
         "mission-covers",
-        "map"
+        "map",
+        "scenes"
       ]
     },
     "shared": {
@@ -146,6 +147,7 @@
     "pansofieIllustrations": 5,
     "pansofieScenes": 9,
     "youngIllustrations": 5,
-    "goMissionCovers": 5
+    "goMissionCovers": 5,
+    "goScenes": 13
   }
 }

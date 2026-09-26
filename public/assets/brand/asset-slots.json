@@ -1,0 +1,662 @@
+{
+  "version": "1.2.0",
+  "status": "IMPLEMENTING_CONTEXT_ASSETS",
+  "principle": "context-first: meaning -> user -> activity -> slot geometry -> art direction -> candidate -> responsive crop -> approved master",
+  "rules": {
+    "noTextBakedIntoImage": true,
+    "noFakeUI": true,
+    "noPublicChildLocation": true,
+    "mastersRemainSeparateFromBoards": true,
+    "responsiveArtDirectionPreferred": true
+  },
+  "go": [
+    {
+      "id": "G-HOME-NEXT-ACTION",
+      "surface": "GO / Domů",
+      "role": "next-action hero",
+      "context": "Další bezpečný konkrétní krok v účtu. Obraz musí odpovídat skutečně vybrané misi/projektu, ne fixně pěstování.",
+      "slot": {
+        "desktopPhone": "~410x155",
+        "fit": "cover",
+        "effectiveRatio": "~2.6:1"
+      },
+      "current": "resolved from active mission/project; mission-discovery fallback",
+      "verdict": "CONTEXT_BINDING_IMPLEMENTED",
+      "mustShow": "aktivita odpovídající nextAction",
+      "mustNotShow": "náhodná lifestyle scéna, falešný úspěch",
+      "masterDecision": "UPGRADE",
+      "decisionReason": "Dynamic slot should keep illustration fallback, but use approved photo masters for concrete lived missions/projects when available.",
+      "photoPriority": "P1"
+    },
+    {
+      "id": "G-MISSION-ROSTLINA",
+      "surface": "GO / Mise / Vypěstuj první rostlinu",
+      "role": "mission cover",
+      "context": "Člověk skutečně sází, pečuje nebo sleduje růst; dokumentace může být přítomná, ale není povinná.",
+      "slot": {
+        "detail": "~410x190",
+        "list": "76x76 crop",
+        "fit": "cover"
+      },
+      "current": "grow-16x9.webp",
+      "verdict": "KEEP_AS_CANDIDATE",
+      "masterDecision": "UPGRADE",
+      "decisionReason": "Existing planting photo is context-correct; retain it and add crop/grade variants instead of regenerating the concept.",
+      "photoPriority": "P1"
+    },
+    {
+      "id": "G-MISSION-VIDEOHOVOR",
+      "surface": "GO / katalog misí",
+      "role": "mission cover",
+      "context": "Bezpečné mezigenerační předání digitální dovednosti: účastník trpělivě ukazuje videohovor staršímu člověku.",
+      "slot": {
+        "list": "76x76",
+        "sourceMaster": "16:9 + square-safe focal point"
+      },
+      "current": "/assets/brand/go/scenes/video-call-help.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "binding": "MISSIONS[].image now used directly; semantic master replacement remains per verdict",
+      "productionStatus": "IMPLEMENTED_CANDIDATE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "76×76 catalog thumbnail benefits from immediate semantic clarity; a photo belongs on a future mission detail, not this tiny slot."
+    },
+    {
+      "id": "G-MISSION-JIDLO",
+      "surface": "GO / katalog misí",
+      "role": "mission cover",
+      "context": "Rodina společně plánuje a vaří zdravé jídlo s rozdělenými rolemi.",
+      "slot": {
+        "list": "76x76",
+        "sourceMaster": "16:9 + square-safe focal point"
+      },
+      "current": "/assets/brand/go/scenes/family-cooking.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "binding": "MISSIONS[].image now used directly; semantic master replacement remains per verdict",
+      "productionStatus": "IMPLEMENTED_CANDIDATE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Small catalog slot needs role clarity more than lifestyle photography; keep photo production for detail/hero use."
+    },
+    {
+      "id": "G-MISSION-PUVOD",
+      "surface": "GO / katalog misí",
+      "role": "mission cover",
+      "context": "Porovnávání původu potravin a lokálních alternativ, ideálně reálné suroviny + mapa/poznámky bez vloženého textu.",
+      "slot": {
+        "list": "76x76",
+        "sourceMaster": "16:9 + square-safe focal point"
+      },
+      "current": "/assets/brand/go/scenes/food-origin.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "binding": "MISSIONS[].image now used directly; semantic master replacement remains per verdict",
+      "productionStatus": "IMPLEMENTED_CANDIDATE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Process diagram reads better at thumbnail size than a generic food photo."
+    },
+    {
+      "id": "G-MISSION-ODPAD",
+      "surface": "GO / katalog misí",
+      "role": "mission cover",
+      "context": "Tvorba funkčního výrobku nebo prototypu z nepotřebného materiálu v dílně.",
+      "slot": {
+        "list": "76x76",
+        "sourceMaster": "16:9 + square-safe focal point"
+      },
+      "current": "/assets/brand/go/scenes/upcycle-build.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "binding": "MISSIONS[].image now used directly; semantic master replacement remains per verdict",
+      "productionStatus": "IMPLEMENTED_CANDIDATE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Upcycling action remains legible in a tiny card without implying a real documented project."
+    },
+    {
+      "id": "G-MISSION-POMOC",
+      "surface": "GO / katalog misí",
+      "role": "mission cover",
+      "context": "Konkrétní bezpečná pomoc člověku v ověřeném kontextu, bez heroizace a bez náhodného kontaktu dítě-dospělý.",
+      "slot": {
+        "list": "76x76",
+        "sourceMaster": "16:9 + square-safe focal point"
+      },
+      "current": "/assets/brand/go/scenes/safe-help.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "binding": "MISSIONS[].image now used directly; semantic master replacement remains per verdict",
+      "productionStatus": "IMPLEMENTED_CANDIDATE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Abstract safe-help context is safer and clearer than photorealistic depiction of a possibly vulnerable person."
+    },
+    {
+      "id": "G-MISSION-KOMUNITA",
+      "surface": "GO / katalog misí",
+      "role": "mission cover",
+      "context": "Malý tým pojmenovává lokální problém a plánuje první dokončitelný krok nad mapou, náčrtem nebo fyzickým místem.",
+      "slot": {
+        "list": "76x76",
+        "sourceMaster": "16:9 + square-safe focal point"
+      },
+      "current": "/assets/brand/go/scenes/community-project.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "binding": "MISSIONS[].image now used directly; semantic master replacement remains per verdict",
+      "productionStatus": "IMPLEMENTED_CANDIDATE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Project-planning concept is clearer and truth-safe in the compact catalog slot."
+    },
+    {
+      "id": "G-MISSION-PRVNI-VYDELEK",
+      "surface": "GO / katalog misí",
+      "role": "mission cover",
+      "context": "Mikropodnikání: člověk vytváří jednoduchou hodnotu, pracuje s výrobkem a náklady, bez falešného bohatství.",
+      "slot": {
+        "list": "76x76",
+        "sourceMaster": "16:9 + square-safe focal point"
+      },
+      "current": "/assets/brand/go/scenes/micro-enterprise.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "binding": "MISSIONS[].image now used directly; semantic master replacement remains per verdict",
+      "productionStatus": "IMPLEMENTED_CANDIDATE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Micro-enterprise concept should not look like a claimed real business in the catalog."
+    },
+    {
+      "id": "G-MISSION-PREDANI",
+      "surface": "GO / katalog misí",
+      "role": "mission cover",
+      "context": "Starší účastník učí mladšího konkrétní dovednost v bezpečném rodinném/školním/týmovém kontextu.",
+      "slot": {
+        "list": "76x76",
+        "sourceMaster": "16:9 + square-safe focal point"
+      },
+      "current": "/assets/brand/go/scenes/teach-younger.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "binding": "MISSIONS[].image now used directly; semantic master replacement remains per verdict",
+      "productionStatus": "IMPLEMENTED_CANDIDATE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Intergenerational teaching concept is clear at thumbnail size; reserve photography for a detail story."
+    },
+    {
+      "id": "G-PROJECT-CARDS",
+      "surface": "GO / Projekty",
+      "role": "project covers",
+      "context": "Každý projekt musí ukázat vlastní typ reálné práce: Green Hope, UFF, Family Team, komunitní zahrada, microgreens, kompost.",
+      "slot": {
+        "card": "~410x140",
+        "fit": "cover",
+        "effectiveRatio": "~2.9:1"
+      },
+      "current": "PROJECTS[].image for all 8 catalog contexts",
+      "verdict": "CONTEXT_SCENES_IMPLEMENTED",
+      "newContextScenes": {
+        "Green Hope": "/assets/brand/go/scenes/green-hope-project.svg",
+        "Urban Family Farm": "/assets/brand/go/scenes/urban-farm-project.svg",
+        "Family Team": "/assets/brand/go/scenes/family-team-project.svg",
+        "Mikrogreens farma": "/assets/brand/go/scenes/microgreens-work.svg",
+        "Kompostovací centrum": "/assets/brand/go/scenes/compost-center.svg"
+      },
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Model/concept projects should stay visibly conceptual unless real project photography exists."
+    },
+    {
+      "id": "G-PROJECT-KNOWLEDGE-EXCHANGE",
+      "surface": "GO / Projekty",
+      "role": "project cover",
+      "context": "Mezigenerační výměna konkrétní znalosti u společného úkolu.",
+      "slot": {
+        "card": "~410x140",
+        "fit": "contain"
+      },
+      "current": "/assets/brand/go/scenes/knowledge-exchange-project.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Concept project, not evidence of a real event."
+    },
+    {
+      "id": "G-PROJECT-MAKERSPACE",
+      "surface": "GO / Projekty",
+      "role": "project cover",
+      "context": "Dílna, nástroje a rozpracovaný prototyp; tvorba místo pózování.",
+      "slot": {
+        "card": "~410x140",
+        "fit": "contain"
+      },
+      "current": "/assets/brand/go/scenes/makerspace-project.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Concept/model project; illustration avoids falsely implying an operating makerspace."
+    },
+    {
+      "id": "G-DETAIL-GREEN-HOPE",
+      "surface": "GO / detail modelového Green Hope projektu",
+      "role": "project detail media",
+      "context": "Projekt jako širší péče o místo, ne jen detail rukou u jedné rostliny.",
+      "slot": {
+        "detail": "~410x190",
+        "fit": "contain"
+      },
+      "current": "/assets/brand/go/scenes/green-hope-project.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Detail is explicitly a model project; illustration protects the truth boundary better than photorealism."
+    },
+    {
+      "id": "G-EVIDENCE",
+      "surface": "GO / Evidence",
+      "role": "prototype context scene",
+      "context": "Soukromý důkaz navázaný na konkrétní zkušenost.",
+      "current": "/assets/brand/go/scenes/evidence-context.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "System/proof concept is abstract and benefits from diagrammatic clarity."
+    },
+    {
+      "id": "G-REFLEXE",
+      "surface": "GO / Reflexe",
+      "role": "prototype context scene",
+      "context": "Vlastní krátká reflexe a dobrovolný další krok.",
+      "current": "/assets/brand/go/scenes/reflection-context.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Internal reflection is abstract; photography adds little and risks over-literal emotion."
+    },
+    {
+      "id": "G-PORTFOLIO",
+      "surface": "GO / Portfolio",
+      "role": "account context scene",
+      "context": "Soukromé portfolio konkrétních zkušeností a výstupů bez person score.",
+      "current": "/assets/brand/go/scenes/portfolio-context.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Private portfolio is a system concept, not a lifestyle moment."
+    },
+    {
+      "id": "G-MATCHING",
+      "surface": "GO / Matching",
+      "role": "prototype context scene",
+      "context": "Párování projektové potřeby s ověřenou kapacitou, ne lidí naslepo.",
+      "current": "/assets/brand/go/scenes/matching-context.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Need ↔ capacity matching is a system relation; diagrammatic image is the right medium."
+    },
+    {
+      "id": "G-CHECKPOINTS",
+      "surface": "GO / Checkpointy",
+      "role": "prototype context scene",
+      "context": "Místa a projektové milníky bez polohy dítěte.",
+      "current": "/assets/brand/go/scenes/checkpoints-context.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Safety-critical place/milestone concept should stay map-like, not depict identifiable people."
+    },
+    {
+      "id": "G-LABS",
+      "surface": "GO / Labs",
+      "role": "prototype context scene",
+      "context": "Pokus, pozorování a tvorba v bezpečné laboratoři.",
+      "current": "/assets/brand/go/scenes/labs-context.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Current board describes prototype lab logic rather than a claimed real location."
+    }
+  ],
+  "young": [
+    {
+      "id": "Y-HOME-HERO",
+      "surface": "Young / home",
+      "role": "brand hero",
+      "context": "Mladí lidé aktivně objevují, diskutují nebo tvoří; nejde o generickou skupinovou pózu.",
+      "slot": {
+        "desktop": "55vw x 600",
+        "mobile": "100vw x 300-390",
+        "fit": "cover"
+      },
+      "current": "hero-rooftop-left-safe",
+      "verdict": "RESPONSIVE_CROPS_NOW_WIRED",
+      "masterDecision": "PHOTO MASTER REQUIRED",
+      "decisionReason": "Primary brand statement needs a clean, age-credible Young photo with separate doodle overlays; current master repeats the same older-teen cast and bakes graphics into the image.",
+      "photoPriority": "P0"
+    },
+    {
+      "id": "Y-TOPIC-AI",
+      "surface": "Young / témata",
+      "role": "topic card",
+      "context": "Smysluplná tvorba nebo zkoumání AI/technologií, ne stock laptop happiness.",
+      "slot": {
+        "card": "grid width x 160",
+        "mobile": "full width x 150",
+        "fit": "cover"
+      },
+      "current": "creative-studio",
+      "verdict": "CANDIDATE_NEEDS_CONTEXT_VARIANTS",
+      "masterDecision": "REGENERATE",
+      "decisionReason": "Legacy photo mapping is superseded by the six context-specific topic illustrations. Do not return to the generic studio image.",
+      "deploymentState": "SUPERSEDED_BY_Y-TOPIC-SET"
+    },
+    {
+      "id": "Y-TOPIC-IDENTITA",
+      "surface": "Young / témata",
+      "role": "topic card",
+      "context": "Rozhovor, hranice, naslouchání a vztahy v přirozené situaci.",
+      "slot": {
+        "card": "grid width x 160",
+        "fit": "cover"
+      },
+      "current": "community-cutout",
+      "verdict": "REPLACE",
+      "masterDecision": "REGENERATE",
+      "decisionReason": "Legacy cutout mapping is superseded by context-specific topic illustration.",
+      "deploymentState": "SUPERSEDED_BY_Y-TOPIC-SET"
+    },
+    {
+      "id": "Y-TOPIC-SPOLECNOST",
+      "surface": "Young / témata",
+      "role": "topic card",
+      "context": "Mladí lidé řeší společné rozhodnutí, lokální problém nebo občanskou otázku.",
+      "slot": {
+        "card": "grid width x 160",
+        "fit": "cover"
+      },
+      "current": "hero-rooftop",
+      "verdict": "REPLACE",
+      "masterDecision": "REGENERATE",
+      "decisionReason": "Legacy rooftop mapping is superseded by context-specific topic illustration.",
+      "deploymentState": "SUPERSEDED_BY_Y-TOPIC-SET"
+    },
+    {
+      "id": "Y-TOPIC-BUDOUCNOST",
+      "surface": "Young / témata",
+      "role": "topic card",
+      "context": "Budoucnost jako konkrétní otázka a tvorba scénářů, ne futuristické klišé.",
+      "slot": {
+        "card": "grid width x 160",
+        "fit": "cover"
+      },
+      "current": "explorers-nature",
+      "verdict": "REPLACE",
+      "masterDecision": "REGENERATE",
+      "decisionReason": "Legacy explorers mapping is superseded by context-specific topic illustration.",
+      "deploymentState": "SUPERSEDED_BY_Y-TOPIC-SET"
+    },
+    {
+      "id": "Y-SUBHERO-OBEVUJ",
+      "surface": "Young / Objevuj",
+      "role": "subpage hero",
+      "context": "Zvídavost a společné zkoumání nápadů.",
+      "slot": {
+        "desktop": "~52% x 470",
+        "mobile": "100% x 260-320",
+        "fit": "cover"
+      },
+      "current": "creative-studio 16:9 + 4:5",
+      "verdict": "RESPONSIVE_CROPS_NOW_WIRED",
+      "masterDecision": "UPGRADE",
+      "decisionReason": "Photo-led discovery is appropriate, but current master is overused and shares the same cast; replace only when a stronger context master is approved.",
+      "photoPriority": "P2"
+    },
+    {
+      "id": "Y-SUBHERO-MISE",
+      "surface": "Young / Mise",
+      "role": "subpage hero",
+      "context": "Učení zkušeností venku nebo při skutečné aktivitě, ne pózování.",
+      "slot": {
+        "desktop": "~52% x 470",
+        "mobile": "100% x 260-320",
+        "fit": "cover"
+      },
+      "current": "explorers-nature 16:9 + 4:5",
+      "verdict": "RESPONSIVE_CROPS_NOW_WIRED",
+      "masterDecision": "PHOTO MASTER REQUIRED",
+      "decisionReason": "Current fantastical explorer image does not match the real-action mission promise. Use a real, age-credible activity scene.",
+      "photoPriority": "P0"
+    },
+    {
+      "id": "Y-SUBHERO-PROJEKTY",
+      "surface": "Young / Projekty",
+      "role": "subpage hero",
+      "context": "Mladí plánují nebo realizují konkrétní projekt.",
+      "slot": {
+        "desktop": "~52% x 470",
+        "mobile": "100% x 260-320",
+        "fit": "cover"
+      },
+      "current": "hero-rooftop 16:9 + 4:5",
+      "verdict": "REPLACE_CONTENT_KEEP_RESPONSIVE_PATTERN",
+      "masterDecision": "PHOTO MASTER REQUIRED",
+      "decisionReason": "Projects need visible making/planning/action, not the generic rooftop collaboration hero.",
+      "photoPriority": "P0"
+    },
+    {
+      "id": "Y-SUBHERO-KOMUNITA",
+      "surface": "Young / Komunita",
+      "role": "subpage hero",
+      "context": "Bezpečná spolupráce v jasném týmovém/školním/projektovém kontextu.",
+      "slot": {
+        "desktop": "~52% x 470",
+        "mobile": "100% x 260-320",
+        "fit": "cover"
+      },
+      "current": "community-cutout portrait",
+      "verdict": "CANDIDATE",
+      "masterDecision": "UPGRADE",
+      "decisionReason": "Cutout works as a supporting CTA but is weak as a responsive hero and repeats the same cast.",
+      "photoPriority": "P2"
+    },
+    {
+      "id": "Y-AUTH-HERO-EXPLORE-QUEST-IMPACT",
+      "surface": "Young authenticated",
+      "role": "mode hero",
+      "context": "Explore=objevování, Quest=aktivní mise, Impact=projekt/tvorba; věkově odlišné, ne pouze barevné varianty.",
+      "slot": {
+        "mobile": "100% x 240",
+        "tablet": "media column x 330",
+        "desktop": "media column x 390",
+        "fit": "cover"
+      },
+      "current": "3x 16:9, now paired with 4:5 mobile sources",
+      "verdict": "RESPONSIVE_CROPS_NOW_WIRED",
+      "masterDecision": "REGENERATE",
+      "decisionReason": "Three age/presentation modes need three distinct context- and age-correct masters, not recycled public photos.",
+      "photoPriority": "P0",
+      "photoMasterTargets": [
+        {
+          "id": "Y-AUTH-HERO-EXPLORE",
+          "age": "6–9",
+          "scene": "curious hands-on discovery, small safe group",
+          "ratios": [
+            "16:9",
+            "4:5"
+          ]
+        },
+        {
+          "id": "Y-AUTH-HERO-QUEST",
+          "age": "10–13",
+          "scene": "mission planning + making, peer collaboration",
+          "ratios": [
+            "16:9",
+            "4:5"
+          ]
+        },
+        {
+          "id": "Y-AUTH-HERO-IMPACT",
+          "age": "14–20",
+          "scene": "real project work with visible output",
+          "ratios": [
+            "16:9",
+            "4:5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Y-TOPIC-SET",
+      "surface": "Young / home + Objevuj",
+      "role": "6 topic cards",
+      "context": "Každé téma má vlastní děj: technologie, vztahy, společnost, klima, budoucnost, učení.",
+      "slot": {
+        "card": "grid x 150-160",
+        "fit": "contain"
+      },
+      "current": "/assets/brand/young/scenes/topic-*.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENES",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Topic cards are navigational concepts; the current illustrations differentiate meaning cleanly."
+    },
+    {
+      "id": "Y-STORY-SET",
+      "surface": "Young / home",
+      "role": "story/debate/series cards",
+      "context": "Příběh, debata a mini série používají odlišné obrazy podle formátu a otázky.",
+      "slot": {
+        "card": "grid x 170",
+        "fit": "contain"
+      },
+      "current": "/assets/brand/young/scenes/story-*.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENES",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Story/debate/series cards benefit from editorial illustration and should not pretend to be documentary content."
+    },
+    {
+      "id": "Y-PLAY-SET",
+      "surface": "Young authenticated / Hraj",
+      "role": "quiz/debate/mini-series cards",
+      "context": "Hravý formát otevírá otázku bez fake feedu, osobnostního testu nebo attention trapu.",
+      "slot": {
+        "card": "responsive card media",
+        "fit": "contain"
+      },
+      "current": "/assets/brand/young/scenes/play-*.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENES",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Quiz/debate/mini-series are format metaphors; illustration is the correct medium."
+    },
+    {
+      "id": "Y-MISSION-SET",
+      "surface": "Young / Mise + authenticated home",
+      "role": "mission imagery",
+      "context": "Prvních šest misí má Young-specific obraz podle konkrétní činnosti, oddělený od GO art direction.",
+      "slot": {
+        "card": "grid x 190",
+        "fit": "contain"
+      },
+      "current": "/assets/brand/young/scenes/mission-*.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENES",
+      "masterDecision": "PHOTO MASTER REQUIRED",
+      "decisionReason": "Large mission cards describe concrete real-world actions. Keep SVGs as fallback, but approve photo masters for the six lived-action scenes.",
+      "photoPriority": "P1",
+      "photoMasterTargets": [
+        {
+          "id": "Y-MISSION-GROW",
+          "scene": "planting and observation",
+          "ratios": [
+            "16:9",
+            "4:5",
+            "1:1"
+          ]
+        },
+        {
+          "id": "Y-MISSION-VIDEO",
+          "scene": "younger person patiently teaching an older relative a video call",
+          "ratios": [
+            "16:9",
+            "4:5",
+            "1:1"
+          ]
+        },
+        {
+          "id": "Y-MISSION-COOK",
+          "scene": "family cooking with distinct roles",
+          "ratios": [
+            "16:9",
+            "4:5",
+            "1:1"
+          ]
+        },
+        {
+          "id": "Y-MISSION-FOOD-ORIGIN",
+          "scene": "young person tracing origin of real ingredients",
+          "ratios": [
+            "16:9",
+            "4:5",
+            "1:1"
+          ]
+        },
+        {
+          "id": "Y-MISSION-UPCYCLE",
+          "scene": "making a useful object from reclaimed material",
+          "ratios": [
+            "16:9",
+            "4:5",
+            "1:1"
+          ]
+        },
+        {
+          "id": "Y-MISSION-SAFE-HELP",
+          "scene": "safe concrete help in a known family/community context",
+          "ratios": [
+            "16:9",
+            "4:5",
+            "1:1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Y-AUTH-MAPA",
+      "surface": "Young authenticated / Mapa",
+      "role": "context scene",
+      "context": "Bezpečná mapa projektů, škol a veřejných míst bez polohy dítěte.",
+      "current": "/assets/brand/young/scenes/map-safe-places.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Safety-critical map must show places, never a child location."
+    },
+    {
+      "id": "Y-AUTH-TYM",
+      "surface": "Young authenticated / Tým",
+      "role": "context scene",
+      "context": "Spolupráce přes ověřený rodinný, školní nebo projektový kontext.",
+      "current": "/assets/brand/young/scenes/team-safe-context.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Verified-context relation is clearer without depicting a discoverable child/person."
+    },
+    {
+      "id": "Y-AUTH-KOMUNITA",
+      "surface": "Young authenticated / Komunita",
+      "role": "context scene",
+      "context": "Bezpečné komunitní kruhy podle vztahu a role.",
+      "current": "/assets/brand/young/scenes/community-circles.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Safe circles are an authorization/context concept, not public people discovery."
+    },
+    {
+      "id": "Y-AUTH-MENTOR",
+      "surface": "Young authenticated / Mentor",
+      "role": "context scene",
+      "context": "Průvodce pomáhá s bezpečným dalším krokem bez předstírání autority.",
+      "current": "/assets/brand/young/scenes/mentor-guide.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Guide role is conceptual and must not imply a real connected person or live chat."
+    },
+    {
+      "id": "Y-AUTH-PROFIL",
+      "surface": "Young authenticated / Profil",
+      "role": "profile scene",
+      "context": "Soukromý profil bez veřejného skóre.",
+      "current": "/assets/brand/young/scenes/profile-private.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "Private profile should avoid stock-avatar pseudo-identity and public-person framing."
+    },
+    {
+      "id": "Y-AUTH-PORTFOLIO-EMPTY",
+      "surface": "Young authenticated / Moje cesta",
+      "role": "portfolio / empty scene",
+      "context": "Portfolio ukazuje konkrétní zkušenosti; prázdný stav nenutí k aktivitě.",
+      "current": "portfolio-private.svg / empty-gentle.svg",
+      "verdict": "IMPLEMENTED_CONTEXT_SCENE",
+      "masterDecision": "KEEP ILLUSTRATION",
+      "decisionReason": "State imagery is system feedback; illustration is calmer and more truthful than staged photography."
+    }
+  ]
+}

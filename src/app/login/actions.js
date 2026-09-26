@@ -7,9 +7,10 @@ export async function login(formData) {
   if (!supabase) redirect(`/login?error=${encodeURIComponent("Přihlášení není v tomto prostředí nakonfigurované.")}`);
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+  const next = String(formData.get("next") ?? "");
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) redirect(`/login?error=${encodeURIComponent("Přihlášení se nezdařilo.")}`);
-  redirect("/app");
+  redirect(next.startsWith("/") && !next.startsWith("//") ? next : "/app");
 }
 
 export async function signup(formData) {
