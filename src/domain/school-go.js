@@ -20,6 +20,8 @@ function normalizeMission(row) {
     summary: row.summary || "",
     estimatedMinutes: row.estimated_minutes || null,
     programId: row.program_id || null,
+    topicKey: row.topic_key || null,
+    difficulty: row.difficulty || null,
   };
 }
 
@@ -161,7 +163,7 @@ export async function loadSchoolGoSnapshot(context) {
       .eq("status", "active"),
     supabase
       .from("missions")
-      .select("id, slug, title, summary, estimated_minutes, program_id")
+      .select("id, slug, title, summary, estimated_minutes, program_id, topic_key, difficulty")
       .eq("status", "published")
       .order("title"),
   ]);

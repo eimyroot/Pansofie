@@ -310,7 +310,7 @@ function LearnerAssignments({ assignments }) {
                 <span>{STATUS_LABELS[status] || status}</span>
                 <span>{formatDate(assignment.dueAt)}</span>
               </div>
-              <a className="go2-school-primary-link" href={missionHref(assignment.mission?.slug)}>Otevřít v GO</a>
+              <a className="go2-school-primary-link" href={`/go/school/quest/${assignment.id}`}>Otevřít quest</a>
             </article>
           );
         }) : <p className="go2-note">Zatím nemáš žádné aktivní školní zadání.</p>}

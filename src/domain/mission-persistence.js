@@ -65,8 +65,16 @@ export async function loadMissionAccountState(supabase, { slug, userId }) {
 export async function startMissionForUser(supabase, { slug, userId }) {
   const mission = await findMission(supabase, slug);
   const latest = await findLatestRun(supabase, mission.id, userId);
-  if (latest && latest.status !== "cancelled") return { mission, run: normalizeRun(latest) };
   const now = new Date().toISOString();
+  if (latest && latest.status === "assigned") {
+    const { data, error } = await supabase.from("mission_runs").update({
+      status: "in_progress", started_at: latest.started_at || now,
+    }).eq("id", latest.id).eq("user_id", userId)
+      .select("id, mission_id, user_id, status, started_at, completed_at, updated_at").single();
+    if (error) throw error;
+    return { mission, run: normalizeRun(data) };
+  }
+  if (latest && latest.status !== "cancelled") return { mission, run: normalizeRun(latest) };
   const { data, error } = await supabase.from("mission_runs").insert({
     mission_id: mission.id, user_id: userId, status: "in_progress", started_at: now,
   }).select("id, mission_id, user_id, status, started_at, completed_at, updated_at").single();
