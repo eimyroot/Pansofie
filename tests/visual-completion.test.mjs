@@ -49,12 +49,12 @@ test("M7.2 exposes the complete Young visual board map without unsafe discovery 
 test("M7.4 makes Young image art direction responsive and context-first", () => {
   const publicYoung = read("src/components/public/YoungPublicExperience.jsx");
   const authYoung = read("src/components/experiences/YoungWorkspace.jsx");
-  const slots = JSON.parse(read("public/assets/brand/asset-slots.json"));
+  const slots = JSON.parse(read("public/assets/current/asset-slots.json"));
   assert.match(publicYoung, /mobileImage/);
-  assert.match(publicYoung, /hero-rooftop-left-safe-4x5\.webp/);
-  assert.match(publicYoung, /creative-studio-4x5\.webp/);
-  assert.match(publicYoung, /explorers-nature-4x5\.webp/);
+  assert.match(publicYoung, /\/assets\/current\/photos\//);
+  assert.doesNotMatch(publicYoung, /\/assets\/brand\//);
   assert.match(authYoung, /heroImageMobile/);
+  assert.match(authYoung, /\/assets\/current\/photos\//);
   assert.equal(slots.principle.startsWith("context-first"), true);
   assert.ok(slots.go.find((slot) => slot.id === "G-MISSION-JIDLO"));
   assert.ok(slots.go.find((slot) => slot.id === "G-PROJECT-CARDS"));
@@ -64,69 +64,59 @@ test("M7.4 makes Young image art direction responsive and context-first", () => 
   assert.match(go, /src=\{p\.image/);
 });
 
-test("M7.5 replaces generic GO imagery with context-specific production scenes", () => {
+test("M7.5 replaces legacy GO imagery with current context media", () => {
   const content = read("src/domain/pansofie-content.js");
   const workspace = read("src/components/experiences/GoWorkspace.jsx");
-  const css = read("src/app/go-v2.css");
-  for (const asset of ["video-call-help.svg","family-cooking.svg","food-origin.svg","upcycle-build.svg","safe-help.svg","community-project.svg","micro-enterprise.svg","teach-younger.svg","green-hope-project.svg","urban-farm-project.svg","family-team-project.svg","microgreens-work.svg","compost-center.svg"]) {
-    assert.ok(content.includes(asset), `missing context asset binding ${asset}`);
+  const css = read("src/app/current-visual-system.css");
+  for (const asset of ["school-prague.webp","community-garden.webp","garden-produce.webp","labs-workshop.webp","partners-hands.webp"]) {
+    assert.ok(content.includes(asset), `missing current context media ${asset}`);
   }
-  assert.match(workspace, /m\.image\?\.endsWith\("\.svg"\)/);
-  assert.match(css, /go2-list article>img\.is-scene/);
+  assert.doesNotMatch(content + workspace, /\/assets\/brand\//);
+  assert.match(workspace, /m\.thumbnailImage \|\| m\.image/);
+  assert.match(css, /go2-list img/);
 });
 
-
-test("M7.6 binds GO next-action media and gives Young topics, play and missions their own context scenes", () => {
+test("M7.6 binds GO next-action media and gives Young current context media", () => {
   const content = read("src/domain/pansofie-content.js");
   const go = read("src/components/experiences/GoWorkspace.jsx");
   const publicYoung = read("src/components/public/YoungPublicExperience.jsx");
   const authYoung = read("src/components/experiences/YoungWorkspace.jsx");
-  const slots = JSON.parse(read("public/assets/brand/asset-slots.json"));
+  const slots = JSON.parse(read("public/assets/current/asset-slots.json"));
   assert.match(go, /resolveNextActionMedia/);
   assert.match(go, /nextMedia\.src/);
   assert.doesNotMatch(go, /PROJECTS\.slice\(0,6\)/);
-  assert.match(go, /green-hope-project\.svg/);
-  assert.match(content, /knowledge-exchange-project\.svg/);
-  assert.match(content, /makerspace-project\.svg/);
-  for (const asset of ["topic-ai.svg","topic-relationships.svg","topic-society.svg","topic-climate.svg","topic-future.svg","topic-learning.svg","play-quiz.svg","play-debate.svg","play-series.svg","mission-grow.svg","mission-video-call.svg","mission-family-cooking.svg","mission-food-origin.svg","mission-upcycle.svg","mission-safe-help.svg"]) {
-    assert.ok(publicYoung.includes(asset) || authYoung.includes(asset), `missing Young context scene ${asset}`);
-  }
-  assert.equal(slots.go.find((slot) => slot.id === "G-HOME-NEXT-ACTION").verdict, "CONTEXT_BINDING_IMPLEMENTED");
-  assert.equal(slots.young.find((slot) => slot.id === "Y-MISSION-SET").verdict, "IMPLEMENTED_CONTEXT_SCENES");
+  assert.match(content, /creative-workshop\.webp/);
+  assert.match(content, /labs-workshop\.webp/);
+  assert.match(publicYoung + authYoung, /\/assets\/current\/photos\//);
+  assert.doesNotMatch(publicYoung + authYoung + go + content, /\/assets\/brand\//);
+  assert.equal(slots.go.find((slot) => slot.id === "G-HOME-NEXT-ACTION").verdict, "CURRENT_CONTEXT_BINDING");
+  assert.equal(slots.young.find((slot) => slot.id === "Y-MISSION-SET").verdict, "CURRENT_CONTEXT_MEDIA");
 });
 
-
-test("M7.7 adds context imagery for Young safe contexts and GO evidence/reflection flows", () => {
+test("M7.7 adds current context media for Young safe contexts and GO evidence/reflection flows", () => {
   const young = read("src/components/experiences/YoungWorkspace.jsx");
   const go = read("src/components/experiences/GoWorkspace.jsx");
-  const ycss = read("src/app/young-experience-final.css");
-  const gcss = read("src/app/go-v2.css");
-  const slots = JSON.parse(read("public/assets/brand/asset-slots.json"));
-  for (const asset of ["map-safe-places.svg","team-safe-context.svg","community-circles.svg","mentor-guide.svg","profile-private.svg","portfolio-private.svg","empty-gentle.svg"]) {
-    assert.ok(young.includes(asset), `missing Young safe-context scene ${asset}`);
-  }
-  for (const asset of ["evidence-context.svg","reflection-context.svg","portfolio-context.svg","matching-context.svg","checkpoints-context.svg","labs-context.svg"]) {
-    assert.ok(go.includes(asset), `missing GO context scene ${asset}`);
-  }
-  assert.match(ycss, /young-context-visual/);
-  assert.match(gcss, /go2-context-scene/);
-  assert.equal(slots.young.find((slot) => slot.id === "Y-AUTH-MAPA").verdict, "IMPLEMENTED_CONTEXT_SCENE");
-  assert.equal(slots.go.find((slot) => slot.id === "G-EVIDENCE").verdict, "IMPLEMENTED_CONTEXT_SCENE");
+  const css = read("src/app/current-visual-system.css");
+  const slots = JSON.parse(read("public/assets/current/asset-slots.json"));
+  assert.match(young, /YOUNG_CONTEXT_SCENES/);
+  assert.match(young, /prague-sunset\.webp/);
+  assert.match(young, /community-garden\.webp/);
+  assert.match(go, /GO_VISUAL_SCENES/);
+  assert.match(go, /creative-workshop\.webp/);
+  assert.match(css, /young-context-visual/);
+  assert.match(css, /go2-context-scene/);
+  assert.equal(slots.young.find((slot) => slot.id === "Y-AUTH-MAPA").verdict, "CURRENT_CONTEXT_MEDIA");
+  assert.equal(slots.go.find((slot) => slot.id === "G-EVIDENCE").verdict, "CURRENT_CONTEXT_MEDIA");
 });
 
-
-test("M7.8 classifies deployed imagery by final art-direction decision and upgrades the grow photo crop", () => {
-  const slots = JSON.parse(read("public/assets/brand/asset-slots.json"));
-  const allowed = new Set(["KEEP ILLUSTRATION", "UPGRADE", "PHOTO MASTER REQUIRED", "REGENERATE"]);
-  for (const group of ["go", "young"]) for (const slot of slots[group]) assert.ok(allowed.has(slot.masterDecision), `missing master decision ${slot.id}`);
-  const youngHome = slots.young.find((slot) => slot.id === "Y-HOME-HERO");
-  const youngMissions = slots.young.find((slot) => slot.id === "Y-MISSION-SET");
-  const goGrow = slots.go.find((slot) => slot.id === "G-MISSION-ROSTLINA");
-  assert.equal(youngHome.masterDecision, "PHOTO MASTER REQUIRED");
-  assert.equal(youngMissions.masterDecision, "PHOTO MASTER REQUIRED");
-  assert.equal(goGrow.masterDecision, "UPGRADE");
+test("M7.8 classifies deployed imagery as the current visual system", () => {
+  const slots = JSON.parse(read("public/assets/current/asset-slots.json"));
+  for (const group of ["go", "young"]) for (const slot of slots[group]) {
+    assert.equal(slot.masterDecision, "CURRENT PHOTO");
+    assert.doesNotMatch(String(slot.current), /\/assets\/brand\//);
+  }
   const content = read("src/domain/pansofie-content.js");
   const workspace = read("src/components/experiences/GoWorkspace.jsx");
-  assert.match(content, /grow-1x1\.webp/);
+  assert.match(content, /thumbnailImage: "\/assets\/current\/photos\/garden-produce\.webp"/);
   assert.match(workspace, /m\.thumbnailImage \|\| m\.image/);
 });

@@ -11,6 +11,7 @@ import "./experience.css";
 import "./young-experience-final.css";
 import "./go-v2.css";
 import "./public-pansofie.css";
+import "./current-visual-system.css";
 import { DEFAULT_SOCIAL_IMAGE, SITE_DESCRIPTION, SITE_INDEXABLE, SITE_NAME, SITE_ORIGIN } from "../domain/site-metadata";
 
 export const metadata = {

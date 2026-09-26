@@ -35,11 +35,11 @@ const GO_VISUAL_BOARDS=Object.freeze({
   "system-states":{label:"Systémové stavy",eyebrow:"LOADING · EMPTY · ERROR · LOCKED",title:"I když něco chybí nebo selže, obrazovka musí dávat smysl.",lead:"Vizuální systém počítá s načítáním, prázdným stavem, chybou, zamčeným přístupem, permission denied i onboardingem.",items:[["Prázdno","Vysvětlení a jeden bezpečný další krok."],["Chyba","Co se stalo, co zůstalo zachováno a co lze zkusit."],["Zamčeno","Důvod omezení bez prozrazení citlivých dat."]]}
 });
 const GO_VISUAL_SCENES=Object.freeze({
-  evidence:"/assets/brand/go/scenes/evidence-context.svg",
-  reflexe:"/assets/brand/go/scenes/reflection-context.svg",
-  matching:"/assets/brand/go/scenes/matching-context.svg",
-  checkpointy:"/assets/brand/go/scenes/checkpoints-context.svg",
-  labs:"/assets/brand/go/scenes/labs-context.svg",
+  evidence:"/assets/current/photos/creative-workshop.webp",
+  reflexe:"/assets/current/photos/creative-workshop.webp",
+  matching:"/assets/current/photos/home-community.webp",
+  checkpointy:"/assets/current/photos/prague-sunset.webp",
+  labs:"/assets/current/photos/labs-workshop.webp",
 });
 
 function Icon({src,label}){return <Image className="go2-icon" src={src} alt="" aria-hidden="true" title={label} width={44} height={44} sizes="44px"/>}
@@ -50,13 +50,13 @@ function resolveNextActionMedia(account){
   const firstProject=account?.activeProjects?.find((project)=>!project.progress?.isComplete)||account?.activeProjects?.[0];
   if(firstMission){
     const mission=MISSIONS.find((item)=>item.title===firstMission.title);
-    return {src:mission?.image||"/assets/brand/go/scenes/mission-discovery.svg",alt:mission?`Kontext mise ${mission.title}`:"Výběr další mise"};
+    return {src:mission?.image||"/assets/current/photos/home-community.webp",alt:mission?`Kontext mise ${mission.title}`:"Výběr další mise"};
   }
   if(firstProject){
     const project=PROJECTS.find((item)=>item.title===firstProject.title);
-    return {src:project?.image||"/assets/brand/go/scenes/mission-discovery.svg",alt:project?`Kontext projektu ${project.title}`:"Výběr dalšího projektu"};
+    return {src:project?.image||"/assets/current/photos/home-community.webp",alt:project?`Kontext projektu ${project.title}`:"Výběr dalšího projektu"};
   }
-  return {src:"/assets/brand/go/scenes/mission-discovery.svg",alt:"Výběr konkrétní mise jako dalšího kroku"};
+  return {src:"/assets/current/photos/home-community.webp",alt:"Výběr konkrétní mise jako dalšího kroku"};
 }
 
 function Home({onNavigate,displayName,account}){
@@ -76,7 +76,7 @@ function Home({onNavigate,displayName,account}){
   return <>
     <Header title={`Ahoj, ${displayName}. Co můžeš objevit kolem sebe?`}/>
     <section className="go2-feature go2-location-entry">
-      <Image className="is-scene" src="/assets/brand/go/scenes/mission-discovery.svg" alt="Mapa Pansofie GO propojuje místa, checkpointy a mise" width={560} height={315} sizes="(max-width: 480px) 100vw, 360px" priority/>
+      <Image className="is-scene" src="/assets/current/photos/home-community.webp" alt="Mapa Pansofie GO propojuje místa, checkpointy a mise" width={560} height={315} sizes="(max-width: 480px) 100vw, 360px" priority/>
       <div><span>MAPA · MISE · MÍSTA</span><h2>Začni tím, co je kolem tebe.</h2><p>GO je location-based hra. Poloha se zapíná až na mapě po tvém kliknutí; bez ní můžeš dál procházet modelové checkpointy a mise.</p><button onClick={()=>onNavigate("mapa")}>Otevřít mapu</button></div>
     </section>
     <section className="go2-feature go2-next-action">
@@ -159,7 +159,7 @@ function GrowMission({onPortfolio}) {
   return <>
     <Header title={grow.title} eyebrow={grow.eyebrow}/>
     <section className="go2-grow-cover">
-      <Image src="/assets/brand/go/mission-covers/grow-16x9.webp" alt="Semínko a pěstování" width={560} height={315} sizes="(max-width: 480px) 100vw, 360px" priority/>
+      <Image src="/assets/current/photos/garden-produce.webp" alt="Semínko a pěstování" width={560} height={315} sizes="(max-width: 480px) 100vw, 360px" priority/>
       <div className="go2-mission-badge"><Icon src={goBadge("nature")}/><span>Příroda</span></div>
       <p>{grow.summary}</p>
       <div className="go2-grow-tags"><span>Příroda</span><span>Green Hope</span><span>Záznam volitelný</span></div>
@@ -197,7 +197,7 @@ function Missions({onOpenGrow,account}) {
     <h2 className="go2-section-title">Dokončené</h2>
     <div className="go2-account-list">{completed.length?completed.map(item=><article key={item.id}><div><small>ÚČET · PROBĚHLO</small><h2>{item.title}</h2><p>{item.programId||"Pansofie GO"}</p></div><button onClick={item.slug===MISSION_GROW_001.slug?onOpenGrow:undefined} disabled={item.slug!==MISSION_GROW_001.slug}>{item.slug===MISSION_GROW_001.slug?"Otevřít záznam":"Detail připravujeme"}</button></article>):<article className="go2-empty-card"><h2>Zatím bez dokončených misí</h2><p>Dokončení se ukládá do účtu jako konkrétní zkušenost, ne jako skóre člověka.</p></article>}</div>
     <h2 className="go2-section-title">Katalog</h2>
-    <div className="go2-list">{MISSIONS.map((m,i)=>{const isGrow=m.id===GROW_ROUTE_ID;const status=isGrow?(growCompleted?"Dokončeno":growActive?"Rozpracováno":"Dostupné"):"Návrh mise";return <article key={m.id}><Image className={m.image?.endsWith(".svg") ? "is-scene" : ""} src={m.thumbnailImage || m.image || "/assets/brand/go/mission-covers/grow-16x9.webp"} alt="" width={220} height={160} sizes="92px"/><div><small>{m.program} · {status}</small><h2>{m.title}</h2><p>{m.detail}</p></div><button aria-label={isGrow?`Otevřít ${m.title}`:`${m.title} zatím není aktivní`} onClick={isGrow?onOpenGrow:undefined} disabled={!isGrow}>{isGrow?"→":"·"}</button></article>})}</div>
+    <div className="go2-list">{MISSIONS.map((m,i)=>{const isGrow=m.id===GROW_ROUTE_ID;const status=isGrow?(growCompleted?"Dokončeno":growActive?"Rozpracováno":"Dostupné"):"Návrh mise";return <article key={m.id}><Image className={m.image?.endsWith(".svg") ? "is-scene" : ""} src={m.thumbnailImage || m.image || "/assets/current/photos/garden-produce.webp"} alt="" width={220} height={160} sizes="92px"/><div><small>{m.program} · {status}</small><h2>{m.title}</h2><p>{m.detail}</p></div><button aria-label={isGrow?`Otevřít ${m.title}`:`${m.title} zatím není aktivní`} onClick={isGrow?onOpenGrow:undefined} disabled={!isGrow}>{isGrow?"→":"·"}</button></article>})}</div>
   </>;
 }
 
@@ -252,7 +252,7 @@ function Projects({onOpenGreenProject,account}) {
     <h2 className="go2-section-title">Moje projekty</h2>
     <div className="go2-account-list">{mine.length?mine.map(project=><article key={project.id}><div><small>ÚČET · {project.modelOnly?"MODELOVÝ PROJEKT":"PROJEKT"}</small><h2>{project.title}</h2><p>{project.progress?.completed||0} / {project.progress?.total||0} propojených misí proběhlo</p></div><button onClick={project.slug===PROJECT_GREEN_HOPE_GROW_001.slug?onOpenGreenProject:undefined} disabled={project.slug!==PROJECT_GREEN_HOPE_GROW_001.slug}>{project.slug===PROJECT_GREEN_HOPE_GROW_001.slug?"Pokračovat":"Detail připravujeme"}</button></article>):<article className="go2-empty-card"><h2>Zatím nejsi v žádném projektu</h2><p>Projekt je kontext pro skutečné mise. Přidání do projektu nevytváří automaticky dopad ani kompetenci.</p></article>}</div>
     <h2 className="go2-section-title">Katalog a modely</h2>
-    <div className="go2-projects">{PROJECTS.map((p)=><article key={p.title}><Image className={p.image?.endsWith(".svg") ? "is-scene" : ""} src={p.image || "/assets/brand/go/mission-covers/community-16x9.webp"} alt="" width={560} height={315} sizes="(max-width: 480px) 100vw, 360px"/><div><small>{p.modelOnly?"MODELOVÝ PROJEKT · ":"KONCEPT · "}{p.tag}</small><h2>{p.title}</h2><p>{p.description}</p><b>{p.status}</b>{p.blueprintId===PROJECT_GREEN_HOPE_GROW_001.id&&<button className="go2-project-open" onClick={onOpenGreenProject}>Otevřít modelový projekt →</button>}</div></article>)}</div>
+    <div className="go2-projects">{PROJECTS.map((p)=><article key={p.title}><Image className={p.image?.endsWith(".svg") ? "is-scene" : ""} src={p.image || "/assets/current/photos/community-garden.webp"} alt="" width={560} height={315} sizes="(max-width: 480px) 100vw, 360px"/><div><small>{p.modelOnly?"MODELOVÝ PROJEKT · ":"KONCEPT · "}{p.tag}</small><h2>{p.title}</h2><p>{p.description}</p><b>{p.status}</b>{p.blueprintId===PROJECT_GREEN_HOPE_GROW_001.id&&<button className="go2-project-open" onClick={onOpenGreenProject}>Otevřít modelový projekt →</button>}</div></article>)}</div>
   </>;
 }
 
@@ -290,7 +290,7 @@ function GreenHopeProject({onMission,onPortfolio,account}) {
 
   return <>
     <Header title={project.titleCs} eyebrow="GREEN HOPE · MODELOVÝ PROJEKT"/>
-    <section className="go2-project-core"><Image className="is-scene" src="/assets/brand/go/scenes/green-hope-project.svg" alt="Modelový Green Hope projekt propojuje pěstování, péči o místo a společnou práci" width={560} height={315} sizes="(max-width: 480px) 100vw, 360px" priority/><div><p>{project.summaryCs}</p><div className="go2-grow-tags"><span>Model projektu</span><span>Bez přesné polohy</span><span>Záznam volitelný</span></div></div></section>
+    <section className="go2-project-core"><Image className="is-scene" src="/assets/current/photos/volunteer-garden.webp" alt="Modelový Green Hope projekt propojuje pěstování, péči o místo a společnou práci" width={560} height={315} sizes="(max-width: 480px) 100vw, 360px" priority/><div><p>{project.summaryCs}</p><div className="go2-grow-tags"><span>Model projektu</span><span>Bez přesné polohy</span><span>Záznam volitelný</span></div></div></section>
     <section className="go2-project-progress"><small>PRVNÍ VERTIKÁLNÍ PROJEKTOVÝ FLOW</small><h2>{progress.completed} / {progress.total||1} mise proběhla</h2><div className="go2-progress"><span style={{width:`${progress.total?progress.completed/progress.total*100:0}%`}}/></div><article><div><b>01</b><span><strong>Vypěstuj první rostlinu</strong><small>{progress.isComplete?"První krok proběhl":"První konkrétní krok projektu"}</small></span></div><button onClick={onMission}>{progress.isComplete?"Otevřít záznam":"Pokračovat misí"}</button></article></section>
     <section className="go2-project-impact"><small>DIMENZE, KTERÉ PROJEKT MŮŽE SLEDOVAT</small><h2>Dopad bez kouzelného skóre</h2><p>Toto nejsou dosažené výsledky. Jsou to oblasti, ve kterých může projekt později ukládat jednotlivá doložená pozorování.</p><div>{project.impactDimensionIds.map(id=><span key={id}>{IMPACT_LABELS[id]||id}</span>)}</div></section>
     <section className="go2-project-join">{!accountJoined?<><h2>Přidat se k modelovému projektu</h2><p>Projekt nevyžaduje přesnou polohu ani povinné důkazy. Účast se ukládá do tvého účtu.</p><button disabled={joining} onClick={handleJoin}>{joining?"Ukládám…":"Přidat se"}</button></>:<><div className="go2-complete">✓ Projekt máš uložený mezi svými.</div><p>Účast je uložená v účtu.</p>{progress.isComplete?<button onClick={onPortfolio}>Otevřít portfolio</button>:<button onClick={onMission}>Udělat první krok</button>}</>}{statusMessage&&<span role="status">{statusMessage}</span>}</section>
@@ -315,7 +315,7 @@ function Portfolio({account}) {
   const observations=account?.impactObservations||[];
   return <>
     <Header title="Moje portfolio" eyebrow="SOUKROMÉ ZKUŠENOSTI A VÝSTUPY"/>
-    <figure className="go2-context-scene"><Image src="/assets/brand/go/scenes/portfolio-context.svg" alt="Soukromé portfolio propojuje zkušenost, výstup a doloženou dovednost bez veřejného skóre" width={960} height={540}/><figcaption>Konkrétní zkušenosti a výstupy, ne person score.</figcaption></figure>
+    <figure className="go2-context-scene"><Image src="/assets/current/photos/creative-workshop.webp" alt="Soukromé portfolio propojuje zkušenost, výstup a doloženou dovednost bez veřejného skóre" width={960} height={540}/><figcaption>Konkrétní zkušenosti a výstupy, ne person score.</figcaption></figure>
     <section className="go2-portfolio-hero"><strong>{account?.portfolioCount||0}</strong><span>položek v soukromém portfoliu</span><p>Portfolio není veřejné skóre člověka. Každá položka vychází z konkrétní dokončené zkušenosti.</p></section>
     <h2 className="go2-section-title">Doložené dovednosti</h2>
     <div className="go2-proof-list">{attestations.length?attestations.map(item=><article key={item.id}><small>{item.attestationType==="self"?"SEBEDOLOŽENÍ":"DOLOŽENÍ"}</small><h2>{item.skill?.titleCs}</h2><p>Úroveň {item.level} · navázáno na konkrétní evidence. Nejde o certifikaci ani person score.</p></article>):<article className="go2-empty-card"><h2>Zatím bez doložené dovednosti</h2><p>Dokončení mise samo o sobě kompetenci nedokazuje. Dovednost se objeví až po explicitním použití konkrétní evidence.</p></article>}</div>
