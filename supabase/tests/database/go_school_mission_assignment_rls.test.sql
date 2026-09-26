@@ -2,7 +2,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(35);
+select plan(44);
 
 select ok(
   to_regclass('public.school_mission_assignments') is not null
@@ -230,6 +230,71 @@ select is(
   1,
   'assignment is attributable to the authenticated teacher'
 );
+
+select ok(
+  not has_function_privilege('anon', 'public.get_school_class_roster(uuid)', 'EXECUTE')
+  and not has_function_privilege('anon', 'public.get_school_class_assignment_progress(uuid)', 'EXECUTE'),
+  'anon cannot execute school GO read-model RPCs'
+);
+
+select ok(
+  has_function_privilege('authenticated', 'public.get_school_class_roster(uuid)', 'EXECUTE')
+  and has_function_privilege('authenticated', 'public.get_school_class_assignment_progress(uuid)', 'EXECUTE'),
+  'authenticated callers may reach governed school GO read-model RPCs'
+);
+
+set local role authenticated;
+set local request.jwt.claim.sub = '72222222-2222-4222-8222-222222222222';
+
+select is(
+  (select count(*) from public.get_school_class_roster('7ccccccc-cccc-4ccc-8ccc-cccccccccccc')),
+  3::bigint,
+  'teacher reads only the three active class memberships'
+);
+
+select is(
+  (select count(*) from public.get_school_class_roster('7ccccccc-cccc-4ccc-8ccc-cccccccccccc') where class_role = 'learner'),
+  2::bigint,
+  'teacher roster exposes the two learners through minimal display identity'
+);
+
+select is(
+  (select count(*) from public.get_school_class_assignment_progress('7ccccccc-cccc-4ccc-8ccc-cccccccccccc')),
+  2::bigint,
+  'teacher reads canonical progress for the two assigned learner runs'
+);
+
+set local request.jwt.claim.sub = '73333333-3333-4333-8333-333333333333';
+
+select is(
+  (select count(*) from public.get_school_class_roster('7ccccccc-cccc-4ccc-8ccc-cccccccccccc')),
+  0::bigint,
+  'learner cannot enumerate the class roster through read-model RPC'
+);
+
+select is(
+  (select count(*) from public.get_school_class_assignment_progress('7ccccccc-cccc-4ccc-8ccc-cccccccccccc')),
+  0::bigint,
+  'learner cannot enumerate peer progress through read-model RPC'
+);
+
+set local request.jwt.claim.sub = '75555555-5555-4555-8555-555555555555';
+
+select ok(
+  (select count(*) from public.get_school_class_roster('7ccccccc-cccc-4ccc-8ccc-cccccccccccc')) = 0
+  and (select count(*) from public.get_school_class_assignment_progress('7ccccccc-cccc-4ccc-8ccc-cccccccccccc')) = 0,
+  'unrelated user receives no class roster or progress'
+);
+
+set local request.jwt.claim.sub = '71111111-1111-4111-8111-111111111111';
+
+select is(
+  (select count(*) from public.get_school_class_roster('7ccccccc-cccc-4ccc-8ccc-cccccccccccc')),
+  3::bigint,
+  'school coordinator may read the governed class roster'
+);
+
+reset role;
 
 set local role authenticated;
 set local request.jwt.claim.sub = '72222222-2222-4222-8222-222222222222';

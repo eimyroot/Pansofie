@@ -17,6 +17,9 @@ function normalizeAssignment(row) {
       title: row.missions.title,
       summary: row.missions.summary || "",
       programId: row.missions.program_id || null,
+      topicKey: row.missions.topic_key || null,
+      difficulty: row.missions.difficulty || null,
+      estimatedMinutes: row.missions.estimated_minutes || null,
     } : null,
   };
 }
@@ -39,7 +42,7 @@ export async function loadSchoolMissionAssignments(supabase, { classId }) {
     .select(`
       id, school_id, class_id, scope, target_user_id, status,
       available_from, due_at, assigned_by, created_at,
-      missions(id, slug, title, summary, program_id)
+      missions(id, slug, title, summary, program_id, topic_key, difficulty, estimated_minutes)
     `)
     .order("created_at", { ascending: false });
 

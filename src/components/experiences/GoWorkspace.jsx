@@ -65,6 +65,7 @@ function Home({onNavigate,displayName,account}){
   const firstProject=account?.activeProjects?.[0];
   const nextAction=account?.nextAction||{label:"Vybrat první misi",href:"/go/mise"};
   const nextMedia=resolveNextActionMedia(account);
+  const schoolMembership=account?.organizationMemberships?.find((membership)=>membership.organization?.type==="school");
   const openHref=(href)=>{
     if(href==="/go/mise-grow") return onNavigate("mise-grow");
     if(href==="/go/projekt-green-grow") return onNavigate("projekt-green-grow");
@@ -88,6 +89,7 @@ function Home({onNavigate,displayName,account}){
       <article><small>AKTIVNÍ PROJEKTY</small><strong>{account?.activeProjects?.length||0}</strong><p>{firstProject?.title||"Žádný aktivní projekt"}</p><button onClick={()=>onNavigate(firstProject?.href==="/go/projekt-green-grow"?"projekt-green-grow":"projekty")}>Otevřít projekty</button></article>
       <article><small>PORTFOLIO</small><strong>{account?.portfolioCount||0}</strong><p>Soukromé položky a zkušenosti v účtu.</p><button onClick={()=>onNavigate("portfolio")}>Otevřít portfolio</button></article>
     </section>
+    {schoolMembership&&<section className="go2-school-entry"><div><small>ŠKOLNÍ KONTEXT</small><h2>{schoolMembership.organization.name}</h2><p>Třídy, školní zadání a progres používají stejné canonical mise a serverová oprávnění jako zbytek GO.</p></div><button onClick={()=>onNavigate("school")}>Otevřít School GO</button></section>}
     <h2 className="go2-section-title">Poslední aktivita</h2>
     <section className="go2-activity-list">
       {account?.recentActivity?.length?account.recentActivity.map(item=><article key={item.id}><Icon src={goIcon("reflection")}/><div><b>{item.title}</b><small>{item.programId||"Pansofie GO"}</small></div></article>):<article className="go2-empty"><Icon src={goIcon("mission")}/><div><b>Zatím bez uložené zkušenosti</b><small>Až něco opravdu proběhne, může se to objevit tady.</small></div></article>}

@@ -10,6 +10,7 @@ import "../board-v2.css";
 import "./experience.css";
 import "./young-experience-final.css";
 import "./go-v2.css";
+import "./school-quest.css";
 import "./public-pansofie.css";
 import "./current-visual-system.css";
 import "./visual-engine-v1.css";
