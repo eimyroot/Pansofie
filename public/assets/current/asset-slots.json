@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "status": "CURRENT_VISUAL_SYSTEM",
+  "principle": "context-first: meaning -> user -> activity -> responsive geometry -> current master",
+  "rules": {
+    "legacyBrandAssetsInRenderPath": false,
+    "noTextBakedIntoImage": true,
+    "noFakeUI": true,
+    "noPublicChildLocation": true,
+    "responsiveCropViaLayout": true
+  },
+  "go": [
+    {"id":"G-HOME-NEXT-ACTION","verdict":"CURRENT_CONTEXT_BINDING","masterDecision":"CURRENT PHOTO","current":"resolved from current mission/project photography"},
+    {"id":"G-MISSION-ROSTLINA","verdict":"CURRENT_PHOTO","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/garden-produce.webp"},
+    {"id":"G-MISSION-JIDLO","verdict":"CURRENT_PHOTO","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/community-garden.webp"},
+    {"id":"G-PROJECT-CARDS","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"PROJECTS[].image in /assets/current/photos"},
+    {"id":"G-EVIDENCE","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/creative-workshop.webp"},
+    {"id":"G-REFLEXE","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/creative-workshop.webp"},
+    {"id":"G-CHECKPOINTS","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/prague-sunset.webp"},
+    {"id":"G-LABS","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/labs-workshop.webp"}
+  ],
+  "young": [
+    {"id":"Y-HOME-HERO","verdict":"CURRENT_PHOTO","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/community-garden.webp"},
+    {"id":"Y-MISSION-SET","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos"},
+    {"id":"Y-AUTH-MAPA","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/prague-sunset.webp"},
+    {"id":"Y-AUTH-TEAM","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/community-garden.webp"},
+    {"id":"Y-AUTH-MENTOR","verdict":"CURRENT_CONTEXT_MEDIA","masterDecision":"CURRENT PHOTO","current":"/assets/current/photos/creative-workshop.webp"}
+  ]
+}
