@@ -15,10 +15,13 @@ const PUBLIC_PATHS = PATHS.map(([title, text], index) => ({ id: DEVELOPMENT_PATH
 
 export default function PathsPage() {
   return <PublicShell active="/7-cest">
-    <section className="pw-page-hero pw-page-hero--reverse">
-      <div><p className="pw-eyebrow">JAK ROSTEME</p><h1>7 cest k životu v souvislostech.</h1><p>Každá cesta je jiný úhel pohledu na rozvoj člověka. Nejde o typologii ani hodnocení osobnosti. Cesty pomáhají vybírat zkušenosti, které dávají smysl právě teď.</p></div>
-      <div className="pw-page-hero__media"><Image src={pansofiePhoto("prague-nature-16x9")} alt="Město, příroda a krajina jako propojený životní prostor" fill priority sizes="(max-width: 780px) 100vw, 46vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--discover-paths">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">JAK ROSTEME</p><h1>7 cest k životu v souvislostech.</h1><p>Každá cesta je jiný úhel pohledu na rozvoj člověka. Nejde o typologii ani hodnocení osobnosti. Cesty pomáhají vybírat zkušenosti, které dávají smysl právě teď.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/projekty">Vidět cesty v praxi</Link><Link className="pw-button pw-button--light" href="/16-oblasti">16 oblastí</Link></div></div>
+      <div className="pw-visual-hero__media"><Image src={pansofiePhoto("prague-nature-16x9")} alt="Město, příroda a krajina jako propojený životní prostor" fill priority sizes="(max-width: 900px) 100vw, 58vw"/><div className="pw-visual-hero__note">tělo · mysl · charakter · vztahy · tvořivost · prosperita · smysl</div></div>
     </section>
+    <nav className="pw-discover-icon-grid pw-discover-icon-grid--paths" aria-label="Přehled 7 cest">
+      {PUBLIC_PATHS.map((path, index) => <a href={`#${path.id}`} className="pw-discover-icon-card" key={path.id}><span>{String(index + 1).padStart(2,"0")}</span><Image src={pathIcon(path.id)} alt="" width={52} height={52} aria-hidden="true"/><strong>{path.title}</strong></a>)}
+    </nav>
 
     <EditorialFeatureBand
       eyebrow="RŮST BEZ ŽEBŘÍČKU"

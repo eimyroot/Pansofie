@@ -17,10 +17,11 @@ const TOPICS = [
 
 export default function BlogPage() {
   return <PublicShell active="/blog">
-    <section className="pw-page-hero">
-      <div><p className="pw-eyebrow">BLOG A ZDROJE</p><h1>Myšlenky, které pokračují v životě.</h1><p>Veřejná knihovna Pansofie má postupně spojovat články, rozhovory, metodiky a praktické materiály. Dokud konkrétní zdroj není publikovaný, nevydáváme tematický návrh za hotový článek.</p></div>
-      <div className="pw-page-hero__media"><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="Pozorování a učení v přírodě" fill priority sizes="(max-width: 900px) 100vw, 48vw"/></div>
+    <section className="pw-visual-hero pw-visual-hero--discover-articles">
+      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">ČLÁNKY A ZDROJE</p><h1>Myšlenky, které pokračují v životě.</h1><p>Veřejná knihovna Pansofie má postupně spojovat články, rozhovory, metodiky a praktické materiály. Dokud konkrétní zdroj není publikovaný, nevydáváme tematický návrh za hotový článek.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/knihovna">Otevřít knihovnu</Link><Link className="pw-button pw-button--light" href="/16-oblasti">Procházet témata</Link></div></div>
+      <div className="pw-visual-hero__media"><Image src={pansofiePhoto("curiosity-nature-16x9")} alt="Pozorování a učení v přírodě" fill priority sizes="(max-width: 900px) 100vw, 58vw"/><div className="pw-visual-hero__note">souvislost · zdroj · příklad · další krok</div></div>
     </section>
+    <div className="pw-discover-section-head"><p className="pw-eyebrow">TÉMATA K ROZPRACOVÁNÍ</p><h2>Obsah nezačíná titulkem. Začíná otázkou.</h2></div>
     <EditorialFeatureBand
       eyebrow="OBSAH S PAMĚTÍ A ZDROJEM"
       title="Text má vést k pochopení, ne jen k dalšímu scrollu."
@@ -36,7 +37,7 @@ export default function BlogPage() {
       <div><p>Zdroje mají vycházet z 16 oblastí, 7 cest a projektů Pansofie. Každý text by měl nabídnout souvislost, příklad a další krok, ne jen další názor do nekonečného proudu názorů.</p></div>
     </section>
 
-    <section className="pw-resource-grid">
+    <section className="pw-resource-grid pw-resource-grid--visual">
       {TOPICS.map((topic, index) => <article className="pw-resource-card" key={topic.title}>
         <div className="pw-resource-card__media"><Image src={topic.image} alt="" fill sizes="(max-width: 900px) 100vw, 33vw" priority={index === 0}/></div>
         <div><span>{topic.label}</span><h2>{topic.title}</h2><p>{topic.text}</p><Link href={topic.href}>Přejít k tématu <b aria-hidden="true">→</b></Link></div>
