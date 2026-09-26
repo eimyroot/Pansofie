@@ -18,7 +18,7 @@ const groups = [
 ];
 
 test("asset system keeps three products plus shared semantics", () => {
-  assert.deepEqual(Object.keys(ASSET_NAMESPACES), ["pansofie", "young", "go", "shared"]);
+  assert.deepEqual(Object.keys(ASSET_NAMESPACES), ["current"]);
   assert.deepEqual(PATH_ASSET_IDS, ["body", "mind", "character", "relationships", "creativity", "prosperity", "meaning"]);
   assert.equal(DOMAIN_ASSET_IDS.length, 16);
   assert.equal(YOUNG_DOODLE_IDS.length, 24);
@@ -31,15 +31,15 @@ test("asset system keeps three products plus shared semantics", () => {
 });
 
 test("asset helpers produce semantic production paths", () => {
-  assert.equal(pathIcon("mind"), "/assets/brand/shared/paths/path-mind.svg");
-  assert.equal(domainIcon("finance"), "/assets/brand/shared/domains/domain-finance.svg");
-  assert.equal(goPin("mission"), "/assets/brand/go/map/pin-mission.svg");
-  assert.equal(assetPath("young", "doodles", "crown"), "/assets/brand/young/doodles/crown.svg");
-  assert.equal(pansofiePhoto("growing-together-16x9"), "/assets/brand/pansofie/photos/growing-together-16x9.webp");
-  assert.equal(youngPhoto("community-cutout"), "/assets/brand/young/photos/community-cutout.png");
-  assert.equal(goMissionCover("grow-16x9"), "/assets/brand/go/mission-covers/grow-16x9.webp");
-  assert.equal(pansofieIllustration("green-hope"), "/assets/brand/pansofie/illustrations/green-hope.webp");
-  assert.equal(youngIllustration("seedling"), "/assets/brand/young/illustrations/seedling.png");
+  assert.equal(pathIcon("mind"), "/assets/current/icons/mind.svg");
+  assert.equal(domainIcon("finance"), "/assets/current/icons/finance.svg");
+  assert.equal(goPin("mission"), "/assets/current/icons/pin-mission.svg");
+  assert.equal(assetPath("current", "icons", "crown"), "/assets/current/icons/crown.svg");
+  assert.equal(pansofiePhoto("growing-together-16x9"), "/assets/current/photos/community-garden.webp");
+  assert.equal(youngPhoto("community-cutout"), "/assets/current/photos/community-garden.webp");
+  assert.equal(goMissionCover("grow-16x9"), "/assets/current/photos/garden-produce.webp");
+  assert.equal(pansofieIllustration("green-hope"), "/assets/current/photos/community-garden.webp");
+  assert.equal(youngIllustration("seedling"), "/assets/current/photos/volunteer-garden.webp");
 });
 
 test("every registered vector exists and obeys the safe SVG contract", () => {

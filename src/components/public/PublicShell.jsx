@@ -26,7 +26,7 @@ export function PublicShell({ children, active = "", current = active }) {
     <header className="pw-header">
       <div className="pw-header__inner">
         <Link className="pw-brand" href="/" aria-label="Pansofie, úvodní stránka">
-          <span className="pw-brand__mark" aria-hidden="true"><Image src="/assets/brand/shared/domains/domain-nature.svg" alt="" width={20} height={20}/></span>
+          <span className="pw-brand__mark" aria-hidden="true"><Image src="/assets/current/icons/brand-mark.svg" alt="" width={20} height={20}/></span>
           <span><strong>Pansofie</strong><small>Lidé · vědění · kontext · změna</small></span>
         </Link>
         <nav className="pw-nav" aria-label="Hlavní navigace">

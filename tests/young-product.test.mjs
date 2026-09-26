@@ -49,6 +49,7 @@ test("M7 adapts authenticated navigation to Explore, Quest and Impact", () => {
   assert.match(workspace, /explore:[\s\S]*Výpravy[\s\S]*Tvořím/);
   assert.match(workspace, /quest:[\s\S]*Můj tým/);
   assert.match(workspace, /impact:[\s\S]*Komunita[\s\S]*Mentor/);
-  assert.match(workspace, /hero-rooftop-left-safe-16x9\.webp/);
+  assert.match(workspace, /\/assets\/current\/photos\/community-garden\.webp/);
+  assert.doesNotMatch(workspace, /\/assets\/brand\//);
   assert.match(workspace, /MISE → POKUS → TVORBA/);
 });

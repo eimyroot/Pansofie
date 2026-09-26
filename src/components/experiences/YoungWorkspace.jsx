@@ -21,26 +21,26 @@ const TAB_SETS = Object.freeze({
 });
 
 const YOUNG_DISCOVERY = Object.freeze([
-  ["AI a technologie","Jak nástroje mění tvorbu, práci a rozhodování.","/assets/brand/young/scenes/topic-ai.svg"],
-  ["Vztahy a identita","Jak rozumět sobě, hranicím a lidem kolem sebe.","/assets/brand/young/scenes/topic-relationships.svg"],
-  ["Klima a příroda","Co lze pozorovat, zkusit a skutečně ovlivnit.","/assets/brand/young/scenes/topic-climate.svg"],
-  ["Společnost a budoucnost","Jak vznikají pravidla, změna a společná rozhodnutí.","/assets/brand/young/scenes/topic-society.svg"],
-  ["Vzdělávání","Jak se učit zkušeností, otázkou a tvorbou.","/assets/brand/young/scenes/topic-learning.svg"],
-  ["Práce a hodnota","Jak vzniká užitek, odpovědnost a spolupráce.","/assets/brand/young/scenes/topic-future.svg"],
+  ["AI a technologie","Jak nástroje mění tvorbu, práci a rozhodování.","/assets/current/photos/creative-workshop.webp"],
+  ["Vztahy a identita","Jak rozumět sobě, hranicím a lidem kolem sebe.","/assets/current/photos/community-garden.webp"],
+  ["Klima a příroda","Co lze pozorovat, zkusit a skutečně ovlivnit.","/assets/current/photos/volunteer-garden.webp"],
+  ["Společnost a budoucnost","Jak vznikají pravidla, změna a společná rozhodnutí.","/assets/current/photos/home-community.webp"],
+  ["Vzdělávání","Jak se učit zkušeností, otázkou a tvorbou.","/assets/current/photos/school-prague.webp"],
+  ["Práce a hodnota","Jak vzniká užitek, odpovědnost a spolupráce.","/assets/current/photos/creative-workshop.webp"],
 ]);
 const YOUNG_PLAY = Object.freeze([
-  ["QUIZ","Co bys udělal/a?","Krátká situace s více úhly pohledu. Ne test osobnosti.","/assets/brand/young/scenes/play-quiz.svg"],
-  ["DEBATA TÝDNE","Dva pohledy. Žádná povinná správná strana.","Argumenty, zdroje a prostor vytvořit si vlastní názor.","/assets/brand/young/scenes/play-debate.svg"],
-  ["MINI SÉRIE","Jedno téma po malých částech.","Obsah, pokus a otázka, která může pokračovat misí.","/assets/brand/young/scenes/play-series.svg"],
+  ["QUIZ","Co bys udělal/a?","Krátká situace s více úhly pohledu. Ne test osobnosti.","/assets/current/photos/home-community.webp"],
+  ["DEBATA TÝDNE","Dva pohledy. Žádná povinná správná strana.","Argumenty, zdroje a prostor vytvořit si vlastní názor.","/assets/current/photos/home-community.webp"],
+  ["MINI SÉRIE","Jedno téma po malých částech.","Obsah, pokus a otázka, která může pokračovat misí.","/assets/current/photos/home-community.webp"],
 ]);
 const YOUNG_CONTEXT_SCENES = Object.freeze({
-  map: "/assets/brand/young/scenes/map-safe-places.svg",
-  team: "/assets/brand/young/scenes/team-safe-context.svg",
-  community: "/assets/brand/young/scenes/community-circles.svg",
-  mentor: "/assets/brand/young/scenes/mentor-guide.svg",
-  profile: "/assets/brand/young/scenes/profile-private.svg",
-  portfolio: "/assets/brand/young/scenes/portfolio-private.svg",
-  empty: "/assets/brand/young/scenes/empty-gentle.svg",
+  map: "/assets/current/photos/prague-sunset.webp",
+  team: "/assets/current/photos/community-garden.webp",
+  community: "/assets/current/photos/community-garden.webp",
+  mentor: "/assets/current/photos/creative-workshop.webp",
+  profile: "/assets/current/photos/creative-workshop.webp",
+  portfolio: "/assets/current/photos/creative-workshop.webp",
+  empty: "/assets/current/photos/home-community.webp",
 });
 
 const MISSION_STATUS = Object.freeze({
@@ -80,15 +80,15 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
   const steps = missionLearningSteps();
   const missionStatus = MISSION_STATUS[account.missionStatus] || MISSION_STATUS.not_started;
   const heroImage = mode === "explore"
-    ? "/assets/brand/young/photos/explorers-nature-16x9.webp"
+    ? "/assets/current/photos/volunteer-garden.webp"
     : mode === "quest"
-      ? "/assets/brand/young/photos/hero-rooftop-left-safe-16x9.webp"
-      : "/assets/brand/young/photos/creative-studio-16x9.webp";
+      ? "/assets/current/photos/community-garden.webp"
+      : "/assets/current/photos/creative-workshop.webp";
   const heroImageMobile = mode === "explore"
-    ? "/assets/brand/young/photos/explorers-nature-4x5.webp"
+    ? "/assets/current/photos/volunteer-garden.webp"
     : mode === "quest"
-      ? "/assets/brand/young/photos/hero-rooftop-left-safe-4x5.webp"
-      : "/assets/brand/young/photos/creative-studio-4x5.webp";
+      ? "/assets/current/photos/community-garden.webp"
+      : "/assets/current/photos/creative-workshop.webp";
   const heroThread = mode === "explore"
     ? "OTÁZKA → POKUS → OBJEV"
     : mode === "quest"
@@ -134,7 +134,7 @@ export default function YoungWorkspace({ variant = "kids", presentation, display
               </div>
               <Link className="young-product-primary" href="/go/mise-grow">{missionPresentation.actionLabel}</Link>
             </div>
-            <Image className="is-scene" src="/assets/brand/young/scenes/mission-grow.svg" alt="Mladý člověk sází a pozoruje první rostlinu" width={720} height={480} />
+            <Image className="is-scene" src="/assets/current/photos/garden-produce.webp" alt="Mladý člověk sází a pozoruje první rostlinu" width={720} height={480} />
           </section>
 
           <section className="young-product-grid young-product-grid--three" aria-label="Přehled účtu">

@@ -1,8 +1,7 @@
+import { CURRENT_MEDIA, currentIcon } from "./current-visuals.js";
+
 export const ASSET_NAMESPACES = Object.freeze({
-  pansofie: "/assets/brand/pansofie",
-  young: "/assets/brand/young",
-  go: "/assets/brand/go",
-  shared: "/assets/brand/shared",
+  current: "/assets/current",
 });
 
 export const PATH_ASSET_IDS = Object.freeze([
@@ -68,32 +67,79 @@ export const YOUNG_ILLUSTRATION_IDS = Object.freeze([
 ]);
 
 
-export function assetPath(namespace, family, id, extension = "svg") {
-  const base = ASSET_NAMESPACES[namespace];
-  if (!base) throw new Error(`Unknown asset namespace: ${namespace}`);
-  if (!family || !id) throw new Error("Asset family and id are required");
-  return `${base}/${family}/${id}.${extension}`;
+export function assetPath(_namespace, family, id, extension = "svg") {
+  return `/assets/current/${family}/${id}.${extension}`;
 }
 
 function assertId(list, id, label) {
   if (!list.includes(id)) throw new Error(`Unknown ${label}: ${id}`);
 }
 
-export function pathIcon(id) { assertId(PATH_ASSET_IDS, id, "path asset"); return `${ASSET_NAMESPACES.shared}/paths/path-${id}.svg`; }
-export function domainIcon(id) { assertId(DOMAIN_ASSET_IDS, id, "domain asset"); return `${ASSET_NAMESPACES.shared}/domains/domain-${id}.svg`; }
-export function pansofieIcon(id) { assertId(PANSOFIE_ICON_IDS, id, "PANSOFIE icon"); return assetPath("pansofie", "icons", id); }
-export function youngIcon(id) { assertId(YOUNG_ICON_IDS, id, "Young icon"); return assetPath("young", "icons", id); }
-export function youngDoodle(id) { assertId(YOUNG_DOODLE_IDS, id, "Young doodle"); return assetPath("young", "doodles", id); }
-export function goIcon(id) { assertId(GO_ICON_IDS, id, "GO icon"); return assetPath("go", "icons", id); }
-export function goPin(id) { assertId(GO_PIN_IDS, id, "GO pin"); return `${ASSET_NAMESPACES.go}/map/pin-${id}.svg`; }
-export function goBadge(id) { assertId(GO_BADGE_IDS, id, "GO badge"); return `${ASSET_NAMESPACES.go}/badges/badge-${id}.svg`; }
-export function pansofiePhoto(id) { assertId(PANSOFIE_PHOTO_IDS, id, "PANSOFIE photo"); return assetPath("pansofie", "photos", id, "webp"); }
-export function youngPhoto(id) {
-  assertId(YOUNG_PHOTO_IDS, id, "Young photo");
-  return assetPath("young", "photos", id, id === "community-cutout" ? "png" : "webp");
-}
-export function goMissionCover(id) { assertId(GO_MISSION_COVER_IDS, id, "GO mission cover"); return assetPath("go", "mission-covers", id, "webp"); }
+const adultPhotos = Object.freeze({
+  "hero-community-left-safe-16x9": CURRENT_MEDIA.home,
+  "hero-community-left-safe-4x3": CURRENT_MEDIA.home,
+  "hero-community-left-safe-4x5": CURRENT_MEDIA.home,
+  "curiosity-nature-16x9": CURRENT_MEDIA.nature,
+  "growing-together-16x9": CURRENT_MEDIA.community,
+  "prague-nature-16x9": CURRENT_MEDIA.prague,
+  "community-city-16x9": CURRENT_MEDIA.home,
+});
+const youngPhotos = Object.freeze({
+  "hero-rooftop-left-safe-16x9": CURRENT_MEDIA.creative,
+  "hero-rooftop-left-safe-4x3": CURRENT_MEDIA.creative,
+  "hero-rooftop-left-safe-4x5": CURRENT_MEDIA.creative,
+  "community-cutout": CURRENT_MEDIA.community,
+  "creative-studio-16x9": CURRENT_MEDIA.creative,
+  "creative-studio-4x5": CURRENT_MEDIA.creative,
+  "explorers-nature-16x9": CURRENT_MEDIA.nature,
+  "explorers-nature-4x5": CURRENT_MEDIA.nature,
+});
+const goCovers = Object.freeze({
+  "grow-16x9": CURRENT_MEDIA.produce,
+  "grow-4x5": CURRENT_MEDIA.produce,
+  "grow-1x1": CURRENT_MEDIA.produce,
+  "explore-16x9": CURRENT_MEDIA.prague,
+  "create-16x9": CURRENT_MEDIA.labs,
+  "community-16x9": CURRENT_MEDIA.community,
+  "help-4x5": CURRENT_MEDIA.partnership,
+});
+const adultIllustrations = Object.freeze({
+  "ecosystem-tree": CURRENT_MEDIA.home,
+  "school-learning": CURRENT_MEDIA.school,
+  "green-hope": CURRENT_MEDIA.community,
+  "family-team": CURRENT_MEDIA.home,
+  "project-idea": CURRENT_MEDIA.labs,
+});
+const adultScenes = Object.freeze({
+  "green-hope-lab": CURRENT_MEDIA.nature,
+  "urban-farm-system": CURRENT_MEDIA.produce,
+  "family-team-missions": CURRENT_MEDIA.home,
+  "impact-index": CURRENT_MEDIA.partnership,
+  "collaboration-map": CURRENT_MEDIA.prague,
+  "school-life-learning": CURRENT_MEDIA.school,
+  "organization-network": CURRENT_MEDIA.partnership,
+  "knowledge-journal": CURRENT_MEDIA.creative,
+  "contact-growth": CURRENT_MEDIA.partnership,
+});
+const youngIllustrations = Object.freeze({
+  "ecosystem-tree": CURRENT_MEDIA.creative,
+  "intergenerational-help": CURRENT_MEDIA.partnership,
+  "urban-garden": CURRENT_MEDIA.community,
+  "resource-kit": CURRENT_MEDIA.labs,
+  "seedling": CURRENT_MEDIA.nature,
+});
 
-export function pansofieIllustration(id) { assertId(PANSOFIE_ILLUSTRATION_IDS, id, "PANSOFIE illustration"); return assetPath("pansofie", "illustrations", id, "webp"); }
-export function pansofieScene(id) { assertId(PANSOFIE_SCENE_IDS, id, "PANSOFIE scene"); return assetPath("pansofie", "scenes", id); }
-export function youngIllustration(id) { assertId(YOUNG_ILLUSTRATION_IDS, id, "Young illustration"); return assetPath("young", "illustrations", id, "png"); }
+export function pathIcon(id) { assertId(PATH_ASSET_IDS, id, "path asset"); return currentIcon(id); }
+export function domainIcon(id) { assertId(DOMAIN_ASSET_IDS, id, "domain asset"); return currentIcon(id); }
+export function pansofieIcon(id) { assertId(PANSOFIE_ICON_IDS, id, "PANSOFIE icon"); return currentIcon(id); }
+export function youngIcon(id) { assertId(YOUNG_ICON_IDS, id, "Young icon"); return currentIcon(id); }
+export function youngDoodle(id) { assertId(YOUNG_DOODLE_IDS, id, "Young doodle"); return currentIcon(id); }
+export function goIcon(id) { assertId(GO_ICON_IDS, id, "GO icon"); return currentIcon(id); }
+export function goPin(id) { assertId(GO_PIN_IDS, id, "GO pin"); return currentIcon(`pin-${id}`); }
+export function goBadge(id) { assertId(GO_BADGE_IDS, id, "GO badge"); return currentIcon(`badge-${id}`); }
+export function pansofiePhoto(id) { assertId(PANSOFIE_PHOTO_IDS, id, "PANSOFIE photo"); return adultPhotos[id]; }
+export function youngPhoto(id) { assertId(YOUNG_PHOTO_IDS, id, "Young photo"); return youngPhotos[id]; }
+export function goMissionCover(id) { assertId(GO_MISSION_COVER_IDS, id, "GO mission cover"); return goCovers[id]; }
+export function pansofieIllustration(id) { assertId(PANSOFIE_ILLUSTRATION_IDS, id, "PANSOFIE illustration"); return adultIllustrations[id]; }
+export function pansofieScene(id) { assertId(PANSOFIE_SCENE_IDS, id, "PANSOFIE scene"); return adultScenes[id]; }
+export function youngIllustration(id) { assertId(YOUNG_ILLUSTRATION_IDS, id, "Young illustration"); return youngIllustrations[id]; }
