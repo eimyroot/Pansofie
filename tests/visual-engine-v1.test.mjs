@@ -22,13 +22,12 @@ test("core public surfaces use the canonical Pansofie identity language", () => 
   assert.match(read("src/app/7-cest/page.jsx"), /DiscoverHero variant="paths"/, "7 paths must use the editorial path language");
   assert.match(read("src/app/16-oblasti/page.jsx"), /DiscoverHero variant="domains"/, "16 domains must use the editorial atlas language");
   assert.match(read("src/app/projekty/page.jsx"), /ProjectHero variant="overview"/, "projects must use the editorial project family");
-  assert.match(read("src/app/komunita/page.jsx"), /PansofieVisualEngine mode="community"/, "community still uses Visual Engine until its own Frame 02 pass");
+  assert.match(read("src/app/komunita/page.jsx"), /CommunityHero variant="overview"/, "community must use the contextual editorial family");
 });
 
 test("secondary adult public surfaces use the shared relation-field language", () => {
   const files = [
-    "src/app/sit/page.jsx", "src/app/pro-skoly/page.jsx",
-    "src/app/pro-organizace/page.jsx", "src/app/partneri/page.jsx", "src/app/dobrovolnictvi/page.jsx",
+    "src/app/dobrovolnictvi/page.jsx",
     "src/app/partnerstvi/page.jsx", "src/app/kontakt/page.jsx", "src/app/jak-to-funguje/page.jsx",
     "src/app/pro-koho/page.jsx", "src/app/knihovna/page.jsx", "src/app/vize/page.jsx",
     "src/app/impact/page.jsx", "src/app/instituce/page.jsx", "src/app/osobni-rust/page.jsx",
