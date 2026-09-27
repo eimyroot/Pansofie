@@ -245,10 +245,12 @@ test("editorial homepage connects city, generations, circularity and responsible
 });
 
 test("M6.8 carries the mature editorial world across projects, schools, organizations and circularity", () => {
-  const files = ["projekty", "pro-skoly", "pro-organizace", "green-hope", "urban-family-farm", "digitalni-kompost", "sit", "instituce"];
-  for (const file of files) {
+  for (const file of ["pro-skoly", "pro-organizace", "sit", "instituce"]) {
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
     assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
+  }
+  for (const file of ["projekty", "green-hope", "urban-family-farm", "digitalni-kompost", "labs"]) {
+    assert.match(readFileSync(`src/app/${file}/page.jsx`, "utf8"), /ProjectFamilyNav/, `${file} should use Projects Frame 02`);
   }
   assert.match(readFileSync("src/app/urban-family-farm/page.jsx", "utf8"), /MIKROGREENS/);
   assert.match(readFileSync("src/app/digitalni-kompost/page.jsx", "utf8"), /MATERIÁLY V OBĚHU/);
@@ -445,7 +447,8 @@ test("M6.17 turns the generated visual direction into real responsive public UI"
   assert.match(css, /\.pw-visual-hero/);
   assert.match(css, /\.pw-visual-card-strip/);
   assert.match(css, /\.pw-mini-pill-grid/);
-  for (const route of ["labs", "komunita", "partneri", "dobrovolnictvi", "partnerstvi"]) {
+  assert.match(readFileSync("src/app/labs/page.jsx", "utf8"), /ProjectHero variant="labs"/);
+  for (const route of ["komunita", "partneri", "dobrovolnictvi", "partnerstvi"]) {
     const source = readFileSync(`src/app/${route}/page.jsx`, "utf8");
     assert.match(source, /pw-visual-hero/);
     assert.match(source, /pw-button/);
@@ -474,25 +477,19 @@ test("M6.18 gives every Objevuj destination one shared editorial atlas family", 
 });
 
 
-test("M6.19 gives core project destinations the same visual editorial depth", () => {
-  const css = readFileSync("src/app/public-pansofie.css", "utf8");
-  const projects = readFileSync("src/app/projekty/page.jsx", "utf8");
-  const green = readFileSync("src/app/green-hope/page.jsx", "utf8");
-  const farm = readFileSync("src/app/urban-family-farm/page.jsx", "utf8");
-  const compost = readFileSync("src/app/digitalni-kompost/page.jsx", "utf8");
-  const shared = readFileSync("src/components/public/ProjectVisualStoryPage.jsx", "utf8");
-  assert.match(css, /\.pw-project-gateway/);
-  assert.match(css, /\.pw-material-grid/);
-  assert.match(projects, /pw-visual-hero/);
-  assert.match(projects, /pw-project-gateway/);
-  assert.match(projects, /PansofieArtPanel/);
-  assert.doesNotMatch(projects, /PROJECT_VISUALS|green-hope-lab|urban-farm-system|family-team-missions|collaboration-map|knowledge-journal|school-life-learning/);
-  assert.match(green, /ProjectVisualStoryPage/);
-  assert.match(farm, /ProjectVisualStoryPage/);
-  assert.match(shared, /pw-visual-card-strip/);
-  assert.match(compost, /pw-material-grid/);
-  assert.match(compost, /DŮLEŽITÁ HRANICE/);
-  assert.doesNotMatch(projects + green + farm + compost, /1000\+|garantovan|ověřený partner|má naměřený ekologický dopad|prokázaný ekologický dopad/i);
+test("M6.19 gives core project destinations one editorial family without cloning one visual template", () => {
+  const css = readFileSync("src/app/projects-frame02.css", "utf8");
+  const files = ["projekty", "green-hope", "urban-family-farm", "digitalni-kompost", "labs"].map((route)=>readFileSync(`src/app/${route}/page.jsx`, "utf8"));
+  for (const source of files) assert.match(source, /ProjectFamilyNav/);
+  assert.match(files[0], /ProjectHero variant="overview"/);
+  assert.match(files[1], /ProjectHero variant="green"/);
+  assert.match(files[2], /ProjectHero variant="farm"/);
+  assert.match(files[3], /ProjectHero variant="compost"/);
+  assert.match(files[4], /ProjectHero variant="labs"/);
+  assert.match(css, /\.pr02-index/);
+  assert.match(css, /\.pr02-ledger/);
+  assert.doesNotMatch(files.join("\n"), /PansofieArtPanel|PansofieVisualEngine|EditorialFeatureBand|ProjectVisualStoryPage/);
+  assert.doesNotMatch(files.join("\n"), /1000\+|garantovan|ověřený partner|má naměřený ekologický dopad|prokázaný ekologický dopad/i);
 });
 
 

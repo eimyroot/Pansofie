@@ -1,16 +1,17 @@
-import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
-import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
-import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { PansofieVisualCard } from "../../components/public/PansofieVisualCard";
+import { ProjectFamilyNav, ProjectHero, ProjectNext, ProjectPrinciples, ProjectSequence, ProjectStatement, ProjectTopics, ProjectTruth } from "../../components/public/PansofieProjectsFrame";
+
 export const metadata={title:"Digitální kompost",description:"Cirkulární vrstva Pansofie pro předávání materiálu, věcí a zdrojů, které ještě mohou sloužit dál."};
 const FLOW=[["Nabídnout","Popsat materiál nebo věc, která už není potřeba na původním místě."],["Najít využití","Přebytek má směřovat tam, kde může být skutečně užitečný."],["Domluvit předání","Místo, podmínky a bezpečnost se řeší konkrétně mezi oprávněnými účastníky."],["Uzavřít kruh","Potvrdit, že předání proběhlo, bez povinného veřejného příběhu nebo skóre."]];
-const MATERIALS=[{title:"Dřevo",text:"Modely, truhlíky, opravy a výukové prototypy."},{title:"Textil",text:"Tvorba, opravy, design a práce s materiálem."},{title:"Obaly",text:"Prototypování, organizace a opakované použití."},{title:"Vybavení",text:"Druhý život tam, kde existuje konkrétní potřeba."}];
-export default function CompostPage(){return <PublicShell active="/digitalni-kompost">
-  <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--compost"><div className="pw-visual-hero__copy"><p className="pw-eyebrow">DIGITÁLNÍ KOMPOST</p><h1>Co už nepotřebuje jeden, může ještě posloužit druhému.</h1><p>Cirkulární vrstva Pansofie propojuje přebytky s konkrétním využitím. Ne jako anonymní tržiště, ale jako součást projektů, škol a místní spolupráce.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/instituce">Propojení institucí</Link><Link className="pw-button pw-button--light" href="/projekty">Projekty</Link></div></div><div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="DIGITÁLNÍ KOMPOST" title="Materiál v oběhu" detail="hodnota nekončí prvním použitím" flow={["Přebytek","Potřeba","Předání","Další život"]}/></div></section>
-  <section className="pw-material-grid">{MATERIALS.map((item,index)=><PansofieVisualCard title={item.title} text={item.text} label={`${String(index+1).padStart(2,"0")} · MATERIÁL`} className="pw-material-card" key={item.title}/>)}</section>
-  <EditorialFeatureBand eyebrow="MATERIÁLY V OBĚHU" title="Odpad je často jen materiál bez dalšího plánu." text="Dřevo z výroby, zbytky textilu, čisté obaly nebo vybavení mohou být užitečné pro školní dílnu, komunitní opravu nebo prototyp. Veřejná Pansofie ukazuje princip, ne falešnou živou burzu zásob." imageAlt="Městská komunita spolupracující na praktických projektech" items={[["Dřevo","Modely, truhlíky, opravy a výukové prototypy."],["Textil","Tvorba, opravy, design a práce s materiálem."],["Obaly","Prototypování, organizace a opakované použití."],["Vybavení","Druhý život tam, kde existuje konkrétní potřeba."]]} link={{href:"/instituce",label:"Jak funguje institucionální matching"}}/>
-  <section className="pw-mini-pill-grid">{FLOW.map(([title,text],index)=><article key={title}><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}</section>
-  <section className="pw-visual-note"><p className="pw-eyebrow">DŮLEŽITÁ HRANICE</p><p>Veřejná stránka není živá materiálová banka. Současná veřejná vrstva vysvětluje princip a nezobrazuje ověřené aktuální zásoby, rezervace ani skutečné nabídky organizací. Tyto funkce patří do řízeného aplikačního kontextu.</p></section>
-  <section className="pw-next"><div><p className="pw-eyebrow">CIRKULARITA V PRAXI</p><h2>Materiál může být začátkem projektu.</h2><p>Propojení škol a organizací rozvíjí stejnou myšlenku na institucionální úrovni.</p></div><Link className="pw-button pw-button--dark" href="/instituce">Propojení institucí</Link></section>
+const MATERIALS=["Dřevo","Textil","Obaly","Vybavení"];
+
+export default function CompostPage(){return <PublicShell active="/projekty" current="/digitalni-kompost">
+  <ProjectFamilyNav active="/digitalni-kompost"/>
+  <ProjectHero variant="compost" kicker="DIGITÁLNÍ KOMPOST" title={<>Co už nepotřebuje jeden, může ještě posloužit druhému.</>} lead="Cirkulární vrstva Pansofie propojuje přebytky s konkrétním využitím. Ne jako anonymní tržiště, ale jako součást projektů, škol a místní spolupráce." primary={{href:"/instituce",label:"Propojení institucí"}} secondary={{href:"/projekty",label:"Přehled projektů"}}/>
+  <ProjectStatement kicker="MATERIÁLY V OBĚHU" title="Odpad je často jen materiál bez dalšího plánu." text="Dřevo z výroby, zbytky textilu, čisté obaly nebo vybavení mohou být užitečné pro školní dílnu, komunitní opravu nebo prototyp. Veřejná Pansofie ukazuje princip, ne falešnou živou burzu zásob." aside="přebytek → potřeba → předání → další život"/>
+  <ProjectPrinciples items={FLOW}/>
+  <ProjectSequence title="Předání má čtyři čitelné kroky." steps={FLOW.map(([title])=>title)}/>
+  <ProjectTopics topics={MATERIALS}/>
+  <ProjectTruth>Veřejná stránka není živá materiálová banka. Nezobrazuje ověřené aktuální zásoby, rezervace ani skutečné nabídky organizací. Tyto funkce patří do řízeného aplikačního kontextu.</ProjectTruth>
+  <ProjectNext kicker="CIRKULARITA V PRAXI" title="Materiál může být začátkem projektu." text="Propojení škol a organizací rozvíjí stejnou myšlenku na institucionální úrovni." href="/instituce" label="Propojení institucí"/>
 </PublicShell>}
