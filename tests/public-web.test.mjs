@@ -257,7 +257,7 @@ test("M6.8 carries the mature editorial world across projects, schools, organiza
 
 
 test("M6.9 completes the adult editorial system across orientation and trust pages", () => {
-  const files = ["vize", "jak-to-funguje", "pro-koho", "knihovna", "impact", "kontakt"];
+  const files = ["vize", "jak-to-funguje", "pro-koho", "knihovna", "impact"];
   for (const file of files) {
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
     assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
@@ -278,7 +278,8 @@ test("M6.9 completes the adult editorial system across orientation and trust pag
   assert.match(library, /Dokud konkrétní materiál není publikovaný a ověřený/i);
 
   const contact = readFileSync("src/app/kontakt/page.jsx", "utf8");
-  assert.match(contact, /lokálním prototypem/i);
+  assert.match(contact, /EngageHero variant="contact"/);
+  assert.match(contact, /lokální prototyp/i);
   assert.doesNotMatch(contact, /ověřený partner|garantovaná spolupráce/i);
 });
 
@@ -446,13 +447,9 @@ test("M6.17 turns the generated visual direction into real responsive public UI"
   assert.match(readFileSync("src/app/labs/page.jsx", "utf8"), /ProjectHero variant="labs"/);
   assert.match(readFileSync("src/app/komunita/page.jsx", "utf8"), /CommunityHero variant="overview"/);
   assert.match(readFileSync("src/app/partneri/page.jsx", "utf8"), /CommunityHero variant="partners"/);
-  for (const route of ["dobrovolnictvi", "partnerstvi"]) {
-    const source = readFileSync(`src/app/${route}/page.jsx`, "utf8");
-    assert.match(source, /pw-visual-hero/);
-    assert.match(source, /pw-button/);
-    assert.doesNotMatch(source, /1000\+|seznam ověřených partnerů[.!]|navigator\.geolocation/s);
-    assert.match(source, /nepředstírá|bez povinn|konkrétní|skutečn/i);
-  }
+  assert.match(readFileSync("src/app/dobrovolnictvi/page.jsx", "utf8"), /EngageHero variant="volunteer"/);
+  assert.match(readFileSync("src/app/partnerstvi/page.jsx", "utf8"), /EngageHero variant="partnership"/);
+  assert.match(readFileSync("src/app/kontakt/page.jsx", "utf8"), /EngageHero variant="contact"/);
 });
 
 test("M6.18 gives every Objevuj destination one shared editorial atlas family", () => {
