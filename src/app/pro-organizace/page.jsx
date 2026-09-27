@@ -1,22 +1,20 @@
-import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
-import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
-import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { PansofieVisualCard } from "../../components/public/PansofieVisualCard";
+import { CommunityFamilyNav, CommunityHero, CommunityLedger, CommunityNext, CommunityPrinciples, CommunityStatement, CommunityTruth } from "../../components/public/PansofieCommunityFrame";
 
 export const metadata={title:"Pro organizace",description:"Partnerství Pansofie pro školy, obce, neziskové organizace, firmy a komunitní projekty."};
 const ROLES=[["Partner projektu","Podpora konkrétního projektu, místa nebo tématu s jasným rozsahem a odpovědností."],["Odborný partner","Know-how, mentorství, metodika nebo odborný vstup bez přivlastnění zkušenosti účastníků."],["Místní hostitel","Bezpečný prostor, vybavení nebo organizační zázemí pro ověřený kontext."],["Zdroj a podpora","Materiál, finance nebo služby navázané na konkrétní potřebu a transparentní použití."]];
-const PARTNER_ENTRY=[
+const ENTRY=[
  {title:"Materiál",text:"Čisté přebytky a vybavení mohou dostat konkrétní druhé použití.",href:"/digitalni-kompost",label:"ZDROJE"},
  {title:"Know-how",text:"Odborná zkušenost může pomoct projektu bez marketingového nátlaku.",href:"/sit",label:"ZKUŠENOST"},
  {title:"Prostor",text:"Dílna, zahrada nebo bezpečné místo pro ověřený projekt.",href:"/projekty",label:"MÍSTO"},
  {title:"Kapacita",text:"Čas, služby nebo financování navázané na jasný účel a pravidla.",href:"/partnerstvi",label:"PODPORA"},
 ];
 export default function OrganizationsPage(){return <PublicShell active="/pro-organizace">
- <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--organizations"><div className="pw-visual-hero__copy"><p className="pw-eyebrow">PRO ORGANIZACE</p><h1>Partnerství má mít konkrétní smysl.</h1><p>Pansofie hledá spolupráci, která pomáhá lidem, místům a projektům něco skutečně vytvořit. Ne logo na stránce a vágní tvrzení o dopadu.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/kontakt">Navrhnout spolupráci</Link><Link className="pw-button pw-button--light" href="/partnerstvi">Princip partnerství</Link></div></div><div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="PRO ORGANIZACE" title="Partnerství jako práce" detail="účel dřív než logo" flow={["Potřeba","Role","Zdroj","Výstup"]}/></div></section>
- <section className="pw-community-entry-grid">{PARTNER_ENTRY.map(card=><PansofieVisualCard {...card} className="pw-community-entry-card" key={card.title}/>)}</section>
- <EditorialFeatureBand eyebrow="FIRMA JAKO SOUČÁST MÍSTA" title="Firma může nabídnout víc než peníze." text="Materiál, znalost, čas odborníka, dílna nebo nevyužitá kapacita mohou pomoct konkrétnímu školnímu či komunitnímu projektu. Spolupráce má být dohledatelná a přiměřená, ne převlečená reklama." imageAlt="Lidé spolupracují v městském komunitním prostředí" reverse items={[["Materiál","Čisté přebytky a zbytky pro konkrétní použití."],["Know-how","Odborná zkušenost předaná bez marketingového nátlaku."],["Prostor","Dílna, zahrada nebo bezpečné místo pro ověřený projekt."],["Čas","Mentoring a pomoc navázaná na jasný účel a pravidla."]]} link={{href:"/instituce",label:"Školy × organizace"}}/>
- <section className="pw-mini-pill-grid">{ROLES.map(([title,text],index)=><article key={title}><span>{String(index+1).padStart(2,"0")}</span><h3>{title}</h3><p>{text}</p></article>)}</section>
- <section className="pw-impact-rules"><article><p className="pw-eyebrow">01 · KONTEXT</p><h3>Každý partner vstupuje přes ověřený kontext.</h3><p>Organizace, škola, obec nebo firma mají vlastní členství a oprávnění. Partnerství se neopírá o sdílený účet.</p></article><article><p className="pw-eyebrow">02 · DOPAD</p><h3>Dopad se dokládá, nevymýšlí.</h3><p>Výstupy projektu, pozorování a evidence zůstávají oddělené od reputace člověka nebo instituce.</p></article><article><p className="pw-eyebrow">03 · BEZPEČÍ</p><h3>Mladí účastníci nejsou marketingový materiál.</h3><p>Soukromí, souhlasy a omezení viditelnosti jsou součástí návrhu spolupráce od začátku.</p></article></section>
- <section className="pw-next"><div><p className="pw-eyebrow">PRVNÍ KROK</p><h2>Začněme konkrétním problémem nebo projektem.</h2><p>Kontakt slouží pro nabídku spolupráce, přístupnost, bezpečnostní podněty i obecné dotazy.</p></div><Link className="pw-button pw-button--dark" href="/kontakt">Kontaktovat Pansofii</Link></section>
+ <CommunityFamilyNav active="/pro-organizace"/>
+ <CommunityHero variant="organization" kicker="PRO ORGANIZACE" title={<>Partnerství má mít konkrétní smysl.</>} lead="Pansofie hledá spolupráci, která pomáhá lidem, místům a projektům něco skutečně vytvořit. Ne logo na stránce a vágní tvrzení o dopadu." primary={{href:"/kontakt",label:"Navrhnout spolupráci"}} secondary={{href:"/partnerstvi",label:"Princip partnerství"}}/>
+ <CommunityStatement kicker="FIRMA JAKO SOUČÁST MÍSTA" title="Organizace může nabídnout víc než peníze." text="Materiál, znalost, čas odborníka, dílna nebo nevyužitá kapacita mohou pomoct konkrétnímu školnímu či komunitnímu projektu. Spolupráce má být dohledatelná a přiměřená, ne převlečená reklama." aside="potřeba ↔ role ↔ zdroj ↔ výstup"/>
+ <CommunityPrinciples items={ROLES}/>
+ <CommunityLedger items={ENTRY}/>
+ <CommunityTruth>Dopad se dokládá, nevymýšlí. Výstupy projektu a evidence zůstávají oddělené od reputace člověka nebo instituce a mladí účastníci nejsou marketingový materiál.</CommunityTruth>
+ <CommunityNext kicker="PRVNÍ KROK" title="Začněme konkrétním problémem nebo projektem." text="Kontakt slouží pro nabídku spolupráce, přístupnost, bezpečnostní podněty i obecné dotazy." href="/kontakt" label="Kontaktovat Pansofii"/>
  </PublicShell>}

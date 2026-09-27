@@ -245,13 +245,9 @@ test("editorial homepage connects city, generations, circularity and responsible
 });
 
 test("M6.8 carries the mature editorial world across projects, schools, organizations and circularity", () => {
-  for (const file of ["pro-skoly", "pro-organizace", "sit", "instituce"]) {
-    const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
-    assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
-  }
-  for (const file of ["projekty", "green-hope", "urban-family-farm", "digitalni-kompost", "labs"]) {
-    assert.match(readFileSync(`src/app/${file}/page.jsx`, "utf8"), /ProjectFamilyNav/, `${file} should use Projects Frame 02`);
-  }
+  assert.match(readFileSync("src/app/instituce/page.jsx", "utf8"), /EditorialFeatureBand|editorialFeature=/);
+  for (const file of ["projekty", "green-hope", "urban-family-farm", "digitalni-kompost", "labs"]) assert.match(readFileSync(`src/app/${file}/page.jsx`, "utf8"), /ProjectFamilyNav/);
+  for (const file of ["komunita", "sit", "pro-skoly", "pro-organizace", "partneri"]) assert.match(readFileSync(`src/app/${file}/page.jsx`, "utf8"), /CommunityFamilyNav/);
   assert.match(readFileSync("src/app/urban-family-farm/page.jsx", "utf8"), /MIKROGREENS/);
   assert.match(readFileSync("src/app/digitalni-kompost/page.jsx", "utf8"), /MATERIÁLY V OBĚHU/);
   assert.match(readFileSync("src/app/sit/page.jsx", "utf8"), /KOMUNITA, NE FEED/);
@@ -448,7 +444,9 @@ test("M6.17 turns the generated visual direction into real responsive public UI"
   assert.match(css, /\.pw-visual-card-strip/);
   assert.match(css, /\.pw-mini-pill-grid/);
   assert.match(readFileSync("src/app/labs/page.jsx", "utf8"), /ProjectHero variant="labs"/);
-  for (const route of ["komunita", "partneri", "dobrovolnictvi", "partnerstvi"]) {
+  assert.match(readFileSync("src/app/komunita/page.jsx", "utf8"), /CommunityHero variant="overview"/);
+  assert.match(readFileSync("src/app/partneri/page.jsx", "utf8"), /CommunityHero variant="partners"/);
+  for (const route of ["dobrovolnictvi", "partnerstvi"]) {
     const source = readFileSync(`src/app/${route}/page.jsx`, "utf8");
     assert.match(source, /pw-visual-hero/);
     assert.match(source, /pw-button/);
@@ -493,19 +491,17 @@ test("M6.19 gives core project destinations one editorial family without cloning
 });
 
 
-test("M6.20 gives network, school, organization and contact routes full visual landing systems", () => {
-  const css = readFileSync("src/app/public-pansofie.css", "utf8");
-  const network = readFileSync("src/app/sit/page.jsx", "utf8");
-  const school = readFileSync("src/app/pro-skoly/page.jsx", "utf8");
-  const org = readFileSync("src/app/pro-organizace/page.jsx", "utf8");
-  const contact = readFileSync("src/app/kontakt/page.jsx", "utf8");
-  for (const source of [network, school, org, contact]) assert.match(source, /pw-visual-hero/);
-  assert.match(css, /\.pw-community-entry-grid/);
-  assert.match(css, /\.pw-contact-entry-grid/);
-  assert.match(network, /nejsou seznamem potvrzených partnerů/);
-  assert.match(school, /není postavená na povinném skórování dítěte/);
-  assert.match(org, /Dopad se dokládá, nevymýšlí/);
-  assert.match(contact, /lokální prototyp/);
-  assert.match(contact, /Nepředstírá odeslání ani přijetí na mailbox/);
-  assert.doesNotMatch(network + school + org + contact, /1000\+|garantovaná spolupráce|seznam ověřených partnerů[.!]/i);
+test("M6.20 gives community, network, school, organization and partner routes one contextual family", () => {
+  const css = readFileSync("src/app/community-frame02.css", "utf8");
+  const routes = ["komunita", "sit", "pro-skoly", "pro-organizace", "partneri"];
+  for (const route of routes) assert.match(readFileSync(`src/app/${route}/page.jsx`, "utf8"), /CommunityFamilyNav/);
+  assert.match(css, /\.cm02-overview-field/);
+  assert.match(css, /\.cm02-network-field/);
+  assert.match(css, /\.cm02-school-field/);
+  assert.match(css, /\.cm02-org-field/);
+  assert.match(css, /\.cm02-partner-field/);
+  assert.match(readFileSync("src/app/sit/page.jsx", "utf8"), /nejsou seznamem potvrzených partnerů|ne seznam potvrzených partnerů/i);
+  assert.match(readFileSync("src/app/pro-skoly/page.jsx", "utf8"), /povinném skórování dítěte/);
+  assert.match(readFileSync("src/app/pro-organizace/page.jsx", "utf8"), /Dopad se dokládá, nevymýšlí/);
+  assert.doesNotMatch(routes.map((route)=>readFileSync(`src/app/${route}/page.jsx`, "utf8")).join("\n"), /1000\+|garantovaná spolupráce|seznam ověřených partnerů[.!]/i);
 });

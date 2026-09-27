@@ -1,24 +1,21 @@
-import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
-import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
-import { PansofieVisualCard } from "../../components/public/PansofieVisualCard";
+import { CommunityFamilyNav, CommunityHero, CommunityLedger, CommunityNext, CommunityPrinciples, CommunityStatement, CommunityTruth } from "../../components/public/PansofieCommunityFrame";
 
 export const metadata = { title: "Komunita", description: "Komunita Pansofie kolem skutečných projektů, bezpečných vztahů a místní spolupráce." };
-
-const COMMUNITY_ENGINE = [
-  {title:"Rodiny",href:"/komunita"},{title:"Školy",href:"/pro-skoly"},{title:"Místa",href:"/sit"},{title:"Organizace",href:"/pro-organizace"},{title:"Partneři",href:"/partneri"},
+const ENTRIES=[
+ {title:"Síť",text:"Role a vztahy propojené přes konkrétní práci.",href:"/sit",label:"VZTAHY"},
+ {title:"Pro školy",text:"Bezpečné školní kontexty a projektová výuka.",href:"/pro-skoly",label:"UČENÍ"},
+ {title:"Pro organizace",text:"Know-how, materiál a kapacita pro jasný účel.",href:"/pro-organizace",label:"ZDROJE"},
+ {title:"Partneři",text:"Spolupráce bez předstírání ověřených partnerství.",href:"/partneri",label:"KAPACITA"},
 ];
+const PRINCIPLES=[["Rodiny","Společné zkušenosti při zachování vlastní identity každého člověka."],["Školy","Bezpečné třídy a projektové kontexty s jasnými rolemi."],["Místa","Komunitní projekty a ověřené kontexty místo veřejného hledání lidí v okolí."],["Organizace","Zdroje, know-how a kapacita navázané na konkrétní potřebu."]];
 
-const ENTRIES = [["Komunita", "Sdílení zkušeností kolem témat a projektů.", "/komunita"], ["Síť", "Role a vztahy propojené přes konkrétní práci.", "/sit"], ["Pro školy", "Bezpečné školní kontexty a projektová výuka.", "/pro-skoly"], ["Pro organizace", "Know-how, materiál a kapacita pro jasný účel.", "/pro-organizace"], ["Partneři", "Spolupráce bez předstírání ověřených partnerství.", "/partneri"]];
-
-export default function CommunityPage() {
-  return <PublicShell active="/komunita">
-    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--community">
-      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">KOMUNITA</p><h1>Komunita, ne feed.</h1><p>Pansofie staví komunitu kolem rodin, škol, míst, témat a konkrétních projektů. Ne kolem veřejného katalogu lidí, jejich skóre nebo přesné polohy.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/sit">Otevřít síť</Link><Link className="pw-button pw-button--light" href="/pro-koho">Najít vstup</Link></div></div>
-      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="community" community={COMMUNITY_ENGINE}/></div>
-    </section>
-    <section className="pw-visual-card-strip pw-visual-card-strip--five">{ENTRIES.map(([title,text,href]) => <PansofieVisualCard title={title} text={text} href={href} label="KOMUNITA" key={title}/>)}</section>
-    <section className="pw-story-principles"><article><span>01</span><h3>Rodiny</h3><p>Společné zkušenosti při zachování vlastní identity každého člověka.</p></article><article><span>02</span><h3>Školy</h3><p>Bezpečné třídy a projektové kontexty s jasnými rolemi.</p></article><article><span>03</span><h3>Místa</h3><p>Komunitní projekty a ověřené kontexty místo veřejného hledání lidí v okolí.</p></article><article><span>04</span><h3>Organizace</h3><p>Zdroje, know-how a kapacita navázané na konkrétní potřebu.</p></article></section>
-    <section className="pw-next"><div><p className="pw-eyebrow">SÍŤ</p><h2>Silná komunita se propojuje přes skutečnou práci.</h2><p>Síť Pansofie ukazuje, jak mohou jednotlivé role a projekty spolupracovat bez ztráty soukromí.</p></div><Link className="pw-button pw-button--dark" href="/sit">Otevřít síť</Link></section>
-  </PublicShell>;
-}
+export default function CommunityPage(){return <PublicShell active="/komunita">
+ <CommunityFamilyNav active="/komunita"/>
+ <CommunityHero variant="overview" kicker="KOMUNITA" title={<>Komunita, ne feed.</>} lead="Pansofie staví komunitu kolem rodin, škol, míst, témat a konkrétních projektů. Ne kolem veřejného katalogu lidí, jejich skóre nebo přesné polohy." primary={{href:"/sit",label:"Otevřít síť"}} secondary={{href:"/pro-koho",label:"Najít svůj vstup"}}/>
+ <CommunityStatement kicker="VZTAHY KOLEM ÚČELU" title="Silná komunita nevzniká počtem kontaktů." text="Smysl vzniká tam, kde se vztah potká s konkrétní prací, místem nebo potřebou. Pansofie proto nevytváří veřejnou sociální síť lidí, ale propojuje bezpečné kontexty." aside="Blízkost není metrika. Důvěra vzniká z kontextu a role."/>
+ <CommunityPrinciples items={PRINCIPLES}/>
+ <CommunityLedger items={ENTRIES}/>
+ <CommunityTruth>Žádné veřejné hledání lidí v okolí, žádná přesná poloha dítěte a žádné veřejné skóre člověka. Komunitní vrstva se opírá o kontext, projekt a oprávnění.</CommunityTruth>
+ <CommunityNext kicker="SÍŤ" title="Komunita roste z konkrétní spolupráce." text="Síť Pansofie ukazuje, jak se mohou jednotlivé role propojit bez ztráty soukromí a bez potřeby veřejného feedu." href="/sit" label="Otevřít síť"/>
+ </PublicShell>}
