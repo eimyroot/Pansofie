@@ -97,7 +97,7 @@ function StaffMetrics({ classData }) {
   return (
     <section className="go2-work-summary go2-school-metrics" aria-label="Přehled třídy">
       <article><small>STUDENTI</small><strong>{learners.length}</strong><p>Aktivní learner členství v této třídě.</p></article>
-      <article><small>AKTIVNÍ ZADÁNÍ</small><strong>{activeAssignments}</strong><p>Canonical mise aktuálně přiřazené třídě nebo studentům.</p></article>
+      <article><small>AKTIVNÍ ZADÁNÍ</small><strong>{activeAssignments}</strong><p>Mise aktuálně přiřazené třídě nebo jednotlivým studentům.</p></article>
       <article><small>DOKONČENOST</small><strong>{completion}%</strong><p>Podíl dokončených runů z aktivních zadání. Ne hodnocení dítěte.</p></article>
     </section>
   );
@@ -168,8 +168,8 @@ function AssignmentComposer({ classData, missions }) {
     <section className="go2-school-composer" aria-labelledby="school-assignment-heading">
       <div className="go2-school-section-head">
         <small>NOVÉ ZADÁNÍ</small>
-        <h2 id="school-assignment-heading">Přiřadit canonical misi</h2>
-        <p>Zadání vytvoří nebo znovu použije studentův canonical mission run. Nevzniká druhý školní quest engine.</p>
+        <h2 id="school-assignment-heading">Přiřadit misi</h2>
+        <p>Vyber misi, komu ji chceš zadat a případně termín. Student pokračuje ve stejné misi i ve svém osobním GO.</p>
       </div>
       {missions.length ? (
         <form onSubmit={submit} className="go2-school-form">
@@ -236,7 +236,7 @@ function StaffAssignmentCard({ assignment }) {
         <div><small>{targetLabel}</small><h3>{assignment.mission?.title || "Mise"}</h3></div>
         <strong>{percent}%</strong>
       </div>
-      <p>{assignment.mission?.summary || "Canonical školní mise."}</p>
+      <p>{assignment.mission?.summary || "Školní mise."}</p>
       <div className="go2-progress" aria-label={`Dokončeno ${percent} procent`}><span style={{ width: `${percent}%` }} /></div>
       <div className="go2-school-assignment-meta">
         <span>{progress.completed || 0}/{progress.total || 0} dokončeno</span>
@@ -328,7 +328,7 @@ function PrivateGamification({ gamification }) {
               <b aria-hidden="true">{badge.glyph}</b>
               <div><strong>{badge.title}</strong><p>{badge.description}</p></div>
             </article>
-          )) : <p className="go2-note">První odznak vznikne až z dokončené canonical mise s herní odměnou.</p>}
+          )) : <p className="go2-note">První odznak získáš po dokončení mise, která má herní odměnu.</p>}
         </div>
       </div>
     </section>
@@ -353,7 +353,7 @@ function LearnerAssignments({ assignments }) {
                 <div><small>{assignment.scope === "class" ? "ZADÁNÍ TŘÍDĚ" : "ZADÁNÍ PRO TEBE"}</small><h3>{assignment.mission?.title || "Mise"}</h3></div>
                 <strong>{completed ? "✓" : "→"}</strong>
               </div>
-              <p>{assignment.mission?.summary || "Canonical školní mise."}</p>
+              <p>{assignment.mission?.summary || "Školní mise."}</p>
               <div className="go2-school-assignment-meta">
                 <span>{STATUS_LABELS[status] || status}</span>
                 <span>{formatDate(assignment.dueAt)}</span>
@@ -436,9 +436,9 @@ function SchoolPilotSetup({ snapshot, classData }) {
   return (
     <section className="go2-school-composer go2-school-setup" aria-labelledby="school-pilot-setup-heading">
       <div className="go2-school-section-head">
-        <small>PILOTNÍ NASTAVENÍ</small>
-        <h2 id="school-pilot-setup-heading">Třída a bezpečná pozvánka</h2>
-        <p>Koordinátor založí třídu. Pedagog potom sdílí jednorázový odkaz. Student zůstává pod vlastním Pansofie účtem.</p>
+        <small>TŘÍDA A POZVÁNKY</small>
+        <h2 id="school-pilot-setup-heading">Připravit třídu</h2>
+        <p>Založ třídu a potom nasdílej studentovi jednorázovou pozvánku. Každý používá svůj vlastní Pansofie účet.</p>
       </div>
       {snapshot.canManageSchool ? (
         <form onSubmit={createClass} className="go2-school-form">

@@ -17,7 +17,7 @@ export default async function SchoolInviteJoinPage({ searchParams }) {
   const error = typeof params?.error === "string" ? params.error : "";
 
   if (!INVITE_TOKEN_RE.test(token)) {
-    return <main className="auth-page"><section className="auth-card"><p className="eyebrow">PANSOFIE GO · ŠKOLA</p><h1>Pozvánka není platná.</h1><p>Požádejte školu o nový jednorázový odkaz.</p><Link href="/">Zpět na Pansofii</Link></section></main>;
+    return <main className="auth-page pg-go-auth"><section className="auth-card pg-go-auth-card"><p className="eyebrow">PANSOFIE GO · ŠKOLA</p><h1>Pozvánka není platná.</h1><p>Požádejte školu o nový jednorázový odkaz.</p><Link href="/">Zpět na Pansofii</Link></section></main>;
   }
 
   const supabase = await createClient();
@@ -26,12 +26,12 @@ export default async function SchoolInviteJoinPage({ searchParams }) {
     redirect(`/login?next=${encodeURIComponent(`/go/school/join?token=${token}`)}`);
   }
 
-  return <main className="auth-page auth-page--onboarding">
-    <aside className="auth-visual auth-visual--onboarding" aria-label="Bezpečné přijetí do školního prostoru"><div><span>PANSOFIE GO · ŠKOLA</span><h2>Jedna identita. Jedno školní členství.</h2><p>Pozvánka přidá váš existující Pansofie účet do konkrétní třídy. Nevytváří druhý studentský účet.</p></div></aside>
-    <section className="auth-card onboarding-card">
+  return <main className="auth-page auth-page--onboarding pg-go-auth">
+    <aside className="auth-visual auth-visual--onboarding" aria-label="Bezpečné přijetí do školního prostoru"><div><span>PANSOFIE GO · ŠKOLA</span><h2>Jeden účet. Jedna bezpečná cesta do třídy.</h2><p>Pozvánka propojí váš existující Pansofie účet s konkrétní třídou. Žádný druhý školní účet nevzniká.</p></div></aside>
+    <section className="auth-card onboarding-card pg-go-auth-card">
       <p className="eyebrow">Školní pozvánka</p>
-      <h1>Připojit se ke třídě</h1>
-      <p>Odkaz je jednorázový a časově omezený. Po přijetí uvidíte jen svůj školní kontext a vlastní zadání.</p>
+      <h1>Přijmout pozvánku do třídy</h1>
+      <p>Odkaz platí jen omezenou dobu a lze ho použít jednou. Po přijetí uvidíte svůj školní kontext a vlastní zadání.</p>
       {error ? <p className="auth-error" role="alert">{error}</p> : null}
       <form action={acceptSchoolInviteAction}>
         <input type="hidden" name="token" value={token} />

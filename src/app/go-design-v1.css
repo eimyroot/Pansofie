@@ -1,0 +1,97 @@
+/* PansofieGO Design System v1
+   Base44 design handoff mapped onto the existing canonical Next.js GO surfaces.
+   Presentation only: no auth, RLS, schema or data-contract changes. */
+:root{
+  --pg-background:#f7f4ec;
+  --pg-surface:#fffdf8;
+  --pg-surface-2:#eef6f1;
+  --pg-foreground:#102f28;
+  --pg-muted:#607169;
+  --pg-primary:#073f34;
+  --pg-go:#d7ff52;
+  --pg-forest:#073f34;
+  --pg-olive:#6b8b58;
+  --pg-cream:#faf7ef;
+  --pg-line:#d6e2db;
+  --pg-danger:#9a4f36;
+  --pg-radius:20px;
+  --pg-radius-sm:12px;
+  --pg-shadow:0 18px 52px rgba(7,63,52,.09);
+  --pg-font-heading:Fraunces,Georgia,"Times New Roman",serif;
+  --pg-font-body:Inter,"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif;
+  --phase-learn:#2f6f8f;
+  --phase-play:#7657a8;
+  --phase-do:#b07124;
+  --phase-create:#a55782;
+  --phase-share:#347b68;
+  --phase-reflect:#59648d;
+}
+
+.go2-stage,.goq-stage{font-family:var(--pg-font-body);color:var(--pg-foreground);background:
+  radial-gradient(circle at 8% 7%,rgba(107,139,88,.16),transparent 25%),
+  radial-gradient(circle at 94% 88%,rgba(215,255,82,.13),transparent 24%),
+  var(--pg-background)}
+.go2-stage{grid-template-columns:minmax(230px,300px) minmax(0,820px);gap:28px;padding:28px}
+.go2-desktop-note{top:28px;padding:28px;border:1px solid rgba(7,63,52,.1);border-radius:var(--pg-radius);background:var(--pg-primary)!important;color:#fff!important;box-shadow:var(--pg-shadow)}
+.go2-desktop-note>b{color:var(--pg-go)}
+.go2-desktop-note h2{font-family:var(--pg-font-heading);font-size:clamp(34px,3.6vw,52px)!important;font-weight:500;letter-spacing:-.035em;color:#fff!important}
+.go2-desktop-note p,.go2-desktop-note a{color:rgba(255,255,255,.78)!important;font-size:13px;line-height:1.6}
+.go2-phone{width:min(100%,820px);min-height:calc(100vh - 56px);border:1px solid rgba(7,63,52,.11);border-radius:28px;background:rgba(255,253,248,.96);box-shadow:var(--pg-shadow)}
+.go2-status{height:44px;padding:0 22px;background:transparent;color:#557067;border-bottom:1px solid var(--pg-line);font-size:10px}
+.go2-status strong{color:var(--pg-primary)}
+.go2-content{padding:26px 26px 110px}
+.go2-screen-head{margin:4px 0 20px;align-items:center}.go2-screen-head small{font-size:10px;color:var(--pg-olive)}
+.go2-screen-head h1{max-width:680px;margin-top:7px;font-family:var(--pg-font-heading);font-size:clamp(32px,4vw,52px);font-weight:500;line-height:.98;letter-spacing:-.04em;color:var(--pg-primary)}
+.go2-screen-head button,.go2-school-home-link{width:44px;height:44px;background:var(--pg-surface-2);color:var(--pg-primary)}
+
+.go2-feature,.go2-grow-cover,.go2-project-core,.go2-project-progress,.go2-project-impact,.go2-project-join,.go2-callout,.go2-profile,.go2-portfolio-hero,.go2-school-section,.go2-school-composer,.go2-school-milestones,.go2-private-game>div:last-child,.go2-work-summary article,.go2-account-list article,.go2-activity-list article,.go2-school-assignment-card{border-color:var(--pg-line);border-radius:var(--pg-radius);box-shadow:none}
+.go2-feature,.go2-portfolio-hero,.go2-private-game-score{background:var(--pg-primary)}
+.go2-feature>img{height:220px}.go2-feature>div{padding:22px}.go2-feature span{font-size:10px}.go2-feature h2{margin:7px 0;font-family:var(--pg-font-heading);font-size:30px;font-weight:500}.go2-feature p{font-size:14px;line-height:1.55}
+.go2-feature button,.go2-callout button,.go2-map-card button,.go2-grow-actions button,.go2-documentation button,.go2-skill-impact>button{min-height:46px;padding:0 16px;border-radius:var(--pg-radius-sm);font-size:13px;background:var(--pg-go)}
+.go2-section-title{margin:28px 0 12px;font-family:var(--pg-font-heading);font-size:24px;font-weight:500;color:var(--pg-primary)}
+.go2-work-summary{gap:12px;margin-top:14px}.go2-work-summary article{min-height:150px;padding:18px}.go2-work-summary small,.go2-account-list small,.go2-school-section-head small{font-size:9px}.go2-work-summary strong{font-family:var(--pg-font-heading);font-size:34px;font-weight:500}.go2-work-summary p,.go2-account-list p,.go2-school-section-head p,.go2-school-assignment-card>p{font-size:12px;line-height:1.5}.go2-work-summary button,.go2-account-list button{min-height:38px;padding:0 12px;font-size:10px;border-radius:10px}
+.go2-account-list,.go2-activity-list,.go2-school-assignment-list{gap:10px}.go2-account-list article,.go2-activity-list article{padding:15px}.go2-account-list h2{font-size:17px}.go2-note,.go2-account-note,.go2-school-message{font-size:11px;line-height:1.5;border-radius:12px}
+.go2-dock{height:76px;grid-template-columns:repeat(9,minmax(58px,1fr));padding:9px 12px;border-color:var(--pg-line);background:rgba(255,253,248,.94)}.go2-dock button{min-width:58px;min-height:54px}.go2-dock span{font-size:9px}
+
+.go2-school-role-strip{padding:11px 13px;border:1px solid var(--pg-line);background:var(--pg-surface-2)}.go2-school-role-strip span{font-size:11px}.go2-school-role-strip b{font-size:10px}
+.go2-school-class-tabs{gap:8px;margin-bottom:16px}.go2-school-class-tabs button{min-width:120px;min-height:54px;padding:10px 12px;border-radius:14px}.go2-school-class-tabs strong{font-size:12px}.go2-school-class-tabs span{font-size:9px}
+.go2-school-section,.go2-school-composer,.go2-school-milestones{margin-top:14px;padding:18px;background:var(--pg-surface)}.go2-school-section-head h2{margin:6px 0;font-family:var(--pg-font-heading);font-size:25px;font-weight:500}.go2-school-form{gap:12px}.go2-school-form label,.go2-school-invite-link label{font-size:11px}.go2-school-form select,.go2-school-form input,.go2-school-invite-link input{min-height:46px;padding:10px 12px;border-radius:12px;font-size:14px}.go2-school-form button,.go2-school-invite>button,.go2-school-invite-link>button{min-height:46px;font-size:12px;border-radius:12px}
+.go2-school-assignment-card{padding:16px;background:#fff}.go2-school-assignment-top small{font-size:9px}.go2-school-assignment-top h3{font-family:var(--pg-font-heading);font-size:20px;font-weight:500}.go2-school-assignment-top>strong{font-size:22px}.go2-school-assignment-meta{font-size:10px}.go2-school-progress-list span,.go2-school-progress-list b{font-size:10px}.go2-school-assignment-actions a,.go2-school-assignment-actions button,.go2-school-primary-link{min-height:42px;padding:0 12px;font-size:11px}.go2-school-roster article{padding:12px}.go2-school-roster strong{font-size:12px}.go2-school-roster span{font-size:9px}.go2-school-staff-line{font-size:10px}.go2-school-dock{min-height:72px;padding:9px 12px;background:rgba(255,253,248,.96)}.go2-school-dock a{min-height:52px;font-size:10px}
+.go2-private-game-score{padding:22px}.go2-private-game-score small{font-size:9px}.go2-private-game-score strong{font-family:var(--pg-font-heading);font-size:42px;font-weight:500}.go2-private-game-score span{font-size:11px}.go2-private-badges strong{font-size:11px}.go2-private-badges p{font-size:9px}
+
+/* Quest maps Base44 phase tokens onto the existing six-step canonical cycle. */
+.goq-stage{grid-template-columns:minmax(230px,300px) minmax(0,820px);gap:28px;padding:28px}
+.goq-aside{top:28px;padding:28px;border-radius:var(--pg-radius);background:var(--q-deep);color:#fff;border:0}.goq-aside>small{color:var(--q-accent)}.goq-aside h2{font-family:var(--pg-font-heading);font-size:44px;font-weight:500;color:#fff}.goq-aside>p,.goq-aside>a{color:rgba(255,255,255,.78)}
+.goq-phone{width:min(100%,820px);min-height:calc(100vh - 56px);border:1px solid var(--q-line);border-radius:28px;background:var(--pg-surface);box-shadow:var(--pg-shadow)}
+.goq-topbar{height:44px;padding:0 22px}.goq-content{padding:18px 22px 100px}.goq-hero{border-radius:24px}.goq-hero-copy{padding:26px 26px 14px}.goq-topic{font-size:9px}.goq-hero h1{max-width:620px;font-family:var(--pg-font-heading);font-size:clamp(34px,4vw,52px);font-weight:500}.goq-hero-copy>p{max-width:610px;font-size:13px}.goq-visual{height:180px}.goq-deadline{padding:14px 26px 18px;font-size:10px}.goq-deadline strong{font-size:11px}
+.goq-intro-card,.goq-phase-card,.goq-notebook,.goq-finish-panel,.goq-complete-card,.goq-mentor{padding:22px;border-radius:var(--pg-radius);box-shadow:none}.goq-intro-card h2,.goq-notebook h3,.goq-finish-panel h2,.goq-complete-card h2,.goq-mentor-head h3{font-family:var(--pg-font-heading);font-size:26px;font-weight:500}.goq-intro-card>p,.goq-notebook p,.goq-finish-panel p,.goq-complete-card>p,.goq-mentor-privacy{font-size:12px}.goq-phase-copy h2{font-family:var(--pg-font-heading);font-size:31px;font-weight:500}.goq-phase-copy p{font-size:13px}.goq-primary-button,.goq-secondary-button,.goq-mentor-submit{min-height:48px;font-size:12px}
+.goq-cycle{gap:7px}.goq-cycle button{min-height:78px;border-radius:14px}.goq-cycle button>b{font-size:9px}.goq-phase-card[data-phase="learn"] .goq-phase-index>span{background:var(--phase-learn)}.goq-phase-card[data-phase="play"] .goq-phase-index>span{background:var(--phase-play)}.goq-phase-card[data-phase="do"] .goq-phase-index>span{background:var(--phase-do)}.goq-phase-card[data-phase="create"] .goq-phase-index>span{background:var(--phase-create)}.goq-phase-card[data-phase="share"] .goq-phase-index>span{background:var(--phase-share)}.goq-phase-card[data-phase="reflect"] .goq-phase-index>span{background:var(--phase-reflect)}
+.goq-mentor-suggestions button{min-height:44px;font-size:10px}.goq-mentor-thread p{font-size:12px}.goq-mentor-form label{font-size:11px}.goq-mentor-form textarea{font-size:13px}.goq-dock{padding:9px 12px;background:rgba(255,253,248,.96)}.goq-dock a{min-height:50px;font-size:10px}
+
+/* Invite/auth surface receives the same visual language without touching auth logic. */
+.pg-go-auth{background:var(--pg-background)!important}.pg-go-auth .auth-visual{background-color:var(--pg-primary)}
+.pg-go-auth-card{border:1px solid rgba(7,63,52,.1);border-radius:24px;background:var(--pg-surface);box-shadow:var(--pg-shadow)}
+.pg-go-auth-card h1{font-family:var(--pg-font-heading);font-weight:500;color:var(--pg-primary)}
+.pg-go-auth-card button{min-height:48px;border-radius:12px;background:var(--pg-primary)}
+
+@media(max-width:780px){
+  .go2-stage,.goq-stage{display:block;padding:0;background:var(--pg-background)}
+  .go2-phone,.goq-phone{width:100%;min-height:100vh;border:0;border-radius:0;box-shadow:none;background:var(--pg-surface)}
+  .go2-content{padding:22px 16px 96px}.goq-content{padding:14px 14px 92px}
+  .go2-screen-head h1{font-size:36px}.go2-feature>img{height:190px}.go2-feature h2{font-size:27px}
+  .go2-work-summary{grid-template-columns:repeat(3,minmax(0,1fr))}.go2-work-summary article{min-height:138px;padding:14px}
+  .go2-work-summary strong{font-size:30px}.go2-work-summary p{font-size:10px}
+  .go2-dock,.go2-school-dock,.goq-dock{position:fixed}
+  .goq-hero{margin:-14px -14px 0;border-radius:0 0 26px 26px}.goq-hero-copy{padding:22px 18px 12px}.goq-hero h1{font-size:34px}.goq-visual{height:132px}
+}
+@media(max-width:480px){
+  .go2-screen-head h1{font-size:32px}.go2-feature>img{height:170px}.go2-feature h2{font-size:25px}
+  .go2-work-summary{grid-template-columns:1fr}.go2-work-summary article{min-height:112px}.go2-school-metrics{grid-template-columns:1fr 1fr}.go2-school-metrics article:last-child{grid-column:1/-1}
+  .go2-school-section,.go2-school-composer,.go2-school-milestones{padding:15px}.go2-school-section-head h2{font-size:23px}
+  .goq-cycle{gap:4px}.goq-cycle button{min-height:70px;padding-inline:2px}.goq-cycle button>b{font-size:7.5px}.goq-phase-copy h2{font-size:28px}.goq-intro-card,.goq-phase-card,.goq-notebook,.goq-finish-panel,.goq-complete-card,.goq-mentor{padding:17px}
+}
+@media(prefers-reduced-motion:reduce){.go2-stage *,.goq-stage *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Interaction floor: all meaningful GO actions stay comfortably tappable. */
+.go2-work-summary button,.go2-school-entry button,.go2-school-assignment-actions a,.go2-school-assignment-actions button,.go2-school-primary-link{min-height:44px}
+.goq-topbar>a{min-width:44px;min-height:44px;display:grid;place-items:center;margin-left:-12px}
