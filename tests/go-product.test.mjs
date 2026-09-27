@@ -33,8 +33,10 @@ test("login preserves a safe internal next destination for GO", () => {
   const page = read("src/app/login/page.jsx");
   const actions = read("src/app/login/actions.js");
   assert.match(page, /name="next"/);
-  assert.match(actions, /next\.startsWith\("\/"\)/);
-  assert.match(actions, /!next\.startsWith\("\/\/"\)/);
+  assert.match(actions, /safeReturnPath\(formData\.get\("next"\)\)/);
+  const authFlow = read("src/domain/auth-flow.js");
+  assert.match(authFlow, /candidate\.startsWith\("\/"\)/);
+  assert.match(authFlow, /!candidate\.startsWith\("\/\/"\)/);
 });
 
 
