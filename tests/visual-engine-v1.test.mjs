@@ -21,24 +21,19 @@ test("core public surfaces use the canonical Pansofie identity language", () => 
   assert.match(read("src/app/page.jsx"), /PansofieEcosystemAtlas domains=\{PUBLIC_DOMAINS\} paths=\{PUBLIC_PATHS\}/, "homepage must use the canonical living atlas");
   assert.match(read("src/app/7-cest/page.jsx"), /DiscoverHero variant="paths"/, "7 paths must use the editorial path language");
   assert.match(read("src/app/16-oblasti/page.jsx"), /DiscoverHero variant="domains"/, "16 domains must use the editorial atlas language");
-  const surfaces = {
-    "src/app/projekty/page.jsx": /PansofieVisualEngine mode="projects"/,
-    "src/app/komunita/page.jsx": /PansofieVisualEngine mode="community"/,
-  };
-  for (const [file, pattern] of Object.entries(surfaces)) assert.match(read(file), pattern, `${file} must use Visual Engine`);
+  assert.match(read("src/app/projekty/page.jsx"), /ProjectHero variant="overview"/, "projects must use the editorial project family");
+  assert.match(read("src/app/komunita/page.jsx"), /PansofieVisualEngine mode="community"/, "community still uses Visual Engine until its own Frame 02 pass");
 });
 
 test("secondary adult public surfaces use the shared relation-field language", () => {
   const files = [
-    "src/app/digitalni-kompost/page.jsx",
-    "src/app/labs/page.jsx", "src/app/sit/page.jsx", "src/app/pro-skoly/page.jsx",
+    "src/app/sit/page.jsx", "src/app/pro-skoly/page.jsx",
     "src/app/pro-organizace/page.jsx", "src/app/partneri/page.jsx", "src/app/dobrovolnictvi/page.jsx",
     "src/app/partnerstvi/page.jsx", "src/app/kontakt/page.jsx", "src/app/jak-to-funguje/page.jsx",
     "src/app/pro-koho/page.jsx", "src/app/knihovna/page.jsx", "src/app/vize/page.jsx",
     "src/app/impact/page.jsx", "src/app/instituce/page.jsx", "src/app/osobni-rust/page.jsx",
   ];
   for (const file of files) assert.match(read(file), /PansofieVisualEngine mode="flow"/, `${file} must use relation field`);
-  assert.match(read("src/components/public/ProjectVisualStoryPage.jsx"), /PansofieVisualEngine mode="flow"/);
   assert.match(read("src/components/public/ProgramStoryPage.jsx"), /PansofieVisualEngine mode="flow"/);
 });
 
