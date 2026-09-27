@@ -21,7 +21,8 @@ test("auth return paths stay local and callback preserves a safe destination", (
 test("signup distinguishes an immediate session from email-confirmation flow", () => {
   const actions = fs.readFileSync("src/app/login/actions.js", "utf8");
   const page = fs.readFileSync("src/app/login/page.jsx", "utf8");
-  assert.match(actions, /if \(data\?\.session\) redirect\("\/onboarding"\)/);
+  assert.match(actions, /if \(data\?\.session\) redirect\(next === "\/app" \? "\/onboarding" : next\)/);
   assert.match(actions, /Zkontrolujte e-mail/);
+  assert.match(actions, /pendingParams\.set\("next", next\)/);
   assert.match(page, /params\?\.message/);
 });

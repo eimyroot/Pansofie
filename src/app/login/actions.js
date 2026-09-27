@@ -26,6 +26,10 @@ export async function signup(formData) {
     options: { emailRedirectTo: authCallbackUrl(process.env.NEXT_PUBLIC_SITE_URL, next) },
   });
   if (error) redirect(`/login?error=${encodeURIComponent("Registrace se nezdařila.")}`);
-  if (data?.session) redirect("/onboarding");
-  redirect(`/login?message=${encodeURIComponent("Zkontrolujte e-mail. Pokud účet vyžaduje potvrzení, po potvrzení se přihlaste.")}`);
+  if (data?.session) redirect(next === "/app" ? "/onboarding" : next);
+  const pendingParams = new URLSearchParams({
+    message: "Zkontrolujte e-mail. Pokud účet vyžaduje potvrzení, po potvrzení se vraťte do Pansofie.",
+  });
+  if (next !== "/app") pendingParams.set("next", next);
+  redirect(`/login?${pendingParams.toString()}`);
 }
