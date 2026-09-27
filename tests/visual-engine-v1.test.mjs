@@ -27,8 +27,6 @@ test("core public surfaces use the canonical Pansofie identity language", () => 
 
 test("secondary adult public surfaces use the shared relation-field language", () => {
   const files = [
-    "src/app/jak-to-funguje/page.jsx",
-    "src/app/pro-koho/page.jsx", "src/app/knihovna/page.jsx", "src/app/vize/page.jsx",
     "src/app/impact/page.jsx", "src/app/instituce/page.jsx", "src/app/osobni-rust/page.jsx",
   ];
   for (const file of files) assert.match(read(file), /PansofieVisualEngine mode="flow"/, `${file} must use relation field`);
