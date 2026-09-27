@@ -245,7 +245,7 @@ test("editorial homepage connects city, generations, circularity and responsible
 });
 
 test("M6.8 carries the mature editorial world across projects, schools, organizations and circularity", () => {
-  assert.match(readFileSync("src/app/instituce/page.jsx", "utf8"), /EditorialFeatureBand|editorialFeature=/);
+  assert.match(readFileSync("src/app/instituce/page.jsx", "utf8"), /TrustHero variant="institutions"/);
   for (const file of ["projekty", "green-hope", "urban-family-farm", "digitalni-kompost", "labs"]) assert.match(readFileSync(`src/app/${file}/page.jsx`, "utf8"), /ProjectFamilyNav/);
   for (const file of ["komunita", "sit", "pro-skoly", "pro-organizace", "partneri"]) assert.match(readFileSync(`src/app/${file}/page.jsx`, "utf8"), /CommunityFamilyNav/);
   assert.match(readFileSync("src/app/urban-family-farm/page.jsx", "utf8"), /MIKROGREENS/);
@@ -261,7 +261,7 @@ test("M6.9 completes the adult editorial system across orientation and trust pag
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
     assert.match(source, /OrientationHero/, `${file} should use the Orientation Frame 02 family`);
   }
-  assert.match(readFileSync("src/app/impact/page.jsx", "utf8"), /EditorialFeatureBand|editorialFeature=/);
+  assert.match(readFileSync("src/app/impact/page.jsx", "utf8"), /TrustHero variant="impact"/);
   assert.match(readFileSync("src/app/o-nas/page.jsx", "utf8"), /DiscoverHero variant="about"/);
 
   const how = readFileSync("src/app/jak-to-funguje/page.jsx", "utf8");
