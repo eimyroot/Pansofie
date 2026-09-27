@@ -8,8 +8,8 @@ import {
 } from "../../../domain/mission-persistence";
 import { MISSION_CYCLE, normalizeCycleProgress } from "../../../domain/mission-cycle";
 import { loadOwnedSchoolQuestLink } from "../../../domain/school-quest";
-import { buildSchoolQuestMentorPrompt, mentorProductionConfig, validateMentorQuestion } from "../../../domain/school-quest-mentor";
-import { requestAnthropicMentor } from "../../../lib/anthropic-mentor";
+import { buildMentorLiteResponse, buildSchoolQuestMentorPrompt, mentorProductionConfig, validateMentorQuestion } from "../../../domain/school-quest-mentor";
+import { requestMentorProvider } from "../../../lib/mentor-provider";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -121,11 +121,6 @@ export async function askSchoolQuestMentorAction(input = {}) {
   const validation = validateMentorQuestion(input.question);
   if (!validation.ok) return { mode: "error", code: validation.code, message: validation.message };
 
-  const production = mentorProductionConfig();
-  if (!production.ready) {
-    return { mode: "unavailable", message: "AI průvodce není v tomto prostředí produkčně povolený." };
-  }
-
   const auth = await getQuestAuth();
   if (!auth) return { mode: "error", message: "Pro průvodce je potřeba přihlášení." };
   try {
@@ -152,13 +147,27 @@ export async function askSchoolQuestMentorAction(input = {}) {
       return { mode: "error", message: "Průvodce pracuje jen s právě otevřeným krokem mise." };
     }
 
+    const liteResult = (fallbackReason = null) => ({
+      mode: "account",
+      answer: buildMentorLiteResponse({
+        mission: owned.assignment.missions,
+        phaseId,
+        question: validation.question,
+      }),
+      source: "lite",
+      fallbackReason,
+      ephemeral: true,
+    });
+
+    const production = mentorProductionConfig();
+    if (!production.ready) return liteResult("provider_not_enabled");
+
     const { error: quotaError } = await auth.supabase
       .rpc("reserve_school_mentor_usage", { target_assignment_id: assignmentId })
       .single();
     if (quotaError) {
       const quota = mentorQuotaError(quotaError);
-      if (quota) return { mode: "error", ...quota };
-      throw quotaError;
+      return liteResult(quota?.code || "quota_unavailable");
     }
 
     const prompt = buildSchoolQuestMentorPrompt({
@@ -166,14 +175,14 @@ export async function askSchoolQuestMentorAction(input = {}) {
       phaseId,
       question: validation.question,
     });
-    const result = await requestAnthropicMentor(prompt);
-    if (result.mode === "unavailable") {
-      return { mode: "unavailable", message: "AI průvodce není v tomto prostředí připojený." };
-    }
+    const result = await requestMentorProvider({
+      provider: production.provider,
+      prompt,
+    });
     if (result.mode !== "ok") {
-      return { mode: "error", code: result.code, message: "Průvodce teď neodpovídá. Zkus to za chvíli znovu." };
+      return liteResult(result.code || "provider_unavailable");
     }
-    return { mode: "account", answer: result.answer, ephemeral: true };
+    return { mode: "account", answer: result.answer, source: "provider", ephemeral: true };
   } catch (error) {
     return { mode: "error", message: error?.message || "Průvodce teď není dostupný." };
   }

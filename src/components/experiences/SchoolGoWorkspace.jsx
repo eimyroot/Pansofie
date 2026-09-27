@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import {
   assignSchoolMissionAction,
   cancelSchoolAssignmentAction,
+  createSchoolClassAction,
+  createSchoolInviteAction,
 } from "../../app/go/school/actions";
 
 const STATUS_LABELS = {
@@ -364,6 +366,99 @@ function LearnerAssignments({ assignments }) {
     </section>
   );
 }
+
+function defaultAcademicYear() {
+  const now = new Date();
+  const start = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  return `${start}/${start + 1}`;
+}
+
+function SchoolPilotSetup({ snapshot, classData }) {
+  const router = useRouter();
+  const [className, setClassName] = useState("");
+  const [academicYear, setAcademicYear] = useState(defaultAcademicYear);
+  const [inviteUrl, setInviteUrl] = useState("");
+  const [inviteExpiresAt, setInviteExpiresAt] = useState("");
+  const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  if (!snapshot.canManageSchool && !classData?.canManage) return null;
+
+  const createClass = async (event) => {
+    event.preventDefault();
+    if (busy) return;
+    setBusy(true);
+    setMessage("");
+    try {
+      const result = await createSchoolClassAction({ name: className, academicYear });
+      if (result.mode !== "account") setMessage(result.message || "Třídu se nepodařilo vytvořit.");
+      else {
+        setClassName("");
+        setMessage(`Třída ${result.classData.name} je připravená.`);
+        router.refresh();
+      }
+    } catch {
+      setMessage("Třídu se nepodařilo vytvořit.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const createInvite = async () => {
+    if (!classData?.id || busy) return;
+    setBusy(true);
+    setMessage("");
+    try {
+      const result = await createSchoolInviteAction(classData.id);
+      if (result.mode !== "account") setMessage(result.message || "Pozvánku se nepodařilo vytvořit.");
+      else {
+        setInviteUrl(`${window.location.origin}${result.invite.path}`);
+        setInviteExpiresAt(result.invite.expiresAt || "");
+        setMessage("Jednorázová pozvánka je připravená ke sdílení.");
+      }
+    } catch {
+      setMessage("Pozvánku se nepodařilo vytvořit.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const copyInvite = async () => {
+    if (!inviteUrl) return;
+    try {
+      await navigator.clipboard.writeText(inviteUrl);
+      setMessage("Odkaz je zkopírovaný.");
+    } catch {
+      setMessage("Odkaz zkopírujte ručně z pole níže.");
+    }
+  };
+
+  return (
+    <section className="go2-school-composer go2-school-setup" aria-labelledby="school-pilot-setup-heading">
+      <div className="go2-school-section-head">
+        <small>PILOTNÍ NASTAVENÍ</small>
+        <h2 id="school-pilot-setup-heading">Třída a bezpečná pozvánka</h2>
+        <p>Koordinátor založí třídu. Pedagog potom sdílí jednorázový odkaz. Student zůstává pod vlastním Pansofie účtem.</p>
+      </div>
+      {snapshot.canManageSchool ? (
+        <form onSubmit={createClass} className="go2-school-form">
+          <label>Název třídy<input value={className} onChange={(event) => setClassName(event.target.value)} maxLength={80} placeholder="např. 7.A" required /></label>
+          <label>Školní rok<input value={academicYear} onChange={(event) => setAcademicYear(event.target.value)} pattern="[0-9]{4}/[0-9]{4}" placeholder="2026/2027" required /></label>
+          <button type="submit" disabled={busy || !className.trim()}>{busy ? "Ukládám…" : "Založit třídu"}</button>
+        </form>
+      ) : null}
+      {classData?.canManage ? (
+        <div className="go2-school-invite">
+          <p>Vybraná třída: <strong>{classData.name}</strong>. Pozvánka platí 48 hodin a po prvním přijetí se zneplatní.</p>
+          <button type="button" onClick={createInvite} disabled={busy}>{busy ? "Vytvářím…" : "Vytvořit pozvánku pro studenta"}</button>
+          {inviteUrl ? <div className="go2-school-invite-link"><label>Jednorázový odkaz<input value={inviteUrl} readOnly /></label><button type="button" onClick={copyInvite}>Kopírovat odkaz</button>{inviteExpiresAt ? <small>Platnost do {formatDate(inviteExpiresAt)}</small> : null}</div> : null}
+        </div>
+      ) : null}
+      {message ? <p className="go2-school-message" role="status">{message}</p> : null}
+    </section>
+  );
+}
+
 export default function SchoolGoWorkspace({ snapshot }) {
   const classes = useMemo(() => snapshot?.classes || [], [snapshot?.classes]);
   const [selectedClassId, setSelectedClassId] = useState("");
@@ -391,6 +486,7 @@ export default function SchoolGoWorkspace({ snapshot }) {
           <SchoolHeader snapshot={snapshot} className={classData?.name} />
           <div className="go2-school-role-strip"><span>{snapshot.roleLabel}</span><b>{classData?.academicYear || "Školní kontext"}</b></div>
           <ClassTabs classes={classes} selectedId={classData?.id || ""} onSelect={setSelectedClassId} />
+          <SchoolPilotSetup snapshot={snapshot} classData={classData} />
           {!classData ? (
             <section className="go2-callout">
               <h2>Zatím bez třídy</h2>

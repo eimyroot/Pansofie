@@ -1,12 +1,14 @@
 "use server";
 import { redirect } from "next/navigation";
 import { createClient } from "../../lib/supabase/server";
+import { safeReturnPath } from "../../domain/auth-flow";
 
 export async function completeOnboarding(formData) {
   const supabase = await createClient();
   if (!supabase) redirect("/onboarding?error=Supabase%20není%20v%20tomto%20prostředí%20nakonfigurovaný.");
   const { data } = await supabase.auth.getClaims();
   if (!data?.claims?.sub) redirect("/login");
+  const next = safeReturnPath(formData.get("next"));
   const intent = String(formData.get("intent") ?? "");
   if (!["personal", "family", "school", "company", "young"].includes(intent)) redirect("/onboarding?error=Vyberte%20způsob%20použití.");
   const dateOfBirth = String(formData.get("date_of_birth") ?? "") || null;
@@ -18,5 +20,5 @@ export async function completeOnboarding(formData) {
     requested_date_of_birth: dateOfBirth,
   });
   if (error) redirect(`/onboarding?error=${encodeURIComponent("Onboarding se nepodařilo uložit.")}`);
-  redirect("/app");
+  redirect(next);
 }

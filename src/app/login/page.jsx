@@ -10,6 +10,7 @@ export default async function LoginPage({ searchParams }) {
     <section className="auth-card">
       <Link className="auth-back" href="/">← Zpět na Pansofii</Link><p className="eyebrow">Pansofie ID</p><h1>Vstup do vašeho prostoru</h1><p>Přihlaste se, nebo si vytvořte nový účet.</p>
       {params?.error ? <p className="auth-error" role="alert">{params.error}</p> : null}
+      {params?.message ? <p className="form-note" role="status">{params.message}</p> : null}
       <form><input type="hidden" name="next" value={typeof params?.next === "string" ? params.next : ""} /><label>E-mail<input name="email" type="email" autoComplete="email" required /></label>
         <label>Heslo<input name="password" type="password" autoComplete="current-password" minLength={8} required /></label>
         <div className="auth-actions"><button formAction={login}>Přihlásit se</button><button formAction={signup} className="secondary">Vytvořit účet</button></div>
