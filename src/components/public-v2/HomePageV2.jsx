@@ -109,17 +109,17 @@ const AUDIENCES = Object.freeze([
 
 function Pillars() {
   const items = [
-    { number: "01", title: "Pansofia", text: "Poznávat svět v souvislostech, ne jako soubor izolovaných témat." },
-    { number: "02", title: "Pampaedia", text: "Učení jako celoživotní možnost pro děti, dospělé, rodiny, školy i komunity." },
-    { number: "03", title: "Panorthosia", text: "Poznání, které může vést k tvořivé nápravě a konkrétnímu činu." },
+    { number: "01", title: "Pansofie", text: "Poznávat svět v souvislostech." },
+    { number: "02", title: "Pampaedie", text: "Učit se celý život a jeden od druhého." },
+    { number: "03", title: "Panorthosie", text: "Proměňovat poznání v dobré změny kolem sebe." },
   ];
 
   return <section className="ps2-home-pillars" id="filozofie">
     <div className="ps2-home-wrap">
       <SectionHeadingV2
-        eyebrow="JEDNO JÁDRO"
-        title="Poznání, člověk a svět patří k sobě."
-        body="Pansofie není další katalog kurzů. Je to rámec, který propojuje poznávání, zkušenost, vztahy, tvorbu a možnost něco skutečně udělat."
+        eyebrow="PROČ PANSOFIE EXISTUJE"
+        title="Poznat. Učit se. Proměňovat."
+        body="Pansofie nevnímá vědění jako izolované předměty. Spojuje porozumění světu, celoživotní učení a schopnost něco konkrétního zlepšit kolem sebe."
       />
       <div className="ps2-home-pillars__grid">
         {items.map((item) => <article key={item.number}>
@@ -137,8 +137,8 @@ function PathsSection() {
     <div className="ps2-home-wrap">
       <SectionHeadingV2
         eyebrow="7 CEST"
-        title="Sedm pohledů na rozvoj člověka."
-        body="Cesty nejsou úrovně ani žebříček. Každá otevírá jiný úhel pohledu a člověk může vstoupit tam, kde je pro něj téma právě živé."
+        title="Sedm cest člověka."
+        body="Sedm pohledů na život. Ne sedm oddělených disciplín. Cesty dávají orientaci, oblasti pod nimi přidávají hloubku."
       />
       <div className="ps2-home-paths__grid">
         {PUBLIC_PATHS_V2.map((path) => <Link className="ps2-home-path-card" href={"/7-cest#" + path.id} key={path.id}>
@@ -162,8 +162,8 @@ function DomainsSection() {
     <div className="ps2-home-wrap">
       <SectionHeadingV2
         eyebrow="16 OBLASTÍ"
-        title="Mapa života a poznání."
-        body="Oblasti jsou obsahová taxonomie Pansofie. Nejsou to školní předměty ani pořadí, kterým má člověk projít."
+        title="Život je širší než jeden předmět."
+        body="Šestnáct oblastí tvoří hlubší mapu poznání a zkušenosti. Zůstávají vizuálně tišší než sedm cest, protože mají přidávat hloubku, ne soutěžit o pozornost."
       />
       <div className="ps2-home-domains__grid">
         {PUBLIC_DOMAINS_V2.map((domain) => <Link className="ps2-home-domain-card" href={"/16-oblasti#" + domain.id} key={domain.id}>
@@ -240,8 +240,8 @@ function ProgramsSection() {
     <div className="ps2-home-wrap">
       <SectionHeadingV2
         eyebrow="PROGRAMY A PROJEKTY"
-        title="Kde se myšlenka mění v praxi."
-        body="Každý vstup musí být čitelný i pravdivý. Model, prototyp nebo koncept zůstává označený a nepředstírá skutečný provoz ani doložené výsledky."
+        title="Kde Pansofie žije v praxi."
+        body="Každý program musí ukázat, co se skutečně děje v reálném světě. Bez inventovaných metrik a bez generického „inovujeme budoucnost“."
       />
       <div className="ps2-home-programs__grid">
         {PROGRAMS.map((program, index) => <Link className={"ps2-home-program ps2-home-program--" + program.variant} href={program.href} key={program.title}>
@@ -382,7 +382,8 @@ export function HomePageV2() {
   return <PublicShellV2 currentPath="/">
     <section className="ps2-home-hero" id="objevuj">
       <div className="ps2-home-hero__copy">
-        <p className="ps2-eyebrow">PANSOFIE · EKOSYSTÉM PRO UČENÍ ŽIVOTEM</p>
+        <p className="ps2-eyebrow">PANSOFIE · UČENÍ ŽIVOTEM</p>
+        <p className="ps2-home-hero__brandline">Poznej sebe. Rozvíjej svět.</p>
         <h1>
           <span>Rozumět světu.</span>
           <span>Žít v něm vědoměji.</span>
@@ -393,7 +394,10 @@ export function HomePageV2() {
           <Link className="ps2-button ps2-button--primary" href="/o-nas">Objev Pansofii</Link>
           <Link className="ps2-button ps2-button--secondary" href="/7-cest">Začni svou cestu</Link>
         </div>
-        <p className="ps2-home-hero__note">Příležitost, ne povinnost. Pro jednotlivce, rodiny, školy, komunity i organizace.</p>
+        <div className="ps2-home-hero__bridge">
+          <strong>Pansofie GO</strong>
+          <span>Mise a projekty ve skutečném světě. Až chceš přejít od porozumění k vlastní zkušenosti.</span>
+        </div>
       </div>
       <HomeAtlasGraphicV2/>
     </section>

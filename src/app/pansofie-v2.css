@@ -1847,3 +1847,932 @@
   }
 }
 /* === W2 HOME END === */
+
+/* === W2.5 VISUAL PARITY START === */
+.ps2-home-wrap {
+  width: min(1280px, calc(100% - 96px));
+}
+
+.ps2-home-hero {
+  width: min(1440px, 100%);
+  min-height: 830px;
+  position: relative;
+  grid-template-columns: minmax(0, 7fr) minmax(420px, 5fr);
+  background:
+    radial-gradient(circle at 16% 8%, rgba(255,255,255,.55), transparent 34%),
+    var(--ps2-cream);
+  overflow: clip;
+}
+
+.ps2-home-hero::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  left: -150px;
+  bottom: -150px;
+  border: 1px solid rgba(23, 63, 52, .12);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ps2-home-hero__copy {
+  padding: clamp(72px, 6.2vw, 104px) clamp(40px, 4vw, 64px);
+}
+
+.ps2-home-hero__brandline {
+  margin-top: 20px !important;
+  color: #A9543A;
+  font-size: .98rem;
+  font-weight: 850;
+  letter-spacing: .01em;
+}
+
+.ps2-home-hero h1 {
+  max-width: 780px;
+  margin-top: 24px;
+  font-size: clamp(4.15rem, 5.2vw, 5.4rem);
+  line-height: .94;
+  letter-spacing: -.043em;
+}
+
+@media (min-width: 1181px) {
+  .ps2-home-hero h1 span {
+    white-space: nowrap;
+  }
+}
+
+.ps2-home-hero__lead {
+  max-width: 660px;
+  margin-top: 28px !important;
+  font-size: clamp(1.05rem, 1.35vw, 1.24rem);
+  line-height: 1.7;
+}
+
+.ps2-home-hero__actions {
+  margin-top: 34px;
+  gap: 12px;
+}
+
+.ps2-home-hero__bridge {
+  max-width: 650px;
+  margin-top: 34px;
+  padding-top: 22px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: start;
+  border-top: 1px solid var(--ps2-line);
+}
+
+.ps2-home-hero__bridge strong {
+  color: var(--ps2-deep-green);
+  font-size: .84rem;
+  font-weight: 850;
+}
+
+.ps2-home-hero__bridge span {
+  color: var(--ps2-muted);
+  font-size: .82rem;
+  line-height: 1.55;
+}
+
+.ps2-home-atlas {
+  margin: clamp(58px, 6vw, 92px) clamp(34px, 4vw, 58px) clamp(52px, 5vw, 78px) 0;
+  align-self: center;
+  grid-template-rows: 1fr auto;
+  background: transparent;
+  border-left: 0;
+}
+
+.ps2-home-atlas__canvas {
+  min-height: 620px;
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgba(23, 63, 52, .14);
+  border-radius: 32px;
+  background:
+    linear-gradient(155deg, rgba(255,255,255,.34), transparent 45%),
+    linear-gradient(145deg, #D7DED0 0%, #CEC0AC 100%);
+  box-shadow:
+    0 34px 80px rgba(40, 55, 47, .16),
+    0 10px 24px rgba(40, 55, 47, .09);
+}
+
+.ps2-home-atlas__canvas::before {
+  width: 310px;
+  height: 310px;
+  top: -92px;
+  right: -74px;
+  background: rgba(250, 247, 239, .46);
+  filter: blur(2px);
+}
+
+.ps2-home-atlas__canvas::after {
+  width: 520px;
+  height: 520px;
+  left: -260px;
+  bottom: -300px;
+  border: 1px solid rgba(23, 63, 52, .16);
+  background: transparent;
+}
+
+.ps2-home-atlas__shape {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.ps2-home-atlas__shape--arch {
+  width: 50%;
+  height: 78%;
+  right: 10%;
+  top: 8%;
+  border-radius: 52% 52% 34% 34% / 30% 30% 18% 18%;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.12), transparent 35%),
+    #9CA99A;
+  transform: rotate(3deg);
+  box-shadow: inset 0 0 0 1px rgba(23, 63, 52, .05);
+}
+
+.ps2-home-atlas__shape--hill {
+  width: 74%;
+  height: 37%;
+  left: -8%;
+  bottom: -3%;
+  border-radius: 62% 62% 0 0 / 92% 92% 0 0;
+  background: linear-gradient(180deg, #2C624F 0%, #214F40 100%);
+  box-shadow: 0 -12px 40px rgba(23, 63, 52, .11);
+}
+
+.ps2-home-atlas__shape--sun {
+  width: 110px;
+  height: 110px;
+  right: 12%;
+  top: 11%;
+  border-radius: 50%;
+  background: rgba(245, 247, 243, .58);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.24),
+    0 14px 34px rgba(255,255,255,.12);
+  backdrop-filter: blur(7px);
+}
+
+.ps2-home-atlas__shape--line {
+  width: 78%;
+  height: 44%;
+  left: 10%;
+  top: 26%;
+  border: 1px solid rgba(23, 63, 52, .16);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  transform: rotate(-10deg);
+}
+
+.ps2-home-atlas__photo-card {
+  position: absolute;
+  z-index: 5;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  padding: 18px 20px;
+  border: 1px solid rgba(23,63,52,.14);
+  border-radius: 17px;
+  background: rgba(255, 253, 248, .94);
+  box-shadow: 0 18px 36px rgba(34, 51, 43, .15);
+  backdrop-filter: blur(12px);
+}
+
+.ps2-home-atlas__photo-card-top {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ps2-home-atlas__photo-card strong {
+  color: var(--ps2-deep-green);
+  font-size: .76rem;
+  font-weight: 900;
+  letter-spacing: .07em;
+}
+
+.ps2-home-atlas__photo-card > span {
+  display: block;
+  margin-top: 9px;
+  color: var(--ps2-muted);
+  font-size: .76rem;
+  line-height: 1.45;
+}
+
+.ps2-home-atlas figcaption {
+  padding: 12px 4px 0;
+  border-top: 0;
+  background: transparent;
+}
+
+.ps2-home-atlas figcaption strong {
+  display: none;
+}
+
+.ps2-home-atlas figcaption span {
+  font-size: .7rem;
+}
+
+.ps2-home-pillars,
+.ps2-home-domains,
+.ps2-home-method,
+.ps2-home-programs,
+.ps2-home-community,
+.ps2-home-audience,
+.ps2-home-paths,
+.ps2-home-story,
+.ps2-home-intergen,
+.ps2-home-impact,
+.ps2-home-final {
+  padding: clamp(96px, 9vw, 148px) 0;
+}
+
+.ps2-home-pillars {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.54), rgba(255,255,255,.30)),
+    #F8F5ED;
+}
+
+.ps2-home-pillars__grid {
+  margin-top: 52px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.26);
+  box-shadow: 0 20px 55px rgba(46, 59, 50, .04);
+}
+
+.ps2-home-pillars__grid article {
+  min-height: 280px;
+  position: relative;
+  padding: 38px 36px;
+  background: rgba(255,253,248,.72);
+}
+
+.ps2-home-pillars__grid article::after {
+  content: "";
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  top: 22px;
+  right: 22px;
+  border: 1px solid rgba(45,106,70,.28);
+  border-radius: 50%;
+}
+
+.ps2-home-pillars__grid h3 {
+  margin-top: 48px;
+  font-size: clamp(2rem, 2.6vw, 3rem);
+}
+
+.ps2-home-pillars__grid p {
+  max-width: 32ch;
+  font-size: .98rem;
+}
+
+.ps2-home-paths {
+  position: relative;
+  overflow: hidden;
+  background: #F5F0E6;
+  color: var(--ps2-ink);
+}
+
+.ps2-home-paths::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 430px;
+  height: 430px;
+  top: 76px;
+  right: -170px;
+  border-radius: 50%;
+  background: rgba(220,231,215,.58);
+  pointer-events: none;
+}
+
+.ps2-home-paths .ps2-home-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.ps2-home-paths .ps2-section-heading h2,
+.ps2-home-paths .ps2-eyebrow {
+  color: var(--ps2-deep-green);
+}
+
+.ps2-home-paths .ps2-section-heading > p {
+  color: var(--ps2-muted);
+}
+
+.ps2-home-paths__grid {
+  margin-top: 52px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  border: 0;
+}
+
+.ps2-home-path-card {
+  min-height: 300px;
+  position: relative;
+  overflow: hidden;
+  padding: 26px 28px 24px;
+  border: 1px solid var(--ps2-line);
+  border-radius: 22px;
+  background: rgba(255,253,248,.95);
+  color: var(--ps2-ink);
+  box-shadow: 0 12px 32px rgba(46,59,50,.035);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.ps2-home-path-card::after {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 115px;
+  right: -55px;
+  bottom: -54px;
+  border-radius: 50% 50% 0 0;
+  background: rgba(220,231,215,.54);
+  pointer-events: none;
+}
+
+.ps2-home-path-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(23,63,52,.23);
+  background: #FFFDF8;
+  box-shadow: 0 24px 52px rgba(46,59,50,.10);
+}
+
+.ps2-home-path-card__top {
+  position: relative;
+  z-index: 1;
+}
+
+.ps2-home-path-card__top > span {
+  color: #6D756F;
+  font-size: .72rem;
+  font-weight: 850;
+}
+
+.ps2-home-path-card .ps2-path-emblem {
+  box-sizing: content-box;
+  padding: 11px;
+  border: 1px solid var(--ps2-line);
+  border-radius: 50%;
+  background: #F5F0E6;
+  color: var(--ps2-deep-green);
+}
+
+.ps2-home-path-card small {
+  display: none;
+}
+
+.ps2-home-path-card h3 {
+  position: relative;
+  z-index: 1;
+  margin-top: 52px;
+  color: var(--ps2-ink);
+  font-size: 1.9rem;
+}
+
+.ps2-home-path-card p {
+  position: relative;
+  z-index: 1;
+  max-width: 32ch;
+  margin-top: 10px;
+  color: var(--ps2-muted);
+  font-size: .96rem;
+  line-height: 1.52;
+}
+
+.ps2-home-path-card strong {
+  position: relative;
+  z-index: 1;
+  color: var(--ps2-deep-green);
+  font-size: .82rem;
+}
+
+.ps2-home-paths .ps2-home-inline-action a {
+  color: var(--ps2-deep-green);
+}
+
+.ps2-home-domains {
+  background: #EEE7D9;
+}
+
+.ps2-home-domains__grid {
+  margin-top: 50px;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 12px;
+  border: 0;
+}
+
+.ps2-home-domain-card {
+  min-height: 202px;
+  padding: 22px;
+  border: 1px solid var(--ps2-line);
+  border-radius: 18px;
+  background: rgba(255,253,248,.86);
+  box-shadow: 0 10px 26px rgba(46,59,50,.035);
+  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+}
+
+.ps2-home-domain-card:hover {
+  transform: translateY(-4px);
+  background: #FFFDF8;
+  box-shadow: 0 18px 36px rgba(46,59,50,.08);
+}
+
+.ps2-home-domain-card .ps2-domain-icon {
+  box-sizing: content-box;
+  padding: 8px;
+  border-radius: 50%;
+  background: #E5EEE2;
+}
+
+.ps2-home-domain-card > span:not(.ps2-domain-icon) {
+  margin-top: 34px;
+  color: #A9543A;
+  font-size: .68rem;
+}
+
+.ps2-home-domain-card strong {
+  margin-top: 9px;
+  font-size: 1.42rem;
+}
+
+.ps2-home-domain-card small {
+  margin-top: 7px;
+  font-size: .78rem;
+  color: #6A736C;
+}
+
+.ps2-home-method {
+  background: #FFFDF8;
+}
+
+.ps2-home-story {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.2), transparent 55%),
+    #ECE2D2;
+}
+
+.ps2-home-story__art {
+  min-height: 620px;
+  border-radius: 28px;
+  box-shadow:
+    0 30px 68px rgba(45, 59, 49, .13),
+    0 8px 18px rgba(45, 59, 49, .06);
+  transform: rotate(-.7deg);
+}
+
+.ps2-home-story__copy .ps2-relation {
+  border-radius: 18px;
+  background: rgba(255,253,248,.78);
+  box-shadow: 0 16px 36px rgba(44,59,48,.06);
+}
+
+.ps2-home-go {
+  min-height: 650px;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background:
+    radial-gradient(circle at 80% 45%, rgba(107,139,88,.18), transparent 28%),
+    #173F34;
+}
+
+.ps2-home-go .ps2-go-bridge {
+  width: min(1280px, calc(100% - 96px));
+  min-height: 650px;
+  padding: 92px 0;
+  grid-template-columns: minmax(0, .88fr) minmax(360px, .7fr);
+  align-items: center;
+  border-radius: 0;
+  background: transparent;
+  position: relative;
+}
+
+.ps2-home-go .ps2-go-bridge > div {
+  grid-column: 1;
+  max-width: 650px;
+}
+
+.ps2-home-go .ps2-go-bridge > .ps2-button {
+  grid-column: 1;
+  justify-self: start;
+  align-self: start;
+  margin-top: -34px;
+  background: #FFFDF8;
+  color: #173F34;
+}
+
+.ps2-home-go .ps2-go-bridge::before,
+.ps2-home-go .ps2-go-bridge::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.ps2-home-go .ps2-go-bridge::before {
+  width: 330px;
+  height: 535px;
+  right: 72px;
+  top: 58px;
+  border-radius: 38px;
+  background:
+    linear-gradient(165deg, rgba(255,255,255,.92), rgba(242,245,239,.96));
+  border: 11px solid #0D2E26;
+  box-shadow:
+    0 34px 60px rgba(0,0,0,.27),
+    inset 0 0 0 1px rgba(23,63,52,.10);
+  transform: rotate(3.5deg);
+}
+
+.ps2-home-go .ps2-go-bridge::after {
+  width: 280px;
+  height: 180px;
+  right: 98px;
+  top: 105px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 67% 32%, #173F34 0 6px, transparent 7px),
+    radial-gradient(circle at 31% 58%, #A9543A 0 6px, transparent 7px),
+    radial-gradient(circle at 58% 72%, #8A6B2E 0 6px, transparent 7px),
+    linear-gradient(18deg, transparent 49.6%, rgba(23,63,52,.16) 50%, transparent 50.4%),
+    linear-gradient(-14deg, transparent 49.6%, rgba(23,63,52,.16) 50%, transparent 50.4%),
+    #E8E6D8;
+  transform: rotate(3.5deg);
+  box-shadow:
+    0 210px 0 -22px #FFFDF8,
+    0 305px 0 -22px #FFFDF8;
+}
+
+.ps2-home-programs {
+  background: #F5F0E6;
+}
+
+.ps2-home-programs__grid {
+  gap: 16px;
+}
+
+.ps2-home-program {
+  grid-column: span 3;
+  min-height: 390px;
+  grid-template-rows: 210px 1fr;
+  border-radius: 24px;
+  box-shadow: 0 14px 36px rgba(45,59,49,.05);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.ps2-home-program:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 52px rgba(45,59,49,.11);
+}
+
+.ps2-home-program:nth-child(1),
+.ps2-home-program:nth-child(2) {
+  grid-column: span 6;
+  min-height: 440px;
+  grid-template-rows: 270px 1fr;
+}
+
+.ps2-home-program__visual {
+  background-image:
+    linear-gradient(135deg, rgba(255,255,255,.18), transparent 44%),
+    radial-gradient(circle at 85% 18%, rgba(255,255,255,.28) 0 8%, transparent 8.5%);
+}
+
+.ps2-home-program__visual > span {
+  left: 18px;
+  top: auto;
+  bottom: 16px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: rgba(255,253,248,.90);
+  font-size: .68rem;
+  font-weight: 900;
+}
+
+.ps2-home-program__visual > span::before {
+  content: "NEW VISUAL · ";
+}
+
+.ps2-home-program__visual i {
+  opacity: .28;
+}
+
+.ps2-home-program__copy {
+  padding: 25px 26px 27px;
+}
+
+.ps2-home-program__copy h3 {
+  margin-top: 14px;
+  font-size: 1.8rem;
+}
+
+.ps2-home-intergen__map,
+.ps2-home-network {
+  min-height: 520px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 72% 24%, rgba(220,231,215,.62), transparent 30%),
+    #FFFDF8;
+  box-shadow: 0 24px 58px rgba(45,59,49,.07);
+}
+
+.ps2-home-community {
+  background: #F1EBE0;
+}
+
+.ps2-home-impact {
+  background: #EDE6D8;
+  color: var(--ps2-ink);
+}
+
+.ps2-home-impact .ps2-section-heading h2,
+.ps2-home-impact .ps2-eyebrow {
+  color: var(--ps2-deep-green);
+}
+
+.ps2-home-impact .ps2-section-heading > p {
+  color: var(--ps2-muted);
+}
+
+.ps2-home-impact .ps2-impact-grid {
+  gap: 12px;
+}
+
+.ps2-home-impact .ps2-impact-grid article {
+  min-height: 150px;
+  padding: 24px;
+  border-top: 3px solid var(--ps2-deep-green);
+  background: rgba(255,253,248,.84);
+  box-shadow: 0 12px 26px rgba(45,59,49,.035);
+}
+
+.ps2-home-impact .ps2-impact-grid span {
+  color: var(--ps2-ink);
+  font-size: 1.2rem;
+}
+
+.ps2-home-impact .ps2-impact-grid p {
+  color: var(--ps2-muted);
+}
+
+.ps2-home-impact .ps2-home-inline-action a {
+  color: var(--ps2-deep-green);
+}
+
+.ps2-home-audience {
+  background: #F5F0E6;
+}
+
+.ps2-home-audience__grid {
+  gap: 14px;
+  border: 0;
+}
+
+.ps2-home-audience__grid > a {
+  min-height: 270px;
+  padding: 26px 24px;
+  border: 1px solid var(--ps2-line);
+  border-radius: 20px;
+  background: rgba(255,253,248,.90);
+  box-shadow: 0 12px 28px rgba(45,59,49,.035);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.ps2-home-audience__grid > a:hover {
+  transform: translateY(-5px);
+  background: #FFFDF8;
+  box-shadow: 0 22px 44px rgba(45,59,49,.09);
+}
+
+.ps2-home-audience__grid h3 {
+  margin-top: 42px;
+  font-size: 1.75rem;
+}
+
+.ps2-home-final {
+  background:
+    radial-gradient(circle at 50% 20%, rgba(220,231,215,.35), transparent 38%),
+    #FFFDF8;
+}
+
+.ps2-home-final .ps2-home-wrap {
+  max-width: 980px;
+}
+
+.ps2-home-final h2 {
+  font-size: clamp(3.7rem, 6.5vw, 6.8rem);
+}
+
+@media (max-width: 1040px) {
+  .ps2-home-wrap {
+    width: min(100% - 56px, 1280px);
+  }
+
+  .ps2-home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-atlas {
+    margin: 0 48px 70px;
+  }
+
+  .ps2-home-atlas__canvas {
+    min-height: 560px;
+  }
+
+  .ps2-home-paths__grid,
+  .ps2-home-domains__grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+
+  .ps2-home-program {
+    grid-column: span 6;
+  }
+
+  .ps2-home-program:nth-child(1),
+  .ps2-home-program:nth-child(2) {
+    grid-column: span 6;
+  }
+
+  .ps2-home-audience__grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+
+  .ps2-home-go .ps2-go-bridge {
+    width: min(100% - 56px, 1280px);
+  }
+}
+
+@media (max-width: 900px) {
+  .ps2-home-go {
+    min-height: 0;
+  }
+
+  .ps2-home-go .ps2-go-bridge {
+    min-height: 0;
+    padding: 78px 0;
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-go .ps2-go-bridge > div,
+  .ps2-home-go .ps2-go-bridge > .ps2-button {
+    grid-column: 1;
+  }
+
+  .ps2-home-go .ps2-go-bridge > .ps2-button {
+    margin-top: 4px;
+  }
+
+  .ps2-home-go .ps2-go-bridge::before,
+  .ps2-home-go .ps2-go-bridge::after {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .ps2-home-wrap,
+  .ps2-home-method__note {
+    width: calc(100% - 32px);
+  }
+
+  .ps2-home-hero__copy {
+    padding: 56px 20px 46px;
+  }
+
+  .ps2-home-hero__brandline {
+    margin-top: 16px !important;
+    font-size: .9rem;
+  }
+
+  .ps2-home-hero h1 {
+    font-size: clamp(3rem, 13.4vw, 4rem);
+    line-height: .96;
+  }
+
+  .ps2-home-hero__bridge {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .ps2-home-atlas {
+    margin: 0 16px 54px;
+  }
+
+  .ps2-home-atlas__canvas {
+    min-height: 470px;
+    border-radius: 24px;
+  }
+
+  .ps2-home-atlas__shape--sun {
+    width: 80px;
+    height: 80px;
+  }
+
+  .ps2-home-atlas__photo-card {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    padding: 15px;
+  }
+
+  .ps2-home-atlas__photo-card-top {
+    align-items: flex-start;
+  }
+
+  .ps2-home-pillars,
+  .ps2-home-domains,
+  .ps2-home-method,
+  .ps2-home-programs,
+  .ps2-home-community,
+  .ps2-home-audience,
+  .ps2-home-paths,
+  .ps2-home-story,
+  .ps2-home-intergen,
+  .ps2-home-impact,
+  .ps2-home-final {
+    padding: 82px 0;
+  }
+
+  .ps2-home-pillars__grid article {
+    min-height: 220px;
+  }
+
+  .ps2-home-paths__grid,
+  .ps2-home-domains__grid,
+  .ps2-home-audience__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-path-card,
+  .ps2-home-domain-card {
+    min-height: 0;
+  }
+
+  .ps2-home-path-card {
+    padding: 24px;
+  }
+
+  .ps2-home-path-card h3 {
+    margin-top: 38px;
+  }
+
+  .ps2-home-programs__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-program,
+  .ps2-home-program:nth-child(1),
+  .ps2-home-program:nth-child(2) {
+    grid-column: 1;
+    min-height: 0;
+    grid-template-rows: 210px 1fr;
+  }
+
+  .ps2-home-story__art {
+    min-height: 500px;
+    transform: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .ps2-home-atlas__canvas {
+    min-height: 420px;
+  }
+
+  .ps2-home-atlas__photo-card-top {
+    display: grid;
+    gap: 8px;
+  }
+
+  .ps2-home-story__art {
+    min-height: 440px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps2-home-path-card,
+  .ps2-home-domain-card,
+  .ps2-home-program,
+  .ps2-home-audience__grid > a {
+    transition: none;
+  }
+
+  .ps2-home-path-card:hover,
+  .ps2-home-domain-card:hover,
+  .ps2-home-program:hover,
+  .ps2-home-audience__grid > a:hover {
+    transform: none;
+  }
+}
+/* === W2.5 VISUAL PARITY END === */
