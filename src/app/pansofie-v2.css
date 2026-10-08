@@ -1,0 +1,1849 @@
+.ps2-site {
+  --ps2-deep-green: #1B4D3A;
+  --ps2-moss: #6B8B58;
+  --ps2-sage: #A7B99A;
+  --ps2-clay: #D7B899;
+  --ps2-cream: #FAF7EF;
+  --ps2-anthracite: #2F2F2F;
+  --ps2-white: #FFFFFF;
+  --ps2-line: rgba(47, 47, 47, 0.16);
+  --ps2-muted: #60655F;
+  --ps2-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --ps2-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ps2-max: 1440px;
+  --ps2-reading: 760px;
+  --ps2-radius-sm: 12px;
+  --ps2-radius-md: 20px;
+  --ps2-radius-lg: 30px;
+  --ps2-shadow: 0 20px 56px rgba(27, 77, 58, 0.10);
+  min-height: 100vh;
+  background: var(--ps2-cream);
+  color: var(--ps2-anthracite);
+  font-family: var(--ps2-sans);
+  line-height: 1.5;
+}
+
+.ps2-site,
+.ps2-site * {
+  box-sizing: border-box;
+}
+
+.ps2-site a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ps2-site img {
+  max-width: 100%;
+}
+
+.ps2-site h1,
+.ps2-site h2,
+.ps2-site h3 {
+  margin: 0;
+  font-family: var(--ps2-display);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.ps2-site p {
+  margin: 0;
+}
+
+.ps2-skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 10px;
+  left: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white) !important;
+  transform: translateY(-160%);
+}
+
+.ps2-skip-link:focus {
+  transform: translateY(0);
+}
+
+.ps2-site :focus-visible {
+  outline: 3px solid var(--ps2-clay);
+  outline-offset: 3px;
+}
+
+.ps2-eyebrow {
+  color: var(--ps2-deep-green);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ps2-button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border: 1px solid var(--ps2-deep-green);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 750;
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.ps2-button:hover {
+  transform: translateY(-1px);
+}
+
+.ps2-button--primary {
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white) !important;
+}
+
+.ps2-button--secondary {
+  background: transparent;
+  color: var(--ps2-deep-green) !important;
+}
+
+.ps2-button--inverse {
+  border-color: var(--ps2-white);
+  background: var(--ps2-white);
+  color: var(--ps2-deep-green) !important;
+}
+
+.ps2-header {
+  position: relative;
+  z-index: 80;
+  border-bottom: 1px solid var(--ps2-line);
+  background: rgba(250, 247, 239, 0.96);
+}
+
+.ps2-header__inner {
+  width: min(var(--ps2-max), calc(100% - 48px));
+  min-height: 82px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 28px;
+  align-items: center;
+}
+
+.ps2-brand {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.ps2-brand__mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(27, 77, 58, 0.18);
+  border-radius: 50%;
+  background: var(--ps2-white);
+}
+
+.ps2-brand__copy {
+  display: grid;
+  line-height: 1.05;
+}
+
+.ps2-brand__copy strong {
+  font-family: var(--ps2-display);
+  color: var(--ps2-deep-green);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.ps2-brand__copy small {
+  margin-top: 5px;
+  color: var(--ps2-muted);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+}
+
+.ps2-brand--compact .ps2-brand__copy small {
+  display: none;
+}
+
+.ps2-nav {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.ps2-nav__group {
+  position: relative;
+}
+
+.ps2-nav__top {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  padding: 0 13px;
+  color: #3F4742;
+  font-size: 0.82rem;
+  font-weight: 720;
+}
+
+.ps2-nav__group.is-active > .ps2-nav__top,
+.ps2-nav__top:hover {
+  color: var(--ps2-deep-green);
+}
+
+.ps2-nav__group.is-active > .ps2-nav__top::after {
+  content: "";
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: 0;
+  height: 2px;
+  background: var(--ps2-deep-green);
+}
+
+.ps2-nav__panel {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 50%;
+  min-width: 230px;
+  padding: 18px;
+  display: none;
+  gap: 4px;
+  transform: translateX(-50%);
+  border: 1px solid var(--ps2-line);
+  border-radius: 0 0 18px 18px;
+  background: var(--ps2-white);
+  box-shadow: var(--ps2-shadow);
+}
+
+.ps2-nav__group:hover .ps2-nav__panel,
+.ps2-nav__group:focus-within .ps2-nav__panel {
+  display: grid;
+}
+
+.ps2-nav__panel > span {
+  margin-bottom: 8px;
+  color: var(--ps2-moss);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ps2-nav__panel a {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 7px 9px;
+  border-radius: 9px;
+  font-size: 0.84rem;
+}
+
+.ps2-nav__panel a:hover,
+.ps2-nav__panel a[aria-current="page"] {
+  background: rgba(167, 185, 154, 0.22);
+  color: var(--ps2-deep-green);
+}
+
+.ps2-header__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.ps2-go-link,
+.ps2-login-link {
+  min-height: 44px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 9px 13px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 780;
+}
+
+.ps2-go-link {
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white) !important;
+}
+
+.ps2-login-link {
+  border: 1px solid var(--ps2-line);
+  background: var(--ps2-white);
+  color: var(--ps2-deep-green) !important;
+}
+
+.ps2-ui-icon {
+  width: var(--ps2-ui-size, 18px);
+  height: var(--ps2-ui-size, 18px);
+  flex: 0 0 auto;
+  display: inline-block;
+  background: currentColor;
+  -webkit-mask: var(--ps2-ui-mask) center / contain no-repeat;
+  mask: var(--ps2-ui-mask) center / contain no-repeat;
+}
+
+.ps2-mobile-menu {
+  display: none;
+}
+
+.ps2-mobile-menu summary {
+  min-height: 44px;
+  min-width: 76px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ps2-line);
+  border-radius: 999px;
+  list-style: none;
+  cursor: pointer;
+  color: var(--ps2-deep-green);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.ps2-mobile-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.ps2-mobile-menu__close {
+  display: none;
+}
+
+.ps2-mobile-menu[open] .ps2-mobile-menu__open {
+  display: none;
+}
+
+.ps2-mobile-menu[open] .ps2-mobile-menu__close {
+  display: inline-block;
+}
+
+.ps2-mobile-menu > nav {
+  position: absolute;
+  top: 82px;
+  left: 0;
+  right: 0;
+  padding: 22px 24px 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  border-top: 1px solid var(--ps2-line);
+  border-bottom: 1px solid var(--ps2-line);
+  background: var(--ps2-cream);
+  box-shadow: var(--ps2-shadow);
+}
+
+.ps2-mobile-menu__group {
+  display: grid;
+  gap: 8px;
+}
+
+.ps2-mobile-menu__group > a:first-child {
+  margin-bottom: 4px;
+  color: var(--ps2-deep-green);
+}
+
+.ps2-mobile-menu__group a {
+  min-height: 34px;
+  font-size: 0.84rem;
+}
+
+.ps2-mobile-menu__product {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 9px 12px;
+  border: 1px solid var(--ps2-line);
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.ps2-hero {
+  width: min(var(--ps2-max), 100%);
+  min-height: 690px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  border-bottom: 1px solid var(--ps2-line);
+}
+
+.ps2-hero--media-left .ps2-hero__media {
+  order: -1;
+}
+
+.ps2-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(52px, 7vw, 104px);
+}
+
+.ps2-hero h1 {
+  max-width: 820px;
+  margin-top: 18px;
+  color: var(--ps2-deep-green);
+  font-size: clamp(3.9rem, 6.5vw, 7.2rem);
+  line-height: 0.91;
+}
+
+.ps2-hero__lead {
+  max-width: 640px;
+  margin-top: 28px !important;
+  color: var(--ps2-muted);
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  line-height: 1.72;
+}
+
+.ps2-hero__actions {
+  margin-top: 32px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ps2-hero__media {
+  position: relative;
+  min-height: 690px;
+  overflow: hidden;
+  background: var(--ps2-sage);
+}
+
+.ps2-hero__media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ps2-hero__truth {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.ps2-hero__note {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  max-width: min(360px, calc(100% - 40px));
+  padding: 12px 15px;
+  border-radius: 999px;
+  background: rgba(250, 247, 239, 0.92);
+  color: var(--ps2-deep-green);
+  font-size: 0.75rem;
+  font-weight: 750;
+}
+
+.ps2-section-heading {
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto 36px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.55fr);
+  gap: 56px;
+  align-items: end;
+}
+
+.ps2-section-heading h2 {
+  margin-top: 12px;
+  color: var(--ps2-deep-green);
+  font-size: clamp(2.6rem, 4.7vw, 5.1rem);
+  line-height: 0.96;
+}
+
+.ps2-section-heading > p {
+  color: var(--ps2-muted);
+  font-size: 0.95rem;
+  line-height: 1.72;
+}
+
+.ps2-truth-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: rgba(250, 247, 239, 0.9);
+  color: var(--ps2-deep-green);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.10em;
+}
+
+.ps2-path-emblem,
+.ps2-domain-icon {
+  display: inline-block;
+  background: currentColor;
+  -webkit-mask: var(--ps2-symbol-mask) center / contain no-repeat;
+  mask: var(--ps2-symbol-mask) center / contain no-repeat;
+}
+
+.ps2-path-emblem {
+  width: var(--ps2-emblem-size, 64px);
+  height: var(--ps2-emblem-size, 64px);
+  color: var(--ps2-deep-green);
+}
+
+.ps2-domain-icon {
+  width: var(--ps2-domain-icon-size, 42px);
+  height: var(--ps2-domain-icon-size, 42px);
+  color: var(--ps2-deep-green);
+  opacity: 0.88;
+}
+
+.ps2-method {
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  list-style: none;
+  border-top: 1px solid var(--ps2-line);
+  border-left: 1px solid var(--ps2-line);
+}
+
+.ps2-method li {
+  min-height: 150px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--ps2-line);
+  border-bottom: 1px solid var(--ps2-line);
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.ps2-method span {
+  color: var(--ps2-moss);
+  font-family: var(--ps2-display);
+  font-size: 0.78rem;
+}
+
+.ps2-method strong {
+  color: var(--ps2-deep-green);
+  font-family: var(--ps2-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.ps2-method--compact li {
+  min-height: 105px;
+}
+
+.ps2-relation {
+  padding: 30px;
+  border-radius: var(--ps2-radius-md);
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white);
+}
+
+.ps2-relation__meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  color: #D6E0D1;
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+}
+
+.ps2-relation h3 {
+  margin-top: 22px;
+  font-size: clamp(2rem, 3vw, 3.4rem);
+}
+
+.ps2-relation > p {
+  margin-top: 14px;
+  color: #D9E3DB;
+  line-height: 1.65;
+}
+
+.ps2-relation dl {
+  margin: 24px 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.20);
+}
+
+.ps2-relation dl > div {
+  padding: 14px;
+  background: rgba(27, 77, 58, 0.94);
+}
+
+.ps2-relation dt {
+  color: #C7D4C4;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ps2-relation dd {
+  margin: 7px 0 0;
+  font-family: var(--ps2-display);
+  font-size: 1.05rem;
+}
+
+.ps2-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.ps2-impact-grid article {
+  min-height: 150px;
+  padding: 22px;
+  border-top: 3px solid var(--ps2-moss);
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.ps2-impact-grid span {
+  color: var(--ps2-deep-green);
+  font-family: var(--ps2-display);
+  font-size: 1.25rem;
+}
+
+.ps2-impact-grid p {
+  margin-top: 10px;
+  color: var(--ps2-muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.ps2-go-bridge {
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(42px, 6vw, 78px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 44px;
+  align-items: end;
+  border-radius: var(--ps2-radius-lg);
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white);
+}
+
+.ps2-go-bridge .ps2-eyebrow {
+  color: #C7D4C4;
+}
+
+.ps2-go-bridge h2 {
+  max-width: 760px;
+  margin-top: 12px;
+  font-size: clamp(2.8rem, 5vw, 5.4rem);
+  line-height: 0.96;
+}
+
+.ps2-go-bridge p:not(.ps2-eyebrow) {
+  max-width: 650px;
+  margin-top: 18px;
+  color: #D9E3DB;
+  line-height: 1.7;
+}
+
+.ps2-footer {
+  margin-top: 100px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white);
+}
+
+.ps2-footer__lead,
+.ps2-footer__map,
+.ps2-footer__bottom {
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.ps2-footer__lead {
+  padding: 64px 0 52px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  gap: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.ps2-footer .ps2-eyebrow {
+  color: #C7D4C4;
+}
+
+.ps2-footer__lead h2 {
+  max-width: 760px;
+  margin-top: 12px;
+  font-size: clamp(2.3rem, 4vw, 4.8rem);
+  line-height: 1;
+}
+
+.ps2-footer__products {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-self: end;
+}
+
+.ps2-footer__products a {
+  min-height: 130px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: var(--ps2-radius-sm);
+}
+
+.ps2-footer__products span {
+  color: #C7D4C4;
+  font-size: 0.7rem;
+}
+
+.ps2-footer__products strong {
+  margin-top: 7px;
+  font-family: var(--ps2-display);
+  font-size: 1.25rem;
+}
+
+.ps2-footer__map {
+  padding: 44px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.ps2-footer__map nav {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+}
+
+.ps2-footer__map nav > strong {
+  margin-bottom: 7px;
+  color: #C7D4C4;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ps2-footer__map a {
+  min-height: 32px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.84rem;
+}
+
+.ps2-footer__bottom {
+  min-height: 66px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 1120px) {
+  .ps2-nav,
+  .ps2-header__actions {
+    display: none;
+  }
+
+  .ps2-header__inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .ps2-mobile-menu {
+    display: block;
+  }
+
+  .ps2-hero {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-hero--media-left .ps2-hero__media {
+    order: 0;
+  }
+
+  .ps2-hero__media {
+    min-height: 52vw;
+  }
+
+  .ps2-method {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ps2-impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .ps2-header__inner,
+  .ps2-section-heading,
+  .ps2-method,
+  .ps2-go-bridge,
+  .ps2-footer__lead,
+  .ps2-footer__map,
+  .ps2-footer__bottom {
+    width: calc(100% - 32px);
+  }
+
+  .ps2-header__inner {
+    min-height: 72px;
+  }
+
+  .ps2-brand__copy small {
+    display: none;
+  }
+
+  .ps2-mobile-menu > nav {
+    top: 72px;
+    grid-template-columns: 1fr;
+    max-height: calc(100vh - 72px);
+    overflow: auto;
+  }
+
+  .ps2-hero__copy {
+    padding: 54px 20px 48px;
+  }
+
+  .ps2-hero h1 {
+    font-size: clamp(3.5rem, 16vw, 5.3rem);
+  }
+
+  .ps2-hero__actions {
+    display: grid;
+  }
+
+  .ps2-hero__media {
+    min-height: 82vw;
+  }
+
+  .ps2-section-heading {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ps2-method {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ps2-relation dl {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ps2-impact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-go-bridge {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding: 38px 24px;
+  }
+
+  .ps2-footer__lead {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-footer__products {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-footer__map {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ps2-footer__bottom {
+    padding: 18px 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 430px) {
+  .ps2-method,
+  .ps2-footer__map {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-relation dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps2-site *,
+  .ps2-site *::before,
+  .ps2-site *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+/* === W2 HOME START === */
+.ps2-home-wrap {
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.ps2-home-hero {
+  width: min(var(--ps2-max), 100%);
+  min-height: 760px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.93fr) minmax(0, 1.07fr);
+  border-bottom: 1px solid var(--ps2-line);
+  overflow: hidden;
+}
+
+.ps2-home-hero__copy {
+  min-width: 0;
+  padding: clamp(64px, 7vw, 108px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ps2-home-hero h1 {
+  margin-top: 18px;
+  color: var(--ps2-deep-green);
+  font-size: clamp(3.65rem, 5.35vw, 5.8rem);
+  line-height: 0.97;
+  letter-spacing: -0.035em;
+}
+
+.ps2-home-hero h1 span {
+  display: block;
+}
+
+.ps2-home-hero__lead {
+  max-width: 640px;
+  margin-top: 28px !important;
+  color: var(--ps2-muted);
+  font-size: clamp(1.02rem, 1.45vw, 1.24rem);
+  line-height: 1.72;
+}
+
+.ps2-home-hero__actions,
+.ps2-home-final__actions,
+.ps2-home-intergen__actions,
+.ps2-home-story__actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ps2-home-hero__note {
+  max-width: 630px;
+  margin-top: 22px !important;
+  padding-top: 18px;
+  border-top: 1px solid var(--ps2-line);
+  color: var(--ps2-muted);
+  font-size: 0.82rem;
+}
+
+.ps2-home-atlas {
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background: linear-gradient(145deg, #E3EAD9 0%, #D5C8B3 100%);
+  border-left: 1px solid var(--ps2-line);
+}
+
+.ps2-home-atlas__canvas {
+  position: relative;
+  min-height: 690px;
+  overflow: hidden;
+  color: var(--ps2-deep-green);
+}
+
+.ps2-home-atlas__canvas::before,
+.ps2-home-atlas__canvas::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ps2-home-atlas__canvas::before {
+  width: 430px;
+  height: 430px;
+  top: -160px;
+  right: -130px;
+  background: rgba(250, 247, 239, 0.44);
+}
+
+.ps2-home-atlas__canvas::after {
+  width: 320px;
+  height: 320px;
+  bottom: -130px;
+  left: -90px;
+  border: 1px solid rgba(27, 77, 58, 0.20);
+}
+
+.ps2-home-atlas svg {
+  position: absolute;
+  inset: 5%;
+  width: 90%;
+  height: 90%;
+  overflow: visible;
+}
+
+.ps2-home-atlas__ring,
+.ps2-home-atlas__line,
+.ps2-home-atlas__botanical {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ps2-home-atlas__ring {
+  stroke-width: 1.25;
+  opacity: 0.30;
+}
+
+.ps2-home-atlas__ring--two {
+  stroke-dasharray: 5 10;
+  opacity: 0.34;
+}
+
+.ps2-home-atlas__line {
+  stroke-width: 1.4;
+  opacity: 0.36;
+}
+
+.ps2-home-atlas__line--soft {
+  stroke-dasharray: 4 10;
+  opacity: 0.20;
+}
+
+.ps2-home-atlas__botanical {
+  stroke-width: 3;
+  opacity: 0.75;
+}
+
+.ps2-home-atlas__node {
+  fill: var(--ps2-clay);
+  stroke: var(--ps2-deep-green);
+  stroke-width: 2;
+}
+
+.ps2-home-atlas__label {
+  position: absolute;
+  padding: 7px 10px;
+  border: 1px solid rgba(27, 77, 58, 0.20);
+  border-radius: 999px;
+  background: rgba(250, 247, 239, 0.86);
+  color: var(--ps2-deep-green);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.ps2-home-atlas__label--center { left: 50%; top: 49%; transform: translate(-50%, -50%); }
+.ps2-home-atlas__label--nature { left: 17%; top: 18%; }
+.ps2-home-atlas__label--place { right: 16%; top: 18%; }
+.ps2-home-atlas__label--school { right: 7%; top: 48%; }
+.ps2-home-atlas__label--community { right: 17%; bottom: 16%; }
+.ps2-home-atlas__label--family { left: 18%; bottom: 15%; }
+.ps2-home-atlas__label--creation { left: 6%; top: 49%; }
+
+.ps2-home-atlas__badge {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+}
+
+.ps2-home-atlas figcaption {
+  padding: 17px 22px;
+  display: grid;
+  gap: 4px;
+  border-top: 1px solid rgba(27, 77, 58, 0.18);
+  background: rgba(250, 247, 239, 0.72);
+}
+
+.ps2-home-atlas figcaption strong {
+  color: var(--ps2-deep-green);
+  font-family: var(--ps2-display);
+  font-size: 1.05rem;
+}
+
+.ps2-home-atlas figcaption span {
+  color: var(--ps2-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.ps2-home-pillars,
+.ps2-home-domains,
+.ps2-home-method,
+.ps2-home-programs,
+.ps2-home-community,
+.ps2-home-audience,
+.ps2-home-paths,
+.ps2-home-story,
+.ps2-home-intergen,
+.ps2-home-impact,
+.ps2-home-final {
+  padding: clamp(84px, 9vw, 136px) 0;
+}
+
+.ps2-home-pillars {
+  background: var(--ps2-white);
+  border-bottom: 1px solid var(--ps2-line);
+}
+
+.ps2-home-pillars__grid {
+  margin-top: 46px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--ps2-line);
+  border-radius: var(--ps2-radius-md);
+  overflow: hidden;
+}
+
+.ps2-home-pillars__grid article {
+  min-height: 320px;
+  padding: 34px;
+  background: var(--ps2-white);
+}
+
+.ps2-home-pillars__grid article + article {
+  border-left: 1px solid var(--ps2-line);
+}
+
+.ps2-home-pillars__grid span {
+  color: var(--ps2-clay);
+  font-family: var(--ps2-display);
+  font-size: 0.86rem;
+}
+
+.ps2-home-pillars__grid h3 {
+  margin-top: 58px;
+  color: var(--ps2-deep-green);
+  font-size: clamp(2.2rem, 3.2vw, 3.4rem);
+}
+
+.ps2-home-pillars__grid p {
+  margin-top: 16px;
+  color: var(--ps2-muted);
+  line-height: 1.7;
+}
+
+.ps2-home-paths {
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white);
+}
+
+.ps2-home-paths .ps2-section-heading h2,
+.ps2-home-paths .ps2-eyebrow {
+  color: var(--ps2-white);
+}
+
+.ps2-home-paths .ps2-section-heading > p {
+  color: #D9E3DB;
+}
+
+.ps2-home-paths__grid {
+  margin-top: 46px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid rgba(255,255,255,0.22);
+  border-left: 1px solid rgba(255,255,255,0.22);
+}
+
+.ps2-home-path-card {
+  min-height: 360px;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.22);
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.025);
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.ps2-home-path-card:hover {
+  background: rgba(255,255,255,0.07);
+  transform: translateY(-2px);
+}
+
+.ps2-home-path-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ps2-home-path-card__top > span {
+  color: #BFCFBF;
+  font-family: var(--ps2-display);
+  font-size: 0.8rem;
+}
+
+.ps2-home-paths .ps2-path-emblem {
+  color: var(--ps2-white);
+}
+
+.ps2-home-path-card small {
+  margin-top: 64px;
+  color: #BFCFBF;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ps2-home-path-card h3 {
+  margin-top: 8px;
+  font-size: 1.8rem;
+}
+
+.ps2-home-path-card p {
+  margin-top: 12px;
+  color: #D9E3DB;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.ps2-home-path-card strong {
+  margin-top: auto;
+  padding-top: 24px;
+  color: var(--ps2-white);
+  font-size: 0.76rem;
+}
+
+.ps2-home-inline-action {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ps2-home-inline-action a,
+.ps2-home-text-link {
+  color: var(--ps2-deep-green);
+  font-size: 0.84rem;
+  font-weight: 780;
+}
+
+.ps2-home-paths .ps2-home-inline-action a,
+.ps2-home-impact .ps2-home-inline-action a {
+  color: var(--ps2-white);
+}
+
+.ps2-home-domains {
+  background: var(--ps2-cream);
+}
+
+.ps2-home-domains__grid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  border-top: 1px solid var(--ps2-line);
+  border-left: 1px solid var(--ps2-line);
+}
+
+.ps2-home-domain-card {
+  min-height: 176px;
+  padding: 17px 14px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--ps2-line);
+  border-bottom: 1px solid var(--ps2-line);
+  background: rgba(255,255,255,0.30);
+}
+
+.ps2-home-domain-card:hover {
+  background: var(--ps2-white);
+}
+
+.ps2-home-domain-card > span:not(.ps2-domain-icon) {
+  margin-top: auto;
+  color: var(--ps2-clay);
+  font-size: 0.62rem;
+  font-weight: 850;
+}
+
+.ps2-home-domain-card strong {
+  margin-top: 6px;
+  color: var(--ps2-deep-green);
+  font-family: var(--ps2-display);
+  font-size: 1.08rem;
+}
+
+.ps2-home-domain-card small {
+  margin-top: 3px;
+  color: var(--ps2-muted);
+  font-size: 0.67rem;
+}
+
+.ps2-home-method {
+  background: var(--ps2-white);
+  border-top: 1px solid var(--ps2-line);
+  border-bottom: 1px solid var(--ps2-line);
+}
+
+.ps2-home-method__note {
+  width: min(1280px, calc(100% - 48px));
+  margin: 20px auto 0 !important;
+  color: var(--ps2-muted);
+  font-size: 0.8rem;
+}
+
+.ps2-home-story {
+  background: #EEE7D9;
+}
+
+.ps2-home-story__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 64px;
+  align-items: center;
+}
+
+.ps2-home-story__art {
+  min-height: 650px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ps2-radius-lg);
+  background: linear-gradient(180deg, #DDE8D5 0 44%, #B6C49D 44% 63%, #81674D 63% 100%);
+  border: 1px solid rgba(27,77,58,0.16);
+  box-shadow: var(--ps2-shadow);
+}
+
+.ps2-home-story__art .ps2-truth-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.ps2-home-story__soil {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -4%;
+  height: 42%;
+  border-radius: 50% 50% 0 0;
+  background: repeating-linear-gradient(8deg, rgba(56,43,32,0.22) 0 2px, transparent 2px 14px), #775E48;
+}
+
+.ps2-home-story__stem {
+  position: absolute;
+  left: 50%;
+  bottom: 27%;
+  width: 5px;
+  height: 42%;
+  border-radius: 999px;
+  background: var(--ps2-deep-green);
+  transform: translateX(-50%);
+}
+
+.ps2-home-story__leaf {
+  position: absolute;
+  width: 150px;
+  height: 82px;
+  border: 3px solid var(--ps2-deep-green);
+  background: rgba(250,247,239,0.16);
+}
+
+.ps2-home-story__leaf--a {
+  left: 28%;
+  top: 34%;
+  border-radius: 100% 0 100% 0;
+  transform: rotate(18deg);
+}
+
+.ps2-home-story__leaf--b {
+  right: 25%;
+  top: 26%;
+  border-radius: 0 100% 0 100%;
+  transform: rotate(-18deg);
+}
+
+.ps2-home-story__rings {
+  position: absolute;
+  width: 410px;
+  height: 410px;
+  left: 50%;
+  top: 22%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(27,77,58,0.25);
+  border-radius: 50%;
+  box-shadow: 0 0 0 58px rgba(250,247,239,0.10), 0 0 0 116px rgba(27,77,58,0.06);
+}
+
+.ps2-home-story__caption {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(250,247,239,0.91);
+  color: var(--ps2-deep-green);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+}
+
+.ps2-home-story__copy > h2,
+.ps2-home-intergen h2,
+.ps2-home-community h2,
+.ps2-home-final h2 {
+  margin-top: 12px;
+  color: var(--ps2-deep-green);
+  font-size: clamp(3rem, 5vw, 5.4rem);
+  line-height: 0.96;
+}
+
+.ps2-home-story__copy > p:not(.ps2-eyebrow),
+.ps2-home-intergen p:not(.ps2-eyebrow),
+.ps2-home-community p:not(.ps2-eyebrow),
+.ps2-home-final > .ps2-home-wrap > p:not(.ps2-eyebrow) {
+  margin-top: 20px;
+  color: var(--ps2-muted);
+  line-height: 1.72;
+}
+
+.ps2-home-story .ps2-relation {
+  margin-top: 28px;
+}
+
+.ps2-home-go {
+  padding: clamp(70px, 8vw, 112px) 0;
+  background: var(--ps2-white);
+}
+
+.ps2-home-programs {
+  background: var(--ps2-cream);
+}
+
+.ps2-home-programs__grid {
+  margin-top: 46px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+}
+
+.ps2-home-program {
+  grid-column: span 4;
+  min-height: 410px;
+  display: grid;
+  grid-template-rows: 180px 1fr;
+  overflow: hidden;
+  border: 1px solid var(--ps2-line);
+  border-radius: var(--ps2-radius-md);
+  background: var(--ps2-white);
+}
+
+.ps2-home-program:nth-child(1),
+.ps2-home-program:nth-child(2) {
+  grid-column: span 6;
+  grid-template-rows: 240px 1fr;
+}
+
+.ps2-home-program__visual {
+  position: relative;
+  overflow: hidden;
+  background: var(--ps2-sage);
+}
+
+.ps2-home-program__visual > span {
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  z-index: 2;
+  color: var(--ps2-deep-green);
+  font-family: var(--ps2-display);
+  font-size: 0.76rem;
+}
+
+.ps2-home-program__visual i {
+  position: absolute;
+  display: block;
+  border: 2px solid var(--ps2-deep-green);
+  border-radius: 50%;
+  opacity: 0.55;
+}
+
+.ps2-home-program__visual i:nth-of-type(1) { width: 150px; height: 150px; left: 14%; top: 18%; }
+.ps2-home-program__visual i:nth-of-type(2) { width: 220px; height: 220px; right: -38px; bottom: -70px; opacity: 0.28; }
+.ps2-home-program__visual i:nth-of-type(3) { width: 10px; height: 10px; left: 54%; top: 43%; background: var(--ps2-clay); opacity: 1; }
+
+.ps2-home-program--nature .ps2-home-program__visual { background: #DCE7D7; }
+.ps2-home-program--farm .ps2-home-program__visual { background: #E5D6BC; }
+.ps2-home-program--circular .ps2-home-program__visual { background: #C9D9C5; }
+.ps2-home-program--lab .ps2-home-program__visual { background: #D7C9B9; }
+.ps2-home-program--family .ps2-home-program__visual { background: #E8E0D3; }
+.ps2-home-program--knowledge .ps2-home-program__visual { background: #D6E0D2; }
+
+.ps2-home-program__copy {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ps2-home-program__meta {
+  min-height: 30px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--ps2-moss);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.ps2-home-program__copy h3 {
+  margin-top: 16px;
+  color: var(--ps2-deep-green);
+  font-size: 2rem;
+}
+
+.ps2-home-program__copy p {
+  margin-top: 12px;
+  color: var(--ps2-muted);
+  line-height: 1.62;
+}
+
+.ps2-home-program__copy > strong {
+  margin-top: auto;
+  padding-top: 22px;
+  color: var(--ps2-deep-green);
+  font-size: 0.8rem;
+}
+
+.ps2-home-intergen {
+  background: var(--ps2-white);
+}
+
+.ps2-home-intergen__grid,
+.ps2-home-community__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.87fr) minmax(0, 1.13fr);
+  gap: 70px;
+  align-items: center;
+}
+
+.ps2-home-intergen__map,
+.ps2-home-network {
+  min-height: 490px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ps2-radius-lg);
+  background: var(--ps2-cream);
+  border: 1px solid var(--ps2-line);
+}
+
+.ps2-home-intergen__map svg,
+.ps2-home-network svg {
+  position: absolute;
+  inset: 5%;
+  width: 90%;
+  height: 90%;
+  fill: none;
+  stroke: var(--ps2-deep-green);
+  stroke-width: 1.7;
+  opacity: 0.45;
+}
+
+.ps2-home-intergen__map svg circle,
+.ps2-home-network svg circle {
+  fill: var(--ps2-clay);
+  stroke: var(--ps2-deep-green);
+}
+
+.ps2-home-intergen__node,
+.ps2-home-network > span {
+  position: absolute;
+  padding: 7px 10px;
+  border: 1px solid var(--ps2-line);
+  border-radius: 999px;
+  background: var(--ps2-white);
+  color: var(--ps2-deep-green);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.ps2-home-intergen__node--a { left: 8%; top: 47%; }
+.ps2-home-intergen__node--b { left: 43%; top: 8%; }
+.ps2-home-intergen__node--c { left: 43%; bottom: 8%; }
+.ps2-home-intergen__node--d { right: 7%; top: 47%; }
+
+.ps2-home-intergen__map > strong {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  transform: translate(-50%, -50%);
+  padding: 10px 13px;
+  border-radius: 999px;
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white);
+  font-family: var(--ps2-display);
+  font-size: 0.95rem;
+}
+
+.ps2-home-community {
+  background: #EDE7DB;
+}
+
+.ps2-home-community .ps2-button {
+  margin-top: 28px;
+}
+
+.ps2-home-impact {
+  background: var(--ps2-deep-green);
+  color: var(--ps2-white);
+}
+
+.ps2-home-impact .ps2-section-heading h2,
+.ps2-home-impact .ps2-eyebrow {
+  color: var(--ps2-white);
+}
+
+.ps2-home-impact .ps2-section-heading > p {
+  color: #D9E3DB;
+}
+
+.ps2-home-impact .ps2-impact-grid article {
+  border-top-color: var(--ps2-clay);
+  background: rgba(255,255,255,0.055);
+}
+
+.ps2-home-impact .ps2-impact-grid span {
+  color: var(--ps2-white);
+}
+
+.ps2-home-impact .ps2-impact-grid p {
+  color: #D9E3DB;
+}
+
+.ps2-home-audience {
+  background: var(--ps2-cream);
+}
+
+.ps2-home-audience__grid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--ps2-line);
+  border-left: 1px solid var(--ps2-line);
+}
+
+.ps2-home-audience__grid > a {
+  min-height: 300px;
+  padding: 25px 22px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--ps2-line);
+  border-bottom: 1px solid var(--ps2-line);
+  background: rgba(255,255,255,0.28);
+}
+
+.ps2-home-audience__grid > a:hover {
+  background: var(--ps2-white);
+}
+
+.ps2-home-audience__grid span {
+  color: var(--ps2-clay);
+  font-family: var(--ps2-display);
+  font-size: 0.76rem;
+}
+
+.ps2-home-audience__grid h3 {
+  margin-top: 48px;
+  color: var(--ps2-deep-green);
+  font-size: 1.7rem;
+}
+
+.ps2-home-audience__grid p {
+  margin-top: 12px;
+  color: var(--ps2-muted);
+  font-size: 0.86rem;
+  line-height: 1.62;
+}
+
+.ps2-home-audience__grid strong {
+  margin-top: auto;
+  padding-top: 20px;
+  color: var(--ps2-deep-green);
+  font-size: 0.78rem;
+}
+
+.ps2-home-final {
+  background: var(--ps2-white);
+  text-align: center;
+}
+
+.ps2-home-final .ps2-home-wrap {
+  max-width: 900px;
+}
+
+.ps2-home-final h2 {
+  font-size: clamp(3.4rem, 6vw, 6.3rem);
+}
+
+.ps2-home-final__actions {
+  justify-content: center;
+}
+
+@media (max-width: 1180px) {
+  .ps2-home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-atlas {
+    border-left: 0;
+    border-top: 1px solid var(--ps2-line);
+  }
+
+  .ps2-home-atlas__canvas {
+    min-height: 640px;
+  }
+
+  .ps2-home-paths__grid,
+  .ps2-home-domains__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .ps2-home-program,
+  .ps2-home-program:nth-child(1),
+  .ps2-home-program:nth-child(2) {
+    grid-column: span 6;
+  }
+
+  .ps2-home-audience__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .ps2-home-story__grid,
+  .ps2-home-intergen__grid,
+  .ps2-home-community__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-pillars__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-pillars__grid article {
+    min-height: 230px;
+  }
+
+  .ps2-home-pillars__grid article + article {
+    border-left: 0;
+    border-top: 1px solid var(--ps2-line);
+  }
+
+  .ps2-home-pillars__grid h3 {
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 760px) {
+  .ps2-home-wrap,
+  .ps2-home-method__note {
+    width: calc(100% - 32px);
+  }
+
+  .ps2-home-hero__copy {
+    padding: 54px 20px 48px;
+  }
+
+  .ps2-home-hero h1 {
+    font-size: clamp(3.05rem, 13.3vw, 4.25rem);
+    line-height: 0.99;
+  }
+
+  .ps2-home-hero__actions,
+  .ps2-home-final__actions {
+    display: grid;
+    width: 100%;
+  }
+
+  .ps2-home-hero__actions .ps2-button,
+  .ps2-home-final__actions .ps2-button {
+    width: 100%;
+  }
+
+  .ps2-home-atlas__canvas {
+    min-height: 500px;
+  }
+
+  .ps2-home-atlas__label {
+    padding: 6px 8px;
+    font-size: 0.64rem;
+  }
+
+  .ps2-home-paths__grid,
+  .ps2-home-domains__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ps2-home-path-card {
+    min-height: 315px;
+  }
+
+  .ps2-home-domain-card {
+    min-height: 154px;
+  }
+
+  .ps2-home-story__art {
+    min-height: 500px;
+  }
+
+  .ps2-home-programs__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-program,
+  .ps2-home-program:nth-child(1),
+  .ps2-home-program:nth-child(2) {
+    grid-column: 1;
+    min-height: 0;
+    grid-template-rows: 190px 1fr;
+  }
+
+  .ps2-home-audience__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-audience__grid > a {
+    min-height: 230px;
+  }
+
+  .ps2-home-intergen__map,
+  .ps2-home-network {
+    min-height: 390px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ps2-home-paths__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps2-home-path-card {
+    min-height: 280px;
+  }
+
+  .ps2-home-atlas__canvas {
+    min-height: 430px;
+  }
+
+  .ps2-home-story__art {
+    min-height: 440px;
+  }
+}
+/* === W2 HOME END === */

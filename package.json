@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "test": "node --test tests/**/*.test.mjs",
     "check:contract": "node scripts/check.mjs",
-    "check": "npm run test && npm run check:contract && npm run check:living-r8 && npm run check:stability-r9 && npm run check:artkit-v1 && npm run build",
+    "check": "npm run test && npm run check:contract && npm run check:living-r8 && npm run check:stability-r9 && npm run check:artkit-v1 && npm run check:public-v2 && npm run build",
     "check:visual-story-r3": "node scripts/check-visual-story-r3.mjs",
     "check:compost-game-r4": "node scripts/check-compost-game-r4.mjs",
     "check:vision-r5": "node scripts/check-vision-r5.mjs",
@@ -20,7 +20,8 @@
     "check:living-r8": "node scripts/check-living-r8.mjs",
     "check:stability-r9": "node scripts/check-stability-r9.mjs",
     "check:artkit-v1": "node scripts/check-artkit-v1.mjs",
-    "screenshots:viewport-matrix": "node scripts/capture-viewport-matrix.mjs"
+    "screenshots:viewport-matrix": "node scripts/capture-viewport-matrix.mjs",
+    "check:public-v2": "node scripts/check-public-v2.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.7.0",
