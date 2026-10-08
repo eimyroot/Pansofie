@@ -17,9 +17,9 @@ test("Pansofie Visual Engine v1 is a shared identity system, not a page-local de
   assert.match(css, /pve-lines/);
 });
 
-test("core public surfaces use the Visual Engine as their primary hero language", () => {
+test("unmigrated core public surfaces keep Visual Engine while W2 homepage uses the clean-slate atlas", () => {
   const surfaces = {
-    "src/app/page.jsx": /PansofieVisualEngine domains=\{PUBLIC_DOMAINS\} paths=\{PUBLIC_PATHS\}/,
+    "src/components/public-v2/HomePageV2.jsx": /HomeAtlasGraphicV2/,
     "src/app/7-cest/page.jsx": /PansofieVisualEngine mode="paths"/,
     "src/app/16-oblasti/page.jsx": /PansofieVisualEngine mode="domains"/,
     "src/app/projekty/page.jsx": /PansofieVisualEngine mode="projects"/,

@@ -60,16 +60,16 @@ test("public homepage renders canonical 16 areas, seven paths and six-phase meth
   assert.equal(DOMAIN_DETAILS.length, 16);
   assert.equal(PATHS.length, 7);
   assert.deepEqual(LEARNING_METHOD, ["Poznej", "Hraj", "Udělej", "Vytvoř", "Sdílej", "Reflektuj"]);
-  const home = readFileSync("src/app/page.jsx", "utf8");
-  assert.match(home, /PUBLIC_DOMAINS\.map/);
-  assert.match(home, /PUBLIC_PATHS\.map/);
-  assert.match(home, /LEARNING_METHOD\.map/);
+  const home = readFileSync("src/components/public-v2/HomePageV2.jsx", "utf8");
+  assert.match(home, /PUBLIC_DOMAINS_V2\.map/);
+  assert.match(home, /PUBLIC_PATHS_V2\.map/);
+  assert.match(home, /MethodSequenceV2/);
 });
 
 test("public homepage uses the adult Pansofie asset namespace and avoids fake scale metrics", () => {
-  const home = readFileSync("src/app/page.jsx", "utf8");
-  assert.match(home, /PansofieArtPanel/);
-  assert.doesNotMatch(home, /hero-community-left-safe-16x9/);
+  const home = readFileSync("src/components/public-v2/HomePageV2.jsx", "utf8");
+  assert.match(home, /HomeAtlasGraphicV2/);
+  assert.doesNotMatch(home, /PansofieArtPanel|PansofieDocumentary|hero-community-left-safe-16x9/);
   assert.doesNotMatch(home, /1000\+|tisíc projektů|žebříčk/i);
   assert.match(home, /Modelový projekt/);
 });
@@ -226,17 +226,14 @@ test("M6.6 normalizes public title templates without duplicated brand suffixes",
   assert.match(youngLayout, /template: "%s \| Pansofie Young"/);
 });
 
-test("editorial homepage connects city, generations, circularity and responsible AI without fake claims", () => {
-  const home = readFileSync("src/app/page.jsx", "utf8");
-  const shell = readFileSync("src/components/public/PublicShell.jsx", "utf8");
-  assert.match(home, /Lepší svět/);
+test("W2 homepage connects paths, domains, action, generations, community and impact without fake claims", () => {
+  const home = readFileSync("src/components/public-v2/HomePageV2.jsx", "utf8");
+  assert.match(home, /Rozumět světu/);
   assert.match(home, /Příležitost, ne povinnost/);
-  assert.match(home, /OD KOMENSKÉHO K AI/);
-  assert.match(home, /AI jako nástroj/);
-  assert.match(home, /Mikrogreens a městské pěstování/);
-  assert.match(home, /Druhá šance pro materiál/);
-  assert.match(home, /Generace si mají co předat/);
-  assert.match(shell, /Lidé · vědění · kontext · změna/);
+  assert.match(home, /Učíme se jeden od druhého/);
+  assert.match(home, /Komunita, ne feed/);
+  assert.match(home, /Dopad není jedno číslo/);
+  assert.match(home, /Od poznání k činu/);
   assert.doesNotMatch(home, /ověřený partner|naměřený dopad|1000\+|40 000\+/i);
 });
 
@@ -326,7 +323,7 @@ test("M6.11 completes the people, knowledge and place editorial layer", () => {
 
 test("M6.12 builds a clear public bridge from Pansofie into GO without merging GO with Young", () => {
   const go = readFileSync("src/app/pansofie-go/page.jsx", "utf8");
-  const home = readFileSync("src/app/page.jsx", "utf8");
+  const home = readFileSync("src/components/public-v2/HomePageV2.jsx", "utf8");
   const how = readFileSync("src/app/jak-to-funguje/page.jsx", "utf8");
 
   assert.match(go, /EditorialFeatureBand/);
@@ -343,8 +340,9 @@ test("M6.12 builds a clear public bridge from Pansofie into GO without merging G
   assert.doesNotMatch(go, /Young\s*[=/·-]+\s*GO|GO\s*[=/·-]+\s*Young/i);
   assert.doesNotMatch(go, /veřejný žebříček|XP.*hodnotu člověka.*je/i);
 
-  assert.match(home, /Jak se z poznání stává akce v PansofieGO/);
-  assert.match(home, /Aplikace pro celý ekosystém Pansofie/);
+  assert.match(home, /GoBridgeV2/);
+  assert.match(home, /Od poznání k činu/);
+  assert.match(home, /href="\/pansofie-go"/);
   assert.match(how, /Když chce člověk pokračovat do praxe, přichází PansofieGO/);
   assert.match(how, /href="\/pansofie-go"/);
 });
@@ -428,14 +426,14 @@ test("M6.16 presents Pansofie GO primarily as a location-based game without publ
 });
 
 
-test("M6.17 turns the generated visual direction into real responsive public UI", () => {
-  const home = readFileSync("src/app/page.jsx", "utf8");
-  const css = readFileSync("src/app/public-pansofie.css", "utf8");
-  assert.match(home, /VISUAL_ENTRY_POINTS/);
-  assert.match(home, /pw-home-gateway/);
-  assert.match(css, /\.pw-visual-hero/);
-  assert.match(css, /\.pw-visual-card-strip/);
-  assert.match(css, /\.pw-mini-pill-grid/);
+test("W2 homepage uses the responsive public-v2 visual system while unmigrated routes keep V1", () => {
+  const home = readFileSync("src/components/public-v2/HomePageV2.jsx", "utf8");
+  const css = readFileSync("src/app/pansofie-v2.css", "utf8");
+  assert.match(home, /HomeAtlasGraphicV2/);
+  assert.match(home, /ps2-home-paths__grid/);
+  assert.match(css, /\.ps2-home-hero/);
+  assert.match(css, /\.ps2-home-programs__grid/);
+  assert.match(css, /\.ps2-home-audience__grid/);
   for (const route of ["labs", "komunita", "partneri", "dobrovolnictvi", "partnerstvi"]) {
     const source = readFileSync(`src/app/${route}/page.jsx`, "utf8");
     assert.match(source, /pw-visual-hero/);
