@@ -10,9 +10,9 @@ test("W2.9 mission and values preserve all four distinct themes",()=>{
  for(const phrase of ["Rozvoj člověka","Silné komunity","Udržitelná budoucnost","Skutečný přínos","Respekt k přírodě","Spolupráce","Odvaha tvořit","Odpovědnost"]) assert.ok(page.includes(phrase),phrase);
 });
 test("W2.9 images resolve to real local assets, never fictional documents",()=>{
- const sources=[...page.matchAll(/(?:photo: |src=)("[^"]+\.(?:webp|png)")+?/g)].map(m=>m[1].slice(1,-1));
+ const sources=[...page.matchAll(/(?:photo: |src=)("[^"]+\.(?:webp|png|avif)")+?/g)].map(m=>m[1].slice(1,-1));
  assert.ok(sources.length>=7);
- for(const src of sources){assert.ok(src.startsWith("/assets/")||src.startsWith("/art/"),src);assert.ok(existsSync("public"+src),"Missing "+src);}
+ for(const src of sources){assert.ok(src.startsWith("/assets/"),"Legacy media library not allowed: "+src);assert.ok(existsSync("public"+src),"Missing "+src);}
  assert.match(page,/AI ilustrační/);
 });
 test("W2.9 has functional CTA destinations and responsive text contrast",()=>{
@@ -26,4 +26,14 @@ test("W2.9 does not fabricate verified partners, quantified impacts or a Komensk
  assert.doesNotMatch(page,/naměřený dopad|ověření partneři|\d+\s*(kg|t)\s*CO2/i);
  assert.doesNotMatch(page,/Vzdělání není příprava na život/);
  assert.match(page,/odkaz Jana Amose Komenského/);
+});
+
+test("W2.9.1 Komenský používá schválený dub, nikoliv zakázanou starou knihovnu",()=>{
+  assert.match(page,/src="\/assets\/brand-v2\/editorial\/about-komensky-oak\.avif"/);
+  assert.doesNotMatch(page,/\/art\/pansofie-v1\//);
+  assert.ok(existsSync("public/assets/brand-v2/editorial/about-komensky-oak.avif"));
+  const data=readFileSync("public/assets/brand-v2/editorial/about-komensky-oak.avif");
+  assert.ok(data.byteLength>6000,"Image content is missing");
+  assert.equal(data.subarray(4,8).toString("ascii"),"ftyp","Imported asset must be AVIF");
+  assert.match(css,/\.ps2-about__wisdom>img\.ps2-about__wisdom-photo/);
 });

@@ -81,7 +81,7 @@ export default function AboutPage() {
       </section>
 
       <section className="ps2-about__wisdom ps2-about__width" aria-labelledby="ps2-about-wisdom-title">
-        <Image src="/art/pansofie-v1/hero-tree.webp" fill sizes="100vw" alt="Ilustrační strom ozářený sluncem"/>
+        <Image className="ps2-about__wisdom-photo" src="/assets/brand-v2/editorial/about-komensky-oak.avif" width={700} height={275} sizes="(max-width: 740px) 100vw, 760px" alt="Schválený ilustrační dub za zlatého světla v krajině" />
         <div className="ps2-about__wisdom-copy">
           <p className="ps2-about__eyebrow">ODKAZ KOMENSKÉHO</p>
           <h2 id="ps2-about-wisdom-title">Učení není oddělené od života. Je jeho součástí.</h2>

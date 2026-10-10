@@ -3158,3 +3158,32 @@
 /* W2.9 typography */
 .ps2-about__eyebrow{font-family:inherit;font-size:.69rem;font-weight:800;line-height:1.3}
 .ps2-about__mission-list h3{font-family:inherit;font-size:.72rem;font-weight:800;line-height:1.35}
+
+/* W2.9.1: Komensky banner uses ONLY the approved W2.9 oak master.
+   The original /art/pansofie-v1/ library is forbidden on /o-nas. */
+.ps2-about__wisdom{background:#faf4e8;min-height:280px;grid-template-columns:1fr 1fr}
+.ps2-about__wisdom>img.ps2-about__wisdom-photo{
+  position:absolute;inset:0 auto 0 0;width:62%;height:100%;
+  object-fit:cover;object-position:35% center;z-index:-2
+}
+.ps2-about__wisdom::after{
+  background:linear-gradient(90deg,
+    rgba(250,246,236,0) 18%,
+    rgba(250,246,236,.10) 30%,
+    rgba(250,246,236,.78) 47%,
+    #faf6ec 62%,#faf6ec 100%)
+}
+.ps2-about__wisdom-copy{padding:32px 32px 32px 10px}
+@media(max-width:740px){
+  .ps2-about__wisdom{min-height:440px;grid-template-columns:1fr;align-items:end}
+  .ps2-about__wisdom>img.ps2-about__wisdom-photo{
+    inset:0 0 auto 0;width:100%;height:69%;
+    object-position:46% center
+  }
+  .ps2-about__wisdom::after{
+    background:linear-gradient(0deg,
+      #faf6ec 0%,rgba(250,246,236,.96) 37%,
+      rgba(250,246,236,.08) 80%)
+  }
+  .ps2-about__wisdom-copy{padding:155px 22px 26px}
+}
