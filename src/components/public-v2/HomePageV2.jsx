@@ -118,7 +118,7 @@ function Pillars() {
       <div className="ps2-mockup-pillars">
         {pillars.map((pillar) => <article key={pillar.title}>
           <span className={"ps2-mockup-pillar-icon ps2-mockup-pillar-icon--" + pillar.symbol} aria-hidden="true">
-            {pillar.symbol === "tree" ? <Image src="/assets/brand-v2/identity/pansofie-mark.svg" alt="" width={58} height={58}/> : pillar.symbol === "book" ? <BookOpen size={48} strokeWidth={1.5}/> : <Compass size={48} strokeWidth={1.5}/>}
+            {pillar.symbol === "tree" ? <Image src="/assets/brand-v2/identity/pansofie-tree-approved.svg" alt="" width={68} height={68}/> : pillar.symbol === "book" ? <BookOpen size={48} strokeWidth={1.5}/> : <Compass size={48} strokeWidth={1.5}/>}
           </span>
           <div><h2>{pillar.title}</h2><p>{pillar.description}</p></div>
         </article>)}
@@ -229,7 +229,7 @@ const PROGRAM_PHOTOS = Object.freeze({
   family: "hero-main.webp", knowledge: "path-relationships.webp"
 });
 function ProgramsSection() {
-  const all = [...PROGRAM_SPOTLIGHTS, ...PROGRAMS];
+  const all = [...PROGRAM_SPOTLIGHTS, ...PROGRAMS.filter((program) => !["family", "knowledge"].includes(program.variant))];
   return <section className="ps2-home-programs ps2-w27-programs" id="programy">
     <div className="ps2-home-wrap">
       <div className="ps2-w27-programs__head">
@@ -238,12 +238,9 @@ function ProgramsSection() {
           <h2>Tři cesty, jeden ekosystém.</h2>
           <p>Propojujeme poznání, vzdělávání a komunitu. Každý program nabízí cestu k reálným zkušenostem a smysluplné spolupráci.</p>
         </div>
-        <Link className="ps2-button ps2-button--secondary" href="/projekty">Všechny projekty <ArrowRight size={16}/></Link>
       </div>
       <div className="ps2-w27-programs__grid">
         {all.map((program) => <Link href={program.href} key={program.title} className={"ps2-w27-program ps2-w27-program--" + program.variant}>
-          {program.variant === "family" && <span className="ps2-w27-anchor" id="rodina"/>}
-          {program.variant === "knowledge" && <span className="ps2-w27-anchor" id="komunita"/>}
           <div className="ps2-w27-program__photo">
             <Image src={"/assets/brand-v2/editorial/" + (program.photo || PROGRAM_PHOTOS[program.variant])}
               alt={"AI ilustrační fotografie k tématu " + program.title} fill sizes="(max-width: 680px) 100vw, (max-width: 1100px) 50vw, 33vw"/>
@@ -254,10 +251,23 @@ function ProgramsSection() {
             <p>{program.text}</p>
             <span>{program.action || "Prozkoumat"} <ArrowRight size={15}/></span>
           </div>
-          {program.status && <span className="ps2-w27-program__truth"><TruthBadgeV2 state={program.status}/></span>}
         </Link>)}
+        <article className="ps2-w28-family" aria-labelledby="ps2-w28-family-heading">
+          <span id="rodina" className="ps2-w27-anchor" />
+          <span id="komunita" className="ps2-w27-anchor" />
+          <Image src="/assets/brand-v2/editorial/hero-main.webp" alt="" fill sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 66vw"/>
+          <div className="ps2-w28-family__content">
+            <p className="ps2-w27-program__eyebrow">Rodina, generace a společné učení</p>
+            <h3 id="ps2-w28-family-heading">Family Team <span>&amp;</span> Knowledge Exchange</h3>
+            <p>Učíme se jeden od druhého. Rodina může tvořit společně a zkušenosti mohou přecházet mezi generacemi oběma směry.</p>
+            <div className="ps2-w28-family__actions">
+              <Link href="/family-team">Family Team <ArrowRight size={15}/></Link>
+              <Link href="/sit">Knowledge Exchange <ArrowRight size={15}/></Link>
+            </div>
+          </div>
+        </article>
       </div>
-      <p className="ps2-w27-programs__note">AI ilustrační fotografie představují témata programů, nikoli dokumentaci skutečně uskutečněných akcí.</p>
+      <p className="ps2-w27-programs__note">Ilustrační AI fotografie nejsou dokumentací uskutečněných akcí. Green Hope je modelový projekt, Digitální kompost prototyp a Labs koncept.</p>
     </div>
   </section>;
 }

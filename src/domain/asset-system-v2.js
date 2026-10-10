@@ -44,7 +44,7 @@ function assertId(ids, id, label) {
 }
 
 export function brandMarkV2() {
-  return PUBLIC_V2_ASSET_BASE + "/identity/pansofie-mark.svg";
+  return PUBLIC_V2_ASSET_BASE + "/identity/pansofie-tree-approved.svg";
 }
 
 export function pathIconV2(id) {

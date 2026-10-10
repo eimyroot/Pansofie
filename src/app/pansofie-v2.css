@@ -2998,3 +2998,58 @@
 
 .ps2-w27-anchor{position:absolute;left:0;top:0;z-index:3;scroll-margin-top:100px}
 .ps2-w27-method .ps2-method--icons strong{font-family:inherit;font-size:.85rem;font-weight:700;line-height:1.2}
+
+/* W2.8 HOMEPAGE POLISH: approved tree, readable overlays, intentional program rhythm */
+.ps2-mockup-pillars .ps2-mockup-pillar-icon--tree{flex-basis:70px;min-width:70px}
+.ps2-mockup-pillars .ps2-mockup-pillar-icon--tree img{width:66px;height:66px;object-fit:contain}
+.ps2-mockup-hero__quote{max-width:260px;padding:16px 20px;border:1px solid rgba(255,255,255,.20);border-radius:14px;background:linear-gradient(120deg,rgba(10,35,27,.82),rgba(10,35,27,.63));box-shadow:0 12px 28px rgba(0,0,0,.14);text-shadow:0 2px 5px rgba(0,0,0,.75)}
+.ps2-mockup-hero__quote p{color:#fffefa}
+.ps2-mockup-hero__quote cite{color:#f8f3dc;font-weight:700}
+.ps2-home-story__copy .ps2-relation{background:#194a38;color:#fffdf3;border:1px solid rgba(248,251,240,.14);box-shadow:0 18px 38px rgba(20,52,40,.13)}
+.ps2-home-story__copy .ps2-relation .ps2-relation__meta{color:#e9f1e4}
+.ps2-home-story__copy .ps2-relation h3{color:#fffdf4}
+.ps2-home-story__copy .ps2-relation>p{color:#e9f1e5}
+.ps2-home-story__copy .ps2-relation dt{color:#e5ebd8}
+.ps2-home-story__copy .ps2-relation dd{color:#fffdf4}
+.ps2-w27-go .ps2-go-bridge{gap:0}
+.ps2-w27-go .ps2-go-bridge>div{display:flex;flex-direction:column;align-items:flex-start}
+.ps2-w27-go .ps2-go-bridge>div h2{margin:15px 0 26px;line-height:1.04}
+.ps2-w27-go .ps2-go-bridge>div>p:last-child{margin:0;max-width:53ch;line-height:1.7}
+.ps2-w27-go .ps2-go-bridge>.ps2-button{margin:32px 0 0!important;min-height:49px;padding:13px 23px}
+.ps2-w27-go__notice{margin:28px 0 0;padding:13px 18px;line-height:1.45;max-width:fit-content}
+.ps2-w27-programs__head{max-width:950px}
+.ps2-w27-programs__head h2{max-width:none}
+.ps2-w27-programs__grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:15px}
+.ps2-w27-program{min-height:255px}
+.ps2-w27-program:nth-child(4),.ps2-w27-program:nth-child(5){grid-column:span 3;min-height:300px}
+.ps2-w27-program:nth-child(6){grid-column:span 2;min-height:275px}
+.ps2-w28-family{grid-column:span 4;position:relative;min-height:275px;overflow:hidden;border:1px solid #e6ded0;border-radius:18px;box-shadow:0 13px 30px #193d2712;background:#fffaf0}
+.ps2-w28-family>img{object-fit:cover;object-position:center 58%}
+.ps2-w28-family:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(255,251,240,.99) 0%,rgba(255,251,240,.93) 43%,rgba(255,251,240,.08) 100%)}
+.ps2-w28-family__content{position:relative;z-index:2;max-width:min(70%,485px);padding:31px 28px;display:flex;flex-direction:column;justify-content:center;min-height:275px;gap:12px}
+.ps2-w28-family__content h3{font:650 clamp(1.55rem,2.4vw,2.35rem)/1.06 var(--ps2-display);color:#123d2d}
+.ps2-w28-family__content h3 span{color:#ad583d}
+.ps2-w28-family__content>p:not(.ps2-w27-program__eyebrow){color:#405746;font-size:.9rem;line-height:1.5}
+.ps2-w28-family__actions{display:flex;flex-wrap:wrap;gap:10px}
+.ps2-w28-family__actions a{display:inline-flex;align-items:center;gap:7px;padding:10px 13px;border:1px solid #2d644c;border-radius:24px;color:#164632;background:#fffdf5;font-size:.76rem;font-weight:800}
+.ps2-w28-family__actions a:hover,.ps2-w28-family__actions a:focus-visible{background:#194b37;color:#fff}
+.ps2-w27-programs__note{max-width:92ch;line-height:1.5;color:#4e6054}
+@media(max-width:980px){
+.ps2-w27-program:nth-child(4),.ps2-w27-program:nth-child(5),.ps2-w27-program:nth-child(6),.ps2-w28-family{grid-column:span 3}
+.ps2-w28-family__content{max-width:89%;padding:25px 20px}
+.ps2-w28-family:before{background:linear-gradient(90deg,rgba(255,251,240,.98),rgba(255,251,240,.73) 72%,rgba(255,251,240,.35))}
+}
+@media(max-width:700px){
+.ps2-mockup-hero__quote{right:14px;bottom:23px;padding:10px 13px;max-width:195px}
+.ps2-mockup-hero__quote p{font-size:1.01rem}
+.ps2-mockup-pillars .ps2-mockup-pillar-icon--tree{flex-basis:62px;min-width:62px}
+.ps2-mockup-pillars .ps2-mockup-pillar-icon--tree img{width:58px;height:58px}
+.ps2-w27-go .ps2-go-bridge>div h2{margin-bottom:22px}
+.ps2-w27-go .ps2-go-bridge>.ps2-button{margin-top:27px!important}
+.ps2-w27-go__notice{margin-top:24px}
+.ps2-w27-program:nth-child(4),.ps2-w27-program:nth-child(5),.ps2-w27-program:nth-child(6),.ps2-w28-family{grid-column:1;min-height:245px}
+.ps2-w28-family__content{max-width:85%;min-height:245px}
+.ps2-w28-family__content h3{font-size:1.5rem}
+.ps2-w28-family__actions{gap:6px}
+.ps2-w28-family__actions a{padding:8px 10px}
+}
