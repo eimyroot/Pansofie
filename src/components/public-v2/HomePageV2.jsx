@@ -1,10 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight, BookOpen, Compass, PlayCircle, Leaf, Sprout, MapPin } from "lucide-react";
 import { DomainIconV2 } from "./DomainIconV2";
 import { GoBridgeV2 } from "./GoBridgeV2";
-import { HomeAtlasGraphicV2 } from "./HomeAtlasGraphicV2";
 import { ImpactDimensionsV2 } from "./ImpactDimensionsV2";
 import { MethodSequenceV2 } from "./MethodSequenceV2";
-import { PathEmblemV2 } from "./PathEmblemV2";
 import { PublicShellV2 } from "./PublicShellV2";
 import { SectionHeadingV2 } from "./SectionHeadingV2";
 import { SourceBackedRelationV2 } from "./SourceBackedRelationV2";
@@ -45,7 +45,7 @@ const PROGRAMS = Object.freeze([
   {
     title: "Digitální kompost",
     eyebrow: "Materiály v oběhu",
-    text: "Co už nepotřebuje jeden, může v bezpečném kontextu posloužit druhému.",
+    text: "Využitelné zbytkové materiály firem propojujeme s blízkými školami pro tvoření, opravy a praktickou výuku.",
     href: "/digitalni-kompost",
     status: "PROTOTYPE",
     variant: "circular",
@@ -108,86 +108,78 @@ const AUDIENCES = Object.freeze([
 ]);
 
 function Pillars() {
-  const items = [
-    { number: "01", title: "Pansofie", text: "Poznávat svět v souvislostech." },
-    { number: "02", title: "Pampaedie", text: "Učit se celý život a jeden od druhého." },
-    { number: "03", title: "Panorthosie", text: "Proměňovat poznání v dobré změny kolem sebe." },
+  const pillars = [
+    { title: "Pansofie", description: "Poznávat svět v souvislostech. Propojovat vědění, hodnoty, přírodu a společnost do smysluplného celku.", symbol: "tree" },
+    { title: "Pampaedie", description: "Učit se celý život a jeden od druhého. Vzdělávání pro všechny generace, zkušenosti, praxi i spolupráci.", symbol: "book" },
+    { title: "Panorthosie", description: "Proměňovat poznání v dobré změny. Poznání má smysl, když napravuje svět a skutečně mění život.", symbol: "compass" },
   ];
-
-  return <section className="ps2-home-pillars" id="filozofie">
+  return <section className="ps2-home-pillars ps2-home-pillars--mockup" id="filozofie" aria-label="Tři principy Pansofie">
     <div className="ps2-home-wrap">
-      <SectionHeadingV2
-        eyebrow="PROČ PANSOFIE EXISTUJE"
-        title="Poznat. Učit se. Proměňovat."
-        body="Pansofie nevnímá vědění jako izolované předměty. Spojuje porozumění světu, celoživotní učení a schopnost něco konkrétního zlepšit kolem sebe."
-      />
-      <div className="ps2-home-pillars__grid">
-        {items.map((item) => <article key={item.number}>
-          <span>{item.number}</span>
-          <h3>{item.title}</h3>
-          <p>{item.text}</p>
+      <div className="ps2-mockup-pillars">
+        {pillars.map((pillar) => <article key={pillar.title}>
+          <span className={"ps2-mockup-pillar-icon ps2-mockup-pillar-icon--" + pillar.symbol} aria-hidden="true">
+            {pillar.symbol === "tree" ? <Image src="/assets/brand-v2/identity/pansofie-mark.svg" alt="" width={58} height={58}/> : pillar.symbol === "book" ? <BookOpen size={48} strokeWidth={1.5}/> : <Compass size={48} strokeWidth={1.5}/>}
+          </span>
+          <div><h2>{pillar.title}</h2><p>{pillar.description}</p></div>
         </article>)}
       </div>
     </div>
   </section>;
 }
 
+const PATH_PHOTOS = Object.freeze({
+  body: "path-body.webp", mind: "path-mind.webp", character: "path-character.webp",
+  relationships: "path-relationships.webp", creativity: "path-creativity.webp",
+  prosperity: "path-prosperity.webp", meaning: "path-meaning.webp",
+});
+
 function PathsSection() {
-  return <section className="ps2-home-paths" id="cesty">
+  return <section className="ps2-home-paths ps2-home-paths--mockup" id="cesty">
     <div className="ps2-home-wrap">
-      <SectionHeadingV2
-        eyebrow="7 CEST"
-        title="Sedm cest člověka."
-        body="Sedm pohledů na život. Ne sedm oddělených disciplín. Cesty dávají orientaci, oblasti pod nimi přidávají hloubku."
-      />
-      <div className="ps2-home-paths__grid">
-        {PUBLIC_PATHS_V2.map((path) => <Link className="ps2-home-path-card" href={"/7-cest#" + path.id} key={path.id}>
-          <div className="ps2-home-path-card__top">
-            <span>{String(path.order).padStart(2, "0")}</span>
-            <PathEmblemV2 pathId={path.id} size={44}/>
-          </div>
-          <small>{path.facetCs}</small>
-          <h3>{path.labelCs}</h3>
-          <p>{path.principleCs}</p>
-          <strong>Prozkoumat →</strong>
+      <div className="ps2-mockup-section-header">
+        <div><p className="ps2-eyebrow">01 / Sedm cest</p><h2>7 cest k naplněnému životu</h2></div>
+        <Link href="/7-cest">Prozkoumat všechny cesty <ArrowRight size={17}/></Link>
+      </div>
+      <div className="ps2-mockup-path-grid">
+        {PUBLIC_PATHS_V2.map((path) => <Link className="ps2-mockup-path" href={"/7-cest#" + path.id} key={path.id}>
+          <span className="ps2-mockup-path__image"><Image src={"/assets/brand-v2/editorial/" + PATH_PHOTOS[path.id]} alt={"Ilustrační AI-vizuál cesty " + path.labelCs} fill sizes="(max-width: 600px) 120px, 180px"/></span>
+          <strong>{path.labelCs}</strong>
+          <span className="ps2-mockup-path__text">{path.facetCs || path.principleCs}</span>
         </Link>)}
       </div>
-      <div className="ps2-home-inline-action"><Link href="/7-cest">Otevřít přehled 7 cest →</Link></div>
     </div>
   </section>;
 }
 
 function DomainsSection() {
-  return <section className="ps2-home-domains" id="oblasti">
+  return <section className="ps2-home-domains ps2-home-domains--mockup" id="oblasti">
     <div className="ps2-home-wrap">
-      <SectionHeadingV2
-        eyebrow="16 OBLASTÍ"
-        title="Život je širší než jeden předmět."
-        body="Šestnáct oblastí tvoří hlubší mapu poznání a zkušenosti. Zůstávají vizuálně tišší než sedm cest, protože mají přidávat hloubku, ne soutěžit o pozornost."
-      />
-      <div className="ps2-home-domains__grid">
-        {PUBLIC_DOMAINS_V2.map((domain) => <Link className="ps2-home-domain-card" href={"/16-oblasti#" + domain.id} key={domain.id}>
+      <div className="ps2-mockup-section-header">
+        <div><p className="ps2-eyebrow">02 / Oblasti života</p><h2>16 oblastí života a poznání</h2></div>
+        <Link href="/16-oblasti">Prozkoumat všech 16 oblastí <ArrowRight size={17}/></Link>
+      </div>
+      <div className="ps2-mockup-domains">
+        {PUBLIC_DOMAINS_V2.map((domain) => <Link className="ps2-mockup-domain" href={"/16-oblasti#" + domain.id} key={domain.id}>
           <DomainIconV2 domainId={domain.id} size={30}/>
-          <span>{String(domain.order).padStart(2, "0")}</span>
-          <strong>{domain.labelCs}</strong>
-          <small>{domain.labelEn}</small>
+          <span>{domain.labelCs}</span>
         </Link>)}
       </div>
-      <div className="ps2-home-inline-action"><Link href="/16-oblasti">Otevřít všech 16 oblastí →</Link></div>
     </div>
   </section>;
 }
 
 function MethodSection() {
-  return <section className="ps2-home-method" id="metoda">
-    <div className="ps2-home-wrap">
-      <SectionHeadingV2
-        eyebrow="PANSOFIE METHOD"
-        title="Poznání nekončí u přečtení."
-        body="Poznej, hraj, udělej, vytvoř, sdílej, reflektuj. Někdy všemi kroky, jindy jen několika. Je to rytmus zkušenosti, ne povinný formulář."
-      />
-      <MethodSequenceV2/>
-      <p className="ps2-home-method__note">Příležitost, ne povinnost. Důkaz ani reflexe nejsou automatickou vstupenkou k účasti.</p>
+  return <section className="ps2-home-method ps2-w27-method" id="metoda" aria-labelledby="ps2-w27-method-heading">
+    <div className="ps2-home-wrap ps2-w27-method__layout">
+      <div className="ps2-w27-method__intro">
+        <p className="ps2-eyebrow">PANSOFIE METHOD</p>
+        <h2 id="ps2-w27-method-heading">Učení, které vede k životu.</h2>
+        <p>Jednoduchá a přirozená cesta od poznání k reálné zkušenosti a dobrým změnám.</p>
+        <Link className="ps2-button ps2-button--inverse" href="/jak-to-funguje">Zjistit více o metodě <ArrowRight size={16}/></Link>
+      </div>
+      <div className="ps2-w27-method__steps"><MethodSequenceV2 compact icons/>
+        <p>Příležitost, ne povinnost. Šest kroků jako možnost, nikoli povinné hodnocení.</p>
+      </div>
     </div>
   </section>;
 }
@@ -197,17 +189,9 @@ function GreenHopeStory() {
 
   return <section className="ps2-home-story" id="green-hope">
     <div className="ps2-home-wrap ps2-home-story__grid">
-      <div
-        className="ps2-home-story__art"
-        aria-label="Koncept Green Hope vizuálu: půda, růst a vztahy. Finální dokumentární fotografie čeká na rights a truth gate."
-      >
-        <div className="ps2-home-story__soil"></div>
-        <div className="ps2-home-story__stem"></div>
-        <div className="ps2-home-story__leaf ps2-home-story__leaf--a"></div>
-        <div className="ps2-home-story__leaf ps2-home-story__leaf--b"></div>
-        <div className="ps2-home-story__rings"></div>
-        <TruthBadgeV2 state="CONCEPT"/>
-        <span className="ps2-home-story__caption">NEW DOCUMENTARY MASTER PENDING · žádný legacy fallback</span>
+      <div className="ps2-home-story__art ps2-home-story__art--mockup" aria-label="AI-generovaná ilustrační fotografie společného sázení stromů pro modelový projekt Green Hope.">
+        <Image src="/assets/brand-v2/editorial/project-green-hope.webp" alt="Ilustrační scéna dobrovolníků sázejících stromky" fill sizes="(max-width: 900px) 100vw, 50vw"/>
+        <div className="ps2-mockup-story__badge"><TruthBadgeV2 state="CONCEPT"/><span>Ilustrační AI-vizuál, nikoli fotodokumentace projektu</span></div>
       </div>
 
       <div className="ps2-home-story__copy">
@@ -235,96 +219,45 @@ function GreenHopeStory() {
   </section>;
 }
 
+const PROGRAM_SPOTLIGHTS = Object.freeze([
+  { title: "PANSOFIE YOUNG", eyebrow: "Pro mladé", text: "Pro mladé, kteří chtějí poznávat, tvořit a měnit svět kolem sebe.", href: "/young", variant: "young", photo: "path-relationships.webp", action: "Objevit Young" },
+  { title: "PANSOFIE GO", eyebrow: "Od poznání k činu", text: "Mise a projekty jako cesta k reálné zkušenosti. Aplikaci postupně připravujeme.", href: "/pansofie-go", variant: "go", photo: "path-character.webp", action: "Prohlédnout GO" }
+]);
+const PROGRAM_PHOTOS = Object.freeze({
+  nature: "project-green-hope.webp", farm: "path-prosperity.webp",
+  circular: "path-creativity.webp", lab: "path-mind.webp",
+  family: "hero-main.webp", knowledge: "path-relationships.webp"
+});
 function ProgramsSection() {
-  return <section className="ps2-home-programs" id="programy">
+  const all = [...PROGRAM_SPOTLIGHTS, ...PROGRAMS];
+  return <section className="ps2-home-programs ps2-w27-programs" id="programy">
     <div className="ps2-home-wrap">
-      <SectionHeadingV2
-        eyebrow="PROGRAMY A PROJEKTY"
-        title="Kde Pansofie žije v praxi."
-        body="Každý program musí ukázat, co se skutečně děje v reálném světě. Bez inventovaných metrik a bez generického „inovujeme budoucnost“."
-      />
-      <div className="ps2-home-programs__grid">
-        {PROGRAMS.map((program, index) => <Link className={"ps2-home-program ps2-home-program--" + program.variant} href={program.href} key={program.title}>
-          <div className="ps2-home-program__visual" aria-hidden="true">
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <i></i><i></i><i></i>
+      <div className="ps2-w27-programs__head">
+        <div>
+          <p className="ps2-eyebrow">NAŠE PROJEKTY A PROGRAMY</p>
+          <h2>Tři cesty, jeden ekosystém.</h2>
+          <p>Propojujeme poznání, vzdělávání a komunitu. Každý program nabízí cestu k reálným zkušenostem a smysluplné spolupráci.</p>
+        </div>
+        <Link className="ps2-button ps2-button--secondary" href="/projekty">Všechny projekty <ArrowRight size={16}/></Link>
+      </div>
+      <div className="ps2-w27-programs__grid">
+        {all.map((program) => <Link href={program.href} key={program.title} className={"ps2-w27-program ps2-w27-program--" + program.variant}>
+          {program.variant === "family" && <span className="ps2-w27-anchor" id="rodina"/>}
+          {program.variant === "knowledge" && <span className="ps2-w27-anchor" id="komunita"/>}
+          <div className="ps2-w27-program__photo">
+            <Image src={"/assets/brand-v2/editorial/" + (program.photo || PROGRAM_PHOTOS[program.variant])}
+              alt={"AI ilustrační fotografie k tématu " + program.title} fill sizes="(max-width: 680px) 100vw, (max-width: 1100px) 50vw, 33vw"/>
           </div>
-          <div className="ps2-home-program__copy">
-            <div className="ps2-home-program__meta">
-              <span>{program.eyebrow}</span>
-              {program.status && <TruthBadgeV2 state={program.status}/>}
-            </div>
+          <div className="ps2-w27-program__content">
+            <p className="ps2-w27-program__eyebrow">{program.eyebrow}</p>
             <h3>{program.title}</h3>
             <p>{program.text}</p>
-            <strong>Otevřít →</strong>
+            <span>{program.action || "Prozkoumat"} <ArrowRight size={15}/></span>
           </div>
+          {program.status && <span className="ps2-w27-program__truth"><TruthBadgeV2 state={program.status}/></span>}
         </Link>)}
       </div>
-    </div>
-  </section>;
-}
-
-function IntergenerationalSection() {
-  return <section className="ps2-home-intergen" id="rodina">
-    <div className="ps2-home-wrap ps2-home-intergen__grid">
-      <div>
-        <p className="ps2-eyebrow">RODINA A GENERACE</p>
-        <h2>Učíme se jeden od druhého.</h2>
-        <p>Mladší může předat digitální dovednost. Starší zkušenost, řemeslo nebo příběh. Pansofie počítá s učením jako obousměrným vztahem.</p>
-        <div className="ps2-home-intergen__actions">
-          <Link className="ps2-button ps2-button--primary" href="/family-team">Family Team</Link>
-          <Link className="ps2-home-text-link" href="/sit">Knowledge Exchange →</Link>
-        </div>
-      </div>
-      <div className="ps2-home-intergen__map" role="img" aria-label="Vztahová mapa mezigeneračního učení mezi mladším člověkem, rodinou, školou a starší generací.">
-        <svg viewBox="0 0 620 420" aria-hidden="true">
-          <path d="M112 216 C210 112 340 110 505 190"/>
-          <path d="M118 220 C230 300 356 330 512 230"/>
-          <path d="M310 72 C286 154 286 250 310 350"/>
-          <circle cx="112" cy="216" r="9"/>
-          <circle cx="310" cy="72" r="9"/>
-          <circle cx="310" cy="350" r="9"/>
-          <circle cx="512" cy="210" r="9"/>
-          <circle cx="310" cy="210" r="14"/>
-        </svg>
-        <span className="ps2-home-intergen__node ps2-home-intergen__node--a">Mladší</span>
-        <span className="ps2-home-intergen__node ps2-home-intergen__node--b">Rodina</span>
-        <span className="ps2-home-intergen__node ps2-home-intergen__node--c">Škola</span>
-        <span className="ps2-home-intergen__node ps2-home-intergen__node--d">Starší</span>
-        <strong>Vzájemnost</strong>
-      </div>
-    </div>
-  </section>;
-}
-
-function CommunitySection() {
-  return <section className="ps2-home-community" id="komunita">
-    <div className="ps2-home-wrap ps2-home-community__grid">
-      <div>
-        <p className="ps2-eyebrow">KOMUNITA A SÍŤ</p>
-        <h2>Komunita, ne feed.</h2>
-        <p>Lidé, místa, školy, organizace a projekty se propojují podle skutečného kontextu. Ne přes veřejný katalog lidí a ne podle toho, kdo vydrží nejdéle scrollovat.</p>
-        <Link className="ps2-button ps2-button--secondary" href="/komunita">Poznat komunitu a síť</Link>
-      </div>
-      <div className="ps2-home-network" role="img" aria-label="Koncept bezpečné vztahové sítě mezi lidmi, místy, projekty, rodinami, školami a organizacemi.">
-        <svg viewBox="0 0 680 470" aria-hidden="true">
-          <path d="M94 144 282 92 342 235 154 344 94 144Z"/>
-          <path d="M282 92 556 138 342 235 566 344 154 344"/>
-          <path d="M94 144 342 235 566 344"/>
-          <circle cx="94" cy="144" r="10"/>
-          <circle cx="282" cy="92" r="10"/>
-          <circle cx="342" cy="235" r="14"/>
-          <circle cx="556" cy="138" r="10"/>
-          <circle cx="566" cy="344" r="10"/>
-          <circle cx="154" cy="344" r="10"/>
-        </svg>
-        <span style={{ left: "8%", top: "22%" }}>Lidé</span>
-        <span style={{ left: "36%", top: "10%" }}>Místa</span>
-        <span style={{ left: "44%", top: "43%" }}>Projekty</span>
-        <span style={{ left: "78%", top: "22%" }}>Školy</span>
-        <span style={{ left: "78%", top: "73%" }}>Organizace</span>
-        <span style={{ left: "16%", top: "73%" }}>Rodiny</span>
-      </div>
+      <p className="ps2-w27-programs__note">AI ilustrační fotografie představují témata programů, nikoli dokumentaci skutečně uskutečněných akcí.</p>
     </div>
   </section>;
 }
@@ -364,42 +297,39 @@ function AudienceSection() {
 }
 
 function FinalSection() {
-  return <section className="ps2-home-final" id="zapoj-se">
-    <div className="ps2-home-wrap">
-      <p className="ps2-eyebrow">DALŠÍ KROK</p>
-      <h2>Začni tam, kde právě jsi.</h2>
-      <p>Nemusíš nejdřív projít celým systémem. Můžeš se podívat, najít svou cestu nebo rovnou otevřít konkrétní možnost v GO.</p>
-      <div className="ps2-home-final__actions">
-        <Link className="ps2-button ps2-button--primary" href="/o-nas">Objev Pansofii</Link>
-        <Link className="ps2-button ps2-button--secondary" href="/7-cest">Najdi svou cestu</Link>
-        <Link className="ps2-home-text-link" href="/pansofie-go">Otevři Pansofie GO →</Link>
+  return <section className="ps2-home-final ps2-w27-final" id="zapoj-se">
+    <div className="ps2-home-wrap ps2-w27-final__layout">
+      <div>
+        <p className="ps2-eyebrow">SPOLEČNĚ PRO LEPŠÍ SVĚT</p>
+        <h2>Staň se součástí Pansofie.</h2>
+        <p>Poznávej, uč se, propojuj a pomáhej s námi tvořit svět, ve kterém má smysl žít.</p>
+        <div className="ps2-home-final__actions">
+          <Link className="ps2-button ps2-button--inverse" href="/kontakt">Připojit se <ArrowRight size={16}/></Link>
+          <Link className="ps2-button ps2-button--secondary" href="/projekty">Prozkoumat projekty <ArrowRight size={16}/></Link>
+        </div>
       </div>
+      <blockquote>„Lepší svět nevznikne sám. Vznikne námi a tím, co společně děláme.“</blockquote>
     </div>
   </section>;
 }
 
 export function HomePageV2() {
   return <PublicShellV2 currentPath="/">
-    <section className="ps2-home-hero" id="objevuj">
-      <div className="ps2-home-hero__copy">
-        <p className="ps2-eyebrow">PANSOFIE · UČENÍ ŽIVOTEM</p>
-        <p className="ps2-home-hero__brandline">Poznej sebe. Rozvíjej svět.</p>
-        <h1>
-          <span>Rozumět světu.</span>
-          <span>Žít v něm vědoměji.</span>
-          <span>Tvořit ho společně.</span>
-        </h1>
-        <p className="ps2-home-hero__lead">Pansofie propojuje poznání se skutečným životem, vztahy, přírodou, tvorbou a konkrétními činy.</p>
-        <div className="ps2-home-hero__actions">
-          <Link className="ps2-button ps2-button--primary" href="/o-nas">Objev Pansofii</Link>
-          <Link className="ps2-button ps2-button--secondary" href="/7-cest">Začni svou cestu</Link>
-        </div>
-        <div className="ps2-home-hero__bridge">
-          <strong>Pansofie GO</strong>
-          <span>Mise a projekty ve skutečném světě. Až chceš přejít od porozumění k vlastní zkušenosti.</span>
+    <section className="ps2-home-hero ps2-home-hero--mockup" id="objevuj" aria-labelledby="pansofie-home-heading">
+      <Image className="ps2-mockup-hero__photo" src="/assets/brand-v2/editorial/hero-main.webp" alt="Ilustrační AI-vizuál lidí různých generací na horské vyhlídce při západu slunce." fill priority sizes="(max-width: 1440px) 100vw, 1440px"/>
+      <div className="ps2-mockup-hero__wash" aria-hidden="true"></div>
+      <div className="ps2-mockup-hero__copy">
+        <p className="ps2-mockup-hero__eyebrow">PANSOFIE · POZNÁNÍ V SOUVISLOSTECH</p>
+        <h1 id="pansofie-home-heading">PANSOFIE</h1>
+        <p className="ps2-mockup-hero__subtitle">Poznej sebe. Rozvíjej svět.</p>
+        <p className="ps2-mockup-hero__lead">Rozumět světu. Žít v něm vědomě. Tvořit ho společně.</p>
+        <div className="ps2-mockup-hero__actions">
+          <Link className="ps2-button ps2-button--primary" href="/o-nas">Objev Pansofii <ArrowRight size={17}/></Link>
+          <Link className="ps2-button ps2-button--secondary" href="/jak-to-funguje"><PlayCircle size={18}/> Jak to funguje</Link>
         </div>
       </div>
-      <HomeAtlasGraphicV2/>
+      <blockquote className="ps2-mockup-hero__quote"><p>„Všechno souvisí<br/>se vším.“</p><cite>J. A. KOMENSKÝ</cite></blockquote>
+      <span className="ps2-mockup-hero__credit">AI-generovaná ilustrační fotografie</span>
     </section>
 
     <Pillars/>
@@ -408,16 +338,33 @@ export function HomePageV2() {
     <MethodSection/>
     <GreenHopeStory/>
 
-    <section className="ps2-home-go">
-      <GoBridgeV2
-        title="Od poznání k činu."
-        text="V GO najdeš konkrétní mise, projekty a místa, kde můžeš něco skutečně udělat. Poloha se používá jen po tvé akci a poloha dítěte se veřejně nezobrazuje."
-      />
+    <section className="ps2-home-go ps2-w27-go">
+      <div className="ps2-w27-go__layout">
+        <div className="ps2-w27-go__copy">
+          <GoBridgeV2 title="Od poznání k činu."
+            text="Pansofie GO propojí mise, projekty a místa s reálnými aktivitami. Poloha se používá jen po tvé akci a poloha dítěte se veřejně nezobrazuje."
+            href="/pansofie-go" label="Prohlédnout Pansofie GO"/>
+          <p className="ps2-w27-go__notice"><Sprout size={17}/> Na aplikaci pracujeme. Toto je ukázka připravovaného prostředí.</p>
+        </div>
+        <div className="ps2-w27-go__phone" role="img" aria-label="Ilustrační náhled připravované mobilní aplikace Pansofie GO">
+          <div className="ps2-w27-go__phone-top"><span>9:41</span><span>● ▰ ▰</span></div>
+          <div className="ps2-w27-go__phone-brand"><Leaf size={18}/> PANSOFIE <strong>GO</strong></div>
+          <div className="ps2-w27-go__map" aria-hidden="true">
+            <span className="ps2-w27-go__pin ps2-w27-go__pin--one"><MapPin size={23}/></span>
+            <span className="ps2-w27-go__pin ps2-w27-go__pin--two"><MapPin size={23}/></span>
+            <span className="ps2-w27-go__pin ps2-w27-go__pin--three"><MapPin size={23}/></span>
+          </div>
+          <div className="ps2-w27-go__mission"><small>DOPORUČENÁ MISE</small>
+            <strong>Objev přírodní poklad</strong>
+            <p>Prozkoumej okolí a objev něco zajímavého.</p>
+            <span>🌿 Příroda · cca 30 minut</span>
+          </div>
+          <div className="ps2-w27-go__nav"><span>⌂ Domů</span><span>⌖ Mapa</span><span>✦ Mise</span><span>♙ Profil</span></div>
+        </div>
+      </div>
     </section>
 
     <ProgramsSection/>
-    <IntergenerationalSection/>
-    <CommunitySection/>
     <ImpactSection/>
     <AudienceSection/>
     <FinalSection/>

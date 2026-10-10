@@ -68,7 +68,8 @@ test("public homepage renders canonical 16 areas, seven paths and six-phase meth
 
 test("public homepage uses the adult Pansofie asset namespace and avoids fake scale metrics", () => {
   const home = readFileSync("src/components/public-v2/HomePageV2.jsx", "utf8");
-  assert.match(home, /HomeAtlasGraphicV2/);
+  assert.match(home, /hero-main\.webp/);
+  assert.match(home, /ps2-mockup-path-grid/);
   assert.doesNotMatch(home, /PansofieArtPanel|PansofieDocumentary|hero-community-left-safe-16x9/);
   assert.doesNotMatch(home, /1000\+|tisíc projektů|žebříčk/i);
   assert.match(home, /Modelový projekt/);
@@ -230,8 +231,10 @@ test("W2 homepage connects paths, domains, action, generations, community and im
   const home = readFileSync("src/components/public-v2/HomePageV2.jsx", "utf8");
   assert.match(home, /Rozumět světu/);
   assert.match(home, /Příležitost, ne povinnost/);
-  assert.match(home, /Učíme se jeden od druhého/);
-  assert.match(home, /Komunita, ne feed/);
+  assert.match(home, /Family Team/);
+  assert.match(home, /Knowledge Exchange/);
+  assert.match(home, /id="rodina"/);
+  assert.match(home, /id="komunita"/);
   assert.match(home, /Dopad není jedno číslo/);
   assert.match(home, /Od poznání k činu/);
   assert.doesNotMatch(home, /ověřený partner|naměřený dopad|1000\+|40 000\+/i);
@@ -429,8 +432,14 @@ test("M6.16 presents Pansofie GO primarily as a location-based game without publ
 test("W2 homepage uses the responsive public-v2 visual system while unmigrated routes keep V1", () => {
   const home = readFileSync("src/components/public-v2/HomePageV2.jsx", "utf8");
   const css = readFileSync("src/app/pansofie-v2.css", "utf8");
-  assert.match(home, /HomeAtlasGraphicV2/);
-  assert.match(home, /ps2-home-paths__grid/);
+  // W2.6–W2.7 replaces the legacy atlas with photo-backed editorial sections.
+  assert.match(home, /ps2-mockup-hero__photo/);
+  assert.match(home, /ps2-mockup-path-grid/);
+  assert.match(home, /ps2-mockup-domains/);
+  assert.match(home, /ps2-w27-programs/);
+  assert.match(home, /MethodSequenceV2 compact icons/);
+  assert.match(home, /Na aplikaci pracujeme/);
+  assert.doesNotMatch(home, /<IntergenerationalSection\/>|<CommunitySection\/>/);
   assert.match(css, /\.ps2-home-hero/);
   assert.match(css, /\.ps2-home-programs__grid/);
   assert.match(css, /\.ps2-home-audience__grid/);

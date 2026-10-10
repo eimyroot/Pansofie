@@ -17,8 +17,11 @@ test("Mockup 01 palette is a production contract", () => {
 test("Adult public visuals use Pansofie art language instead of stock as the default", () => {
   assert.match(art, /pa-routes/);
   assert.match(art, /pa-botanical/);
-  assert.match(home, /HomeAtlasGraphicV2/);
-  assert.doesNotMatch(home, /PansofieArtPanel|PansofieDocumentary|<Image/);
+  // The W2.6 homepage intentionally uses AI editorial imagery; legacy pages retain ArtPanel.
+  assert.match(home, /ps2-mockup-hero__photo/);
+  assert.match(home, /hero-main\.webp/);
+  assert.match(home, /ps2-mockup-path-grid/);
+  assert.doesNotMatch(home, /PansofieArtPanel|PansofieDocumentary|hero-community-left-safe-16x9/);
   assert.match(feature, /PansofieArtPanel/);
   assert.match(projectStory, /PansofieArtPanel/);
   assert.doesNotMatch(feature, /<Image/);

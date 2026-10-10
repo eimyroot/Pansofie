@@ -17,15 +17,15 @@ test("Pansofie Visual Engine v1 is a shared identity system, not a page-local de
   assert.match(css, /pve-lines/);
 });
 
-test("unmigrated core public surfaces keep Visual Engine while W2 homepage uses the clean-slate atlas", () => {
+test("unmigrated public surfaces keep Visual Engine while homepage uses the W2.6 editorial hero", () => {
   const surfaces = {
-    "src/components/public-v2/HomePageV2.jsx": /HomeAtlasGraphicV2/,
+    "src/components/public-v2/HomePageV2.jsx": /ps2-mockup-hero__photo/,
     "src/app/7-cest/page.jsx": /PansofieVisualEngine mode="paths"/,
     "src/app/16-oblasti/page.jsx": /PansofieVisualEngine mode="domains"/,
     "src/app/projekty/page.jsx": /PansofieVisualEngine mode="projects"/,
     "src/app/komunita/page.jsx": /PansofieVisualEngine mode="community"/,
   };
-  for (const [file, pattern] of Object.entries(surfaces)) assert.match(read(file), pattern, `${file} must use Visual Engine`);
+  for (const [file, pattern] of Object.entries(surfaces)) assert.match(read(file), pattern, `${file} is missing the required visual surface`);
 });
 
 test("secondary adult public surfaces use the shared relation-field language", () => {
