@@ -30,7 +30,7 @@ test("unmigrated public surfaces keep Visual Engine while homepage uses the W2.6
 
 test("secondary adult public surfaces use the shared relation-field language", () => {
   const files = [
-    "src/app/o-nas/page.jsx", "src/app/blog/page.jsx", "src/app/digitalni-kompost/page.jsx",
+    "src/app/blog/page.jsx", "src/app/digitalni-kompost/page.jsx",
     "src/app/labs/page.jsx", "src/app/sit/page.jsx", "src/app/pro-skoly/page.jsx",
     "src/app/pro-organizace/page.jsx", "src/app/partneri/page.jsx", "src/app/dobrovolnictvi/page.jsx",
     "src/app/partnerstvi/page.jsx", "src/app/kontakt/page.jsx", "src/app/jak-to-funguje/page.jsx",
@@ -38,6 +38,7 @@ test("secondary adult public surfaces use the shared relation-field language", (
     "src/app/impact/page.jsx", "src/app/instituce/page.jsx", "src/app/osobni-rust/page.jsx",
   ];
   for (const file of files) assert.match(read(file), /PansofieVisualEngine mode="flow"/, `${file} must use relation field`);
+  assert.match(read("src/app/o-nas/page.jsx"), /ps2-about__timeline/); // W2.9 uses an editorial timeline instead of the old relation field
   assert.match(read("src/components/public/ProjectVisualStoryPage.jsx"), /PansofieVisualEngine mode="flow"/);
   assert.match(read("src/components/public/ProgramStoryPage.jsx"), /PansofieVisualEngine mode="flow"/);
 });

@@ -1,56 +1,107 @@
+import Image from "next/image";
 import Link from "next/link";
-import { PublicShell } from "../../components/public/PublicShell";
-import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
-import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { PansofieVisualCard } from "../../components/public/PansofieVisualCard";
-import { ECOSYSTEM_CHAIN, ECOSYSTEM_PRINCIPLE, KNOWLEDGE_EXCHANGE } from "../../domain/pansofie-content";
+import { ArrowRight, Leaf, UsersRound, Globe2, Lightbulb } from "lucide-react";
+import { PublicShellV2 } from "../../components/public-v2/PublicShellV2";
 
 export const metadata = {
   title: "O Pansofii",
-  description: "Pansofie propojuje člověka, rodinu, školu, komunitu, přírodu, ekonomiku a společnost do jednoho rámce učení pro život.",
+  description: "Věříme v generaci, která dokáže měnit svět k lepšímu. Pansofie propojuje poznání, praktické učení, spolupráci a odpovědnost.",
 };
 
+const MISSIONS = Object.freeze([
+  { label: "Rozvoj člověka", detail: "Poznání, dovednosti, charakter", icon: Leaf },
+  { label: "Silné komunity", detail: "Spolupráce a vzájemná podpora", icon: UsersRound },
+  { label: "Udržitelná budoucnost", detail: "Respekt k přírodě a odpovědnost", icon: Globe2 },
+  { label: "Skutečný přínos", detail: "Nápady, projekty a konkrétní změny", icon: Lightbulb },
+]);
+
+const STORY_STEPS = Object.freeze([
+  { label: "Vize", body: "Propojovat lidi, kteří chtějí tvořit smysluplné změny." },
+  { label: "Komunita", body: "Budovat prostředí pro spolupráci a vzájemné učení." },
+  { label: "Projekty", body: "Převádět nápady na konkrétní společné činnosti." },
+  { label: "Dopad", body: "Zkoumat skutečné výsledky a učit se z nich." },
+]);
+
+const VALUES = Object.freeze([
+  { title: "Respekt k přírodě", text: "Pečujeme o prostředí, ve kterém žijeme.", photo: "/assets/brand-v2/editorial/path-prosperity.webp" },
+  { title: "Spolupráce", text: "Věříme v sílu komunity a otevřený dialog.", photo: "/assets/brand-v2/editorial/hero-main.webp" },
+  { title: "Odvaha tvořit", text: "Podporujeme nápady a nové přístupy.", photo: "/assets/brand-v2/editorial/path-creativity.webp" },
+  { title: "Odpovědnost", text: "Myslíme na dlouhodobý dopad našich činů.", photo: "/assets/brand-v2/editorial/path-meaning.webp" },
+]);
+
 export default function AboutPage() {
-  return <PublicShell active="/o-nas">
-    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--discover-about">
-      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">O PANSOFII</p><h1>Člověk, příroda a společnost nejsou oddělené světy.</h1><p>Pansofie vzniká jako rámec pro učení v souvislostech. Spojuje poznání, zkušenost, tvorbu, spolupráci a reflexi tak, aby se vzdělávání mohlo vrátit do skutečného života.</p><div className="pw-visual-hero__actions"><Link className="pw-button pw-button--dark" href="/16-oblasti">Objev 16 oblastí</Link><Link className="pw-button pw-button--light" href="/7-cest">Projít 7 cest</Link></div></div>
-      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="O PANSOFII" title="Učení v souvislostech" detail="člověk · příroda · společnost" flow={["Člověk","Rodina","Místo","Svět"]}/></div>
-    </section>
-    <section className="pw-discover-gateway" aria-label="Hlavní vstupy do Pansofie">
-      <PansofieVisualCard href="/16-oblasti" className="pw-discover-gateway__card" label="01 · POZNÁNÍ" title="16 oblastí" text="Mapa témat, která se v životě přirozeně prolínají."/>
-      <PansofieVisualCard href="/7-cest" className="pw-discover-gateway__card" label="02 · RŮST" title="7 cest" text="Sedm způsobů, jak se může zkušenost proměnit v rozvoj."/>
-      <PansofieVisualCard href="/projekty" className="pw-discover-gateway__card" label="03 · PRAXE" title="Projekty" text="Místo, kde se poznání setká s konkrétní činností."/>
-      <PansofieVisualCard href="/blog" className="pw-discover-gateway__card" label="04 · SOUVISLOSTI" title="Články" text="Příběhy a zdroje, které pomáhají vidět širší kontext."/>
-    </section>
+  return <PublicShellV2 currentPath="/o-nas">
+    <div className="ps2-about">
+      <section className="ps2-about__hero" aria-labelledby="ps2-about-title">
+        <Image className="ps2-about__hero-photo" src="/assets/brand-v2/editorial/path-relationships.webp" alt="AI ilustrační fotografie mladé ženy s výhledem do krajiny při západu slunce" fill priority sizes="100vw"/>
+        <div className="ps2-about__hero-wash" aria-hidden="true"/>
+        <div className="ps2-about__hero-copy">
+          <p className="ps2-about__eyebrow">O NÁS</p>
+          <h1 id="ps2-about-title">Věříme v generaci, která dokáže měnit svět k lepšímu.</h1>
+          <p>PANSOFIE propojuje poznání, praxi a komunitu. Tvoříme prostředí, kde se děti, mladí lidé i dospělí mohou rozvíjet, spolupracovat a přinášet skutečný přínos.</p>
+        </div>
+        <p className="ps2-about__hero-aside">Poznání<br/>v praxi i v péči<br/>pro lepší svět</p>
+      </section>
 
-    <EditorialFeatureBand
-      eyebrow="UČENÍ ŽIVOTEM"
-      title="Moudrost není sbírka odpovědí. Je schopnost vidět vztahy."
-      text="Pansofie propojuje člověka, rodinu, místo, přírodu, technologie i společnost. Smyslem není přidat další oddělený předmět, ale pomoci vidět, jak rozhodnutí v jedné oblasti ovlivňuje ostatní."
-      imageAlt="Lidé různých generací spolupracují v prostředí propojeném s přírodou"
-      items={[["Člověk", "Poznání sebe, těla, mysli, emocí a vlastních rozhodnutí."], ["Rodina", "První tým, ve kterém se zkušenost, péče a odpovědnost potkávají."], ["Místo", "Škola, město a příroda jako prostředí pro skutečné učení."], ["Svět", "Poznání, které může přejít do tvorby, pomoci a odpovědné změny."]]}
-      link={{ href: "/jak-to-funguje", label: "Jak se rámec převádí do praxe" }}
-    />
+      <section className="ps2-about__mission ps2-about__width" aria-labelledby="ps2-about-mission-title">
+        <div className="ps2-about__mission-intro">
+          <h2 id="ps2-about-mission-title">Naše mise</h2>
+          <p>Podporujeme člověka v jeho přirozeném rozvoji a pomáháme vytvářet zdravější, spravedlivější a udržitelnější společnost.</p>
+        </div>
+        <div className="ps2-about__mission-list">
+          {MISSIONS.map(({label,detail,icon:Icon})=><article key={label}>
+            <span className="ps2-about__mission-icon" aria-hidden="true"><Icon size={30} strokeWidth={1.5}/></span>
+            <h3>{label}</h3><p>{detail}</p>
+          </article>)}
+        </div>
+      </section>
 
-    <section className="pw-story-intro">
-      <div><p className="pw-eyebrow">PRINCIP</p><h2>{ECOSYSTEM_PRINCIPLE}</h2></div>
-      <div><p>Pansofie není jeden kurz ani jedna aplikace. Veřejný web vysvětluje rámec, Young přizpůsobuje zkušenost mladým a GO převádí poznání do konkrétních misí, projektů a portfolia.</p></div>
-    </section>
-    <section className="pw-ecosystem-chain">
-      <div><p className="pw-eyebrow">EKOSYSTÉM</p><h2>Každý uzel může být vstupem.</h2><p>{KNOWLEDGE_EXCHANGE} Stejný princip platí pro rodinu, školu, komunitu i praktický projekt.</p></div>
-      <ol>{ECOSYSTEM_CHAIN.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong></li>)}</ol>
-    </section>
+      <section className="ps2-about__story ps2-about__width" aria-labelledby="ps2-about-story-title">
+        <div className="ps2-about__story-photo">
+          <Image src="/assets/brand-v2/editorial/hero-main.webp" fill sizes="(max-width: 820px) 100vw, 50vw" alt="AI ilustrační scéna mladých lidí sdílejících nápady a zkušenosti v přírodě"/>
+        </div>
+        <div className="ps2-about__story-content">
+          <p className="ps2-about__eyebrow">NÁŠ PŘÍBĚH</p>
+          <h2 id="ps2-about-story-title">Z vize k reálným projektům</h2>
+          <p>PANSOFIE vzniká z touhy propojit vzdělávání, praxi a komunitu. Věříme, že každý člověk má potenciál přispět k lepšímu světu, pokud má příležitost, podporu a správné nástroje.</p>
+          <ol className="ps2-about__timeline">
+            {STORY_STEPS.map(step=><li key={step.label}><strong>{step.label}</strong><span>{step.body}</span></li>)}
+          </ol>
+        </div>
+      </section>
 
-    <section className="pw-about-values">
-      <article><span>01</span><h2>Souvislosti</h2><p>Šestnáct oblastí není šestnáct izolovaných přihrádek. Pansofie hledá vztahy mezi nimi.</p></article>
-      <article><span>02</span><h2>Zkušenost</h2><p>Poznání má mít možnost přejít do činu, tvorby nebo služby, ale bez nucení člověka do jednoho předepsaného postupu.</p></article>
-      <article><span>03</span><h2>Spolupráce</h2><p>Rodiny, školy, komunity a organizace mohou sdílet projekty a kontext, aniž by zanikla individuální identita a soukromí.</p></article>
-      <article><span>04</span><h2>Odpovědnost</h2><p>Bezpečnost mladých, přesnost tvrzení a transparentní označení prototypů jsou součástí produktu, ne poznámka pod čarou.</p></article>
-    </section>
+      <section className="ps2-about__values ps2-about__width" aria-labelledby="ps2-about-values-title">
+        <div className="ps2-about__section-heading"><h2 id="ps2-about-values-title">Naše hodnoty</h2><p>Hodnoty, které nás vedou v každém kroku.</p></div>
+        <div className="ps2-about__value-grid">
+          {VALUES.map(value=><article key={value.title} className="ps2-about__value-card">
+            <div className="ps2-about__value-photo"><Image src={value.photo} fill sizes="(max-width: 650px) 100vw, (max-width: 1000px) 50vw, 25vw" alt={"AI ilustrační fotografie: "+value.title}/></div>
+            <div className="ps2-about__value-copy"><h3>{value.title}</h3><p>{value.text}</p></div>
+          </article>)}
+        </div>
+      </section>
 
-    <section className="pw-next">
-      <div><p className="pw-eyebrow">ZAČÍT ORIENTACÍ</p><h2>Pochopit rámec a pak si vybrat vlastní vstup.</h2><p>Nejrychlejší cestou je projít šestnáct oblastí a sedm cest, které drží celý systém pohromadě.</p></div>
-      <Link className="pw-button pw-button--dark" href="/16-oblasti">Objev 16 oblastí</Link>
-    </section>
-  </PublicShell>;
+      <section className="ps2-about__wisdom ps2-about__width" aria-labelledby="ps2-about-wisdom-title">
+        <Image src="/art/pansofie-v1/hero-tree.webp" fill sizes="100vw" alt="Ilustrační strom ozářený sluncem"/>
+        <div className="ps2-about__wisdom-copy">
+          <p className="ps2-about__eyebrow">ODKAZ KOMENSKÉHO</p>
+          <h2 id="ps2-about-wisdom-title">Učení není oddělené od života. Je jeho součástí.</h2>
+          <p>PANSOFIE navazuje na odkaz Jana Amose Komenského a propojuje duševní rozvoj, poznání, praxi a odpovědnost za svět kolem nás.</p>
+        </div>
+      </section>
+
+      <section className="ps2-about__join" aria-labelledby="ps2-about-join-title">
+        <Image src="/assets/brand-v2/editorial/hero-main.webp" fill sizes="100vw" alt="AI ilustrační fotografie mladých lidí na vyhlídce při západu slunce"/>
+        <div className="ps2-about__join-shade" aria-hidden="true"/>
+        <div className="ps2-about__join-content">
+          <p className="ps2-about__eyebrow">BUĎTE SOUČÁSTÍ</p>
+          <h2 id="ps2-about-join-title">Společně tvoříme lepší budoucnost</h2>
+          <p>Přidejte se k nám jako jednotlivec, rodina, škola nebo organizace. Každý má v Pansofii své místo.</p>
+          <div className="ps2-about__join-actions">
+            <Link href="/kontakt">Zjistit, jak se zapojit <ArrowRight size={17}/></Link>
+            <Link href="/pro-skoly">Pro organizace a školy <ArrowRight size={17}/></Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  </PublicShellV2>;
 }

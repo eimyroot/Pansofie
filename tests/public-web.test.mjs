@@ -255,11 +255,14 @@ test("M6.8 carries the mature editorial world across projects, schools, organiza
 
 
 test("M6.9 completes the adult editorial system across orientation and trust pages", () => {
-  const files = ["o-nas", "vize", "jak-to-funguje", "pro-koho", "knihovna", "impact", "kontakt"];
+  const files = ["vize", "jak-to-funguje", "pro-koho", "knihovna", "impact", "kontakt"];
   for (const file of files) {
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
     assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
   }
+
+  // W2.9 replaces the earlier editorial band with the approved photo-and-timeline About layout.
+  assert.match(readFileSync("src/app/o-nas/page.jsx", "utf8"), /ps2-about__story/);
 
   const how = readFileSync("src/app/jak-to-funguje/page.jsx", "utf8");
   assert.match(how, /Pansofie Young je samostatná zkušenost/i);
@@ -414,7 +417,7 @@ test("M6.15 gives every approved public navigation destination a real page and s
 
   for (const route of ["o-nas", "7-cest", "16-oblasti", "blog", "projekty", "green-hope", "urban-family-farm", "digitalni-kompost", "labs", "komunita", "sit", "pro-skoly", "pro-organizace", "partneri", "dobrovolnictvi", "partnerstvi", "kontakt"]) {
     const source = readFileSync(`src/app/${route}/page.jsx`, "utf8");
-    assert.match(source, new RegExp(`(?:active|current)="\\/${route}"`), `${route} should expose its public navigation context`);
+    assert.match(source, new RegExp(`(?:active|current|currentPath)="\\/${route}"`), `${route} should expose its public navigation context`);
   }
 });
 
@@ -462,8 +465,9 @@ test("M6.18 gives every Objevuj destination its own responsive visual entry syst
   const paths = readFileSync("src/app/7-cest/page.jsx", "utf8");
   const domains = readFileSync("src/app/16-oblasti/page.jsx", "utf8");
   const blog = readFileSync("src/app/blog/page.jsx", "utf8");
-  for (const source of [about, paths, domains, blog]) assert.match(source, /pw-visual-hero/);
-  assert.match(about, /pw-discover-gateway/);
+  assert.match(about, /ps2-about__hero/);
+  for (const source of [paths, domains, blog]) assert.match(source, /pw-visual-hero/);
+  assert.match(about, /ps2-about__mission/);
   assert.match(paths, /pw-discover-icon-grid--paths/);
   assert.match(domains, /pw-discover-icon-grid--domains/);
   assert.match(blog, /pw-resource-grid pw-resource-grid--visual/);
