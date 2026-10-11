@@ -1,0 +1,100 @@
+
+/* W2.14 | How Pansofie works: scoped editorial layout based on approved mockup. */
+.ps2-how{background:#fbf7ed;color:#193d2d;overflow:hidden}
+.ps2-how h1,.ps2-how h2,.ps2-how h3{font-family:var(--ps2-display),Georgia,serif;font-weight:540;color:#153e2d;letter-spacing:-.025em}
+.ps2-how__eyebrow{font-size:.69rem;letter-spacing:.17em;font-weight:850;color:#4c6250;line-height:1.4}
+.ps2-how__hero,.ps2-how__join{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;background:#c7cbaf}
+.ps2-how__hero{min-height:clamp(420px,39vw,610px);padding:42px max(4.6vw,calc((100vw - 1310px)/2))}
+.ps2-how__hero-image,.ps2-how__join-photo{object-fit:cover;object-position:center center;z-index:-3}
+.ps2-how__hero-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#fff9ed 0%,rgba(255,249,237,.97) 24%,rgba(255,249,237,.81) 39%,rgba(255,249,237,.25) 56%,transparent 78%)}
+.ps2-how__hero-content{width:min(555px,51%);position:relative;z-index:2}
+.ps2-how__hero h1{font-size:clamp(3rem,5.5vw,5.5rem);line-height:1.03;margin:15px 0 16px}
+.ps2-how__hero-content>p:not(.ps2-how__eyebrow):not(.ps2-how__script-hero){font-size:clamp(.92rem,1.1vw,1.1rem);line-height:1.58;max-width:51ch;color:#2d493a}
+.ps2-how__actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:22px}
+.ps2-how__button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:43px;padding:10px 18px;border:1px solid transparent;border-radius:999px;text-align:center;text-decoration:none;white-space:normal;max-width:100%;font-size:.82rem;font-weight:790;line-height:1.25;transition:color .16s,background .16s}
+.ps2-site .ps2-how a.ps2-how__button--green,.ps2-site .ps2-how a.ps2-how__button--green:visited{background:#145339;color:#fff;border-color:#145339}
+.ps2-site .ps2-how a.ps2-how__button--green:hover,.ps2-site .ps2-how a.ps2-how__button--green:focus-visible{background:#0c3a29;color:#fff;border-color:#0c3a29}
+.ps2-site .ps2-how a.ps2-how__button--light,.ps2-site .ps2-how a.ps2-how__button--light:visited{background:#fffdf7;color:#183c2b;border-color:#839c90}
+.ps2-site .ps2-how a.ps2-how__button--light:hover,.ps2-site .ps2-how a.ps2-how__button--light:focus-visible{background:#e8ede1;color:#103022;border-color:#6b8a7c}
+.ps2-site .ps2-how a:focus-visible,.ps2-how summary:focus-visible{outline:3px solid #e39f2b;outline-offset:3px}
+.ps2-how__script-hero{width:210px;margin-top:23px;font:italic 500 1rem/1.3 "Segoe Print","Apple Chancery",cursive;color:#576951;transform:rotate(-6deg)}
+.ps2-how__five,.ps2-how__ecosystem,.ps2-how__impact,.ps2-how__places{width:min(1370px,calc(100% - 36px));margin:0 auto;padding:28px 0 24px}
+.ps2-how__section-heading{display:flex;justify-content:space-between;gap:25px;align-items:flex-start;margin:0 10px 18px}
+.ps2-how__section-heading h2{font-size:clamp(2rem,3.3vw,3.6rem);line-height:1.14}
+.ps2-how__section-heading div>p{max-width:88ch;margin-top:7px;color:#536357;line-height:1.6;font-size:.89rem}
+.ps2-how__handwriting{font:italic 500 clamp(.95rem,1.45vw,1.4rem)/1.25 "Segoe Print","Apple Chancery",cursive;color:#486247;text-align:center;transform:rotate(-9deg);white-space:nowrap}
+.ps2-how__photo{background-image:url("/assets/brand-v2/editorial/w214-how-atlas.avif");background-size:400% 400%;background-repeat:no-repeat;background-color:#d6dcc7}
+.ps2-how__five-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.ps2-how__step{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;border-radius:18px;border:1px solid #e7e4da;background:#fffdf7;padding:18px 15px 0;min-height:330px;box-shadow:0 8px 25px #30482710}
+.ps2-how__step-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;color:#1a4931}
+.ps2-how__step-head span,.ps2-how__impact-number{display:grid;place-items:center;width:31px;height:31px;flex:none;border-radius:50%;background:#f2dfbb;color:#1c432f;font-family:var(--ps2-display),Georgia,serif;font-size:1.12rem}
+.ps2-how__step h3{font-size:1.6rem;line-height:1.11;margin:0 0 7px}
+.ps2-how__step>p{font-size:.78rem;line-height:1.45;color:#45594b;min-height:77px;margin-bottom:12px}
+.ps2-how__step-photo{height:120px;flex:auto;margin:0 -15px;border-top:1px solid #e6e3da}
+.ps2-how__step-arrow{position:absolute;right:10px;bottom:10px;display:grid;place-items:center;width:34px;height:34px;border:1px solid #a4afa5;background:#fffefa;border-radius:50%;color:#1c4835}
+.ps2-site .ps2-how a.ps2-how__step-arrow,.ps2-site .ps2-how a.ps2-how__step-arrow:visited{color:#1c4835}
+.ps2-site .ps2-how a.ps2-how__step-arrow:hover,.ps2-site .ps2-how a.ps2-how__step-arrow:focus-visible{background:#145339;color:#fff}
+.ps2-how__principle{display:flex;align-items:center;gap:9px;margin:17px 5px 0;font-size:.82rem;color:#456c51;line-height:1.5}
+.ps2-how__principle svg{flex:none}
+.ps2-how__method{padding:32px max(3vw,calc((100vw - 1350px)/2));background:linear-gradient(125deg,#f1f1e5,#fffdf5 51%,#edf2e5);border-top:1px solid #e7e3d4;border-bottom:1px solid #e7e3d4}
+.ps2-how__method-heading{display:grid;grid-template-columns:1.18fr .82fr;gap:32px;align-items:start;margin:0 16px 20px}
+.ps2-how__method-heading h2{font-size:clamp(2.1rem,3.5vw,3.8rem);line-height:1.1;margin-bottom:5px}
+.ps2-how__method-heading>div>p{font-family:var(--ps2-display),Georgia,serif;font-size:1.12rem}
+.ps2-how__method-heading>p{font-size:.87rem;line-height:1.62;color:#506254;max-width:55ch}
+.ps2-how__method-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;padding:0;margin:0;list-style:none}
+.ps2-how__method-step{position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:0}
+.ps2-how__method-circle{width:min(100%,160px);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;border:2px solid var(--ps2-how-tone,#88a86f);border-radius:50%;background:rgba(255,253,246,.74);color:#14442f}
+.ps2-how__method-circle strong{font-family:var(--ps2-display),Georgia,serif;font-size:clamp(1rem,1.48vw,1.45rem);font-weight:550}
+.ps2-how__method-step>p{font-size:.76rem;line-height:1.46;color:#40544a;max-width:23ch;margin:14px 0 0}
+.ps2-how__method-arrow{position:absolute;right:-16px;top:33%;z-index:1;color:#31543b}
+.ps2-how__tone--leaf{--ps2-how-tone:#80a76c}
+.ps2-how__tone--sun{--ps2-how-tone:#dfad45}
+.ps2-how__tone--clay{--ps2-how-tone:#e28b5b}
+.ps2-how__tone--rose{--ps2-how-tone:#c98d89}
+.ps2-how__tone--mint{--ps2-how-tone:#6ea6a2}
+.ps2-how__tone--sky{--ps2-how-tone:#68a7bd}
+.ps2-how__method-return{display:flex;align-items:center;justify-content:space-around;margin:26px 5% 0;gap:9px;font:italic 500 1rem/1.2 "Segoe Print","Apple Chancery",cursive;color:#597257;border-bottom:2px dashed #a6b7a0;padding-bottom:10px}
+.ps2-how__method-return>span:first-child,.ps2-how__method-return>span:last-child{font-family:Georgia,serif;font-size:1.7rem}
+.ps2-how__ecosystem-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ps2-how__ecosystem-card{isolation:isolate;position:relative;display:flex;align-items:stretch;min-height:340px;overflow:hidden;border-radius:17px;background:#c9d4c5;border:1px solid #e7e1d6}
+.ps2-how__ecosystem-photo{position:absolute;inset:0;z-index:-3}
+.ps2-how__ecosystem-card:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,253,246,.98) 0%,rgba(255,253,246,.93) 38%,rgba(255,253,246,.29) 74%,rgba(255,253,246,.02));z-index:-2}
+.ps2-how__ecosystem-copy{display:flex;flex-direction:column;align-items:flex-start;width:68%;padding:26px 20px 20px}
+.ps2-how__ecosystem-copy>svg{color:#215a3b;margin-bottom:14px}
+.ps2-how__ecosystem-copy h3{font-size:clamp(1.35rem,1.9vw,2.05rem);line-height:1.05;margin-bottom:9px}
+.ps2-how__ecosystem-copy strong{font-size:.82rem;line-height:1.37;color:#243f2f}
+.ps2-how__ecosystem-copy p{font-size:.76rem;line-height:1.52;color:#46574a;margin:10px 0}
+.ps2-how__ecosystem-copy small{font-size:.63rem;line-height:1.3;color:#445d49}
+.ps2-how__ecosystem-copy .ps2-how__button{margin-top:auto;min-height:40px;padding:8px 13px;font-size:.72rem}
+.ps2-how__impact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:0;margin:0;list-style:none}
+.ps2-how__impact-item{min-width:0;position:relative;background:#fffdf7;border:1px solid #eee6d9;border-radius:15px;overflow:visible}
+.ps2-how__impact-photo{height:165px;border-radius:15px 15px 0 0}
+.ps2-how__impact-copy{display:flex;align-items:flex-start;gap:9px;padding:13px 10px 16px}
+.ps2-how__impact-copy>svg{color:#295f44;flex:none}
+.ps2-how__impact-copy h3{font-size:1.3rem;margin-bottom:5px}
+.ps2-how__impact-copy p{font-size:.72rem;line-height:1.48;color:#46594c}
+.ps2-how__impact-arrow{position:absolute;right:-18px;top:26%;z-index:2;color:#123e2c;background:#f9f6ef;border-radius:50%}
+.ps2-site .ps2-how a.ps2-how__text-link{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:750;color:#155039;margin:17px 4px 0;text-decoration:underline;text-underline-offset:3px}
+.ps2-how__places-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ps2-how__place{overflow:hidden;min-width:0;border-radius:15px;background:#fffdf7;border:1px solid #eee8dc}
+.ps2-how__place-photo{height:140px}
+.ps2-how__place-content{display:flex;align-items:flex-start;gap:12px;padding:14px 12px 16px}
+.ps2-how__place-icon{flex:none;width:45px;height:45px;display:grid;place-items:center;border-radius:50%;color:#1c4635;background:#dfebe0}
+.ps2-how__place-icon.ps2-how__tone--sun{background:#f9e8c7}
+.ps2-how__place-icon.ps2-how__tone--leaf{background:#e2eacd}
+.ps2-how__place-content h3{font-size:1.32rem;margin:2px 0 6px;line-height:1.15}
+.ps2-how__place-content p{font-size:.73rem;line-height:1.48;color:#4f6152;margin-bottom:9px}
+.ps2-site .ps2-how .ps2-how__place-content a{display:inline-flex;align-items:center;gap:6px;color:#165339;font-size:.72rem;font-weight:750}
+.ps2-site .ps2-how .ps2-how__place-content a:hover,.ps2-site .ps2-how .ps2-how__place-content a:focus-visible{text-decoration:underline}
+.ps2-how__join{min-height:clamp(340px,34vw,490px);padding:45px max(4.2vw,calc((100vw - 1330px)/2));background:#acc39e}
+.ps2-how__join-photo{object-position:center 40%}
+.ps2-how__join-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(255,250,240,.99),rgba(255,250,240,.93) 28%,rgba(255,250,240,.66) 43%,rgba(255,250,240,.07) 72%,transparent)}
+.ps2-how__join-content{position:relative;z-index:1;width:min(570px,54%)}
+.ps2-how__join h2{font-size:clamp(2.3rem,4.2vw,4.8rem);line-height:1.08;margin-bottom:15px}
+.ps2-how__join-content>p{font-size:.94rem;line-height:1.6;color:#36523e}
+.ps2-how__join-script{position:absolute;right:2%;top:18%;max-width:145px;font:italic 500 clamp(.95rem,1.65vw,1.4rem)/1.35 "Segoe Print","Apple Chancery",cursive;color:#fdfcf4;text-shadow:0 1px 6px #102d1c;text-align:center;transform:rotate(-5deg)}
+@media(max-width:1050px){.ps2-how__hero-content{width:58%}.ps2-how__step{padding:14px 10px 0}.ps2-how__step-photo{margin:0 -10px}.ps2-how__ecosystem-copy{width:77%;padding:20px 13px}.ps2-how__ecosystem-card{min-height:355px}.ps2-how__join-content{width:62%}}
+@media(max-width:780px){.ps2-how__five-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ps2-how__method-grid{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:21px}.ps2-how__method-arrow{display:none}.ps2-how__ecosystem-grid{grid-template-columns:1fr}.ps2-how__ecosystem-card{min-height:265px}.ps2-how__ecosystem-copy{width:53%}.ps2-how__impact-grid,.ps2-how__places-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ps2-how__impact-arrow{display:none}.ps2-how__method-heading{grid-template-columns:1fr;gap:12px}.ps2-how__join-script{display:none}}
+@media(max-width:570px){.ps2-how__hero{align-items:flex-start;min-height:650px;padding:31px 19px}.ps2-how__hero-image{object-position:54% 70%}.ps2-how__hero-shade{background:linear-gradient(180deg,#fff9ec 0%,rgba(255,249,236,.98) 34%,rgba(255,249,236,.7) 53%,rgba(255,249,236,.06) 79%,transparent)}.ps2-how__hero-content{width:100%;max-width:100%}.ps2-how__hero h1{font-size:clamp(2.65rem,10vw,3.6rem);overflow-wrap:normal}.ps2-how__hero-content>p:not(.ps2-how__eyebrow):not(.ps2-how__script-hero){font-size:.9rem}.ps2-how__script-hero{display:none}.ps2-how__five,.ps2-how__ecosystem,.ps2-how__impact,.ps2-how__places{width:calc(100% - 24px);padding:25px 0}.ps2-how__section-heading{margin:0 5px 17px}.ps2-how__section-heading h2{font-size:clamp(2rem,7.7vw,2.6rem)}.ps2-how__handwriting{display:none}.ps2-how__five-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ps2-how__step{min-height:315px}.ps2-how__step>p{font-size:.72rem}.ps2-how__step h3{font-size:1.35rem}.ps2-how__method{padding:28px 15px}.ps2-how__method-heading{margin:0 0 18px}.ps2-how__method-grid{gap:14px 8px}.ps2-how__method-circle{width:100%;max-width:108px}.ps2-how__method-circle svg{width:26px;height:26px}.ps2-how__method-circle strong{font-size:1rem}.ps2-how__method-step>p{font-size:.68rem}.ps2-how__ecosystem-copy{width:67%}.ps2-how__ecosystem-copy p{font-size:.74rem}.ps2-how__impact-grid,.ps2-how__places-grid{gap:10px}.ps2-how__impact-photo{height:110px}.ps2-how__impact-copy{gap:6px;flex-wrap:wrap}.ps2-how__impact-copy h3{font-size:1.16rem}.ps2-how__impact-copy p{font-size:.69rem}.ps2-how__place-photo{height:110px}.ps2-how__place-content{flex-direction:column;gap:6px}.ps2-how__place-content h3{font-size:1.16rem}.ps2-how__join{min-height:565px;align-items:flex-start;padding:31px 20px}.ps2-how__join-photo{object-position:55% 72%}.ps2-how__join-shade{background:linear-gradient(180deg,#fff9ee,rgba(255,249,238,.93) 43%,rgba(255,249,238,.25) 74%,transparent)}.ps2-how__join-content{width:100%}.ps2-how__join h2{font-size:clamp(2.5rem,9vw,3.5rem)}}
+@media(max-width:365px){.ps2-how__five-grid,.ps2-how__places-grid{grid-template-columns:1fr}.ps2-how__hero .ps2-how__actions{gap:7px}.ps2-how__button{padding:10px 12px;font-size:.75rem}.ps2-how__method-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.ps2-how__button{transition:none}}

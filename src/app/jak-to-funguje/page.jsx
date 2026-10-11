@@ -1,62 +1,167 @@
+import Image from "next/image";
 import Link from "next/link";
-import { PublicShell } from "../../components/public/PublicShell";
-import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
-import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { LEARNING_METHOD, ECOSYSTEM_CHAIN } from "../../domain/pansofie-content";
+import { ArrowRight, ArrowDown, Compass, FlaskConical, UsersRound, Cog, Share2, BookOpen, Lightbulb, Hand, Sprout, Smartphone, TreeDeciduous, House, School, Play, CheckCircle2, BarChart3, Hammer } from "lucide-react";
+import { PublicShellV2 } from "../../components/public-v2/PublicShellV2";
+import { LEARNING_METHOD } from "../../domain/pansofie-content";
+import "./how-w214.css";
 
 export const metadata = {
-  title: "Jak Pansofie funguje",
-  description: "Pansofie nabízí možnosti poznávat, zkoušet, tvořit, sdílet a reflektovat bez povinného skórování člověka.",
+  title: "Jak PANSOFIE funguje | Od poznání k praxi",
+  description: "Objevuj, zkoušej, zapoj se, tvoř a sdílej. PANSOFIE propojuje poznání, zkušenosti, komunitu a reálné projekty bez povinného skórování člověka.",
 };
 
-const FLOW = [
-  ["Rozhlédnout se", "Vybrat oblast, téma, projekt nebo situaci, která právě dává smysl."],
-  ["Vyzkoušet", "Udělat konkrétní krok v reálném světě bez povinnosti všechno dokumentovat."],
-  ["Vytvořit", "Proměnit poznání v něco vlastního: výrobek, řešení, péči, pomoc nebo projekt."],
-  ["Sdílet", "Předat zkušenost dál, když je to vhodné a bezpečné. Sdílení není povinné."],
-  ["Reflektovat", "Zastavit se u toho, co fungovalo, co ne a co má smysl zkusit příště."],
-];
+const STEPS = Object.freeze([
+  { title:"Objev", icon:Sprout, description:"Poznej témata, která tě zajímají, a objev nové možnosti.", href:"/16-oblasti", link:"Prozkoumat oblasti", atlas:0 },
+  { title:"Vyzkoušej", icon:FlaskConical, description:"Zapoj se do aktivit, workshopů a výzev. Udělej krok bez povinnosti všechno dokumentovat.", href:"/labs", link:"Objevit laboratoře", atlas:1 },
+  { title:"Zapoj se", icon:UsersRound, description:"Najdi své lidi a přidej se do komunity. Spolupráce je možnost, ne povinnost.", href:"/komunita", link:"Poznat komunitu", atlas:2 },
+  { title:"Vytvoř", icon:Cog, description:"Přetav své nápady do skutečných projektů a nauč se něco vlastní zkušeností.", href:"/projekty", link:"Prohlédnout projekty", atlas:3 },
+  { title:"Sdílej", icon:Share2, description:"Inspiruj ostatní a ukaž, co vzniklo, pokud sám chceš. Sdílení není povinné.", href:"/blog", link:"Objevovat příběhy", atlas:4 },
+]);
+
+const METHOD = Object.freeze([
+  { icon:BookOpen, description:"Získej nové poznatky a nadhled.", tone:"leaf" },
+  { icon:Lightbulb, description:"Objevuj hravě a s radostí.", tone:"sun" },
+  { icon:Hand, description:"Vyzkoušej v praxi a uč se ze zkušenosti.", tone:"clay" },
+  { icon:Sprout, description:"Přetav poznání v něco skutečného.", tone:"rose" },
+  { icon:UsersRound, description:"Inspiruj, zapoj ostatní a šiř dobré nápady.", tone:"mint" },
+  { icon:Compass, description:"Zastav se, vnímej a objev, co dál.", tone:"sky" },
+]);
+
+const ECOSYSTEM = Object.freeze([
+  { title:"PANSOFIE", subtitle:"Pro všechny generace a komunity", description:"Společný rámec poznání, osobního rozvoje, tvoření a komunitních projektů pro jednotlivce, rodiny, školy a organizace.", icon:TreeDeciduous, atlas:5, href:"/o-nas", link:"Více o PANSOFIE" },
+  { title:"PANSOFIE YOUNG", subtitle:"Pro děti a mladé 6–18 let", description:"Pansofie Young je samostatná zkušenost pro děti a mladé. Učí hravě, bezpečně a přiměřeně věku.", icon:Sprout, atlas:6, href:"/young", link:"Objev PANSOFIE YOUNG" },
+  { title:"PANSOFIE GO", subtitle:"Aplikace a reálné mise", description:"PansofieGO je aplikace pro celý ekosystém. Pomáhá s misemi, projekty, týmy a portfoliem podle věku a role.", icon:Smartphone, atlas:7, href:"/pansofie-go", link:"Poznej PANSOFIE GO" },
+]);
+
+const IMPACT = Object.freeze([
+  { title:"Nápad", text:"Všechno začíná otázkou, která tě zajímá.", icon:Lightbulb, atlas:8 },
+  { title:"Tým", text:"Najdi parťáky, sdílej nápad a společně ho rozvíjej.", icon:UsersRound, atlas:9 },
+  { title:"Realizace", text:"Vyzkoušejte, tvořte, učte se z praxe a překonávejte výzvy.", icon:Hammer, atlas:10 },
+  { title:"Dopad", text:"Výsledky sdílej, inspiruj ostatní a přidej je do svého portfolia.", icon:BarChart3, atlas:11 },
+]);
+
+const PLACES = Object.freeze([
+  { title:"Ve škole", text:"Propojujeme klasické vzdělávání s reálnými projekty a zkušenostmi.", icon:School, atlas:12, href:"/pro-skoly", link:"PANSOFIE pro školy", tone:"mint" },
+  { title:"V rodině", text:"Podporujeme společné učení, rozhovory a zážitky napříč generacemi.", icon:House, atlas:13, href:"/family-team", link:"Objev Family Team", tone:"sun" },
+  { title:"V komunitě", text:"Tvoříme s místními, řešíme skutečné výzvy a budujeme lepší místa pro život.", icon:UsersRound, atlas:14, href:"/komunita", link:"Poznej komunitu", tone:"mint" },
+  { title:"V přírodě", text:"Příroda je náš učitel. Dává nadhled, klid a inspiraci.", icon:TreeDeciduous, atlas:15, href:"/green-hope", link:"Objev Green Hope", tone:"leaf" },
+]);
+
+function PhotoTile({ index, className = "", label }) {
+  const row=Math.floor(index/4);
+  const col=index%4;
+  return <div className={"ps2-how__photo "+className} role="img" aria-label={label}
+    style={{backgroundPosition:`${col*100/3}% ${row*100/3}%`}}/>;
+}
 
 export default function HowItWorksPage() {
-  return <PublicShell active="/jak-to-funguje">
-    <section className="pw-visual-hero pw-visual-hero--engine">
-      <div className="pw-visual-hero__copy"><p className="pw-eyebrow">JAK PANSOFIE FUNGUJE</p><h1>Možnost něco udělat. Ne další systém povinností.</h1><p>Pansofie vytváří cesty od poznání ke zkušenosti. Člověk se může rozhlédnout, vybrat si smysluplný vstup a pokračovat vlastním tempem.</p></div>
-      <div className="pw-visual-hero__engine"><PansofieVisualEngine mode="flow" kicker="JAK PANSOFIE FUNGUJE" title="Od orientace ke zkušenosti" detail="příležitost · ne povinnost" flow={["Rozhlédnout se","Vyzkoušet","Vytvořit","Sdílet","Reflektovat"]}/></div>
-    </section>
+  if (LEARNING_METHOD.length !== METHOD.length) throw new Error("Učební cyklus PANSOFIE neodpovídá šesti kanonickým fázím.");
+  return <PublicShellV2 currentPath="/jak-to-funguje">
+    <div className="ps2-how">
+      <section className="ps2-how__hero" aria-labelledby="ps2-how-title">
+        <Image className="ps2-how__hero-image" src="/assets/brand-v2/editorial/w214-how-hero.avif"
+          alt="Mezigenerační skupina při společném tvoření, práci s rostlinami a výrobě ptačí budky ve světlém skleníku"
+          fill priority quality={85} sizes="100vw"/>
+        <div className="ps2-how__hero-shade" aria-hidden="true"/>
+        <div className="ps2-how__hero-content">
+          <p className="ps2-how__eyebrow">CESTA K SMYSLUPLNĚJŠÍ BUDOUCNOSTI</p>
+          <h1 id="ps2-how-title">Jak to funguje</h1>
+          <p>PANSOFIE propojuje poznání, praxi, tvoření a komunitu. Učíme se celým životem, ve skutečném světě, s reálnými lidmi, na skutečných výzvách. Každý může přispět svým jedinečným způsobem, ve svém tempu a tam, kde právě je.</p>
+          <div className="ps2-how__actions">
+            <a className="ps2-how__button ps2-how__button--green" href="#pet-kroku">Objev možnosti <ArrowDown size={17} aria-hidden="true"/></a>
+            <Link className="ps2-how__button ps2-how__button--light" href="/blog"><Play size={16} aria-hidden="true"/> Podívej se na příběhy</Link>
+          </div>
+          <p className="ps2-how__script-hero">Skutečné vzdělávání začíná, když to, co se učíme, začneme žít. ♡</p>
+        </div>
+      </section>
 
-    <EditorialFeatureBand
-      eyebrow="JEDEN EKOSYSTÉM · TŘI ZKUŠENOSTI"
-      title="Pansofie vysvětluje. Young překládá svět mladým. GO umožňuje jednat."
-      text="Veřejná Pansofie drží společný rámec a souvislosti. Pansofie Young je samostatná zkušenost pro děti a mladé. PansofieGO je aplikace pro celý ekosystém, ve které se podle věku a kontextu pracuje s misemi, projekty, týmy, portfoliem a dalšími akcemi."
-      imageAlt="Lidé v městském prostředí, kde se potkává učení, komunita a praktická činnost"
-      items={[["Pansofie", "Společný obsahový, filozofický a metodický rámec."], ["Pansofie Young", "Vlastní jazyk, obsah a vizuální zkušenost pro mladé."], ["PansofieGO", "Společná akční aplikace pro celý ekosystém podle role a kontextu."], ["Skutečný svět", "Místo, kde se poznání mění ve zkušenost, dovednost a konkrétní výsledek."]]}
-      link={{ href: "/pansofie-go", label: "Poznat PansofieGO" }}
-    />
+      <section className="ps2-how__five" id="pet-kroku" aria-labelledby="ps2-how-five-title">
+        <div className="ps2-how__section-heading">
+          <div><h2 id="ps2-how-five-title">Pět dobrovolných kroků</h2>
+            <p>Nejde o pevnou trasu, ale o otevřenou cestu. Každý krok můžeš udělat ve svém čase a svým způsobem.</p>
+          </div>
+          <p className="ps2-how__handwriting">Malé kroky,<br/>velké změny. ♡</p>
+        </div>
+        <div className="ps2-how__five-grid">
+          {STEPS.map((step,i)=>{const Icon=step.icon;return <article className="ps2-how__step" key={step.title}>
+            <div className="ps2-how__step-head"><span>{i+1}</span><Icon size={28} aria-hidden="true"/></div>
+            <h3>{step.title}</h3><p>{step.description}</p>
+            <PhotoTile index={step.atlas} className="ps2-how__step-photo" label={"Fotografie k tématu "+step.title}/>
+            <Link href={step.href} className="ps2-how__step-arrow" aria-label={step.link}><ArrowRight size={18} aria-hidden="true"/></Link>
+          </article>})}
+        </div>
+        <p className="ps2-how__principle"><CheckCircle2 size={18} aria-hidden="true"/> Pansofie nabízí příležitost, nevytváří povinnost. Nehodnotíme hodnotu člověka jedním číslem ani nevynucujeme sdílení.</p>
+      </section>
 
-    <section className="pw-story-intro">
-      <div><p className="pw-eyebrow">ZÁKLADNÍ PRINCIP</p><h2>Pansofie nabízí příležitost. Nevytváří povinnost.</h2></div>
-      <div><p>Žádný veřejný žebříček hodnoty člověka, žádný povinný důkaz každého kroku a žádné předstírání, že jedno číslo dokáže popsat rozvoj. Dokumentace má smysl tam, kde chce člověk vytvořit doloženou zkušenost, skill nebo portfolio.</p></div>
-    </section>
-    <section className="pw-how-flow">
-      {FLOW.map(([title, text], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h2>{title}</h2><p>{text}</p></article>)}
-    </section>
+      <section className="ps2-how__method" id="metoda" aria-labelledby="ps2-how-method-title">
+        <div className="ps2-how__method-heading">
+          <div><h2 id="ps2-how-method-title">Pansofie Method</h2><p>Učební cyklus, který propojuje hlavu, ruce i srdce.</p></div>
+          <p>Učíme se v souvislostech, skrze zkušenost a v komunitě. Tento cyklus se přirozeně opakuje a prohlubuje, v každém věku a v každé oblasti života.</p>
+        </div>
+        <ol className="ps2-how__method-grid">
+          {LEARNING_METHOD.map((step,i)=>{const Icon=METHOD[i].icon;return <li key={step} className={"ps2-how__method-step ps2-how__tone--"+METHOD[i].tone}>
+            <div className="ps2-how__method-circle"><Icon size={36} strokeWidth={1.6} aria-hidden="true"/><strong>{step}</strong></div>
+            <p>{METHOD[i].description}</p>
+            {i<5&&<ArrowRight className="ps2-how__method-arrow" size={19} aria-hidden="true"/>}
+          </li>})}
+        </ol>
+        <div className="ps2-how__method-return"><span aria-hidden="true">↶</span><span>Zkušenost nás posouvá dál.</span><span aria-hidden="true">↷</span></div>
+      </section>
 
-    <section className="pw-story-sequence">
-      <div className="pw-section__head">
-        <div><p className="pw-eyebrow">UČEBNÍ CYKLUS</p><h2>Šest fází, které se mohou vracet.</h2></div>
-        <p>Pro hlubší zkušenosti používá Pansofie cyklus Poznej, Hraj, Udělej, Vytvoř, Sdílej, Reflektuj. Není to povinný checklist pro každou drobnost.</p>
-      </div>
-      <ol>{LEARNING_METHOD.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></li>)}</ol>
-    </section>
+      <section className="ps2-how__ecosystem" id="ekosystem" aria-labelledby="ps2-how-ecosystem-title">
+        <div className="ps2-how__section-heading"><div><h2 id="ps2-how-ecosystem-title">Tři části jednoho ekosystému</h2>
+          <p>Jeden společný rámec, různé způsoby poznávání a jednání.</p></div><p className="ps2-how__handwriting">Různé cesty,<br/>společný smysl. ♡</p></div>
+        <div className="ps2-how__ecosystem-grid">
+          {ECOSYSTEM.map((item)=>{const Icon=item.icon;return <article className="ps2-how__ecosystem-card" key={item.title}>
+            <PhotoTile index={item.atlas} className="ps2-how__ecosystem-photo" label={"Ilustrační fotografie pro "+item.title}/>
+            <div className="ps2-how__ecosystem-copy"><Icon size={30} aria-hidden="true"/><h3>{item.title}</h3><strong>{item.subtitle}</strong>
+              <p>{item.description}</p>
+              {item.atlas===7&&<small>Ilustrační vizuál, nikoli ověřený snímek rozhraní aplikace.</small>}
+              <Link className="ps2-how__button ps2-how__button--green" href={item.href}>{item.link} <ArrowRight size={17} aria-hidden="true"/></Link>
+            </div>
+          </article>})}
+        </div>
+      </section>
 
-    <section className="pw-ecosystem-chain">
-      <div><p className="pw-eyebrow">VŠECHNO SOUVISÍ SE VŠÍM</p><h2>Začít lze kdekoli.</h2><p>Člověk nemusí projít systém od začátku. Pansofie chápe život jako síť vztahů, ve které může být vstupem rodina, škola, komunita, příroda nebo konkrétní projekt.</p></div>
-      <ol>{ECOSYSTEM_CHAIN.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong></li>)}</ol>
-    </section>
+      <section className="ps2-how__impact" id="od-napadu-k-dopadu" aria-labelledby="ps2-how-impact-title">
+        <div className="ps2-how__section-heading"><div><h2 id="ps2-how-impact-title">Od nápadu k dopadu</h2>
+          <p>Jak se z myšlenky stává skutečný projekt? Na příkladu jedné z mnoha možných misí.</p></div></div>
+        <ol className="ps2-how__impact-grid">
+          {IMPACT.map((step,i)=>{const Icon=step.icon;return <li className="ps2-how__impact-item" key={step.title}>
+            <PhotoTile index={step.atlas} className="ps2-how__impact-photo" label={"Ilustrační krok "+step.title}/>
+            <div className="ps2-how__impact-copy"><span className="ps2-how__impact-number">{i+1}</span><Icon size={24} aria-hidden="true"/><div><h3>{step.title}</h3><p>{step.text}</p></div></div>
+            {i<3&&<ArrowRight className="ps2-how__impact-arrow" size={19} aria-hidden="true"/>}
+          </li>})}
+        </ol>
+        <Link href="/projekty" className="ps2-how__text-link">Prozkoumat skutečné projekty <ArrowRight size={16} aria-hidden="true"/></Link>
+      </section>
 
-    <section className="pw-next">
-      <div><p className="pw-eyebrow">OD ORIENTACE K AKCI</p><h2>Když chce člověk pokračovat do praxe, přichází PansofieGO.</h2><p>GO je společná aplikace pro celý ekosystém. Převádí témata a projekty do konkrétních misí, spolupráce a portfolia podle věku, role a kontextu.</p></div>
-      <Link className="pw-button pw-button--dark" href="/pansofie-go">Jak funguje PansofieGO</Link>
-    </section>
-  </PublicShell>;
+      <section className="ps2-how__places" id="ucime-se-vsude" aria-labelledby="ps2-how-places-title">
+        <div className="ps2-how__section-heading"><div><h2 id="ps2-how-places-title">Učíme se všude – ve škole, v rodině, v komunitě i v přírodě</h2></div>
+          <p className="ps2-how__handwriting">Život je ta<br/>nejlepší škola. ♡</p></div>
+        <div className="ps2-how__places-grid">
+          {PLACES.map(item=>{const Icon=item.icon;return <article className="ps2-how__place" key={item.title}>
+            <PhotoTile index={item.atlas} className="ps2-how__place-photo" label={"Ilustrační fotografie "+item.title}/>
+            <div className="ps2-how__place-content"><span className={"ps2-how__place-icon ps2-how__tone--"+item.tone}><Icon size={24} aria-hidden="true"/></span>
+              <div><h3>{item.title}</h3><p>{item.text}</p><Link href={item.href} aria-label={item.link}>Zjistit více <ArrowRight size={15} aria-hidden="true"/></Link></div></div>
+          </article>})}
+        </div>
+      </section>
+
+      <section className="ps2-how__join" aria-labelledby="ps2-how-join-title">
+        <Image src="/assets/brand-v2/editorial/w214-how-join.avif" className="ps2-how__join-photo"
+          alt="Lidé společně tvoří a učí se při komunitní dílně" fill sizes="100vw" quality={85}/>
+        <div className="ps2-how__join-shade" aria-hidden="true"/>
+        <div className="ps2-how__join-content">
+          <h2 id="ps2-how-join-title">Začni tam, kde právě jsi.</h2>
+          <p>Objev možnosti, přidej se do komunity a buď součástí změn, které dávají smysl.</p>
+          <div className="ps2-how__actions">
+            <Link className="ps2-how__button ps2-how__button--green" href="/kontakt">Přidej se k PANSOFIE <ArrowRight size={17} aria-hidden="true"/></Link>
+            <Link className="ps2-how__button ps2-how__button--light" href="/pansofie-go"><Play size={16} aria-hidden="true"/> Prozkoumej mise</Link>
+          </div>
+        </div>
+        <p className="ps2-how__join-script">Lidé.<br/>Nápady.<br/>Příroda.<br/>Skutečný dopad. ♡</p>
+      </section>
+    </div>
+  </PublicShellV2>;
 }

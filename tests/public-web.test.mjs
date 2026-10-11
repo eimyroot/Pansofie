@@ -255,11 +255,13 @@ test("M6.8 carries the mature editorial world across projects, schools, organiza
 
 
 test("M6.9 completes the adult editorial system across orientation and trust pages", () => {
-  const files = ["vize", "jak-to-funguje", "pro-koho", "knihovna", "impact", "kontakt"];
+  const files = ["vize", "pro-koho", "knihovna", "impact", "kontakt"];
   for (const file of files) {
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
     assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
   }
+
+  assert.match(readFileSync("src/app/jak-to-funguje/page.jsx", "utf8"), /ps2-how__ecosystem/); // W2.14 approved editorial layout
 
   // W2.9 replaces the earlier editorial band with the approved photo-and-timeline About layout.
   assert.match(readFileSync("src/app/o-nas/page.jsx", "utf8"), /ps2-about__story/);
@@ -349,7 +351,7 @@ test("M6.12 builds a clear public bridge from Pansofie into GO without merging G
   assert.match(home, /GoBridgeV2/);
   assert.match(home, /Od poznání k činu/);
   assert.match(home, /href="\/pansofie-go"/);
-  assert.match(how, /Když chce člověk pokračovat do praxe, přichází PansofieGO/);
+  assert.match(how, /PansofieGO je aplikace pro celý ekosystém/);
   assert.match(how, /href="\/pansofie-go"/);
 });
 
