@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowDown, Compass, FlaskConical, UsersRound, Cog, Share2, BookOpen, Lightbulb, Hand, Sprout, Smartphone, TreeDeciduous, House, School, Play, CheckCircle2, BarChart3, Hammer } from "lucide-react";
 import { PublicShellV2 } from "../../components/public-v2/PublicShellV2";
+import { HowFooterW215 } from "./HowFooterW215";
 import { LEARNING_METHOD } from "../../domain/pansofie-content";
 import "./how-w214.css";
 
@@ -56,13 +57,14 @@ function PhotoTile({ index, className = "", label }) {
 
 export default function HowItWorksPage() {
   if (LEARNING_METHOD.length !== METHOD.length) throw new Error("Učební cyklus PANSOFIE neodpovídá šesti kanonickým fázím.");
-  return <PublicShellV2 currentPath="/jak-to-funguje">
+  return <PublicShellV2 currentPath="/jak-to-funguje" footer={<HowFooterW215/>}>
     <div className="ps2-how">
       <section className="ps2-how__hero" aria-labelledby="ps2-how-title">
-        <Image className="ps2-how__hero-image" src="/assets/brand-v2/editorial/w214-how-hero.avif"
+        <Image className="ps2-how__hero-image" src="/assets/brand-v2/editorial/w215-how-hero.avif"
           alt="Mezigenerační skupina při společném tvoření, práci s rostlinami a výrobě ptačí budky ve světlém skleníku"
           fill priority quality={85} sizes="100vw"/>
         <div className="ps2-how__hero-shade" aria-hidden="true"/>
+        <p className="ps2-how__chalk" aria-hidden="true">Učíme se<br/>tím, co žijeme. ♡</p>
         <div className="ps2-how__hero-content">
           <p className="ps2-how__eyebrow">CESTA K SMYSLUPLNĚJŠÍ BUDOUCNOSTI</p>
           <h1 id="ps2-how-title">Jak to funguje</h1>
@@ -93,22 +95,28 @@ export default function HowItWorksPage() {
         <p className="ps2-how__principle"><CheckCircle2 size={18} aria-hidden="true"/> Pansofie nabízí příležitost, nevytváří povinnost. Nehodnotíme hodnotu člověka jedním číslem ani nevynucujeme sdílení.</p>
       </section>
 
-      <section className="ps2-how__method" id="metoda" aria-labelledby="ps2-how-method-title">
-        <div className="ps2-how__method-heading">
-          <div><h2 id="ps2-how-method-title">Pansofie Method</h2><p>Učební cyklus, který propojuje hlavu, ruce i srdce.</p></div>
-          <p>Učíme se v souvislostech, skrze zkušenost a v komunitě. Tento cyklus se přirozeně opakuje a prohlubuje, v každém věku a v každé oblasti života.</p>
+      <section className="ps2-how__method ps2-how__method--banner" id="metoda" aria-labelledby="ps2-how-method-title">
+        <h2 className="ps2-how__visually-hidden" id="ps2-how-method-title">Pansofie Method</h2>
+        <div className="ps2-how__method-banner-wrap">
+          <Image className="ps2-how__method-banner" src="/assets/brand-v2/editorial/w215-how-method.webp" unoptimized
+            width={2048} height={682} sizes="(max-width: 780px) 1050px, 100vw"
+            alt="Pansofie Method: šest fází Poznej, Hraj, Udělej, Vytvoř, Sdílej a Reflektuj, propojených šipkami a opakujícím se cyklem. Učíme se skrze zkušenost, v každém věku a v každé oblasti života." quality={85}/>
         </div>
-        <ol className="ps2-how__method-grid">
-          {LEARNING_METHOD.map((step,i)=>{const Icon=METHOD[i].icon;return <li key={step} className={"ps2-how__method-step ps2-how__tone--"+METHOD[i].tone}>
-            <div className="ps2-how__method-circle"><Icon size={36} strokeWidth={1.6} aria-hidden="true"/><strong>{step}</strong></div>
-            <p>{METHOD[i].description}</p>
-            {i<5&&<ArrowRight className="ps2-how__method-arrow" size={19} aria-hidden="true"/>}
-          </li>})}
+        <ol className="ps2-how__method-grid ps2-how__visually-hidden">
+          {LEARNING_METHOD.map((step,i)=><li key={step}>{step}: {METHOD[i].description}</li>)}
         </ol>
-        <div className="ps2-how__method-return"><span aria-hidden="true">↶</span><span>Zkušenost nás posouvá dál.</span><span aria-hidden="true">↷</span></div>
       </section>
 
       <section className="ps2-how__ecosystem" id="ekosystem" aria-labelledby="ps2-how-ecosystem-title">
+        <div className="ps2-how__exact ps2-how__exact--ecosystem">
+          <Image src="/assets/brand-v2/editorial/w214-exact-ecosystem.avif" width={2032} height={774} unoptimized
+            alt="Tři části PANSOFIE: hlavní ekosystém pro všechny generace; YOUNG pro děti 6–18 let; GO aplikace pro reálné mise. Na obrázku komunitní setkání, dílna mladých a ilustrativní telefon."/>
+          <Link className="ps2-how__exact-hit ps2-how__exact-hit--main" href="/o-nas" aria-label="Více o PANSOFIE"><span className="ps2-how__visually-hidden">Více o PANSOFIE</span></Link>
+          <Link className="ps2-how__exact-hit ps2-how__exact-hit--young" href="/young" aria-label="Objev PANSOFIE YOUNG"><span className="ps2-how__visually-hidden">Objev PANSOFIE YOUNG</span></Link>
+          <Link className="ps2-how__exact-hit ps2-how__exact-hit--go" href="/pansofie-go" aria-label="Vyzkoušej PANSOFIE GO"><span className="ps2-how__visually-hidden">Vyzkoušej PANSOFIE GO</span></Link>
+        </div>
+        <div className="ps2-how__fallback ps2-how__fallback--ecosystem">
+
         <div className="ps2-how__section-heading"><div><h2 id="ps2-how-ecosystem-title">Tři části jednoho ekosystému</h2>
           <p>Jeden společný rámec, různé způsoby poznávání a jednání.</p></div><p className="ps2-how__handwriting">Různé cesty,<br/>společný smysl. ♡</p></div>
         <div className="ps2-how__ecosystem-grid">
@@ -121,9 +129,16 @@ export default function HowItWorksPage() {
             </div>
           </article>})}
         </div>
+              </div>
       </section>
 
       <section className="ps2-how__impact" id="od-napadu-k-dopadu" aria-labelledby="ps2-how-impact-title">
+        <div className="ps2-how__exact ps2-how__exact--impact">
+          <Image src="/assets/brand-v2/editorial/w214-exact-impact.avif" width={2048} height={684} unoptimized
+            alt="Od nápadu k dopadu: nápad zlepšit prostředí u řeky, týmové plánování, společná stavba hmyzího hotelu a výsledek pro místní komunitu."/>
+        </div>
+        <div className="ps2-how__fallback ps2-how__fallback--impact">
+
         <div className="ps2-how__section-heading"><div><h2 id="ps2-how-impact-title">Od nápadu k dopadu</h2>
           <p>Jak se z myšlenky stává skutečný projekt? Na příkladu jedné z mnoha možných misí.</p></div></div>
         <ol className="ps2-how__impact-grid">
@@ -134,9 +149,16 @@ export default function HowItWorksPage() {
           </li>})}
         </ol>
         <Link href="/projekty" className="ps2-how__text-link">Prozkoumat skutečné projekty <ArrowRight size={16} aria-hidden="true"/></Link>
+              </div>
       </section>
 
       <section className="ps2-how__places" id="ucime-se-vsude" aria-labelledby="ps2-how-places-title">
+        <div className="ps2-how__exact ps2-how__exact--places">
+          <Image src="/assets/brand-v2/editorial/w214-exact-places.avif" width={2048} height={684} unoptimized
+            alt="Učíme se všude: ve škole při projektové výuce, v rodině při zahradničení, v komunitě při společné práci a v přírodě u lesního potoka."/>
+        </div>
+        <div className="ps2-how__fallback ps2-how__fallback--places">
+
         <div className="ps2-how__section-heading"><div><h2 id="ps2-how-places-title">Učíme se všude – ve škole, v rodině, v komunitě i v přírodě</h2></div>
           <p className="ps2-how__handwriting">Život je ta<br/>nejlepší škola. ♡</p></div>
         <div className="ps2-how__places-grid">
@@ -146,6 +168,7 @@ export default function HowItWorksPage() {
               <div><h3>{item.title}</h3><p>{item.text}</p><Link href={item.href} aria-label={item.link}>Zjistit více <ArrowRight size={15} aria-hidden="true"/></Link></div></div>
           </article>})}
         </div>
+              </div>
       </section>
 
       <section className="ps2-how__join" aria-labelledby="ps2-how-join-title">

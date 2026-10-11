@@ -23,7 +23,7 @@
 .ps2-how__section-heading h2{font-size:clamp(2rem,3.3vw,3.6rem);line-height:1.14}
 .ps2-how__section-heading div>p{max-width:88ch;margin-top:7px;color:#536357;line-height:1.6;font-size:.89rem}
 .ps2-how__handwriting{font:italic 500 clamp(.95rem,1.45vw,1.4rem)/1.25 "Segoe Print","Apple Chancery",cursive;color:#486247;text-align:center;transform:rotate(-9deg);white-space:nowrap}
-.ps2-how__photo{background-image:url("/assets/brand-v2/editorial/w214-how-atlas.avif");background-size:400% 400%;background-repeat:no-repeat;background-color:#d6dcc7}
+.ps2-how__photo{background-image:url("/assets/brand-v2/editorial/w215-how-atlas.avif");background-size:400% 400%;background-repeat:no-repeat;background-color:#d6dcc7}
 .ps2-how__five-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
 .ps2-how__step{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;border-radius:18px;border:1px solid #e7e4da;background:#fffdf7;padding:18px 15px 0;min-height:330px;box-shadow:0 8px 25px #30482710}
 .ps2-how__step-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;color:#1a4931}
@@ -98,3 +98,61 @@
 @media(max-width:570px){.ps2-how__hero{align-items:flex-start;min-height:650px;padding:31px 19px}.ps2-how__hero-image{object-position:54% 70%}.ps2-how__hero-shade{background:linear-gradient(180deg,#fff9ec 0%,rgba(255,249,236,.98) 34%,rgba(255,249,236,.7) 53%,rgba(255,249,236,.06) 79%,transparent)}.ps2-how__hero-content{width:100%;max-width:100%}.ps2-how__hero h1{font-size:clamp(2.65rem,10vw,3.6rem);overflow-wrap:normal}.ps2-how__hero-content>p:not(.ps2-how__eyebrow):not(.ps2-how__script-hero){font-size:.9rem}.ps2-how__script-hero{display:none}.ps2-how__five,.ps2-how__ecosystem,.ps2-how__impact,.ps2-how__places{width:calc(100% - 24px);padding:25px 0}.ps2-how__section-heading{margin:0 5px 17px}.ps2-how__section-heading h2{font-size:clamp(2rem,7.7vw,2.6rem)}.ps2-how__handwriting{display:none}.ps2-how__five-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ps2-how__step{min-height:315px}.ps2-how__step>p{font-size:.72rem}.ps2-how__step h3{font-size:1.35rem}.ps2-how__method{padding:28px 15px}.ps2-how__method-heading{margin:0 0 18px}.ps2-how__method-grid{gap:14px 8px}.ps2-how__method-circle{width:100%;max-width:108px}.ps2-how__method-circle svg{width:26px;height:26px}.ps2-how__method-circle strong{font-size:1rem}.ps2-how__method-step>p{font-size:.68rem}.ps2-how__ecosystem-copy{width:67%}.ps2-how__ecosystem-copy p{font-size:.74rem}.ps2-how__impact-grid,.ps2-how__places-grid{gap:10px}.ps2-how__impact-photo{height:110px}.ps2-how__impact-copy{gap:6px;flex-wrap:wrap}.ps2-how__impact-copy h3{font-size:1.16rem}.ps2-how__impact-copy p{font-size:.69rem}.ps2-how__place-photo{height:110px}.ps2-how__place-content{flex-direction:column;gap:6px}.ps2-how__place-content h3{font-size:1.16rem}.ps2-how__join{min-height:565px;align-items:flex-start;padding:31px 20px}.ps2-how__join-photo{object-position:55% 72%}.ps2-how__join-shade{background:linear-gradient(180deg,#fff9ee,rgba(255,249,238,.93) 43%,rgba(255,249,238,.25) 74%,transparent)}.ps2-how__join-content{width:100%}.ps2-how__join h2{font-size:clamp(2.5rem,9vw,3.5rem)}}
 @media(max-width:365px){.ps2-how__five-grid,.ps2-how__places-grid{grid-template-columns:1fr}.ps2-how__hero .ps2-how__actions{gap:7px}.ps2-how__button{padding:10px 12px;font-size:.75rem}.ps2-how__method-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.ps2-how__button{transition:none}}
+
+/* W2.15 EXACT REFERENCE: nine approved user visuals, real text and links. */
+.ps2-how__hero-shade{background:linear-gradient(90deg,#fff9ed 0%,rgba(255,249,237,.98) 23%,rgba(255,249,237,.76) 34%,rgba(255,249,237,.18) 49%,transparent 68%)}
+.ps2-how__chalk{position:absolute;top:9%;right:3%;z-index:2;max-width:245px;pointer-events:none;color:#fdf9ec;font:italic 500 clamp(1.1rem,2vw,2.05rem)/1.25 "Segoe Print","Apple Chancery",cursive;text-align:center;transform:rotate(-9deg);text-shadow:0 2px 6px #18241f}
+.ps2-how__visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.ps2-how .ps2-how__method--banner{padding:0;background:#fdfaf0;border:none;overflow:hidden}
+.ps2-how__method-banner-wrap{width:100%;margin:0;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
+.ps2-how__method-banner{display:block;width:100%;height:auto;max-width:none}
+.ps2-how-footer{position:relative;background:#fffcf5;color:#173e2f;border-top:1px solid #e1e4d6;overflow:hidden}
+.ps2-how-footer__main{max-width:1680px;margin:0 auto;display:grid;grid-template-columns:minmax(210px,1.5fr) repeat(4,minmax(110px,.75fr)) minmax(260px,1.7fr);gap:clamp(14px,2.2vw,35px);padding:52px 32px 34px;align-items:start}
+.ps2-how-footer__brand p{max-width:27ch;font-size:.88rem;line-height:1.58;color:#354b3f;margin:25px 0 0}
+.ps2-how-footer__brand .ps2-how-footer__motto{font:italic 500 1.15rem/1.3 "Segoe Print","Apple Chancery",cursive;color:#2c573a;margin-top:23px;transform:rotate(-7deg)}
+.ps2-how-footer__nav{display:flex;flex-direction:column;gap:9px;min-width:0}
+.ps2-how-footer h2{font-family:var(--ps2-display),Georgia,serif;font-weight:570;font-size:clamp(1.13rem,1.35vw,1.5rem);line-height:1.15;margin-bottom:12px;color:#123d2b}
+.ps2-site .ps2-how-footer__nav a,.ps2-site .ps2-how-footer__nav a:visited{font-size:.85rem;line-height:1.42;text-decoration:none;color:#2b4436}
+.ps2-site .ps2-how-footer__nav a:hover,.ps2-site .ps2-how-footer__nav a:focus-visible{color:#0d6540;text-decoration:underline;text-underline-offset:4px}
+.ps2-how-footer__contact p{color:#3b5545;font-size:.89rem;line-height:1.55;margin:0 0 16px}
+.ps2-site .ps2-how-footer a.ps2-how-footer__contact-cta,.ps2-site .ps2-how-footer a.ps2-how-footer__contact-cta:visited{display:inline-flex;align-items:center;justify-content:space-between;gap:13px;min-height:43px;border-radius:999px;background:#174f37;color:white;padding:10px 19px;border:1px solid #174f37;font-size:.85rem;font-weight:760}
+.ps2-site .ps2-how-footer a.ps2-how-footer__contact-cta:hover,.ps2-site .ps2-how-footer a.ps2-how-footer__contact-cta:focus-visible{background:#0b3524;color:white}
+.ps2-how-footer__values{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:28px}
+.ps2-how-footer__values>div{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+.ps2-how-footer__values svg{color:#236046}
+.ps2-how-footer__values span{font-size:.65rem;line-height:1.3}
+.ps2-how-footer__scenery{height:clamp(110px,10vw,175px);background:url("/assets/brand-v2/editorial/w215-how-footer-landscape.webp") center bottom/cover no-repeat;position:relative}
+.ps2-how-footer__scenery span{position:absolute;right:8%;bottom:25%;color:#204a35;font:italic 500 1.08rem/1.4 "Segoe Print","Apple Chancery",cursive;transform:rotate(-7deg);text-shadow:0 1px 2px #fff}
+.ps2-how-footer__bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #e3e4d9;padding:19px max(27px,calc((100vw - 1680px)/2));color:#3e5345;font-size:.74rem}
+.ps2-how-footer__bottom nav{display:flex;align-items:center;gap:25px;flex-wrap:wrap}
+.ps2-site .ps2-how-footer__bottom a{color:#294536;text-decoration:none}
+.ps2-site .ps2-how-footer__bottom a:hover,.ps2-site .ps2-how-footer__bottom a:focus-visible{text-decoration:underline;color:#0e583a}
+@media(max-width:1200px){.ps2-how-footer__main{grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}.ps2-how-footer__brand{grid-column:span 2}.ps2-how-footer__contact{grid-column:span 2}}
+@media(max-width:780px){.ps2-how__method-banner{width:1050px;height:auto;max-width:none}.ps2-how__chalk{display:none}.ps2-how-footer__main{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;padding:34px 20px}.ps2-how-footer__brand,.ps2-how-footer__contact{grid-column:span 2}.ps2-how-footer__values{max-width:430px}.ps2-how-footer__bottom{flex-wrap:wrap;padding:20px}.ps2-how-footer__bottom nav{order:3;width:100%;gap:14px}}
+@media(max-width:560px){.ps2-how__hero-shade{background:linear-gradient(180deg,#fff9ec 0%,rgba(255,249,237,.97) 39%,rgba(255,249,237,.3) 73%,transparent 100%)}.ps2-how-footer__scenery span{font-size:.78rem;right:3%}.ps2-how-footer__main{gap:24px 16px}.ps2-how-footer__values span{font-size:.6rem}}
+
+/* W2.15 approved banner pixel parity, using exact user-supplied masters.
+   Desktop: fully readable original compositions. Mobile: live responsive HTML.
+   Link hotspots correspond to the three visible pill CTAs in the source master. */
+.ps2-how__exact{position:relative;isolation:isolate;display:block;width:100%;overflow:hidden;background:#fbf7ed}
+.ps2-how__exact > img{display:block;width:100%;height:auto;max-width:none}
+.ps2-how__exact-hit{position:absolute;z-index:2;display:block;top:81.7%;height:9%;border-radius:999px;cursor:pointer;transition:box-shadow .15s}
+.ps2-how__exact-hit--main{left:2.1%;width:13.8%}
+.ps2-how__exact-hit--young{left:37.7%;width:15.7%}
+.ps2-how__exact-hit--go{left:68.1%;width:15.4%}
+.ps2-how__exact-hit:hover{box-shadow:0 0 0 3px #fff8dc,0 0 0 6px #0d6348}
+.ps2-how__exact-hit:focus-visible{outline:4px solid #e3a62e;outline-offset:3px;box-shadow:0 0 0 2px #073722}
+.ps2-how__fallback{display:none}
+.ps2-how__ecosystem,.ps2-how__impact,.ps2-how__places{width:100%;max-width:none;margin:0;padding:0;scroll-margin-top:90px}
+.ps2-how__method--banner{padding:0;border:0}
+.ps2-how__method-banner{width:100%;height:auto;max-width:none}
+.ps2-how-footer__scenery{background-image:url("/assets/brand-v2/editorial/w215-how-footer-landscape.webp")}
+.ps2-how-footer__scenery span{display:none}
+@media(max-width:780px){
+  .ps2-how__exact{display:none}
+  .ps2-how__fallback{display:block}
+  .ps2-how__ecosystem,.ps2-how__impact,.ps2-how__places{width:calc(100% - 26px);margin:auto;padding:24px 0}
+  .ps2-how__method-banner{width:1050px;height:auto}
+  .ps2-how__method-banner-wrap{overflow-x:auto}
+}
+@media(prefers-reduced-motion:reduce){.ps2-how__exact-hit{transition:none}}
