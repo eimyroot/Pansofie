@@ -1,0 +1,63 @@
+
+/* W2.13 /16-oblasti mockup. CSS isolated to the adult public V2 domains page. */
+.ps2-domains{color:#153e2c;background:#fcf8ee;overflow:hidden}
+.ps2-domains h1,.ps2-domains h2,.ps2-domains h3{font-family:var(--ps2-display),Georgia,serif;color:#153f2b;font-weight:540;letter-spacing:-.025em}
+.ps2-domains__eyebrow{font-size:.7rem;letter-spacing:.16em;font-weight:850;line-height:1.35}
+.ps2-domains__hero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:clamp(380px,37vw,580px);background:#b9c9a6;padding:45px max(4.8vw,calc((100vw - 1330px)/2))}
+.ps2-domains__hero-photo{z-index:-3;object-fit:cover;object-position:center 50%}
+.ps2-domains__hero-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#fff8eb 0%,rgba(255,248,235,.98) 22%,rgba(255,248,235,.84) 36%,rgba(255,248,235,.36) 48%,transparent 69%)}
+.ps2-domains__hero-copy{width:min(610px,53%);position:relative;z-index:2}
+.ps2-domains__hero h1{font-size:clamp(2.8rem,5.5vw,5.5rem);line-height:1.03;margin:17px 0 18px;max-width:11.5ch}
+.ps2-domains__hero-copy>p:not(.ps2-domains__eyebrow){max-width:53ch;color:#2b4c3b;font-size:clamp(.95rem,1.14vw,1.12rem);line-height:1.58}
+.ps2-domains__actions{display:flex;flex-wrap:wrap;gap:13px;align-items:center;margin-top:23px}
+.ps2-domains__button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:45px;max-width:100%;padding:11px 20px;border-radius:999px;border:1px solid transparent;text-decoration:none;font-weight:780;font-family:inherit;font-size:.85rem;line-height:1.25;text-align:center;white-space:normal;transition:background .15s,color .15s}
+.ps2-site .ps2-domains a.ps2-domains__button--primary,.ps2-site .ps2-domains a.ps2-domains__button--primary:visited{background:#0e4b32;color:#fff;border-color:#0e4b32}
+.ps2-site .ps2-domains a.ps2-domains__button--primary:hover,.ps2-site .ps2-domains a.ps2-domains__button--primary:focus-visible{background:#0a3625;color:#fff;border-color:#0a3625}
+.ps2-site .ps2-domains a.ps2-domains__button--light,.ps2-site .ps2-domains a.ps2-domains__button--light:visited{background:#fffdf6;color:#173d2d;border-color:#adbcab}
+.ps2-site .ps2-domains a.ps2-domains__button--light:hover,.ps2-site .ps2-domains a.ps2-domains__button--light:focus-visible{background:#e8eddf;color:#102f23;border-color:#8ea793}
+.ps2-site .ps2-domains a.ps2-domains__button--quiet,.ps2-site .ps2-domains a.ps2-domains__button--quiet:visited{background:#fffaf1;color:#173e2d;border-color:#c7c5b9}
+.ps2-site .ps2-domains a.ps2-domains__button--quiet:hover,.ps2-site .ps2-domains a.ps2-domains__button--quiet:focus-visible{background:#edf1e5;color:#102f23;border-color:#8ea793}
+.ps2-site .ps2-domains a.ps2-domains__button--outline,.ps2-site .ps2-domains a.ps2-domains__button--outline:visited{background:rgba(5,37,23,.35);color:#fff;border-color:#fff}
+.ps2-site .ps2-domains a.ps2-domains__button--outline:hover,.ps2-site .ps2-domains a.ps2-domains__button--outline:focus-visible{background:#fffdf6;color:#173d2d;border-color:#fff}
+.ps2-domains__handwriting,.ps2-domains__bridge-handwriting{position:absolute;z-index:2;color:#fff;text-align:center;font:italic 500 clamp(1.2rem,2.25vw,2.15rem)/1.13 "Segoe Print","Apple Chancery",cursive;text-shadow:1px 2px 5px rgba(5,25,15,.8);transform:rotate(-7deg);pointer-events:none}
+.ps2-domains__handwriting{top:21%;right:3.7%;max-width:205px}
+.ps2-domains__overview{max-width:1380px;margin:auto;padding:28px 24px 25px}
+.ps2-domains__overview-heading{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) auto;gap:32px;align-items:center;margin:0 4px 23px}
+.ps2-domains__overview-heading h2{font-size:clamp(2.3rem,3.9vw,4rem);line-height:1.12;margin-top:8px}
+.ps2-domains__overview-heading>p{font-size:.89rem;line-height:1.6;color:#485c4e;max-width:49ch}
+.ps2-domains__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;scroll-margin-top:108px}
+.ps2-domains__card{position:relative;min-width:0;overflow:hidden;border:1px solid #e7dece;background:#fffdf7;border-radius:13px;box-shadow:0 4px 13px rgba(32,44,25,.04);scroll-margin-top:104px}
+.ps2-domains__card-photo{display:block;position:relative;width:100%;height:110px;background-image:url('/assets/brand-v2/editorial/w213-domains-atlas.avif');background-size:400% 400%;background-repeat:no-repeat;background-color:#adbc9f}
+.ps2-domains__card-icon{position:absolute;top:84px;left:16px;width:52px;height:52px;display:grid;place-items:center;border-radius:50%;border:3px solid #fffdf7;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.13)}
+.ps2-domains__tone--amber{background:#f6b527}
+.ps2-domains__tone--coral{background:#e9686d}
+.ps2-domains__tone--blue{background:#35a1da}
+.ps2-domains__tone--violet{background:#9060d8}
+.ps2-domains__tone--clay{background:#dc8c59}
+.ps2-domains__tone--leaf{background:#8eb45e}
+.ps2-domains__tone--slate{background:#879bb5}
+.ps2-domains__tone--orange{background:#f07727}
+.ps2-domains__tone--teal{background:#1ba4a0}
+.ps2-domains__card-copy{padding:13px 15px 17px;position:relative;min-height:122px}
+.ps2-domains__card-copy h3{font-family:var(--ps2-sans),Arial,sans-serif;font-size:.95rem;line-height:1.2;font-weight:790;color:#182b24;margin:3px 0 8px;padding-left:60px;min-height:26px;display:flex;align-items:center}
+.ps2-domains__card-copy>p{font-size:.8rem;line-height:1.42;color:#273f33;max-width:35ch;margin-top:8px;padding-right:16px}
+.ps2-domains__card-more{margin-top:7px}
+.ps2-domains__card-more summary{list-style:none;position:absolute;right:12px;top:16px;display:grid;place-items:center;width:29px;height:29px;color:#1b4c37;border:1px solid transparent;border-radius:50%;cursor:pointer}
+.ps2-domains__card-more summary::-webkit-details-marker{display:none}
+.ps2-domains__card-more summary:hover,.ps2-domains__card-more summary:focus-visible{background:#e6ecdf;border-color:#6b947e}
+.ps2-domains__card-more[open] summary svg{transform:rotate(90deg)}
+.ps2-domains__card-more>p{margin-top:13px;padding-top:10px;border-top:1px solid #e3e5d7;color:#52614f;font-size:.76rem;line-height:1.5}
+.ps2-domains__bridge{position:relative;isolation:isolate;display:flex;align-items:center;min-height:360px;margin:0;overflow:hidden;padding:46px max(5vw,calc((100vw - 1320px)/2));background:#0b3322;color:#fff}
+.ps2-domains__bridge-photo{z-index:-3;object-fit:cover;object-position:82% 50%}
+.ps2-domains__bridge-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#062c1c 0%,#073420 26%,rgba(5,46,27,.95) 42%,rgba(5,42,24,.56) 57%,rgba(5,42,24,.1) 75%,rgba(5,42,24,.18) 100%)}
+.ps2-domains__bridge-copy{width:min(600px,57%);z-index:2}
+.ps2-domains__bridge h2{font-size:clamp(2.6rem,4.1vw,4.6rem);line-height:1.04;letter-spacing:-.03em;color:#fff;margin:12px 0 18px}
+.ps2-domains__bridge-copy>p:not(.ps2-domains__eyebrow){color:#f8f9f0;font-size:clamp(.93rem,1.14vw,1.1rem);line-height:1.54;max-width:57ch}
+.ps2-domains__bridge-handwriting{right:2.3%;top:27%;font-size:clamp(1rem,1.5vw,1.45rem)}
+.ps2-domains__practice{max-width:1340px;margin:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) auto;gap:35px;align-items:center;padding:35px 32px}
+.ps2-domains__practice h2{font-size:clamp(2rem,3.4vw,3.5rem);white-space:normal}
+.ps2-domains__practice>p{color:#47594a;font-size:.88rem;line-height:1.6;max-width:57ch}
+@media(max-width:1100px){.ps2-domains__hero-copy{width:57%}.ps2-domains__overview-heading{grid-template-columns:1fr 1fr;gap:17px}.ps2-domains__overview-heading>a{grid-column:2;justify-self:start}.ps2-domains__bridge-copy{width:61%}.ps2-domains__bridge-handwriting{display:none}.ps2-domains__practice{grid-template-columns:1fr auto}.ps2-domains__practice>p{grid-column:1;grid-row:2}.ps2-domains__practice>a{grid-column:2;grid-row:1 / 3}}
+@media(max-width:780px){.ps2-domains__hero{min-height:510px;padding:35px 25px;align-items:flex-start}.ps2-domains__hero-copy{width:72%}.ps2-domains__hero-shade{background:linear-gradient(90deg,#fff9ed 0%,rgba(255,249,237,.94) 42%,rgba(255,249,237,.32) 70%,rgba(255,249,237,.05) 100%)}.ps2-domains__hero h1{font-size:clamp(2.6rem,6.5vw,4rem)}.ps2-domains__handwriting{right:3%;top:auto;bottom:30px;font-size:1.27rem}.ps2-domains__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ps2-domains__overview{padding:28px 20px}.ps2-domains__overview-heading{grid-template-columns:1fr}.ps2-domains__overview-heading>a{grid-column:1}.ps2-domains__card-photo{height:135px}.ps2-domains__card-icon{top:109px}.ps2-domains__bridge{min-height:450px}.ps2-domains__bridge-copy{width:75%}}
+@media(max-width:560px){.ps2-domains__hero{min-height:630px;padding:30px 18px}.ps2-domains__hero-photo{object-position:62% 50%}.ps2-domains__hero-shade{background:linear-gradient(180deg,#fff9ec 0%,rgba(255,249,237,.97) 43%,rgba(255,249,237,.18) 76%,transparent)}.ps2-domains__hero-copy{width:100%;max-width:100%}.ps2-domains__hero h1{font-size:clamp(2.5rem,9vw,3.4rem);line-height:1.08;overflow-wrap:normal}.ps2-domains__hero-copy>p:not(.ps2-domains__eyebrow){font-size:.9rem}.ps2-domains__handwriting{top:auto;bottom:28px;right:10px;font-size:1.1rem}.ps2-domains__actions{gap:9px;margin-top:17px}.ps2-domains__button{font-size:.79rem;padding:11px 14px;gap:7px}.ps2-domains__overview{padding:25px 12px}.ps2-domains__overview-heading{margin:0 5px 20px}.ps2-domains__overview-heading h2{font-size:2.4rem}.ps2-domains__grid{grid-template-columns:1fr;gap:12px}.ps2-domains__card-photo{height:170px}.ps2-domains__card-icon{top:145px}.ps2-domains__card-copy{min-height:98px;padding:12px 14px 15px}.ps2-domains__card-copy>p{max-width:50ch}.ps2-domains__bridge{min-height:660px;align-items:flex-start;padding:32px 19px}.ps2-domains__bridge-photo{object-position:58% 85%}.ps2-domains__bridge-shade{background:linear-gradient(180deg,#052e1f 0%,rgba(5,46,31,.96) 40%,rgba(5,46,31,.35) 76%,transparent)}.ps2-domains__bridge-copy{width:100%;max-width:100%}.ps2-domains__bridge h2{font-size:clamp(2.2rem,8.8vw,3.3rem);line-height:1.1;overflow-wrap:normal}.ps2-domains__practice{grid-template-columns:1fr;gap:12px;padding:29px 20px}.ps2-domains__practice>p,.ps2-domains__practice>a{grid-column:1;grid-row:auto;justify-self:start}}
+@media(prefers-reduced-motion:reduce){.ps2-domains__button{transition:none}}

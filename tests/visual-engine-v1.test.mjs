@@ -21,7 +21,7 @@ test("unmigrated public surfaces keep Visual Engine while homepage uses the W2.6
   const surfaces = {
     "src/components/public-v2/HomePageV2.jsx": /ps2-mockup-hero__photo/,
     "src/app/7-cest/page.jsx": /ps2-paths__cards/,
-    "src/app/16-oblasti/page.jsx": /PansofieVisualEngine mode="domains"/,
+    "src/app/16-oblasti/page.jsx": /ps2-domains__grid/,
     "src/app/projekty/page.jsx": /PansofieVisualEngine mode="projects"/,
     "src/app/komunita/page.jsx": /PansofieVisualEngine mode="community"/,
   };
