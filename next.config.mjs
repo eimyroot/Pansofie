@@ -4,5 +4,5 @@ import { fileURLToPath } from "node:url";
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
-const nextConfig = { reactStrictMode: true, turbopack: { root: projectRoot }, agentRules: false };
+const nextConfig = { reactStrictMode: true, turbopack: { root: projectRoot }, agentRules: false, images: { qualities: [75, 85] } };
 export default nextConfig;

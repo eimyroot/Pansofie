@@ -39,7 +39,7 @@ export default function PathsPage() {
   return <PublicShellV2 currentPath="/7-cest">
     <div className="ps2-paths">
       <section className="ps2-paths__hero" aria-labelledby="ps2-paths-title">
-        <Image className="ps2-paths__hero-photo" src="/assets/brand-v2/editorial/w210-hero.avif" alt="Ilustrační obraz lidí různých generací, kteří spolu hovoří na vyhlídce" fill priority sizes="100vw"/>
+        <Image className="ps2-paths__hero-photo" src="/assets/brand-v2/editorial/w211-hero.avif" alt="Ilustrační obraz lidí různých generací, kteří spolu hovoří na vyhlídce" fill priority quality={85} sizes="100vw"/>
         <div className="ps2-paths__hero-wash" aria-hidden="true"/>
         <div className="ps2-paths__hero-content">
           <p className="ps2-paths__eyebrow">7 CEST</p>
@@ -82,7 +82,7 @@ export default function PathsPage() {
       </section>
 
       <section className="ps2-paths__connected" aria-labelledby="ps2-paths-connected-title">
-        <Image src="/assets/brand-v2/editorial/w210-sign.avif" alt="Dřevěný rozcestník se symboly sedmi cest na sluncem ozářené lesní stezce" fill sizes="100vw"/>
+        <Image src="/assets/brand-v2/editorial/w211-sign.avif" alt="Dřevěný rozcestník s jednoduchými symboly u zelené lesní stezky" fill quality={85} sizes="100vw"/>
         <div className="ps2-paths__connected-card">
           <p className="ps2-paths__eyebrow">VŠE JE PROPOJENÉ</p>
           <h2 id="ps2-paths-connected-title">Cesty se vzájemně doplňují</h2>
@@ -123,7 +123,7 @@ export default function PathsPage() {
       </section>
 
       <section className="ps2-paths__join" aria-labelledby="ps2-paths-join-title">
-        <Image src="/assets/brand-v2/editorial/w210-footer.avif" alt="Ilustrační fotografie přátel společně hledících na krajinu" fill sizes="100vw"/>
+        <Image src="/assets/brand-v2/editorial/w211-footer.avif" alt="Ilustrační fotografie dobrovolníků, kteří společně sázejí zeleninu v komunitní zahradě" fill quality={85} sizes="100vw"/>
         <div className="ps2-paths__join-wash" aria-hidden="true"/>
         <div className="ps2-paths__join-content">
           <p className="ps2-paths__eyebrow">SPOLEČNĚ TVOŘÍME</p>
