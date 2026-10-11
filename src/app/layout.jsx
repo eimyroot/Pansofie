@@ -22,6 +22,7 @@ import "./community-frame02.css";
 import "./engage-frame02.css";
 import "./orientation-frame02.css";
 import "./trust-frame02.css";
+import "./people-place-frame02.css";
 import { DEFAULT_SOCIAL_IMAGE, SITE_DESCRIPTION, SITE_INDEXABLE, SITE_NAME, SITE_ORIGIN } from "../domain/site-metadata";
 
 export const metadata = {

@@ -301,10 +301,9 @@ test("M6.10 turns the canonical 16 areas and 7 paths into the same adult editori
   assert.doesNotMatch(`${domains}\n${paths}`, /1000\+|ověřený dopad|garantovaný dopad|osobnostní skóre/i);
 });
 test("M6.11 completes the people, knowledge and place editorial layer", () => {
-  const files = ["family-team", "osobni-rust", "mapa"];
-  for (const file of files) {
+  for (const file of ["family-team", "osobni-rust", "mapa", "mapa-kolobehu"]) {
     const source = readFileSync(`src/app/${file}/page.jsx`, "utf8");
-    assert.match(source, /EditorialFeatureBand|editorialFeature=/, `${file} should include the editorial feature layer`);
+    assert.match(source, /PeoplePlaceFamilyNav/, `${file} should use the People & Place Frame 02 family`);
   }
   assert.match(readFileSync("src/app/blog/page.jsx", "utf8"), /DiscoverHero variant="articles"/);
 

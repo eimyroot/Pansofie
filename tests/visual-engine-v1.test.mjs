@@ -26,10 +26,6 @@ test("core public surfaces use the canonical Pansofie identity language", () => 
 });
 
 test("secondary adult public surfaces use the shared relation-field language", () => {
-  const files = [
-    "src/app/osobni-rust/page.jsx",
-  ];
-  for (const file of files) assert.match(read(file), /PansofieVisualEngine mode="flow"/, `${file} must use relation field`);
   assert.match(read("src/components/public/ProgramStoryPage.jsx"), /PansofieVisualEngine mode="flow"/);
 });
 

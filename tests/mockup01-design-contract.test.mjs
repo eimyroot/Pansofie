@@ -55,8 +55,9 @@ test("Adult public runtime cannot fall back to legacy Pansofie visual helpers", 
   const adult = adultPageSources();
   assert.doesNotMatch(adult, /pansofie(?:Photo|Scene|Illustration)\s*\(/);
   assert.doesNotMatch(adult, /\/assets\/current\/photos\//);
-  assert.match(adult, /PansofieVisualEngine/);
-  assert.match(adult, /PansofieVisualCard|PansofieArtPanel|EditorialFeatureBand/);
+  for (const marker of ["PansofieManifestHero", "DiscoverHero", "ProjectHero", "CommunityHero", "EngageHero", "OrientationHero", "TrustHero", "PeoplePlaceHero"]) {
+    assert.match(adult, new RegExp(marker), `Adult runtime should include ${marker}`);
+  }
 });
 
 test("dark Mockup 01 surfaces preserve readable editorial contrast", () => {
