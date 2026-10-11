@@ -3187,3 +3187,93 @@
   }
   .ps2-about__wisdom-copy{padding:155px 22px 26px}
 }
+
+/* W2.10: approved 7-path editorial mockup. All selectors scoped to /7-cest. */
+.ps2-paths{background:#f8f3e7;color:#183d2d;overflow:hidden;}
+.ps2-paths h1,.ps2-paths h2,.ps2-paths h3{font-family:var(--ps2-display),Georgia,serif;color:#174331;font-weight:540}
+.ps2-paths__eyebrow{font-family:inherit;font-size:.7rem;font-weight:800;letter-spacing:.16em;line-height:1.4;color:#516747}
+.ps2-paths__hero{position:relative;isolation:isolate;min-height:clamp(430px,37vw,590px);display:flex;align-items:center;padding:48px max(4.5vw,calc((100vw - 1330px)/2));background:#d2b68f;overflow:hidden;}
+.ps2-paths__hero-photo,.ps2-paths__connected>img,.ps2-paths__join>img{object-fit:cover;object-position:center;z-index:-3;}
+.ps2-paths__hero-photo{object-position:center 54%}
+.ps2-paths__hero-wash{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#fff9ed 0%,rgba(255,249,237,.95) 23%,rgba(255,249,237,.75) 38%,rgba(255,249,237,.18) 58%,transparent 80%);}
+.ps2-paths__hero-content{position:relative;z-index:1;width:min(620px,54%);}
+.ps2-paths__hero h1{font-size:clamp(2.7rem,5.45vw,5.75rem);line-height:.99;letter-spacing:-.036em;margin:18px 0 20px;}
+.ps2-paths__hero-content>p:not(.ps2-paths__eyebrow){max-width:49ch;font-size:clamp(.96rem,1.1vw,1.13rem);line-height:1.58;color:#36483d;}
+.ps2-paths__hero-actions,.ps2-paths__join-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:26px;}
+.ps2-paths__button{display:inline-flex;align-items:center;justify-content:center;gap:12px;border-radius:999px;min-height:44px;padding:12px 19px;font-size:.83rem;font-weight:790;line-height:1.2;white-space:normal;text-align:center;text-decoration:none;transition:background .15s,color .15s;}
+.ps2-paths__button--solid{color:#fff;background:#155239;border:1px solid #155239;}
+.ps2-paths__button--solid:hover,.ps2-paths__button--solid:focus-visible{background:#0d3927;color:#fff;}
+.ps2-paths__button--light{color:#163f30;background:#fffdf6;border:1px solid #b3bba8;}
+.ps2-paths__button--light:hover,.ps2-paths__button--light:focus-visible{background:#e5e9dd;}
+.ps2-paths__button--outline{color:#fff;background:rgba(7,44,27,.16);border:1px solid #fff;}
+.ps2-paths__button--outline:hover,.ps2-paths__button--outline:focus-visible{background:#f6eddd;color:#153b28;}
+.ps2-paths__handwriting{position:absolute;top:35px;right:max(4vw,calc((100vw - 1320px)/2));z-index:1;text-align:right;font:italic 500 clamp(1.1rem,2.1vw,2rem)/1.28 "Apple Chancery","Segoe Print",cursive;color:#163d2b;text-shadow:0 1px 12px #fff8e9;transform:rotate(-7deg);}
+.ps2-paths__overview{position:relative;z-index:2;width:min(1360px,calc(100% - 28px));margin:-16px auto 0;padding:23px 25px 24px;background:#fffdf7;border:1px solid #eae1d2;border-radius:25px;box-shadow:0 15px 35px #3f532515;}
+.ps2-paths__overview-head{display:grid;grid-template-columns:1.22fr .84fr;gap:30px;align-items:center;margin-bottom:15px;padding:6px 16px 10px;}
+.ps2-paths__overview h2,.ps2-paths__audience h2,.ps2-paths__details h2{font-size:clamp(2.1rem,3.5vw,3.5rem);line-height:1.13;}
+.ps2-paths__overview-head>div>p{margin-top:10px;max-width:60ch;color:#536056;font-size:.95rem;line-height:1.62;}
+.ps2-paths__thought{position:relative;min-height:140px;display:flex;flex-direction:column;justify-content:center;gap:11px;padding:23px 32px;border:1px solid #ede6d9;border-radius:22px;background:linear-gradient(140deg,#fffcf5 0%,#f6eee0 100%);box-shadow:0 7px 16px #604d3110;}
+.ps2-paths__thought>svg{position:absolute;right:22px;top:16px;opacity:.32;color:#81947e;}
+.ps2-paths__thought p{font-family:var(--ps2-display),Georgia,serif;font-size:clamp(1.08rem,1.55vw,1.7rem);line-height:1.3;font-style:italic;color:#143b2b;max-width:34ch;}
+.ps2-paths__thought small{font-size:.7rem;color:#627365;}
+.ps2-paths__cards{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:11px;}
+.ps2-paths__card{display:flex;flex-direction:column;position:relative;min-width:0;overflow:hidden;border-radius:15px;background:#fffaf0;border:1px solid #ebe5d8;box-shadow:0 6px 16px rgba(46,65,45,.07);scroll-margin-top:105px;}
+.ps2-paths__card-photo{height:155px;background-image:url('/assets/brand-v2/editorial/w210-seven-paths-atlas.avif');background-repeat:no-repeat;background-size:700% 100%;background-position:0 50%;background-color:#c6bba7;}
+.ps2-paths__card-photo--0{background-position:0% 50%;}
+.ps2-paths__card-photo--1{background-position:16.6667% 50%;}
+.ps2-paths__card-photo--2{background-position:33.3333% 50%;}
+.ps2-paths__card-photo--3{background-position:50% 50%;}
+.ps2-paths__card-photo--4{background-position:66.6667% 50%;}
+.ps2-paths__card-photo--5{background-position:83.3333% 50%;}
+.ps2-paths__card-photo--6{background-position:100% 50%;}
+.ps2-paths__tone--coral{background:#e8797d;color:#fff;}
+.ps2-paths__tone--gold{background:#eeb23d;color:#fff;}
+.ps2-paths__tone--sage{background:#88ab6a;color:#fff;}
+.ps2-paths__tone--violet{background:#9572be;color:#fff;}
+.ps2-paths__tone--orange{background:#e98b36;color:#fff;}
+.ps2-paths__tone--blue{background:#5197c8;color:#fff;}
+.ps2-paths__tone--mint{background:#72b88c;color:#fff;}
+.ps2-paths__card-icon{width:54px;height:54px;display:grid;place-items:center;border-radius:50%;position:relative;margin:-27px auto 0;z-index:1;border:3px solid #fff8ef;}
+.ps2-paths__card-body{display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;padding:12px 11px 15px;}
+.ps2-paths__card-body h3{font-size:1.3rem;line-height:1.11;margin:2px 0 10px;}
+.ps2-paths__card-body p{flex:1;line-height:1.5;color:#415348;font-size:.73rem;min-height:66px;}
+.ps2-paths__card-body a{display:grid;place-items:center;width:35px;height:35px;border-radius:50%;color:#173e2f;border:1px solid #86968b;background:#fffdfa;margin-top:14px;}
+.ps2-paths__card-body a:hover,.ps2-paths__card-body a:focus-visible{background:#154934;color:#fff;}
+.ps2-paths__connected{position:relative;isolation:isolate;min-height:340px;margin:18px 0 0;display:flex;align-items:center;justify-content:flex-end;padding:24px max(3.5vw,calc((100vw - 1330px)/2));background:#65744f;overflow:hidden;}
+.ps2-paths__connected>img{object-position:center 48%;}
+.ps2-paths__connected-card{width:min(530px,52%);padding:27px 32px;border-radius:22px;border:1px solid #ece5d5;background:rgba(255,252,244,.96);box-shadow:0 15px 28px rgba(23,42,26,.15);}
+.ps2-paths__connected-card h2{font-size:clamp(1.8rem,2.8vw,3rem);line-height:1.1;margin:9px 0 13px;}
+.ps2-paths__connected-card>p:not(.ps2-paths__eyebrow){color:#455849;font-size:.91rem;line-height:1.58;margin-bottom:18px;}
+.ps2-paths__audience{width:min(1350px,calc(100% - 45px));margin:0 auto;padding:34px 0 40px;}
+.ps2-paths__audience>p{font-size:.94rem;color:#5b685e;line-height:1.5;margin-top:9px;}
+.ps2-paths__audience-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px;}
+.ps2-paths__audience-card{border-radius:20px;background:#fffdf6;box-shadow:0 10px 23px #3746330c;border:1px solid #ebe7db;padding:20px 19px;display:flex;flex-direction:column;gap:13px;min-width:0;}
+.ps2-paths__audience-heading{display:flex;align-items:center;gap:12px;}
+.ps2-paths__audience-icon{width:51px;height:51px;flex:0 0 51px;display:grid;place-items:center;border-radius:50%;}
+.ps2-paths__audience-heading h3{font-size:1.33rem;line-height:1.12;margin-bottom:5px;}
+.ps2-paths__audience-heading p{font-size:.77rem;font-weight:670;color:#334d3e;}
+.ps2-paths__audience-card ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0;padding:0;}
+.ps2-paths__audience-card li{display:flex;align-items:center;gap:9px;color:#54665a;font-size:.83rem;line-height:1.4;}
+.ps2-paths__audience-card li svg{color:#39826b;flex:none;}
+.ps2-paths__audience-card>a{display:inline-flex;gap:7px;align-items:center;color:#1d583e;font-size:.77rem;font-weight:780;margin-top:auto;align-self:flex-start;}
+.ps2-paths__details{width:min(1330px,calc(100% - 45px));margin:0 auto;padding:25px 0 46px;scroll-margin-top:90px;border-top:1px solid #e2ddce;}
+.ps2-paths__details-heading>p:last-child{max-width:68ch;margin:10px 0 20px;color:#536554;line-height:1.58;}
+.ps2-paths__details-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;}
+.ps2-paths__details-grid article{display:flex;align-items:flex-start;gap:12px;border-radius:13px;background:#fffdf5;border:1px solid #eae4d9;padding:16px 14px;min-width:0;scroll-margin-top:120px;}
+.ps2-paths__details-grid article>span{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;flex:none;}
+.ps2-paths__details-grid h3{font-size:1.4rem;line-height:1.2;margin:3px 0 5px;}
+.ps2-paths__details-grid p{font-size:.75rem;line-height:1.45;color:#4c5d51;}
+.ps2-paths__detail-number{font-weight:800;font-size:.62rem;letter-spacing:.1em;color:#71876c;}
+.ps2-paths__join{position:relative;isolation:isolate;min-height:365px;padding:46px max(4vw,calc((100vw - 1330px)/2));display:flex;align-items:center;background:#13432f;color:#fff;overflow:hidden;}
+.ps2-paths__join>img{object-position:center 50%;}
+.ps2-paths__join-wash{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(6,56,36,.99) 0%,rgba(6,56,36,.95) 33%,rgba(6,56,36,.72) 46%,rgba(6,56,36,.15) 64%,transparent 100%);}
+.ps2-paths__join-content{width:min(625px,54%);}
+.ps2-paths__join .ps2-paths__eyebrow{color:#eeecd2;}
+.ps2-paths__join h2{font-size:clamp(2.3rem,3.8vw,4.35rem);line-height:1.07;color:#fff;margin:14px 0;}
+.ps2-paths__join-content>p:not(.ps2-paths__eyebrow){max-width:53ch;font-size:.93rem;line-height:1.62;color:#f4f3e8;}
+@media(max-width:1150px){.ps2-paths__cards{gap:7px}.ps2-paths__card-photo{height:128px}.ps2-paths__card-body{padding:10px 6px}.ps2-paths__card-body h3{font-size:1.15rem}.ps2-paths__card-body p{font-size:.67rem}.ps2-paths__audience-grid{gap:9px}.ps2-paths__audience-card{padding:16px 13px}.ps2-paths__audience-heading h3{font-size:1.14rem}}
+@media(max-width:890px){.ps2-paths__hero-content{width:65%}.ps2-paths__overview-head{grid-template-columns:1fr 1fr;gap:14px}.ps2-paths__cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.ps2-paths__card-photo{height:160px}.ps2-paths__card-body{padding:12px}.ps2-paths__card-body p{font-size:.76rem}.ps2-paths__audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ps2-paths__details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.ps2-paths__hero{align-items:flex-start;min-height:600px;padding:34px 22px}.ps2-paths__hero-content{width:100%;}.ps2-paths__hero h1{font-size:clamp(2.7rem,8.5vw,4rem)}.ps2-paths__hero-wash{background:linear-gradient(180deg,#fff9ec 0%,rgba(255,249,237,.96) 38%,rgba(255,249,237,.23) 70%,transparent 100%)}.ps2-paths__hero-photo{object-position:65% center}.ps2-paths__handwriting{top:auto;bottom:24px;right:19px;font-size:1.12rem}.ps2-paths__overview{width:calc(100% - 16px);margin-top:0;padding:23px 13px;border-radius:18px}.ps2-paths__overview-head{grid-template-columns:1fr;padding:6px 6px 18px}.ps2-paths__thought{min-height:108px;padding:18px}.ps2-paths__cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ps2-paths__card-photo{height:140px}.ps2-paths__card-body p{min-height:50px}.ps2-paths__connected{justify-content:center;align-items:flex-end;min-height:550px;padding:20px 14px}.ps2-paths__connected>img{object-position:31% center}.ps2-paths__connected-card{width:100%;padding:23px 20px}.ps2-paths__audience{width:calc(100% - 26px);padding:30px 0}.ps2-paths__audience-grid{grid-template-columns:1fr}.ps2-paths__details{width:calc(100% - 26px)}.ps2-paths__details-grid{grid-template-columns:1fr}.ps2-paths__join{min-height:580px;align-items:flex-start;padding:40px 23px}.ps2-paths__join-content{width:100%}.ps2-paths__join-wash{background:linear-gradient(180deg,rgba(4,51,31,.98) 0%,rgba(4,51,31,.89) 46%,rgba(4,51,31,.1) 78%,transparent)}.ps2-paths__join>img{object-position:68% center}}
+@media(max-width:400px){.ps2-paths__hero-actions{gap:9px}.ps2-paths__button{padding:11px 13px;font-size:.77rem}.ps2-paths__card-photo{height:110px}.ps2-paths__card-body h3{font-size:1.1rem}.ps2-paths__card-icon{height:48px;width:48px;margin-top:-24px}}
+@media(prefers-reduced-motion:reduce){.ps2-paths__button{transition:none}}
+/* END W2.10 */

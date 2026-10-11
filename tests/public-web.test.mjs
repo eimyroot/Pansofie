@@ -291,11 +291,11 @@ test("M6.10 turns the canonical 16 areas and 7 paths into the same adult editori
   assert.match(domains, /DOMAIN_DETAILS\.map/);
   assert.match(domains, /LEARNING_DOMAINS\[index\]\.id/);
 
-  assert.match(paths, /EditorialFeatureBand/);
-  assert.match(paths, /RŮST BEZ ŽEBŘÍČKU/);
-  assert.match(paths, /PATHS\.map/);
-  assert.match(paths, /DEVELOPMENT_PATHS\[index\]\.id/);
-  assert.match(paths, /nemají pořadí, vítěze ani ideální profil/i);
+  assert.match(paths, /ps2-paths__overview/);
+  assert.match(paths, /VŠE JE PROPOJENÉ/);
+  assert.match(paths, /PATHS\[index\]/);
+  assert.match(paths, /DEVELOPMENT_PATHS\[index\]/);
+  assert.match(paths, /Žádná není vyšší ani lepší/i);
 
   assert.doesNotMatch(`${domains}\n${paths}`, /1000\+|ověřený dopad|garantovaný dopad|osobnostní skóre/i);
 });
@@ -466,9 +466,10 @@ test("M6.18 gives every Objevuj destination its own responsive visual entry syst
   const domains = readFileSync("src/app/16-oblasti/page.jsx", "utf8");
   const blog = readFileSync("src/app/blog/page.jsx", "utf8");
   assert.match(about, /ps2-about__hero/);
-  for (const source of [paths, domains, blog]) assert.match(source, /pw-visual-hero/);
+  assert.match(paths, /ps2-paths__hero/);
+  for (const source of [domains, blog]) assert.match(source, /pw-visual-hero/);
   assert.match(about, /ps2-about__mission/);
-  assert.match(paths, /pw-discover-icon-grid--paths/);
+  assert.match(paths, /ps2-paths__cards/);
   assert.match(domains, /pw-discover-icon-grid--domains/);
   assert.match(blog, /pw-resource-grid pw-resource-grid--visual/);
   assert.doesNotMatch(about + paths + domains + blog, /1000\+|garantovan|ověřený partner/i);
