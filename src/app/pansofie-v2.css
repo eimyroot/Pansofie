@@ -3277,3 +3277,73 @@
 @media(max-width:400px){.ps2-paths__hero-actions{gap:9px}.ps2-paths__button{padding:11px 13px;font-size:.77rem}.ps2-paths__card-photo{height:110px}.ps2-paths__card-body h3{font-size:1.1rem}.ps2-paths__card-icon{height:48px;width:48px;margin-top:-24px}}
 @media(prefers-reduced-motion:reduce){.ps2-paths__button{transition:none}}
 /* END W2.10 */
+
+
+/* W2.12 PATHS CTA CONTRAST: override global .ps2-site a { color:inherit; } safely.
+   WCAG AA targets: white on #155239 and dark #163f30 on #fffdf6.
+   Preserve real HTML links, visited state, keyboard focus, responsive wrapping. */
+.ps2-site .ps2-paths a.ps2-paths__button--solid,
+.ps2-site .ps2-paths a.ps2-paths__button--solid:visited {
+  color: #ffffff;
+  background-color: #155239;
+  border-color: #155239;
+}
+.ps2-site .ps2-paths a.ps2-paths__button--solid:hover,
+.ps2-site .ps2-paths a.ps2-paths__button--solid:focus-visible {
+  color: #ffffff;
+  background-color: #0d3927;
+  border-color: #0d3927;
+}
+.ps2-site .ps2-paths a.ps2-paths__button--light,
+.ps2-site .ps2-paths a.ps2-paths__button--light:visited {
+  color: #163f30;
+  background-color: #fffdf6;
+  border-color: #a6b5a9;
+}
+.ps2-site .ps2-paths a.ps2-paths__button--light:hover,
+.ps2-site .ps2-paths a.ps2-paths__button--light:focus-visible {
+  color: #113527;
+  background-color: #e5e9dd;
+  border-color: #6e947f;
+}
+.ps2-site .ps2-paths a.ps2-paths__button--outline,
+.ps2-site .ps2-paths a.ps2-paths__button--outline:visited {
+  color: #ffffff;
+  background-color: rgba(7, 44, 27, .4);
+  border-color: #ffffff;
+}
+.ps2-site .ps2-paths a.ps2-paths__button--outline:hover,
+.ps2-site .ps2-paths a.ps2-paths__button--outline:focus-visible {
+  color: #153b28;
+  background-color: #fffdf6;
+  border-color: #fffdf6;
+}
+.ps2-site .ps2-paths .ps2-paths__card-body > a,
+.ps2-site .ps2-paths .ps2-paths__card-body > a:visited {
+  color: #173e2f;
+  background-color: #fffdfa;
+}
+.ps2-site .ps2-paths .ps2-paths__card-body > a:hover,
+.ps2-site .ps2-paths .ps2-paths__card-body > a:focus-visible {
+  color: #ffffff;
+  background-color: #154934;
+}
+.ps2-site .ps2-paths .ps2-paths__audience-card > a,
+.ps2-site .ps2-paths .ps2-paths__audience-card > a:visited {
+  color: #1d583e;
+}
+.ps2-site .ps2-paths .ps2-paths__audience-card > a:hover,
+.ps2-site .ps2-paths .ps2-paths__audience-card > a:focus-visible {
+  color: #0d3927;
+  text-decoration: underline;
+}
+@media(max-width:680px) {
+  .ps2-site .ps2-paths .ps2-paths__hero-content,
+  .ps2-site .ps2-paths .ps2-paths__join-content,
+  .ps2-site .ps2-paths .ps2-paths__connected-card {min-width:0;max-width:100%;}
+  .ps2-site .ps2-paths .ps2-paths__hero h1 {font-size:clamp(2.15rem,7.7vw,3.1rem);line-height:1.07;white-space:normal;overflow-wrap:normal;}
+  .ps2-site .ps2-paths .ps2-paths__join h2 {font-size:clamp(2.1rem,7.5vw,3rem);line-height:1.12;white-space:normal;overflow-wrap:normal;}
+  .ps2-site .ps2-paths .ps2-paths__connected-card h2 {font-size:clamp(1.75rem,7vw,2.5rem);line-height:1.13;}
+  .ps2-site .ps2-paths .ps2-paths__join-actions,
+  .ps2-site .ps2-paths .ps2-paths__hero-actions {max-width:100%;}
+}
