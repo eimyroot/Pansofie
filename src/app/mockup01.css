@@ -95,7 +95,6 @@ body:has(.pw-site){background:var(--p01-cream)}
 .pw-project-gateway .pa-panel.is-compact .pa-node--2{left:52%;top:49%}
 .pw-project-gateway .pa-panel.is-compact .pa-node--3{left:8%;top:78%}
 .pw-project-gateway .pa-panel.is-compact .pa-node--4{left:53%;top:77%}
-.pw-project-gateway .pa-panel.is-compact .pa-node:nth-of-type(n+5){display:none}
 .pa-node--icon{grid-template-columns:19px minmax(0,1fr)}
 .pa-node--icon img{width:19px;height:19px;display:block;object-fit:contain}
 .pa-node--icon i{display:none}
