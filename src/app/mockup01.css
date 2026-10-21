@@ -108,3 +108,27 @@ body:has(.pw-site){background:var(--p01-cream)}
  .pw-project-gateway .pa-panel.is-compact .pa-node--3{left:5%;top:78%}
  .pw-project-gateway .pa-panel.is-compact .pa-node--4{left:52%;top:78%}
 }
+
+
+/* Project photographic art direction: imagery from the original mockup. */
+.pa-panel .pa-photo{position:absolute;z-index:0;inset:0;background-size:cover;background-position:center;pointer-events:none}
+.pa-panel:has(.pa-photo) .pa-grid{z-index:1;opacity:.34}
+.pa-panel:has(.pa-photo) .pa-material{opacity:.18}
+.pa-panel:has(.pa-photo) .pa-core{opacity:.7}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy{width:45%;top:8%}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy>strong{font-size:clamp(26px,3vw,46px)}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--2{left:58%;top:48%}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--4{left:68%;top:77%}
+@media(min-width:641px){
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy{width:52%}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy>strong{font-size:clamp(29px,3.2vw,48px)}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--2{left:63%;top:43%}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--3{left:37%;top:76%}
+}
+@media(max-width:640px){
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy{width:62%;top:7%}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy>strong{font-size:clamp(25px,6vw,37px)}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--2{left:63%;top:56%}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--3{left:26%;top:79%}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--4{left:65%;top:85%}
+}
