@@ -14,7 +14,7 @@ export function PublicHeaderV2({ currentPath = "/" }) {
       <BrandLockupV2/>
       <nav className="ps2-nav" aria-label="Hlavní navigace">
         {PUBLIC_NAV_V2.map((group) => <div className={"ps2-nav__group" + (routeIsActive(currentPath, group) ? " is-active" : "")} key={group.label}>
-          <Link className="ps2-nav__top" href={group.href}>{group.label}</Link>
+          <Link className="ps2-nav__top" href={group.href} aria-current={currentPath === group.href ? "page" : undefined}>{group.label}</Link>
           <div className="ps2-nav__panel">
             <span>{group.label}</span>
             {group.items.map((item) => <Link key={item.href} href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>{item.label}</Link>)}
@@ -39,7 +39,7 @@ export function PublicHeaderV2({ currentPath = "/" }) {
         </summary>
         <nav aria-label="Mobilní navigace">
           {PUBLIC_NAV_V2.map((group) => <div className="ps2-mobile-menu__group" key={group.label}>
-            <Link href={group.href}><strong>{group.label}</strong></Link>
+            <Link href={group.href} aria-current={currentPath === group.href ? "page" : undefined}><strong>{group.label}</strong></Link>
             {group.items.map((item) => <Link key={item.href} href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>{item.label}</Link>)}
           </div>)}
           <Link className="ps2-mobile-menu__product" href="/pansofie-go">Pansofie GO</Link>
