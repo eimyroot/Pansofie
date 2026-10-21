@@ -89,7 +89,7 @@ export default function ProjectsPage() {
     <EditorialFeatureBand eyebrow="OD MÍSTA K PROJEKTU"
       title="Projekt je místo, kde se potkají lidé, znalosti a skutečná potřeba."
       text="Komunitní zahrada, školní dílna, pomoc seniorům nebo práce se zbytkovým materiálem dávají smysl tehdy, když mají konkrétní účel a jasný kontext."
-      image={null} imageAlt="Lidé různých generací spolupracují na společném projektu"
+      image="/assets/current/photos/volunteer-garden.webp" imageAlt="Lidé různých generací spolupracují na společném projektu"
       items={[
         ["Město a příroda", "Zeleň, pěstování a péče o konkrétní místo."],
         ["Školy a firmy", "Potřeba se může potkat s materiálem, know-how nebo kapacitou."],
