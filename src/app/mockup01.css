@@ -160,7 +160,7 @@ body:has(.pw-site){background:var(--p01-cream)}
 
 /* Projects photo-art refinement: full bleed, gentle analog grading, never washed out. */
 .pw-visual-hero--projects .pve-stage--projects{isolation:isolate;background:#d6d8c5}
-.pw-visual-hero--projects .pve-project-photo{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(135deg,rgba(244,238,215,.24),rgba(35,73,56,.24)),url("/assets/current/mockup01/hero-ecosystem.webp");background-position:center;background-size:cover;filter:saturate(.83) contrast(1.05) sepia(.10)}
+.pw-visual-hero--projects .pve-project-photo{position:absolute;inset:0;z-index:0;background-image:linear-gradient(135deg,rgba(244,238,215,.24),rgba(35,73,56,.24)),url("/assets/current/mockup01/hero-ecosystem.webp");background-position:center;background-size:cover;filter:saturate(.83) contrast(1.05) sepia(.10)}
 .pw-visual-hero--projects .pve-stage--projects::before{z-index:1;opacity:.24}
 .pw-visual-hero--projects .pve-stage--projects::after{z-index:1;opacity:.35}
 .pw-visual-hero--projects .pve-stage--projects .pve-lines,
