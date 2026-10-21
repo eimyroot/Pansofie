@@ -1,12 +1,37 @@
 import Link from "next/link";
+import { domainIconV2, pathIconV2 } from "../../domain/asset-system-v2";
 
 const DEFAULT_NODES = [
-  ["Lidé","community"],["Příroda","nature"],["Místa","map"],["Učení","education"],
-  ["Projekty","projects"],["Tvorba","creation"],["Vztahy","relationships"],
+  ["Lidé", "society"], ["Příroda", "nature"], ["Místa", "citizenship"], ["Učení", "mind"],
+  ["Projekty", "work"], ["Tvorba", "creativity"], ["Vztahy", "relationships"],
 ];
 
+const NODE_ICONS = Object.freeze({
+  "Lidé": ["domain", "society"],
+  "Příroda": ["domain", "nature"],
+  "Místa": ["domain", "citizenship"],
+  "Učení": ["domain", "mind"],
+  "Projekty": ["domain", "work"],
+  "Tvorba": ["path", "creativity"],
+  "Vztahy": ["path", "relationships"],
+  "Rodiny": ["domain", "family"],
+  "Školy": ["domain", "mind"],
+  "Organizace": ["domain", "society"],
+  "Komunita": ["domain", "society"],
+  "Technologie": ["domain", "technology"],
+  "Kultura": ["domain", "culture"],
+  "Smysl": ["path", "meaning"],
+  "Tělo": ["path", "body"],
+  "Mysl": ["path", "mind"],
+});
+
 function ArtNode({ label, index }) {
-  return <span className={`pa-node pa-node--${index + 1}`}><i>{String(index + 1).padStart(2,"0")}</i><b>{label}</b></span>;
+  const icon = NODE_ICONS[label];
+  const src = icon ? (icon[0] === "path" ? pathIconV2(icon[1]) : domainIconV2(icon[1])) : null;
+  return <span className={`pa-node pa-node--${index + 1}`}>
+    {src ? <img src={src} width="28" height="28" alt="" aria-hidden="true" style={{ width: "1.5em", height: "1.5em", objectFit: "contain", flexShrink: 0 }} /> : <i aria-hidden="true">{String(index + 1).padStart(2, "0")}</i>}
+    <b>{label}</b>
+  </span>;
 }
 
 export function PansofieArtPanel({
