@@ -76,7 +76,7 @@ export function PansofieArtPanel({
   const props = href ? { href } : {};
   const list = (nodes.length ? nodes : DEFAULT_NODES.map(([label]) => label)).slice(0, 7);
   return <Tag {...props} className={`pa-panel pa-panel--${variant}${compact ? " is-compact" : ""}`}>
-    {backgroundImage && <span className="pa-photo" aria-hidden="true" style={{ backgroundImage: `linear-gradient(90deg, rgba(253,250,242,.91) 0%, rgba(253,250,242,.76) 42%, rgba(253,250,242,.46) 100%), url("${backgroundImage}")` }}/>}
+    {backgroundImage && <span className="pa-photo" aria-hidden="true" style={{ backgroundImage: `linear-gradient(90deg, rgba(253,250,242,.54) 0%, rgba(253,250,242,.28) 40%, rgba(253,250,242,.08) 100%), url("${backgroundImage}")` }}/>}
     <span className="pa-grid" aria-hidden="true"/>
     <span className="pa-botanical pa-botanical--a" aria-hidden="true">⌇</span>
     <span className="pa-botanical pa-botanical--b" aria-hidden="true">⌇</span>
