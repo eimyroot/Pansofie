@@ -13,7 +13,7 @@ export function EditorialFeatureBand({ eyebrow, title, text, image, imageAlt, re
   const nodes = items.map(([label]) => label);
   return <section className={`pw-editorial-band${reverse ? " pw-editorial-band--reverse" : ""}`}>
     <div className="pw-editorial-band__media">
-      <PansofieArtPanel eyebrow={eyebrow} title={title} detail={imageAlt || "souvislosti · zkušenost · skutečný život"} nodes={nodes} variant={artVariant(eyebrow,title)} caption="Pansofie · živý atlas vztahů"/>
+      <PansofieArtPanel eyebrow={eyebrow} title={title} detail={imageAlt || "souvislosti · zkušenost · skutečný život"} nodes={nodes} variant={artVariant(eyebrow,title)} backgroundImage={image} caption="Pansofie · živý atlas vztahů"/>
     </div>
     <div className="pw-editorial-band__copy">
       <p className="pw-eyebrow">{eyebrow}</p>
