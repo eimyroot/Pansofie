@@ -73,7 +73,7 @@ export function PansofieVisualEngine({ mode = "ecosystem", domains = [], paths =
   if (mode === "projects") {
     const points=[{x:20,y:28},{x:78,y:24},{x:82,y:73},{x:23,y:76}];
     return <figure className="pve-stage pve-stage--projects" aria-label="Pansofie projekty jako propojené vstupy do praxe">
-      <div className="pve-orbit pve-orbit--outer" aria-hidden="true"/><Lines points={points}/><Core kicker="PROJEKTY" title="Souvislosti v praxi" detail="místo · potřeba · lidé · zkušenost"/>
+      <div className="pve-project-photo" aria-hidden="true"/><div className="pve-orbit pve-orbit--outer" aria-hidden="true"/><Lines points={points}/><Core kicker="PROJEKTY" title="Souvislosti v praxi" detail="místo · potřeba · lidé · zkušenost"/>
       {projects.slice(0,4).map((project,index)=><Link href={project.href} className={`pve-project-node is-${PATH_ACCENTS[index]}`} style={{"--x":`${points[index].x}%`,"--y":`${points[index].y}%`}} key={project.title}><small>{project.label}</small><strong>{project.title}</strong></Link>)}
       <figcaption>Projekt propojuje více oblastí a cest najednou. Není to další oddělený šuplík.</figcaption>
     </figure>;
