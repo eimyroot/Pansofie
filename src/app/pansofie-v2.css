@@ -113,10 +113,12 @@
 }
 
 .ps2-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 80;
   border-bottom: 1px solid var(--ps2-line);
   background: rgba(250, 247, 239, 0.96);
+  backdrop-filter: blur(12px);
 }
 
 .ps2-header__inner {
@@ -336,6 +338,9 @@
   border-bottom: 1px solid var(--ps2-line);
   background: var(--ps2-cream);
   box-shadow: var(--ps2-shadow);
+  max-height: calc(100dvh - 82px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .ps2-mobile-menu__group {
@@ -803,7 +808,7 @@
   .ps2-mobile-menu > nav {
     top: 72px;
     grid-template-columns: 1fr;
-    max-height: calc(100vh - 72px);
+    max-height: calc(100dvh - 72px);
     overflow: auto;
   }
 
