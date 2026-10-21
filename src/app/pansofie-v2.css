@@ -3352,3 +3352,31 @@
   .ps2-site .ps2-paths .ps2-paths__join-actions,
   .ps2-site .ps2-paths .ps2-paths__hero-actions {max-width:100%;}
 }
+
+/* Floating return-to-top control */
+.ps2-back-to-top {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(250, 247, 239, .6);
+  border-radius: 50%;
+  background: var(--ps2-deep-green);
+  color: var(--ps2-cream) !important;
+  box-shadow: 0 10px 28px rgba(27, 77, 58, .25);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform .2s ease, background-color .2s ease;
+}
+.ps2-back-to-top:hover { transform: translateY(-4px); background: #276a50; }
+.ps2-back-to-top:focus-visible { outline: 3px solid var(--ps2-moss); outline-offset: 4px; }
+@media (max-width: 760px) {
+  .ps2-back-to-top { right: 16px; bottom: max(18px, env(safe-area-inset-bottom)); width: 48px; height: 48px; }
+}
+@media (prefers-reduced-motion: reduce) { .ps2-back-to-top { transition: none; } }
