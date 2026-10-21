@@ -23,13 +23,35 @@ const NODE_ICONS = Object.freeze({
   "Smysl": ["path", "meaning"],
   "Tělo": ["path", "body"],
   "Mysl": ["path", "mind"],
+  "Půda": ["domain", "nature"],
+  "Voda": ["domain", "nature"],
+  "Péče": ["domain", "relationships"],
+  "Místo": ["domain", "citizenship"],
+  "Pěstuj": ["domain", "nature"],
+  "Zpracuj": ["domain", "work"],
+  "Spojíte": ["domain", "relationships"],
+  "Spojíte se": ["domain", "relationships"],
+  "Spoj": ["domain", "relationships"],
+  "Potřeba": ["domain", "self"],
+  "Zdroj": ["domain", "finance"],
+  "Propojení": ["domain", "relationships"],
+  "Použití": ["domain", "work"],
+  "Otázka": ["path", "mind"],
+  "Pozorování": ["domain", "mind"],
+  "Pokus": ["domain", "technology"],
+  "Reflexe": ["path", "mind"],
+  "Vztah": ["path", "relationships"],
+  "Zkušenost": ["domain", "mind"],
+  "Role": ["domain", "society"],
+  "Účel": ["path", "meaning"],
+  "Dohoda": ["domain", "ethics"],
 });
 
 function ArtNode({ label, index }) {
-  const icon = NODE_ICONS[label];
+  const icon = NODE_ICONS[label] || ["domain", "society"];
   const src = icon ? (icon[0] === "path" ? pathIconV2(icon[1]) : domainIconV2(icon[1])) : null;
   return <span className={`pa-node pa-node--${index + 1}`}>
-    {src ? <img src={src} width="28" height="28" alt="" aria-hidden="true" style={{ width: "1.5em", height: "1.5em", objectFit: "contain", flexShrink: 0 }} /> : <i aria-hidden="true">{String(index + 1).padStart(2, "0")}</i>}
+    {src ? <img src={src} width="28" height="28" alt="" aria-hidden="true" style={{ width: "1.5em", height: "1.5em", objectFit: "contain", flexShrink: 0 }} />}
     <b>{label}</b>
   </span>;
 }
