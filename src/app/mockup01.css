@@ -80,3 +80,32 @@ body:has(.pw-site){background:var(--p01-cream)}
 .pw-site .pw-editorial-band .pw-eyebrow,
 .pw-site .pw-future-bridge .pw-eyebrow,
 .pw-site .pw-paths .pw-eyebrow{color:#b9cfbe}
+
+
+/* Projects artwork rebuild: keep Mockup 01 palette and composition, eliminate numeric
+   placeholders and reserve separate zones for headings and pictogram labels. */
+.pw-visual-hero--projects ~ .pw-project-gateway .pa-panel.is-compact{min-height:290px}
+.pw-project-gateway .pa-panel.is-compact .pa-copy{left:7%;top:8%;width:86%;gap:5px}
+.pw-project-gateway .pa-panel.is-compact .pa-copy>strong{font-size:clamp(23px,2.2vw,32px);line-height:1.04}
+.pw-project-gateway .pa-panel.is-compact .pa-copy>small{display:none}
+.pw-project-gateway .pa-panel.is-compact .pa-core{left:54%;top:66%;width:90px;opacity:.78}
+.pw-project-gateway .pa-panel.is-compact .pa-node{z-index:7;min-width:0;max-width:48%;grid-template-columns:19px minmax(0,1fr);gap:5px;padding:6px 9px;white-space:nowrap}
+.pw-project-gateway .pa-panel.is-compact .pa-node b{font-size:9px;overflow:hidden;text-overflow:ellipsis}
+.pw-project-gateway .pa-panel.is-compact .pa-node--1{left:6%;top:52%}
+.pw-project-gateway .pa-panel.is-compact .pa-node--2{left:52%;top:49%}
+.pw-project-gateway .pa-panel.is-compact .pa-node--3{left:8%;top:78%}
+.pw-project-gateway .pa-panel.is-compact .pa-node--4{left:53%;top:77%}
+.pw-project-gateway .pa-panel.is-compact .pa-node--n+5{display:none}
+.pa-node--icon{grid-template-columns:19px minmax(0,1fr)}
+.pa-node--icon img{width:19px;height:19px;display:block;object-fit:contain}
+.pa-node--icon i{display:none}
+@media(max-width:640px){
+ .pw-project-gateway .pa-panel.is-compact{min-height:275px}
+ .pw-project-gateway .pa-panel.is-compact .pa-copy{width:90%}
+ .pw-project-gateway .pa-panel.is-compact .pa-node{max-width:46%;padding:6px}
+ .pw-project-gateway .pa-panel.is-compact .pa-node b{font-size:8px}
+ .pw-project-gateway .pa-panel.is-compact .pa-node--1{left:5%;top:53%}
+ .pw-project-gateway .pa-panel.is-compact .pa-node--2{left:52%;top:53%}
+ .pw-project-gateway .pa-panel.is-compact .pa-node--3{left:5%;top:78%}
+ .pw-project-gateway .pa-panel.is-compact .pa-node--4{left:52%;top:78%}
+}
