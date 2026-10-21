@@ -1,8 +1,5 @@
 import Link from "next/link";
 import { PublicShell } from "../../components/public/PublicShell";
-import { PansofieVisualEngine } from "../../components/public/PansofieVisualEngine";
-import { EditorialFeatureBand } from "../../components/public/EditorialFeatureBand";
-import { PansofieArtPanel } from "../../components/public/PansofieArtPanel";
 import { PROJECTS } from "../../domain/pansofie-content";
 
 export const metadata = {
@@ -11,12 +8,11 @@ export const metadata = {
 };
 
 const GATEWAYS = [
-  { title: "Green Hope", label: "PŘÍRODA", href: "/green-hope", variant: "nature", text: "Pěstování, půda, voda, biodiverzita a péče o konkrétní místo.", backgroundImage: "/assets/current/mockup01/green-hope.webp", nodes: ["Půda", "Voda", "Pěstování", "Péče"] },
-  { title: "Urban Family Farm", label: "MĚSTO · RODINA", href: "/urban-family-farm", variant: "city", text: "Pěstování propojené s prací, ekonomikou a tvorbou hodnoty.", backgroundImage: "/assets/current/mockup01/urban-farm.webp", nodes: ["Pěstuj", "Zpracuj", "Spočítej", "Rozhodni"] },
-  { title: "Digitální kompost", label: "CIRKULARITA", href: "/digitalni-kompost", variant: "community", text: "Materiály a věci dostávají další smysluplné použití.", backgroundImage: "/assets/mockup/compost-hero.png", nodes: ["Potřeba", "Materiál", "Propojení", "Použití"] },
-  { title: "Labs", label: "EXPERIMENT", href: "/labs", variant: "knowledge", text: "Bezpečný prostor pro pokusy, pozorování a malé ověřitelné prototypy.", backgroundImage: "/assets/current/photos/labs-workshop.webp", nodes: ["Otázka", "Pokus", "Pozorování", "Reflexe"] },
+  { title: "Green Hope", label: "PŘÍRODA A KRAJINA", href: "/green-hope", text: "Pěstování, půda, voda, biodiverzita a péče o konkrétní místo.", image: "/assets/current/mockup01/green-hope.webp", alt: "Zeleň a prostředí projektu Green Hope", steps: ["Půda", "Voda", "Pěstování", "Péče"] },
+  { title: "Urban Family Farm", label: "MĚSTO A RODINA", href: "/urban-family-farm", text: "Pěstování propojené s prací, ekonomikou a tvorbou hodnoty.", image: "/assets/current/mockup01/urban-farm.webp", alt: "Městské pěstování", steps: ["Pěstuj", "Zpracuj", "Spočítej", "Rozhodni"] },
+  { title: "Digitální kompost", label: "CIRKULÁRNÍ EKONOMIKA", href: "/digitalni-kompost", text: "Materiály a věci dostávají další smysluplné použití.", image: "/assets/mockup/compost-hero.png", alt: "Materiály určené k dalšímu využití", steps: ["Potřeba", "Materiál", "Propojení", "Použití"] },
+  { title: "Labs", label: "DÍLNA A EXPERIMENT", href: "/labs", text: "Bezpečný prostor pro pokusy, pozorování a malé ověřitelné prototypy.", image: "/assets/current/photos/labs-workshop.webp", alt: "Společná práce v dílně", steps: ["Otázka", "Pokus", "Pozorování", "Reflexe"] },
 ];
-
 const PROJECT_LINKS = {
   "Green Hope": "/green-hope",
   "Urban Family Farm": "/urban-family-farm",
@@ -24,94 +20,34 @@ const PROJECT_LINKS = {
   "Komunitní zahrada": "/mise/rostlina",
   "Knowledge Exchange": "/sit",
 };
-
-function projectVisual(project) {
-  const title = project.title || "";
-  const variant = /Green|zahrad|Mikrogreens/i.test(title) ? "nature" :
-    /Kompost|Makerspace|Urban/i.test(title) ? "city" :
-    /Knowledge/i.test(title) ? "knowledge" : "community";
-  const backgroundImage = /Green Hope/i.test(title) ? "/assets/current/mockup01/green-hope.webp" : /Urban/i.test(title) ? "/assets/current/mockup01/urban-farm.webp" : /Family Team/i.test(title) ? "/assets/brand/pansofie/illustrations/family-team.webp" : /zahrad|Mikrogreens/i.test(title) ? "/assets/current/photos/community-garden.webp" : /Kompost/i.test(title) ? "/assets/mockup/compost-hero.png" : /Lab|Maker/i.test(title) ? "/assets/current/photos/labs-workshop.webp" : "/assets/brand/pansofie/illustrations/project-idea.webp";
-  return { variant, backgroundImage, nodes: [project.tag || "Projekt", "Místo", "Lidé", "Zkušenost"] };
+function projectImage(title) {
+  if (/Green Hope/i.test(title)) return "/assets/current/mockup01/green-hope.webp";
+  if (/Urban/i.test(title)) return "/assets/current/mockup01/urban-farm.webp";
+  if (/Family Team/i.test(title)) return "/assets/brand/pansofie/illustrations/family-team.webp";
+  if (/zahrad|Mikrogreens/i.test(title)) return "/assets/current/photos/community-garden.webp";
+  if (/Kompost/i.test(title)) return "/assets/mockup/compost-hero.png";
+  if (/Lab|Maker/i.test(title)) return "/assets/current/photos/labs-workshop.webp";
+  return "/assets/brand/pansofie/illustrations/project-idea.webp";
 }
-
-function GatewayCard({ project }) {
-  return <Link className="pw-project-gateway__card" href={project.href}>
-    <div className="pw-project-gateway__art">
-      <PansofieArtPanel compact eyebrow={project.label} title={project.title}
-        detail={project.text} nodes={project.nodes} variant={project.variant} backgroundImage={project.backgroundImage}/>
-    </div>
-    <span>{project.label}</span>
-    <h2>{project.title}</h2>
-    <p>{project.text}</p>
+function GatewayCard({ project, index }) {
+  return <Link className="ppr-feature" href={project.href}>
+    <div className="ppr-feature__image"><img src={project.image} alt={project.alt} loading={index > 1 ? "lazy" : "eager"}/><span className="ppr-feature__number">0{index + 1}</span></div>
+    <div className="ppr-feature__body"><span className="ppr-kicker">{project.label}</span><h3>{project.title}</h3><p>{project.text}</p><div className="ppr-feature__footer"><span>{project.steps.join(" · ")}</span><strong aria-label={"Otevřít " + project.title}>↗</strong></div></div>
   </Link>;
 }
-
-function CatalogCard({ project, index }) {
-  const visual = projectVisual(project);
+function CatalogCard({ project }) {
   const href = PROJECT_LINKS[project.title];
-  return <article className="pw-project-card" key={`${project.title}-${index}`}>
-    <div className="pw-project-card__media">
-      <PansofieArtPanel eyebrow={project.tag || "PROJEKT"} title={project.title}
-        detail={project.description} nodes={visual.nodes} variant={visual.variant} backgroundImage={visual.backgroundImage}/>
-    </div>
-    <div className="pw-project-card__body">
-      <div className="pw-project-card__meta"><span>{project.tag}</span><b>{project.status}</b></div>
-      <h2>{project.title}</h2>
-      <p>{project.description}</p>
-      {href ? <Link href={href}>Otevřít <span aria-hidden="true">→</span></Link> :
-        <span className="pw-project-card__pending">Další rozvoj je součástí produktového plánu.</span>}
-      {project.modelOnly && <small>Modelový projekt. Nejde o tvrzení o existující lokalitě ani naměřeném dopadu.</small>}
-    </div>
+  return <article className="ppr-catalog-card">
+    <div className="ppr-catalog-card__image"><img src={projectImage(project.title)} alt="" loading="lazy"/></div>
+    <div className="ppr-catalog-card__content"><div className="ppr-catalog-card__meta"><span>{project.tag || "PROJEKT"}</span><span>{project.status}</span></div><h3>{project.title}</h3><p>{project.description}</p>{project.modelOnly && <small>Modelový projekt – nejde o tvrzení o existující lokalitě ani naměřeném dopadu.</small>}<div className="ppr-catalog-card__bottom">{href ? <Link href={href}>Prozkoumat projekt <span aria-hidden="true">↗</span></Link> : <span>Ve fázi přípravy</span>}</div></div>
   </article>;
 }
-
 export default function ProjectsPage() {
-  return <PublicShell active="/projekty">
-    <section className="pw-visual-hero pw-visual-hero--engine pw-visual-hero--projects">
-      <div className="pw-visual-hero__copy">
-        <p className="pw-eyebrow">UČENÍ V PRAXI</p>
-        <h1>Projekty dávají souvislostem tvar.</h1>
-        <p>Pansofie propojuje poznání s konkrétní zkušeností. Některé položky jsou funkčním modelovým flow, jiné zůstávají transparentně označenými prototypy nebo koncepty.</p>
-        <div className="pw-visual-hero__actions">
-          <Link className="pw-button pw-button--dark" href="/green-hope">Začít Green Hope</Link>
-          <Link className="pw-button pw-button--light" href="/labs">Otevřít Labs</Link>
-        </div>
-      </div>
-      <div className="pw-visual-hero__engine">
-        <PansofieVisualEngine mode="projects" projects={GATEWAYS}/>
-      </div>
-    </section>
-
-    <section className="pw-project-gateway" aria-label="Hlavní projekty">
-      {GATEWAYS.map(project => <GatewayCard project={project} key={project.href}/>)}
-    </section>
-
-    <EditorialFeatureBand eyebrow="OD MÍSTA K PROJEKTU"
-      title="Projekt je místo, kde se potkají lidé, znalosti a skutečná potřeba."
-      text="Komunitní zahrada, školní dílna, pomoc seniorům nebo práce se zbytkovým materiálem dávají smysl tehdy, když mají konkrétní účel a jasný kontext."
-      image="/assets/current/photos/volunteer-garden.webp" imageAlt="Lidé různých generací spolupracují na společném projektu"
-      items={[
-        ["Město a příroda", "Zeleň, pěstování a péče o konkrétní místo."],
-        ["Školy a firmy", "Potřeba se může potkat s materiálem, know-how nebo kapacitou."],
-        ["Mezigeneračně", "Zkušenost a energie se mohou doplňovat."],
-        ["V oběhu", "Zbytkový materiál může být vstupem do tvorby."],
-      ]}
-      link={{ href: "/sit", label: "Jak funguje síť spolupráce" }}/>
-
-    <div className="pw-project-section-head">
-      <p className="pw-eyebrow">DALŠÍ MODELY A KONCEPTY</p>
-      <h2>Transparentně podle skutečného stavu.</h2>
-    </div>
-    <section className="pw-project-list" aria-label="Další projekty">
-      {PROJECTS.map((project, index) => <CatalogCard project={project} index={index} key={`${project.title}-${index}`}/>)}
-    </section>
-    <section className="pw-next">
-      <div>
-        <p className="pw-eyebrow">ZAČÍT MALÝM KROKEM</p>
-        <h2>První mise už propojuje web s akčním jádrem.</h2>
-        <p>„Vypěstuj první rostlinu“ je první konkrétní zkušenost Green Hope bez povinné fotografie nebo reflexe.</p>
-      </div>
-      <Link className="pw-button pw-button--dark" href="/mise/rostlina">Vypěstuj první rostlinu</Link>
-    </section>
-  </PublicShell>;
+  return <PublicShell active="/projekty"><main className="ppr">
+    <section className="ppr-hero"><div className="ppr-hero__copy"><span className="ppr-kicker">PANSOFIE / PROJEKTY</span><h1>Myšlenky, které <em>rostou</em> v realitě.</h1><p>Od prvního nápadu po společnou zkušenost. Poznejte projekty, v nichž se vzdělávání, příroda, lidé a tvořivost propojují v jeden celek.</p><a href="#hlavni-projekty" className="ppr-hero__link">Objevovat projekty <span aria-hidden="true">↓</span></a></div><div className="ppr-hero__photo"><img src="/assets/current/photos/volunteer-garden.webp" alt="Lidé společně pracují v zahradě"/><span>Všechno souvisí se vším.</span></div></section>
+    <section id="hlavni-projekty" className="ppr-section"><div className="ppr-heading"><div><span className="ppr-kicker">01 / PROJEKTY V PRAXI</span><h2>Čtyři cesty, jak začít.</h2></div><p>Každý projekt má vlastní zaměření. Všechny ale spojuje jedna myšlenka: učíme se tím, co společně vytváříme.</p></div><div className="ppr-feature-grid">{GATEWAYS.map((project,index)=><GatewayCard project={project} index={index} key={project.href}/>)}</div></section>
+    <section className="ppr-manifest"><div><span className="ppr-kicker">OD MYŠLENKY K DOPADU</span><h2>Nejdřív porozumět. Potom společně tvořit.</h2></div><div><p>Projekt může začít na zahradě, ve škole, v dílně nebo v sousedství. Důležitá není jeho velikost, ale smysluplné propojení lidí, znalostí a skutečné potřeby.</p><Link href="/sit">Poznat síť spolupráce <span aria-hidden="true">↗</span></Link></div></section>
+    <section className="ppr-section ppr-section--catalog"><div className="ppr-heading"><div><span className="ppr-kicker">02 / ATLAS PROJEKTŮ</span><h2>Další nápady a iniciativy.</h2></div><p>Aktivní projekty, modelové příklady i koncepty. U každého transparentně uvádíme jeho stav.</p></div><div className="ppr-catalog-grid">{PROJECTS.map((project,index)=><CatalogCard project={project} key={project.title+"-"+index}/>)}</div></section>
+    <section className="ppr-cta"><div><span className="ppr-kicker">ZAČÍT MALÝM KROKEM</span><h2>Velké změny začínají první zkušeností.</h2><p>Vyzkoušejte první misi Green Hope: vypěstujte svou první rostlinu.</p></div><Link href="/mise/rostlina">Začít první misi <span aria-hidden="true">↗</span></Link></section>
+  </main></PublicShell>;
 }
