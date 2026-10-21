@@ -5,7 +5,7 @@ import { UiIconV2 } from "./UiIconV2";
 
 function pathMatches(currentPath, href) {
   if (!currentPath || !href) return false;
-  const normalized = currentPath !== "/" ? currentPath.replace(/\\/+$/, "") : currentPath;
+  const normalized = currentPath !== "/" ? currentPath.replace(/\/+$/, "") : currentPath;
   return normalized === href || (href !== "/" && normalized.startsWith(href + "/"));
 }
 
