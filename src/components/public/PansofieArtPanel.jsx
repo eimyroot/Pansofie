@@ -51,7 +51,7 @@ function ArtNode({ label, index }) {
   const icon = NODE_ICONS[label] || ["domain", "society"];
   const src = icon ? (icon[0] === "path" ? pathIconV2(icon[1]) : domainIconV2(icon[1])) : null;
   return <span className={`pa-node pa-node--${index + 1}`}>
-    {src ? <img src={src} width="28" height="28" alt="" aria-hidden="true" style={{ width: "1.5em", height: "1.5em", objectFit: "contain", flexShrink: 0 }} />}
+    {src ? <img src={src} width="28" height="28" alt="" aria-hidden="true" style={{ width: "1.5em", height: "1.5em", objectFit: "contain", flexShrink: 0 }} /> : null}
     <b>{label}</b>
   </span>;
 }
