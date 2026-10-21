@@ -132,3 +132,27 @@ body:has(.pw-site){background:var(--p01-cream)}
  .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--3{left:26%;top:79%}
  .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--4{left:65%;top:85%}
 }
+
+
+/* W2.6 projects: original documentary photographs stay vivid, while labels remain legible. */
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-photo,
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-photo,
+.pw-editorial-band__media .pa-panel:has(.pa-photo) .pa-photo{filter:saturate(1.13) contrast(1.06)}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-grid,
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-grid,
+.pw-editorial-band__media .pa-panel:has(.pa-photo) .pa-grid{opacity:.13}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-material,
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-material,
+.pw-editorial-band__media .pa-panel:has(.pa-photo) .pa-material{opacity:.08}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy,
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-copy,
+.pw-editorial-band__media .pa-panel:has(.pa-photo) .pa-copy{text-shadow:0 1px 14px rgba(253,250,242,.75)}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy{width:58%;top:7%}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy>strong{font-size:clamp(26px,3vw,43px);line-height:1.02}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--2{left:64%;top:56%}
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--4{left:68%;top:83%}
+@media(max-width:640px){
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy{width:60%;top:6%}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy>strong{font-size:clamp(23px,5vw,34px)}
+ .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--2{left:65%;top:60%}
+}
