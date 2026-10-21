@@ -3,9 +3,14 @@ import { PUBLIC_NAV_V2 } from "../../domain/pansofie-public-v2";
 import { BrandLockupV2 } from "./BrandLockupV2";
 import { UiIconV2 } from "./UiIconV2";
 
+function pathMatches(currentPath, href) {
+  if (!currentPath || !href) return false;
+  const normalized = currentPath !== "/" ? currentPath.replace(/\\/+$/, "") : currentPath;
+  return normalized === href || (href !== "/" && normalized.startsWith(href + "/"));
+}
+
 function routeIsActive(currentPath, group) {
-  if (!currentPath) return false;
-  return currentPath === group.href || group.items.some((item) => currentPath === item.href || currentPath.startsWith(item.href + "/"));
+  return pathMatches(currentPath, group.href) || group.items.some((item) => pathMatches(currentPath, item.href));
 }
 
 export function PublicHeaderV2({ currentPath = "/" }) {
@@ -14,10 +19,10 @@ export function PublicHeaderV2({ currentPath = "/" }) {
       <BrandLockupV2/>
       <nav className="ps2-nav" aria-label="Hlavní navigace">
         {PUBLIC_NAV_V2.map((group) => <div className={"ps2-nav__group" + (routeIsActive(currentPath, group) ? " is-active" : "")} key={group.label}>
-          <Link className="ps2-nav__top" href={group.href} aria-current={currentPath === group.href ? "page" : undefined}>{group.label}</Link>
+          <Link className="ps2-nav__top" href={group.href} aria-current={pathMatches(currentPath, group.href) ? "page" : undefined}>{group.label}</Link>
           <div className="ps2-nav__panel">
             <span>{group.label}</span>
-            {group.items.map((item) => <Link key={item.href} href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>{item.label}</Link>)}
+            {group.items.map((item) => <Link key={item.href} href={item.href} aria-current={pathMatches(currentPath, item.href) ? "page" : undefined}>{item.label}</Link>)}
           </div>
         </div>)}
       </nav>
@@ -39,8 +44,8 @@ export function PublicHeaderV2({ currentPath = "/" }) {
         </summary>
         <nav aria-label="Mobilní navigace">
           {PUBLIC_NAV_V2.map((group) => <div className="ps2-mobile-menu__group" key={group.label}>
-            <Link href={group.href} aria-current={currentPath === group.href ? "page" : undefined}><strong>{group.label}</strong></Link>
-            {group.items.map((item) => <Link key={item.href} href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>{item.label}</Link>)}
+            <Link href={group.href} aria-current={pathMatches(currentPath, group.href) ? "page" : undefined}><strong>{group.label}</strong></Link>
+            {group.items.map((item) => <Link key={item.href} href={item.href} aria-current={pathMatches(currentPath, item.href) ? "page" : undefined}>{item.label}</Link>)}
           </div>)}
           <Link className="ps2-mobile-menu__product" href="/pansofie-go">Pansofie GO</Link>
           <Link className="ps2-mobile-menu__product" href="/login">Přihlásit se</Link>
