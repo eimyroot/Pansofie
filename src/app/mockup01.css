@@ -156,3 +156,30 @@ body:has(.pw-site){background:var(--p01-cream)}
  .pw-project-card__media .pa-panel:has(.pa-photo) .pa-copy>strong{font-size:clamp(23px,5vw,34px)}
  .pw-project-card__media .pa-panel:has(.pa-photo) .pa-node--2{left:65%;top:60%}
 }
+
+
+/* Projects photo-art refinement: full bleed, gentle analog grading, never washed out. */
+.pw-visual-hero--projects .pve-stage--projects{isolation:isolate;background:#d6d8c5}
+.pw-visual-hero--projects .pve-project-photo{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(135deg,rgba(244,238,215,.24),rgba(35,73,56,.24)),url("/assets/current/mockup01/hero-ecosystem.webp");background-position:center;background-size:cover;filter:saturate(.83) contrast(1.05) sepia(.10)}
+.pw-visual-hero--projects .pve-stage--projects::before{z-index:1;opacity:.24}
+.pw-visual-hero--projects .pve-stage--projects::after{z-index:1;opacity:.35}
+.pw-visual-hero--projects .pve-stage--projects .pve-lines,
+.pw-visual-hero--projects .pve-stage--projects .pve-orbit{z-index:2}
+.pw-visual-hero--projects .pve-stage--projects .pve-core{z-index:4}
+.pw-project-gateway__art{overflow:hidden}
+.pw-project-gateway__art>.pa-panel,
+.pw-project-gateway .pa-panel.is-compact{width:100%;height:100%;min-height:290px;border:0;border-radius:0;box-shadow:none}
+.pw-project-gateway .pa-panel .pa-photo{inset:0;background-size:cover;background-position:center}
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-copy{z-index:6}
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-copy>strong{max-width:94%;text-shadow:0 1px 12px rgba(251,246,230,.78)}
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-core{opacity:.45}
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-material{opacity:.04}
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-photo,
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-photo,
+.pw-editorial-band__media .pa-panel:has(.pa-photo) .pa-photo{filter:saturate(.84) contrast(1.08) sepia(.10)}
+.pw-project-gateway .pa-panel:has(.pa-photo) .pa-grid,
+.pw-project-card__media .pa-panel:has(.pa-photo) .pa-grid{opacity:.17}
+@media(max-width:640px){
+ .pw-project-gateway__art>.pa-panel,.pw-project-gateway .pa-panel.is-compact{min-height:275px}
+ .pw-visual-hero--projects .pve-project-photo{background-position:52% center}
+}
