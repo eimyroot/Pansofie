@@ -11,10 +11,10 @@ export const metadata = {
 };
 
 const GATEWAYS = [
-  { title: "Green Hope", label: "PŘÍRODA", href: "/green-hope", variant: "nature", text: "Pěstování, půda, voda, biodiverzita a péče o konkrétní místo.", nodes: ["Půda", "Voda", "Pěstování", "Péče"] },
-  { title: "Urban Family Farm", label: "MĚSTO · RODINA", href: "/urban-family-farm", variant: "city", text: "Pěstování propojené s prací, ekonomikou a tvorbou hodnoty.", nodes: ["Pěstuj", "Zpracuj", "Spočítej", "Rozhodni"] },
-  { title: "Digitální kompost", label: "CIRKULARITA", href: "/digitalni-kompost", variant: "community", text: "Materiály a věci dostávají další smysluplné použití.", nodes: ["Potřeba", "Materiál", "Propojení", "Použití"] },
-  { title: "Labs", label: "EXPERIMENT", href: "/labs", variant: "knowledge", text: "Bezpečný prostor pro pokusy, pozorování a malé ověřitelné prototypy.", nodes: ["Otázka", "Pokus", "Pozorování", "Reflexe"] },
+  { title: "Green Hope", label: "PŘÍRODA", href: "/green-hope", variant: "nature", text: "Pěstování, půda, voda, biodiverzita a péče o konkrétní místo.", backgroundImage: "/assets/current/mockup01/green-hope.webp", nodes: ["Půda", "Voda", "Pěstování", "Péče"] },
+  { title: "Urban Family Farm", label: "MĚSTO · RODINA", href: "/urban-family-farm", variant: "city", text: "Pěstování propojené s prací, ekonomikou a tvorbou hodnoty.", backgroundImage: "/assets/current/mockup01/urban-farm.webp", nodes: ["Pěstuj", "Zpracuj", "Spočítej", "Rozhodni"] },
+  { title: "Digitální kompost", label: "CIRKULARITA", href: "/digitalni-kompost", variant: "community", text: "Materiály a věci dostávají další smysluplné použití.", backgroundImage: "/assets/mockup/compost-hero.png", nodes: ["Potřeba", "Materiál", "Propojení", "Použití"] },
+  { title: "Labs", label: "EXPERIMENT", href: "/labs", variant: "knowledge", text: "Bezpečný prostor pro pokusy, pozorování a malé ověřitelné prototypy.", backgroundImage: "/assets/current/photos/labs-workshop.webp", nodes: ["Otázka", "Pokus", "Pozorování", "Reflexe"] },
 ];
 
 const PROJECT_LINKS = {
@@ -30,14 +30,15 @@ function projectVisual(project) {
   const variant = /Green|zahrad|Mikrogreens/i.test(title) ? "nature" :
     /Kompost|Makerspace|Urban/i.test(title) ? "city" :
     /Knowledge/i.test(title) ? "knowledge" : "community";
-  return { variant, nodes: [project.tag || "Projekt", "Místo", "Lidé", "Zkušenost"] };
+  const backgroundImage = /Green Hope/i.test(title) ? "/assets/current/mockup01/green-hope.webp" : /Urban/i.test(title) ? "/assets/current/mockup01/urban-farm.webp" : /Family Team/i.test(title) ? "/assets/brand/pansofie/illustrations/family-team.webp" : /zahrad|Mikrogreens/i.test(title) ? "/assets/current/photos/community-garden.webp" : /Kompost/i.test(title) ? "/assets/mockup/compost-hero.png" : /Lab|Maker/i.test(title) ? "/assets/current/photos/labs-workshop.webp" : "/assets/brand/pansofie/illustrations/project-idea.webp";
+  return { variant, backgroundImage, nodes: [project.tag || "Projekt", "Místo", "Lidé", "Zkušenost"] };
 }
 
 function GatewayCard({ project }) {
   return <Link className="pw-project-gateway__card" href={project.href}>
     <div className="pw-project-gateway__art">
       <PansofieArtPanel compact eyebrow={project.label} title={project.title}
-        detail={project.text} nodes={project.nodes} variant={project.variant}/>
+        detail={project.text} nodes={project.nodes} variant={project.variant} backgroundImage={project.backgroundImage}/>
     </div>
     <span>{project.label}</span>
     <h2>{project.title}</h2>
@@ -51,7 +52,7 @@ function CatalogCard({ project, index }) {
   return <article className="pw-project-card" key={`${project.title}-${index}`}>
     <div className="pw-project-card__media">
       <PansofieArtPanel eyebrow={project.tag || "PROJEKT"} title={project.title}
-        detail={project.description} nodes={visual.nodes} variant={visual.variant}/>
+        detail={project.description} nodes={visual.nodes} variant={visual.variant} backgroundImage={visual.backgroundImage}/>
     </div>
     <div className="pw-project-card__body">
       <div className="pw-project-card__meta"><span>{project.tag}</span><b>{project.status}</b></div>
