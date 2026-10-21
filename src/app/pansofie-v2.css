@@ -3380,3 +3380,19 @@
   .ps2-back-to-top { right: 16px; bottom: max(18px, env(safe-area-inset-bottom)); width: 48px; height: 48px; }
 }
 @media (prefers-reduced-motion: reduce) { .ps2-back-to-top { transition: none; } }
+
+
+/* Editorial photo correction — full-bleed tiles and readable hero hierarchy. */
+.ps2-home-hero--mockup { isolation: isolate; }
+.ps2-home-hero--mockup .ps2-mockup-hero__photo { z-index: -1; filter: saturate(.78) contrast(.97); }
+.ps2-home-hero--mockup .ps2-mockup-hero__wash { z-index: 0; pointer-events: none; }
+.ps2-home-hero--mockup .ps2-mockup-hero__copy,
+.ps2-home-hero--mockup .ps2-mockup-hero__quote,
+.ps2-home-hero--mockup .ps2-mockup-hero__credit { position: relative; z-index: 2; }
+.ps2-mockup-path { overflow: hidden; }
+.ps2-mockup-path__image { padding: 0; }
+.ps2-mockup-path__image img,
+.ps2-w27-program__photo img,
+.ps2-home-story__art img,
+.ps2-w28-family > img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.8) contrast(.97); }
+.ps2-w27-program__photo { overflow: hidden; padding: 0; }
