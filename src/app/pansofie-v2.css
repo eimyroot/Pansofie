@@ -3397,3 +3397,14 @@
 @media(max-width:900px){.ppr-hero{grid-template-columns:1fr}.ppr-hero__photo{min-height:360px}.ppr-hero__copy{padding:65px 32px}.ppr-heading{grid-template-columns:1fr;gap:20px}.ppr-manifest{grid-template-columns:1fr;gap:30px;margin-inline:20px}.ppr-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ppr-cta{margin-inline:20px;align-items:start;flex-direction:column}}
 @media(max-width:600px){.ppr-hero h1{font-size:clamp(3.15rem,13vw,4.8rem)}.ppr-section{padding:72px 18px 0}.ppr-feature-grid,.ppr-catalog-grid{grid-template-columns:1fr;gap:18px}.ppr-feature__image{height:250px}.ppr-feature__body{padding:24px}.ppr-feature__body>p{min-height:0}.ppr-manifest{margin-top:70px;padding:45px 26px}.ppr-cta{margin-top:70px;padding:45px 26px}.ppr-hero__photo{min-height:300px}.ppr-heading h2{font-size:2.7rem}}
 @media(prefers-reduced-motion:reduce){.ppr-feature,.ppr-feature__image img{transition:none}}
+
+/* Editorial refinements for project pages. */
+.ppr{background:#f6f5f0}
+.ppr-hero h1{line-height:1.055;letter-spacing:-.047em}
+.ppr-feature,.ppr-catalog-card{background:#fbfaf6;border-color:#d9ddd5}
+.ppr-feature__image img,.ppr-catalog-card__image img{filter:saturate(.9) contrast(1.04)}
+.ppr-feature__body{padding:35px 38px 30px}
+.ppr-feature__explore{font-size:.8rem;font-weight:750;color:#28523b}
+.ppr-manifest{background:#294b3d}
+.ppr-cta{background:#dce5d9}
+@media(max-width:600px){.ppr-feature__body{padding:24px}.ppr-feature__footer{align-items:flex-start;flex-direction:column;gap:12px}}
